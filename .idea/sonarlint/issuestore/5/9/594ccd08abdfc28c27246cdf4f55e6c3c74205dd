@@ -1,0 +1,2 @@
+
+ª%squid:RedundantThrowsDeclarationCheck:"yRemove the declaration of thrown exception 'org.apache.shiro.authc.AuthenticationException' which is a runtime exception.(“¨È†
