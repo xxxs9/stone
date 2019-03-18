@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysDepotMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.SysDepot">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="DEPOT_NAME" property="depotName" jdbcType="VARCHAR"/>
+        <result column="DEPOT_NUMBER" property="depotNumber" jdbcType="VARCHAR"/>
+        <result column="DEPOT_TYPE" property="depotType" jdbcType="VARCHAR"/>
+        <result column="DEPOT_ADDRESS" property="depotAddress" jdbcType="VARCHAR"/>
+        <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, DEPOT_NAME, DEPOT_NUMBER, DEPOT_TYPE, DEPOT_ADDRESS, DEPOT_DESCRIBE
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from D_SYS_DEPOT
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot">
+        insert into D_SYS_DEPOT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="depotName != null">
+                DEPOT_NAME,
+            </if>
+            <if test="depotNumber != null">
+                DEPOT_NUMBER,
+            </if>
+            <if test="depotType != null">
+                DEPOT_TYPE,
+            </if>
+            <if test="depotAddress != null">
+                DEPOT_ADDRESS,
+            </if>
+            <if test="depotDescribe != null">
+                DEPOT_DESCRIBE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="depotName != null">
+                #{depotName,jdbcType=VARCHAR},
+            </if>
+            <if test="depotNumber != null">
+                #{depotNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="depotType != null">
+                #{depotType,jdbcType=VARCHAR},
+            </if>
+            <if test="depotAddress != null">
+                #{depotAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="depotDescribe != null">
+                #{depotDescribe,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from D_SYS_DEPOT t where t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot" >
+        update D_SYS_DEPOT
+        <set >
+            <if test="depotName != null" >
+                DEPOT_NAME = #{depotName,jdbcType=VARCHAR},
+            </if>
+            <if test="depotNumber != null" >
+                DEPOT_NUMBER = #{depotNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="depotType != null" >
+                DEPOT_TYPE = #{depotType,jdbcType=VARCHAR},
+            </if>
+            <if test="depotAddress != null" >
+                DEPOT_ADDRESS = #{depotAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="depotDescribe != null" >
+                DEPOT_DESCRIBE = #{depotDescribe,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from D_SYS_DEPOT
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="getByDepotName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from D_SYS_DEPOT t where t.DEPOT_NAME = #{depotName,jdbcType=VARCHAR}
+    </select>
+</mapper>
