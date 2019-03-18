@@ -6,10 +6,22 @@ package com.gameloft9.demo.mgrframework.beans.error;
  * @author gameloft9 2017-11-10
  * */
 public interface IErrCode {
-
+    /**
+     *
+     * @return string
+     */
     String getCode();
 
+    /**
+     *
+     * @return string
+     */
     String getDesc();
 
+    /**
+     *
+     * @return string
+     */
+    @Override
     String toString();
 }
