@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProductWasteMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
+            <id column="ID" property="id"/>
+            <result  column="WASTE_NUMBER" property="wasteNumber"/>
+            <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
+            <result column="WASTE_TIME" property="wasteTime"/>
+            <result column="WASTE_REMARK" property="wasteRemark"/>
+            <result column="STATE" property="state"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID,WASTE_NUMBER,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3
+     </sql>
+
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from l_product_waste
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--mysql版本-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select * from l_product_waste t
+        where 1=1
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>-->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_product_waste t
+        where 1=1
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_product_waste
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
+    insert into l_product_waste ( ID,WASTE_NUMBER,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3)
+    values (
+    #{id},
+    #{wasteNumber},
+    #{produceFormulaId},
+    #{wasteRemark},
+    #{state},
+    #{other1},
+    #{other2},
+    #{other3},
+    )
+  </insert>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
+        insert into l_product_waste
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="wasteNumber != null">
+                WASTE_NUMBER,
+            </if>
+            <if test="produceFormulaId != null">
+                PRODUCE_FORMULA_ID,
+            </if>
+            <if test="wasteRemark != null">
+                WASTE_REMARK,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="wasteNumber != null">
+                #{wasteNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="produceFormulaId != null">
+                #{produceFormulaId,jdbcType=VARCHAR},
+            </if>
+            <if test="wasteRemark != null">
+                #{wasteRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
+        update l_product_waste
+        <set>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="wasteNumber != null">
+                WASTE_NUMBER,
+            </if>
+            <if test="produceFormulaId != null">
+                PRODUCE_FORMULA_ID,
+            </if>
+            <if test="wasteRemark != null">
+                WASTE_REMARK,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3,
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
+    update l_product_waste
+    set WASTE_NUMBER=#{wasteNumber},PRODUCE_FORMULA_ID=#{produceFormulaId},WASTE_REMARK=#{wasteRemark},STATE=#{state},OTHER1= #{other1},OTHER2=#{other2},OTHER3=#{other3}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
