@@ -22,14 +22,14 @@
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
-        from l_product_waste
+        from l_product
         where ID = #{id,jdbcType=VARCHAR}
     </select>
 
 
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">
-        select * from l_product_waste t
+        select * from l_product t
         where 1=1
         <if test="state != null and state != ''">
             and t.STATE = #{state,jdbcType=VARCHAR}

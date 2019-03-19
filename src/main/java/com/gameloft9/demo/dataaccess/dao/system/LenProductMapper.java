@@ -32,17 +32,17 @@ public interface LenProductMapper {
     /**
      * 分页查找
      *
-     * @param page
-     * @param limit
+     * @param start
+     * @param end
      * @param productName
      * @param state
      * @return
      */
     List<LenProduct> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            String productName,
-            String state
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("productName") String productName,
+            @Param("state") String state
     );
 
     /**
@@ -70,11 +70,12 @@ public interface LenProductMapper {
     int delete(String id);
 
     /**
-     * 查询条数
+     * 统计条数
      *
+     * @param state
      * @return
      */
-    int dataCount();
+    int dataCount(String state);
 
     /**
      * 更改state状态码
@@ -82,5 +83,21 @@ public interface LenProductMapper {
      * @return
      */
     int changeState();
+
+    /**
+     * 选择修改
+     *
+     * @param lenProduct
+     * @return
+     */
+    int updateByPrimaryKeySelective(LenProduct lenProduct);
+
+    /**
+     * 选择插入
+     *
+     * @param lenProduct
+     * @return
+     */
+    int insertSelective(LenProduct lenProduct);
 
 }
