@@ -16,6 +16,15 @@ public interface SysDepotService {
      */
     List<SysDepot> getAll(String page, String limit,String depotNumber,String depotName,String depotType);
 
+
+    /**
+     * 获取仓库列表大小
+     * @param depotNumber           仓库编号
+     * @param depotName             仓库名称
+     * @param depotType             仓库类型
+     * */
+    int countGetAll(String depotNumber,String depotName,String depotType);
+
     /**
      * 添加仓库种类
      * @param depotNumber           仓库编号
@@ -47,4 +56,15 @@ public interface SysDepotService {
      * @param id 仓库id
      * */
     Boolean deleteDepot(String id);
+
+    /**
+     * 获取仓库类型
+     * */
+    List<String> getDepotType();
+
+    /**
+     * 删除仓库
+     * @param ids 仓库ids
+     * */
+    Boolean delsDepot(String ids);
 }

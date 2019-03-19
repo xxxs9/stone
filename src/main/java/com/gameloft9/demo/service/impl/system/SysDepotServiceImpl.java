@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -35,6 +36,18 @@ public class SysDepotServiceImpl implements SysDepotService {
         return sysDepotMapper.getAll(pageRange.getStart(),pageRange.getEnd(),depotNumber,depotName,depotType);
     }
 
+
+    /**
+     * 获取仓库列表大小
+     * @param depotNumber           仓库编号
+     * @param depotName             仓库名称
+     * @param depotType             仓库类型
+     * */
+    @Override
+    public int countGetAll(String depotNumber, String depotName, String depotType) {
+        return sysDepotMapper.countGetAll(depotNumber,depotName,depotType);
+    }
+
     /**
      * 添加仓库种类
      * @param depotNumber           仓库编号
@@ -46,12 +59,17 @@ public class SysDepotServiceImpl implements SysDepotService {
     @Override
     public String addDepot( String depotNumber,String depotName, String depotType, String depotAddress, String depotDescribe) {
 
+        CheckUtil.notBlank(depotNumber, "仓库编号为空");
         CheckUtil.notBlank(depotName, "仓库名称为空");
         CheckUtil.notBlank(depotAddress, "仓库地址为空");
 
+        //仓库编号不能重复
+        SysDepot menuTest1 = sysDepotMapper.getByDepotNumber(depotName);
+        CheckUtil.check(menuTest1 == null, "该仓库编号已经存在");
         //仓库名称不能重复
-        SysDepot menuTest = sysDepotMapper.getByDepotName(depotName);
-        CheckUtil.check(menuTest == null, "该仓库名称已经存在");
+        SysDepot menuTest2 = sysDepotMapper.getByDepotName(depotName);
+        CheckUtil.check(menuTest2 == null, "该仓库名称已经存在");
+
 
         SysDepot depot = new SysDepot();
         depot.setId(UUIDUtil.getUUID());
@@ -89,12 +107,16 @@ public class SysDepotServiceImpl implements SysDepotService {
     public Boolean updateDepot(String id, String depotNumber,String depotName, String depotType, String depotAddress, String depotDescribe) {
 
         CheckUtil.notBlank(id, "仓库id为空");
+        CheckUtil.notBlank(depotNumber, "仓库编号为空");
         CheckUtil.notBlank(depotName, "仓库名称为空");
         CheckUtil.notBlank(depotAddress, "仓库地址为空");
 
+        //仓库编号不能重复
+        SysDepot menuTest1 = sysDepotMapper.getByDepotNumber(depotName);
+        CheckUtil.check(menuTest1 == null || (menuTest1.getId().equals(id)), "该仓库编号已经存在");
         //仓库名称不能重复
-        SysDepot menuTest = sysDepotMapper.getByDepotName(depotName);
-        CheckUtil.check(menuTest == null, "该仓库名称已经存在");
+        SysDepot menuTest2 = sysDepotMapper.getByDepotName(depotName);
+        CheckUtil.check(menuTest2 == null || (menuTest2.getId().equals(id)), "该仓库名称已经存在");
 
         SysDepot depot = new SysDepot();
         depot.setId(id);
@@ -116,6 +138,31 @@ public class SysDepotServiceImpl implements SysDepotService {
     @Override
     public Boolean deleteDepot(String id) {
         CheckUtil.notBlank(id, "仓库id为空");
+        sysDepotMapper.deleteByPrimaryKey(id);
+        return true;
+    }
+
+    /**
+     * 获取仓库类型
+     * */
+    @Override
+    public List<String> getDepotType() {
+        return sysDepotMapper.getDepotType();
+    }
+
+    /**
+     * 删除仓库
+     * @param ids 仓库ids
+     * */
+    @Override
+    public Boolean delsDepot(String ids) {
+        CheckUtil.notBlank(ids, "仓库id为空");
+        List<String> depotIds = new ArrayList<String>();
+        String[] split = ids.split(",");
+        for (String s : split) {
+            depotIds.add(s);
+        }
+        sysDepotMapper.delsByIds(depotIds);
         return true;
     }
 }
