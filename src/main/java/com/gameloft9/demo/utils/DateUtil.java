@@ -65,4 +65,15 @@ public class DateUtil {
 
     }
 
+    /**
+     * 时间是否为空的判断
+     */
+    public static Date ifNull(String time){
+        Date time1 = null;
+        if(time != null){
+            time1 = str2Date(time);
+        }
+        return time1;
+    }
+
 }

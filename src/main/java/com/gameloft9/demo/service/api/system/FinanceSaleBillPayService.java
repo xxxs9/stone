@@ -1,6 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 
 import java.util.List;
 
@@ -9,10 +9,9 @@ import java.util.List;
  * @Date: 2019/03/19 2019-03-19
  */
 
-public interface FinancePurchaseBillPayService {
-
+public interface FinanceSaleBillPayService {
     /**
-     * 采购应付单列表
+     * 销售应付单列表
      *
      * @param page 当前页
      * @param limit 每条条数
@@ -20,9 +19,9 @@ public interface FinancePurchaseBillPayService {
      * @param startTime 开始时间
      * @param endTime 结束时间
      * @return
-     *      采购应付单集合
+     *      销售应付单集合
      */
-    List<SysFinancePurchaseBillsPayable> getAll(String page, String limit, String auditType, String startTime,String endTime);
+    List<SysFinanceSaleBillsPayable> getAll(String page, String limit, String auditType, String startTime, String endTime);
 
 
     /**

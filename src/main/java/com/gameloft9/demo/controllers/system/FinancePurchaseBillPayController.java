@@ -20,25 +20,25 @@ import java.util.Collection;
 
 @Controller
 @RequestMapping(value = "/finance")
-public class FinancePurchaseBillPayControll {
+public class FinancePurchaseBillPayController {
 
     @Autowired
     FinancePurchaseBillPayService purchaseBillPayService;
 
     /**
-     * 分页显示采购应付单
+     *  分页查询销售
      *
-     * @param page 当前
-     * @param limit
-     * @return
-     *      json
+     * @param page 当前页
+     * @param limit 每页条数
+     * @param auditType 订单类型
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return jason
      */
     @RequestMapping(value = "/purchaseBillPayList" ,method = RequestMethod.POST)
     @ResponseBody
-    public IResult billPayList(String page, String limit, int auditType, String startTime, String endTime){
-        return new PageResultBean<Collection<SysFinancePurchaseBillsPayable>>(
-                purchaseBillPayService.getAll(page,limit,auditType,startTime,endTime),
-                purchaseBillPayService.getCount(auditType,startTime,endTime)
-        );
+    public IResult billPayList(String page, String limit, String auditType, String startTime, String endTime){
+
+        return new PageResultBean<Collection<SysFinancePurchaseBillsPayable>>(purchaseBillPayService.getAll(page,limit,auditType,startTime,endTime), purchaseBillPayService.getCount(auditType,startTime,endTime));
     }
 }

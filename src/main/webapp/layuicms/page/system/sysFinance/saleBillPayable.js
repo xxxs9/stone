@@ -42,14 +42,14 @@ layui.config({
         tableIns = table.render({
             elem: '#billPay'
             , height: 415
-            , url: $tool.getContext() + 'finance/purchaseBillPayList.do' //数据接口
+            , url: $tool.getContext() + 'finance/saleBillPayList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'purchaseOrderId', title: '申请编号', width: '10%'}
+                {type:'numbers',title:'序号',fixed: 'left'},
+                {field: 'saleRejectedId', title: '申请编号', width: '10%'}
                 , {field: 'unitPrice', title: '单价', width: '10%'}
-                , {field: 'goodsNumber', title: '购买数量', width: '10%'}
+                , {field: 'rejectedNumber', title: '退回数量', width: '10%'}
                 , {field: 'totalPrice', title: '总价', width: '10%'}
                 , {field: 'actualBalance', title: '实际价格', width: '10%'}
                 , {field: 'documentMaker', title: '制表人', width: '10%'}

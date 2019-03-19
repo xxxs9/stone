@@ -18,9 +18,6 @@ public class SysFinancePublicPurchaseSale {
     /**id*/
     public String pid;
 
-    /**货品数量*/
-    public String goodsNumber;
-
     /**收付类型*/
     private int auditType;
 

@@ -40,16 +40,16 @@ layui.config({
      * */
     function defineTable() {
         tableIns = table.render({
-            elem: '#billPay'
+            elem: '#receive'
             , height: 415
-            , url: $tool.getContext() + 'finance/purchaseBillPayList.do' //数据接口
+            , url: $tool.getContext() + 'finance/saleReceiveList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'purchaseOrderId', title: '申请编号', width: '10%'}
+                {type:'numbers',title:'序号',fixed: 'left'},
+                {field: 'saleId', title: '申请编号', width: '10%'}
                 , {field: 'unitPrice', title: '单价', width: '10%'}
-                , {field: 'goodsNumber', title: '购买数量', width: '10%'}
+                , {field: 'productNumber', title: '销售数量', width: '10%'}
                 , {field: 'totalPrice', title: '总价', width: '10%'}
                 , {field: 'actualBalance', title: '实际价格', width: '10%'}
                 , {field: 'documentMaker', title: '制表人', width: '10%'}
@@ -65,7 +65,7 @@ layui.config({
         });
 
         //为toolbar添加事件响应
-        table.on('tool(payFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(receiveFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
