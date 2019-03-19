@@ -144,6 +144,24 @@ layui.define(['$tool','jquery'], function (exports) {
         UpdateUserInfo:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
+        GetDepotType:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
+        },
+        addDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotSet/add.do',req,successCallback,errorCallback);
+        },
+        GetDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotSet/get.do',req,successCallback,errorCallback);
+        },
+        UpdateDepot:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'depotSet/update.do',req,config,successCallback,errorCallback);
+        },
+        DeleteDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotSet/delete.do',req,successCallback,errorCallback);
+        },
+        DelsDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotSet/dels.do',req,successCallback,errorCallback);
+        },
 
 
         <!--财务-->

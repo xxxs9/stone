@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Collection;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -36,7 +37,7 @@ public class SysDepotController {
     @ResponseBody
     public IResult getDepotList(String page, String limit,String depotNumber,String depotName,String depotType){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        return new PageResultBean<Collection<SysDepot>>(sysDepotServiceImpl.getAll(page,limit,depotNumber,depotName,depotType),sysDepotServiceImpl.getAll(page,limit,depotNumber,depotName,depotType).size());
+        return new PageResultBean<Collection<SysDepot>>(sysDepotServiceImpl.getAll(page,limit,depotNumber,depotName,depotType),sysDepotServiceImpl.countGetAll(depotNumber,depotName,depotType));
     }
 
     /**
@@ -48,7 +49,7 @@ public class SysDepotController {
      * */
     @RequestMapping(value = "/add.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "添加仓库")
+    @BizOperLog(operType = OperType.ADD,memo = "新增仓库")
     public IResult addDepot(String depotNumber,String depotName,String depotType,String depotAddress,String depotDescribe){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<String>(sysDepotServiceImpl.addDepot(depotNumber,depotName,depotType,depotAddress,depotDescribe));
@@ -79,7 +80,7 @@ public class SysDepotController {
     }
 
     /**
-     * 删除原料
+     * 删除仓库
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
@@ -88,4 +89,26 @@ public class SysDepotController {
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysDepotServiceImpl.deleteDepot(id));
     }
+
+    /**
+     * 获取仓库类型
+     * */
+    @RequestMapping(value = "/getDepotType.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getDepotType(){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Collection<String>>(sysDepotServiceImpl.getDepotType());
+    }
+
+    /**
+     * 批量删除仓库
+     * */
+    @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.DELETE,memo = "批量删除仓库")
+    public IResult delsDepot(String ids){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(sysDepotServiceImpl.delsDepot(ids));
+    }
+
 }
