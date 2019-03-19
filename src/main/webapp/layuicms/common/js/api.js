@@ -144,6 +144,40 @@ layui.define(['$tool','jquery'], function (exports) {
         UpdateUserInfo:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
+
+        //purOrder 采购订单管理
+        //初始化GoodsId下拉框
+        getListGoods:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/goods.do',req,config,successCallback,errorCallback);
+        },
+        //删除
+        deletePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/delete.do',req,config,successCallback,errorCallback);
+        },
+        //提交
+        commitPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/commit.do',req,config,successCallback,errorCallback);
+        },
+        //撤回
+        recallPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/recall.do',req,config,successCallback,errorCallback);
+        },
+        //添加
+        insertPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/insert.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取数据
+        getPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/get.do',req,config,successCallback,errorCallback);
+        },
+        //查询所有
+        listPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/list.do',req,config,successCallback,errorCallback);
+        },
+        //修改
+        updatePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/update.do',req,config,successCallback,errorCallback);
+        },
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
         },
@@ -162,6 +196,7 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotSet/dels.do',req,successCallback,errorCallback);
         }
+
     };
 
 
