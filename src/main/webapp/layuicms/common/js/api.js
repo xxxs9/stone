@@ -143,7 +143,18 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         UpdateUserInfo:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
-        }
+        },
+
+
+        <!--财务-->
+        //无需删除逻辑
+        /*DeletePay:function(req,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'finance/delete.do',req,successCallback,errorCallback);
+        },*/
+        /*更新应付单内容*/
+        UpdatePay:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
+        },
     };
 
 

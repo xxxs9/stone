@@ -41,23 +41,21 @@ layui.config({
      * */
     function defineTable() {
         tableIns = table.render({
-            elem: '#menu-data'
+            elem: '#purchase_check'
             , height: 415
-            , url: $tool.getContext() + 'menu/menuList.do' //数据接口
+            , url: $tool.getContext() + 'finance/purchase_check.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'title', title: '菜单名称', width: '10%'}
-                , {field: 'code', title: '菜单编号', width: '10%'}
-                , {field: 'href', title: '链接地址', width: '10%'}
-                , {field: 'requestUrl', title: '后台请求路径', width: '10%'}
-                , {field: 'sort', title: '排序号', width: '10%'}
-                , {field: 'parentMenuName', title: '父菜单名称', width: '10%'}
-                , {field: 'parentMenuCode', title: '父菜单编号', width: '10%'}
-                , {field: 'createTime', title: '创建时间', width: '20%'}
-                , {field: 'updateUser', title: '更新者', width: '10%'}
-                , {field: 'updateTime', title: '更新时间', width: '20%'}
+                  {type:'numbers',title:'序号',fixed: 'left'}
+                , {field: 'orderNumber', title: '订单单号',width:100}
+                , {field: 'goodsId', title: '商品名称', width:120}
+                , {field: 'goodsNumber', title: '商品数量', width:100}
+                , {field: 'price', title: '商品价格', width:100}
+                , {field: 'applyUser', title: '申请人', width:80}
+                , {field: 'applyTime', title: '申请时间', width:120}
+                , {field: 'state', title: '订单状态', width:100}
+                , {field: 'applyDescribe', title: '申请描述', width:220}
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调

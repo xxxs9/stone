@@ -85,4 +85,20 @@ public class Constants {
      * */
     public static final String INIT_PWD = "123456";
 
+    /**
+     * 财务须知应付、收款单类型
+     */
+    public static class Finance{
+        /**采购订单应付单类型*/
+        public static final Integer PURCHASE_PAYABLE=1;
+
+        /**销售出货应收单类型*/
+        public static final Integer SALE_PAYABLE=2;
+
+        /**采购订单应收单类型*/
+        public static final Integer PURCHASE_RECEIVABLE=3;
+
+        /**销售出货应收单类型*/
+        public static final Integer SALE_RECEIVABLE=4;
+    }
 }
