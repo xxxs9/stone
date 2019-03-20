@@ -9,13 +9,16 @@ import lombok.Data;
  */
 
 @Data
-public class SysPayment {
+public class SysFinancePayment {
 
     /**ID*/
     private String id;
 
     /**应付单id*/
     private String payId;
+
+    /**应付单类型*/
+    private int payType;
 
     /**金额*/
     private String balance;

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinancePaymentMapper">
+
+    <resultMap id="paymentMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinancePayment">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="payType" column="PAY_TYPE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+            );-->
+    <select id="getAll" resultMap="paymentMap">
+        select
+            payment.ID,
+            payment.PAY_ID,
+            payment.PAY_TYPE,
+            payment.BALANCE,
+            payment.DOCUMENT_MAKER,
+            payment.DOCUMENT_MAKE_TIME,
+            purchase.ID,
+            sale.ID
+        from
+            a_payment payment,
+            a_purchase_receivable purchase,
+            a_sale_receivable sale
+        <where>
+            <if test="payType != null and payType != ''">
+                and payment.PAY_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
+                and payment.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            </if>
+
+                and (payment.PAY_ID = purchase.ID or payment.PAY_ID = sale.ID)
+
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <!--条件查询总条数   int getCount(
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+    );-->
+    <select id="getCount" resultType="int">
+        select
+          count(1)
+        from
+            a_payment payment,
+            a_purchase_receivable purchase,
+            a_sale_receivable sale
+        <where>
+            <if test="payType != null and payType != ''">
+                and payment.PAY_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
+                and payment.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            </if>
+
+            and (payment.PAY_ID = purchase.ID or payment.PAY_ID = sale.ID)
+
+
+        </where>
+    </select>
+</mapper>

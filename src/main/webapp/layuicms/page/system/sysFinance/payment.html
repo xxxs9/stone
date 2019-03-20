@@ -17,36 +17,38 @@
 <!--搜索栏-->
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
+
         <div class="layui-inline">
-            <label class="layui-form-label">父菜单</label>
+            <label class="layui-form-label">应付类型</label>
             <div class="layui-input-block">
-                <select id="parentMenu" name="parentMenuId"></select>
+                <select id="receiveType" name="receiveType">
+                    <option value="">请选择</option>
+                    <option value="2">采购应付单</option>
+                    <option value="3">销售应付单</option>
+                </select>
             </div>
         </div>
+
         <div class="layui-inline">
-            <label class="layui-form-label">菜单名称</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuName" placeholder="请输入菜单名称">
+            <label class="layui-form-label">日期范围</label>
+            <div class="layui-input-inline">
+                <input id="documentMakeTime" type="text" class="layui-input" name="documentMakeTime" placeholder="开始 到 结束">
             </div>
         </div>
+
+
         <div class="layui-inline">
-            <label class="layui-form-label">菜单编码</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuCode" placeholder="请输入菜单编码">
-            </div>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryPay">查询</a>
         </div>
-        <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
-        </div>
-        <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal usersAdd_btn">添加菜单</a>
-        </div>
+        <!--<div class="layui-inline">
+            <a class="layui-btn layui-btn-normal payAdd_btn">添加应付单</a>
+        </div>-->
     </form>
 </blockquote>
 <!--表格区-->
 <div class="layui-form users_list">
     <!--通过lay-filter区分toolbar事件容器-->
-    <table id="menu-data" lay-filter="menuFilter" class="layui-table">
+    <table id="payment" lay-filter="paymentFilter" class="layui-table">
     </table>
 </div>
 <!--分页元素-->

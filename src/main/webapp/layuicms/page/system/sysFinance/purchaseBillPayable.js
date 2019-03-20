@@ -4,12 +4,13 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['form', 'laydate', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
         laypage = layui.laypage,
         $tool = layui.$tool,
+        laydate = layui.laydate,
         table = layui.table,
         $api = layui.$api;
 
@@ -19,20 +20,21 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-        //初始化下拉框
-        $api.GetFirstClassMenus(null,function (res) {
-            var data = res.data;
-            if(data.length > 0){
-                var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
-                }
-                $('#parentMenu').append($(html));
-                form.render();
-            }
-        });
+        initDate();
     }
     init();
+
+    /**
+     * 初始化日期选择
+     * */
+    function initDate() {
+        laydate.render({
+            elem: '#documentMakeTime'
+            , type: 'datetime'
+            , range: '&'
+            , format: 'yyyy-MM-dd HH:mm:ss'
+        });
+    }
 
 
     /**

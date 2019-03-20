@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinanceSaleBillsPayableMapper">
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinanceSaleReceivableMapper">
 
-    <resultMap id="saleBillsPayableMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable">
+    <resultMap id="saleReceivableMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable">
         <id property="id" column="ID" jdbcType="VARCHAR"/>
         <id property="pid" column="PID" jdbcType="VARCHAR"/>
-        <result property="saleRejectedId" column="SALE_REJECTED_ID" jdbcType="VARCHAR"/>
+        <result property="saleId" column="SALE_ID" jdbcType="VARCHAR"/>
         <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
         <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
-        <result property="rejectedNumber" column="REJECTED_NUMBER" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="PRODUCT_NUMBER" jdbcType="VARCHAR"/>
         <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
         <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
         <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
@@ -25,12 +25,12 @@
             @Param("auditType") int auditType,
             @Param("documentMakeTime") Date documentMakeTime
             );-->
-    <select id="getAll" resultMap="saleBillsPayableMap">
+    <select id="getAll" resultMap="saleReceivableMap">
         select
-        s.SALE_REJECTED_ID,
+        s.SALE_ID,
         f.AUDIT_TYPE,
         f.UNIT_PRICE,
-        s.REJECTED_NUMBER,
+        s.PRODUCT_NUMBER,
         f.TOTAL_PRICE,
         f.ACTUAL_BALANCE,
         f.DOCUMENT_MAKER,
@@ -40,7 +40,7 @@
         f.AUDIT_DESCRIBE
         from
         a_finance_public_purchase_sale f,
-        a_sale_bills_payable s
+        a_sale_receivable s
         <where>
             <if test="auditType != null and auditType != ''">
                 and f.AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
@@ -64,7 +64,7 @@
           count(1)
         from
           a_finance_public_purchase_sale f,
-          a_sale_bills_payable s
+          a_sale_receivable s
         <where>
             <if test="auditType != null and auditType != ''">
                 and f.AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}

@@ -9,13 +9,16 @@ import lombok.Data;
  */
 
 @Data
-public class SysGathering {
+public class SysFinanceGathering {
 
     /**ID*/
     private String id;
 
     /**应收单id*/
-    private String reveiveId;
+    private String receiveId;
+
+    /**应收单类型*/
+    private int receiveType;
 
     /**金额*/
     private String balance;

@@ -17,12 +17,18 @@
 <!--搜索栏-->
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
-        <!--<div class="layui-inline">
-            <label class="layui-form-label">应付类型</label>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">应收类型</label>
             <div class="layui-input-block">
-                <select id="auditType" name="auditType"></select>
+                <select id="receiveType" name="receiveType">
+                    <option value="">请选择</option>
+                    <option value="1">采购应收单</option>
+                    <option value="4">销售应收单</option>
+                </select>
             </div>
-        </div>-->
+        </div>
+
         <div class="layui-inline">
             <label class="layui-form-label">日期范围</label>
             <div class="layui-input-inline">
@@ -30,19 +36,18 @@
             </div>
         </div>
 
-
         <div class="layui-inline">
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryPay">查询</a>
         </div>
         <!--<div class="layui-inline">
-            <a class="layui-btn layui-btn-normal payAdd_btn">添加应付单</a>
+            <a class="layui-btn layui-btn-normal payAdd_btn">添加应收单</a>
         </div>-->
     </form>
 </blockquote>
 <!--表格区-->
 <div class="layui-form users_list">
     <!--通过lay-filter区分toolbar事件容器-->
-    <table id="receive" lay-filter="receiveFilter" class="layui-table">
+    <table id="gathering" lay-filter="gathering" class="layui-table">
     </table>
 </div>
 <!--分页元素-->
@@ -57,6 +62,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="purchaseReceivable.js"></script>
+<script type="text/javascript" src="gathering.js"></script>
 </body>
 </html>
