@@ -19,7 +19,6 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-
         //初始化下拉框
         $api.GetFirstClassMenus(null,function (res) {
             var data = res.data;
@@ -41,21 +40,23 @@ layui.config({
      * */
     function defineTable() {
         tableIns = table.render({
-            elem: '#purchase_check'
+            elem: '#receive'
             , height: 415
-            , url: $tool.getContext() + 'finance/purchase_check.do' //数据接口
+            , url: $tool.getContext() + 'finance/purchaseReceiveList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'orderNumber', title: '订单单号',width:100}
-                , {field: 'goodsId', title: '商品名称', width:120}
-                , {field: 'goodsNumber', title: '商品数量', width:100}
-                , {field: 'price', title: '商品价格', width:100}
-                , {field: 'applyUser', title: '申请人', width:80}
-                , {field: 'applyTime', title: '申请时间', width:120}
-                , {field: 'state', title: '订单状态', width:100}
-                , {field: 'applyDescribe', title: '申请描述', width:220}
+                  {type:'numbers',title:'序号',fixed: 'left'},
+                  {field: 'purchaseOrderRejectedId', title: '申请编号', width: '10%'}
+                , {field: 'unitPrice', title: '单价', width: '10%'}
+                , {field: 'rejectedNumber', title: '退货数量', width: '10%'}
+                , {field: 'totalPrice', title: '总价', width: '10%'}
+                , {field: 'actualBalance', title: '实际价格', width: '10%'}
+                , {field: 'documentMaker', title: '制表人', width: '10%'}
+                , {field: 'documentMakeTime', title: '制表时间', width: '10%'}
+                , {field: 'auditUser', title: '审核人', width: '20%'}
+                , {field: 'auditTime', title: '审核时间', width: '10%'}
+                , {field: 'auditDescribe', title: '审核描述', width: '20%'}
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -64,35 +65,33 @@ layui.config({
         });
 
         //为toolbar添加事件响应
-        table.on('tool(menuFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(receiveFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             //区分事件
-            if (layEvent === 'del') { //删除
-                delMenu(row.id);
-            } else if (layEvent === 'edit') { //编辑
+            if (layEvent === 'edit') { //删除
+                editPay(row.id);
+            } /*else if (layEvent === 'edit') { //编辑
                 //do something
-                editMenu(row.id);
-            }
+                editPay(row.id);
+            }*/
         });
     }
     defineTable();
 
 
     //查询
-    form.on("submit(queryMenu)", function (data) {
-        var parentMenuId = data.field.parentMenuId;
-        var menuName = data.field.menuName;
-        var menuCode = data.field.menuCode;
+    form.on("submit(queryPay)", function (data) {
+        var auditType = data.field.auditType;
+        var documentMakeTime = data.field.documentMakeTime;
 
         //表格重新加载
         tableIns.reload({
             where:{
-                parentMenuId:parentMenuId,
-                menuName:menuName,
-                menuCode:menuCode
+                auditType:auditType,
+                documentMakeTime:documentMakeTime
             }
         });
 
@@ -100,11 +99,11 @@ layui.config({
     });
 
     //添加角色
-    $(".usersAdd_btn").click(function () {
+    $(".payAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "添加菜单",
+            title: "添加应付单",
             type: 2,
-            content: "addMenu.html",
+            content: "addPay.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
@@ -121,8 +120,8 @@ layui.config({
         layui.layer.full(index);
     });
 
-    //删除
-    function delMenu(id){
+    //删除  TODO...应付单逻辑应为无法删除，只能重新编辑
+    /*function delPay(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -130,7 +129,7 @@ layui.config({
                 menuId: id
             };
 
-            $api.DeleteMenu(req,function (data) {
+            $api.DeletePay(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -138,17 +137,17 @@ layui.config({
                 });
             });
         });
-    }
+    }*/
 
     //编辑
-    function editMenu(id){
+    function editPay(id){
         var index = layui.layer.open({
-            title: "编辑菜单",
+            title: "编辑销售应付单",
             type: 2,
-            content: "editMenu.html?id="+id,
+            content: "purchaseBillPayableEdit.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回应付单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)

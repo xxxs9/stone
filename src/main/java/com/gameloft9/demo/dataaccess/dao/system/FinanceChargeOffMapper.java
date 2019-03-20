@@ -9,6 +9,6 @@ import com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff;
  * @create: 2019/03/18 16:25
  */
 
-public interface SysFinanceChargeOffMapper extends BaseMapper<SysFinanceChargeOff>{
+public interface FinanceChargeOffMapper extends BaseMapper<SysFinanceChargeOff>{
 
 }

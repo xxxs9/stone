@@ -12,14 +12,11 @@ import java.util.Date;
  */
 
 @Data
-public class SysFinancePublic {
+public class SysFinancePublicPurchaseSale {
 
 
     /**id*/
     public String pid;
-
-    /**货品数量*/
-    public String goodsNumber;
 
     /**收付类型*/
     private int auditType;
@@ -50,12 +47,5 @@ public class SysFinancePublic {
     /**审核描述*/
     public String auditDescribe;
 
-    /**应付款*/
-    public String shouldPay;
 
-    /**应收款*/
-    public String actualPay;
-
-    /**欠款*/
-    public String arreara;
 }

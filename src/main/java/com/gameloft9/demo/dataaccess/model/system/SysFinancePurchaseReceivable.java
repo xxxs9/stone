@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class SysFinancePurchaseReceivable extends SysFinancePublic {
+public class SysFinancePurchaseReceivable extends SysFinancePublicPurchaseSale {
 
     /**ID*/
     private String id;

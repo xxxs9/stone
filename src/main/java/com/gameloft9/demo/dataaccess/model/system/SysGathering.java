@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class SysGathering extends SysFinancePublic {
+public class SysGathering {
 
     /**ID*/
     private String id;
@@ -20,7 +20,10 @@ public class SysGathering extends SysFinancePublic {
     /**金额*/
     private String balance;
 
-    /**公共表ID*/
-    private String publicId;
+    /**制单人*/
+    private String documentMaker;
+
+    /**制单时间*/
+    private String documentMakeTime;
 
 }
