@@ -178,6 +178,7 @@ layui.define(['$tool','jquery'], function (exports) {
         updatePurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/update.do',req,config,successCallback,errorCallback);
         },
+
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
         },

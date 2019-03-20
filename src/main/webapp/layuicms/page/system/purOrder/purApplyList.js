@@ -52,7 +52,7 @@ layui.config({
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#parentGoods').append($(html));
+                $('#goodsId').append($(html));
                 form.render();
             }
         });
@@ -69,16 +69,16 @@ layui.config({
             , height: 415
             , page:true //开启分页
             , cols: [[ //表头
-                {type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
-                , {field: 'orderNumber', title: '订单单号',width:100}
-                , {field: 'materialId', title: '商品名称', width:120}
+                //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
+                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:100}
+                , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品价格', width:100}
                 , {field: 'applyUser', title: '申请人', width:80}
-                , {field: 'applyTime', title: '申请时间', width:120}
+                , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'state', title: '订单状态', width:100}
                 , {field: 'applyDescribe', title: '申请描述', width:220}
-                , {fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 // 如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -110,16 +110,12 @@ layui.config({
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
         var goodsId = data.field.goodsId;
-        var startTime = time[0];
-        var endTime = time[1];
 
         //表格重新加载
         tableIns.reload({
             where:{
                 state:state,
-                goodsId:goodsId,
-                startTime:startTime,
-                endTime :endTime
+                goodsId:goodsId
             }
         });
         return false;
@@ -199,7 +195,6 @@ layui.config({
             };
 
             $api.commitPurOrder(req,function (data) {
-
                 layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格

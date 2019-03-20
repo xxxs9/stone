@@ -31,13 +31,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">采购编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="id" lay-verify="required" placeholder="请输入采购编号">
+            <input type="text" class="layui-input" name="id" readonly="readonly" lay-verify="required">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="orderNumber" lay-verify="required" placeholder="请输入订单编号">
+            <input type="text" class="layui-input" name="orderNumber" readonly="readonly" lay-verify="required" placeholder="请输入订单编号">
         </div>
     </div>
     <div class="layui-form-item">
@@ -61,15 +61,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="applyUser" lay-verify="required" placeholder="请输入申请人名字">
+            <input type="text" class="layui-input" name="applyUser" readonly="readonly" lay-verify="required" placeholder="请输入申请人名字">
         </div>
     </div>
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">申请时间</label>
         <div class="layui-input-block">
-            <input type="date" class="layui-input" name="applyTime" lay-verify="required">
+            <input type="date" class="layui-input" name="applyTime" readonly="readonly" lay-verify="required">
         </div>
-    </div>
+    </div>-->
     <div class="layui-form-item">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-block">
@@ -97,7 +97,7 @@
 
     <div class="layui-form-item" id="tool">
         <div class="layui-input-block">
-            <span class="layui-btn" lay-submit="" lay-filter="purchase_orderFilter" id="submit">提交修改</span>
+            <span class="layui-btn" lay-submit="" lay-filter="submitFilter" id="submit">提交修改</span>
             <span type="reset" class="layui-btn layui-btn-primary" id="reset">重置</span>
         </div>
     </div>

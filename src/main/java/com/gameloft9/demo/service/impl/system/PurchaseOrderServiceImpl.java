@@ -6,15 +6,24 @@ import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.StateUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.apache.commons.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * PurchaseOrder service
@@ -34,10 +43,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**增加*/
-    public PurchaseOrder insert(PurchaseOrder purchaseOrder) {
-        PurchaseOrder pur = new PurchaseOrder();
-        dao.insert(pur);
-        return pur;
+    public String insert(PurchaseOrder purchaseOrder) {
+        //修改jvm时间
+        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(tz);
+        purchaseOrder.setId(UUIDUtil.getUUID());
+        purchaseOrder.setApplyTime(new Date());
+        dao.insert(purchaseOrder);
+        return purchaseOrder.getId();
     }
 
     /**删除*/
@@ -48,8 +61,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     /**修改*/
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
-        PurchaseOrder pur = new PurchaseOrder();
-        dao.updateByPrimaryKey(pur);
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setApplyTime(new Date());
+        dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
 

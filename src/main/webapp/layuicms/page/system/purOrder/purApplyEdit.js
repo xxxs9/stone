@@ -12,6 +12,8 @@ layui.config({
         $tool = layui.$tool,
         $api = layui.$api;
 
+    var depotIdList = new Array();//所有的角色id列表
+
     /**
      * 初始化页面
      * */
@@ -21,12 +23,12 @@ layui.config({
         var req = {
             id:id
         };
+
         $api.getPurOrder(req,function (res) {
             var data = res.data;
             if(data.state == "未提交"){
                 $('#inspectInventory').remove();
                 $('#inspectMon').remove();
-
             }
         });
     }
@@ -48,7 +50,7 @@ layui.config({
                 if (data.length > 0) {
                     var html = '<option value="">--请选择--</option>';
                     for (var i = 0; i < data.length; i++) {
-                        html += '<option value="' + data[i].goodsId + '">' + data[i].goodsId + '</option>>';
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                     }
                     $('#goodsId').append($(html));
                     form.render();
@@ -77,13 +79,13 @@ layui.config({
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
                 $("[name='applyUser']").val(data.applyUser);
-                $("[name='applyTime']").val(data.applyTime);
+                //$("[name='applyTime']").val(data.applyTime);
                 $("[name='state']").val(data.state);
                 $("[name='applyDescribe']").val(data.applyDescribe);
                 //加载orderType，整型转字符串
-                orderTypeChange();
+                //orderTypeChange();
                 //加载state状态的内容
-                stateChange();
+                //stateChange();
                 //加载角色列表
                 loadRoleList();
                 form.render();//重新绘制表单，让修改生效
@@ -124,14 +126,14 @@ layui.config({
     /**
      * 表单提交
      * */
-    form.on("submit(submit)", function (data) {
+    form.on("submit(submitFilter)", function (data) {
         var id = data.field.id;
         var orderNumber = data.field.orderNumber;
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var applyUser = data.field.applyUser;
-        var applyTime = data.field.applyTime;
+        //var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
         var idList = new Array();
@@ -152,7 +154,7 @@ layui.config({
             goodsNumber:goodsNumber,
             price:price,
             applyUser:applyUser,
-            applyTime:applyTime,
+            //applyTime:applyTime,
             state:state,
             applyDescribe:applyDescribe,
             depotIdList:idList

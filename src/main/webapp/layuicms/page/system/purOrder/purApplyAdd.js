@@ -29,7 +29,7 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].goodsId + '</option>>';
+                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
                 $('#goodsId').append($(html));
                 form.render();
@@ -41,13 +41,13 @@ layui.config({
      * 表单提交
      * */
     form.on("submit(purAdd)", function (data) {
-        var id = data.field.id;
+        //var id = data.field.id;
         var orderNumber = data.field.orderNumber;
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var applyUser = data.field.applyUser;
-        var applyTime = data.field.applyTime;
+        //var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
 
@@ -58,13 +58,13 @@ layui.config({
 
         //请求
         var req = {
-            id:id,
+            //id:id,
             orderNumber:orderNumber,
             goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
             applyUser: applyUser,
-            applyTime: applyTime,
+            //applyTime: applyTime,
             state:state,
             applyDescribe:applyDescribe
         };

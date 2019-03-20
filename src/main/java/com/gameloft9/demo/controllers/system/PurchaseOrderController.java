@@ -7,12 +7,19 @@ import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 
 /**
@@ -42,7 +49,7 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/insert.do",method = RequestMethod.POST)
     @ResponseBody
     public IResult insert(PurchaseOrder purchaseOrder){
-        return new ResultBean<PurchaseOrder>(service.insert(purchaseOrder));
+        return new ResultBean<String>(service.insert(purchaseOrder));
     }
 
     /**

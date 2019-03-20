@@ -34,7 +34,7 @@
         SELECT
             t.ID,
             t.ORDER_NUMBER,
-            mg.MATERIAL_ID,
+            t.GOODS_ID,
             t.GOODS_NUMBER,
             t.PRICE,
             t.APPLY_USER,
@@ -43,7 +43,7 @@
             t.APPLY_DESCRIBE
         FROM
             t_purchase_order t,
-            y_material_goods mg
+            y_material_goods m
         <where>
             <if test="goodsId != null and goodsId != ''">
                 AND GOODS_ID = #{goodsId}
@@ -51,7 +51,7 @@
             <if test="state != null and state != ''">
                 AND STATE = #{state}
             </if>
-            AND mg.MATERIAL_ID = t.GOODS_ID
+            AND m.MATERIAL_ID = t.GOODS_ID
         </where>
             ORDER BY t.ID ASC
             limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -71,25 +71,25 @@
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
         INSERT INTO
             t_purchase_order
-            (ID,
-            ORDER_NUMBER,
-            GOODS_ID,
-            GOODS_NUMBER,
-            PRICE,
-            APPLY_USER,
-            APPLY_TIME,
-            STATE,
-            APPLY_DESCRIBE)
+              (ID,
+              ORDER_NUMBER,
+              GOODS_ID,
+              GOODS_NUMBER,
+              PRICE,
+              APPLY_USER,
+              APPLY_TIME,
+              STATE,
+              APPLY_DESCRIBE)
         VALUES
-            (#{id},
-            #{orderNumber},
-            #{goodsId},
-            #{goodsNumber},
-            #{price},
-            #{applyUser},
-            #{applyTime},
-            #{state},
-            #{applyDescribe})
+              (#{id},
+              #{orderNumber},
+              #{goodsId},
+              #{goodsNumber},
+              #{price},
+              #{applyUser},
+              #{applyTime},
+              #{state},
+              #{applyDescribe})
     </insert>
 
     <!--删除-->
@@ -157,7 +157,7 @@
             t_purchase_order
         <set>
             <if test="state != null and state !=''">
-                STATE = #{state,JDBCtYPE=varchar}
+                STATE = #{state,jdbcType=VARCHAR}
             </if>
         </set>
         <where>

@@ -2,13 +2,11 @@ package com.gameloft9.demo.dataaccess.model.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
-import java.sql.Date;
 
 /**
  * model class
- *
  * @author OliverCH
  * @date 2016/03/18
  */
@@ -20,15 +18,15 @@ public class PurchaseOrder {
     private String goodsNumber;
     private String price;
     private String applyUser;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyTime;
     private String state;
     private Integer auditType;
     private String orderAuditUser;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderAuditTime;
     private String payAuditUser;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date payAuditTime;
     private String applyDescribe;
     private String auditDescribe;

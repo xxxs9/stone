@@ -23,7 +23,7 @@ public interface PurchaseOrderService {
      * @param purchaseOrder 实体类
      * @return PurchaseOrder
      */
-    PurchaseOrder insert(PurchaseOrder purchaseOrder);
+    String insert(PurchaseOrder purchaseOrder);
 
     /**
      * 删除

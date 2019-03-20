@@ -18,6 +18,7 @@ public interface BaseMapper<T> {
      */
     List<T> getAll();
 
+    List<T> getAlls();
     /**
      * 添加
      *
