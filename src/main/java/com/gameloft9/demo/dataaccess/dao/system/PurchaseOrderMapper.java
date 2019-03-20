@@ -97,4 +97,11 @@ public interface PurchaseOrderMapper {
      * @return boolean 布尔类型
      */
     Boolean inspectUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 根据状态为待付款，查出所有
+     *
+     * @return
+     */
+    List<PurchaseOrder> getAllPurchaseOrderByState();
 }

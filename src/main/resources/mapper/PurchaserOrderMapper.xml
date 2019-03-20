@@ -210,4 +210,12 @@
             </if>
         </where>
     </update>
+
+    <!--查找所有待付款  List<PurchaseOrder> getAllPurchaseOrderByState();-->
+    <select id="getAllPurchaseOrderByState" resultMap="purOrderMap">
+        select *  from
+        t_purchase_order
+        where
+        STATE = '待付款'
+    </select>
 </mapper>
