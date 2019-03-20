@@ -21,7 +21,7 @@
 
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"/>
+        ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
         from l_product
         where ID = #{id,jdbcType=VARCHAR}
     </select>
@@ -85,7 +85,7 @@
     #{productDescribe},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">

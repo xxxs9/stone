@@ -41,10 +41,10 @@ public interface LenProductService {
      * @return
      */
     List<LenProduct> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            @Param("productName") String productName,
-            @Param("state") String state
+           String page,
+             String limit,
+           String productName,
+             String state
     );
 
     /**

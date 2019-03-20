@@ -143,6 +143,24 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         UpdateUserInfo:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
+        },
+        AddProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
+        },
+        delProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/del',req,config,successCallback,errorCallback);
+        },
+        getAllProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/list',req,config,successCallback,errorCallback);
+        },
+        getProductById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
+        },
+        updateProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
+        },
+        delProduceFormula:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
         }
     };
 

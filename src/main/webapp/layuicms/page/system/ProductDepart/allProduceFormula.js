@@ -32,7 +32,6 @@ layui.config({
                 form.render();
             }
         });
-        return false;
     }
     init();
 
@@ -43,18 +42,17 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
-            , url: $tool.getContext() + 'product/pageList' //数据接口
+            /*, height: 415*/
+            , url: $tool.getContext() + 'formula/pageList' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'productName', title: '产品名称'}
-                , {field: 'productType', title: '产品类型',templet:'#tmp'}
-                , {field: 'state', title: '产品状态',templet:'#tmpe'}
-                , {field: 'productDescribe', title: '产品描述'}
-                , {field: 'wasteId', title: '废料编号'}
-                , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                  {field: 'productId', title: '产品编号'}
+                , {field: 'formulaType', title: '配方类型'/*,templet:'#tmp'*/}
+                , {field: 'formulaNumber', title: '配方数量'}
+                , {field: 'createUserId', title: '创建者信息'}
+                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -94,15 +92,15 @@ layui.config({
             }
         });
 
-       /* return false;*/
+        return false;
     });
 
-    //添加
+    //添加角色
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "添加新工单",
+            title: "添加新配方",
             type: 2,
-            content: "addProduct.html",
+            content: "addProductFormula.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -128,23 +126,22 @@ layui.config({
                 id: id
             };
 
-            $api.delProduct(req,function (data) {
+            $api.delProduceFormula(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
                 });
             });
-            return false;
         });
     }
 
     //编辑
     function editMenu(id){
         var index = layui.layer.open({
-            title: "修改内容",
+            title: "编辑菜单",
             type: 2,
-            content: "editProduct.html?id="+id,
+            content: "editProduceFormula.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

@@ -28,57 +28,47 @@
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
 
-
     </br>
     <div class="layui-form-item">
-        <label class="layui-form-label">产品名称</label>
+        <label class="layui-form-label">产品编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品类型</label>
-        <div class="layui-input-block">
-            <select name="productType" lay-verify="required">
-                <option value=""></option>
-                <option value="0" selected>1.半成品</option>
-                 <option value="1">2.成品</option>
-                 <option value="2">3.其他</option>
-            </select>
-        </div>
-    </div>
-        <br>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品状态</label>
-        <div class="layui-input-block">
-            <select name="state" lay-verify="required">
-                <option value=""></option>
-                <option value="0" selected>1.未下单</option>
-               <!-- <option value="1">2.已下单</option>
-                <option value="2">3.生产中</option>
-                <option value="3">4.已入库</option>-->
+            <select name="productId" lay-verify="required" >
 
             </select>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">废料</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="wasteId" >
+        <label class="layui-form-label">配方类型</label>
+        <div class="layui-input-block ">
+            <select name="formulaType" lay-verify="required">
+                <option value="-1">---请选择--</option>
+                <option value="0" >1.类型Ⅰ</option>
+                <option value="1">2.类型Ⅱ</option>
+                <option value="2">3.类型Ⅲ</option>
+                <option value="3">4.类型Ⅳ</option>
+
+            </select>
         </div>
     </div>
-
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">产品描述</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配方数量</label>
         <div class="layui-input-block">
-            <textarea name="productDescribe" placeholder="请输入描述" class="layui-textarea"></textarea>
+            <input type="text" class="layui-input" name="formulaNumber" lay-verify="required" placeholder="请输入配方数量">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">主管编号</label>
+        <div class="layui-input-block">
+            <select name="createUserId" lay-verify="required">
+
+            </select>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addMenu">生产下单</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addMenu">提交审核</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -87,6 +77,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="addProduct.js"></script>
+<script type="text/javascript" src="addProductFormula.js"></script>
 </body>
 </html>

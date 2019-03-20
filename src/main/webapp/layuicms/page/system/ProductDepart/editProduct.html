@@ -28,7 +28,6 @@
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
 
-
     </br>
     <div class="layui-form-item">
         <label class="layui-form-label">产品名称</label>
@@ -36,23 +35,25 @@
             <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品类型</label>
-        <div class="layui-input-block">
-            <select name="productType" lay-verify="required">
-                <option value=""></option>
-                <option value="0" selected>1.半成品</option>
-                 <option value="1">2.成品</option>
-                 <option value="2">3.其他</option>
+<!--
+    <div class="layui-form-item ">
+        <label class="layui-form-label">产品状态</label>
+        <div class="layui-input-block ">
+            <select name="state" lay-verify="required">
+                <option value="-1">-&#45;&#45;请选择&#45;&#45;</option>
+                <option value="0" >1.未下单</option>
+                <option value="1">2.已下单</option>
+                <option value="2">3.生产中</option>
+                <option value="3">4.已入库</option>
+
             </select>
         </div>
-    </div>
-        <br>
-    <div class="layui-form-item">
+    </div>-->
+
+    <div class="layui-form-item ">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
-            <select name="state" lay-verify="required">
-                <option value=""></option>
+            <select name="state" lay-verify="required" id="parentMenu" disabled>
                 <option value="0" selected>1.未下单</option>
                <!-- <option value="1">2.已下单</option>
                 <option value="2">3.生产中</option>
@@ -63,7 +64,7 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">废料</label>
+        <label class="layui-form-label">废料编号</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="wasteId" >
         </div>
@@ -78,15 +79,27 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addMenu">生产下单</button>
+            <button class="layui-btn" lay-submit="" lay-filter="editMenu">确认修改</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
+<!--<script type="text/html" id="tmp">
+
+    {{#  if(d.productType == '0'){ }}
+    <span>半成品</span>
+    {{#  } else if(d.productType == '1'){ }}
+    <span>成品</span>
+    {{#  } else if(d.productType == '2'){ }}
+    <span>其他</span>
+
+    {{#  } }}
+
+</script>-->
 
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="addProduct.js"></script>
+<script type="text/javascript" src="editProduct.js"></script>
 </body>
 </html>

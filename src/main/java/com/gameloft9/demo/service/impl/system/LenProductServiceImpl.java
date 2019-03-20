@@ -4,6 +4,7 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,15 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean insert(LenProduct lenProduct) {
-        if (mapper.insert(lenProduct)>0){
+        String uuid = UUIDUtil.getUUID();
+        LenProduct product = new LenProduct();
+        product.setId(uuid);
+        product.setProductName(lenProduct.getProductName());
+        product.setProductType(lenProduct.getProductType());
+        product.setProductDescribe(lenProduct.getProductDescribe());
+        product.setState(lenProduct.getState());
+        product.setWasteId(lenProduct.getWasteId());
+        if (mapper.insert(product)>0){
             return true;
         }else {
             return  false;

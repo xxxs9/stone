@@ -78,7 +78,7 @@ layui.config({
 
         $api.AddProduct(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-            layer.msg("工单添加成功！", {time: 1000}, function () {
+            layer.msg("配方添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
