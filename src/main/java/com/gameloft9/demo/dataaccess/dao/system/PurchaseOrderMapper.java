@@ -102,6 +102,9 @@ public interface PurchaseOrderMapper {
      * 根据状态为待付款，查出所有
      *
      * @return
+     *         啊
      */
     List<PurchaseOrder> getAllPurchaseOrderByState();
+
+
 }

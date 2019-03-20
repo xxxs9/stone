@@ -208,7 +208,7 @@ layui.define(['$tool','jquery'], function (exports) {
         UpdatePay:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
         },
-        }
+
 
     };
 

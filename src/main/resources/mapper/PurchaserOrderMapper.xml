@@ -211,7 +211,7 @@
         </where>
     </update>
 
-    <!--查找所有待付款  List<PurchaseOrder> getAllPurchaseOrderByState();-->
+    <!--查找所有待付款啊  List<PurchaseOrder> getAllPurchaseOrderByState();-->
     <select id="getAllPurchaseOrderByState" resultMap="purOrderMap">
         select *  from
         t_purchase_order
