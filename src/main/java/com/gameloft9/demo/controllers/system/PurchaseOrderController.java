@@ -71,6 +71,33 @@ public class PurchaseOrderController {
     }
 
     /**
+     * 审核 inspet
+     */
+    @RequestMapping(value ="/inspect.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult inspectPurOrder(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.inspectUpdate(purchaseOrder));
+    }
+
+    /**
+     * 获取state来查看
+     */
+    @RequestMapping(value = "/lookGet.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult lookSelect(String state){
+        return new ResultBean<PurchaseOrder>(service.lookSelect(state));
+    }
+
+    /**
+     * 查看 look
+     */
+    @RequestMapping(value = "/look.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult lookPurOrder(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
+    }
+
+    /**
      * 获取所有
      */
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
@@ -78,6 +105,16 @@ public class PurchaseOrderController {
     public IResult selectAll(String page,String limit,String goodsId,String state){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsId,
                 state),service.countGetAll(goodsId,state));
+    }
+
+    /**
+     * 根据id获取审核所需的状态列表
+     */
+    @RequestMapping(value = "/listInspect.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllByInspect(String page,String limit,String goodsId,String state){
+        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInspect(page,
+                limit,goodsId,state),service.countGetAll(goodsId,state));
     }
 
     /**
@@ -107,12 +144,4 @@ public class PurchaseOrderController {
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
 
-    /**
-     * 审核inspect
-     */
-    @RequestMapping(value = "/inspect.do",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult inspectPurOrder(String id,String auditDescribe,String agree){
-        return new ResultBean<Boolean>(service.inspectUpdate(id,auditDescribe,agree));
-    }
 }

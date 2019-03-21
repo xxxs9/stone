@@ -25,11 +25,11 @@ layui.config({
         };
 
         $api.getPurOrder(req,function (res) {
-            var data = res.data;
+            /*var data = res.data;
             if(data.state == "未提交"){
                 $('#inspectInventory').remove();
                 $('#inspectMon').remove();
-            }
+            }*/
         });
     }
 

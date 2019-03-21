@@ -3,6 +3,7 @@ package com.gameloft9.demo.dataaccess.dao.system;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +43,27 @@ public interface PurchaseOrderMapper {
     int updateByPrimaryKey(PurchaseOrder record);
 
     /**
+     * 根据state查看
+     * @param record 记录
+     * @return int 返回值
+     */
+    PurchaseOrder lookSelect(String state);
+
+    /**
+     * 查看 look
+     * @param record 记录
+     * @return int 返回值
+     * */
+    int lookUpdate(PurchaseOrder record);
+
+    /**
+     * 审核 inspect
+     * @param purchaseOrder 实体类
+     * @return int 返回值
+     */
+    int inspectUpdate(PurchaseOrder purchaseOrder);
+
+    /**
      * 分页获取所有
      * @param start 开始
      * @param end 结束
@@ -50,6 +72,20 @@ public interface PurchaseOrderMapper {
      * @return List<PurchaseOrder> 返回值
      * */
     List<PurchaseOrder> selectAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("goodsId") String goodsId,
+            @Param("state") String state);
+
+    /**
+     * 审核页面根据id获取列表
+     * @param start 开始
+     * @param end 结束
+     * @param goodsId 货品名称
+     * @param state 订单状态
+     * @return List<PurchaseOrder> 返回值
+     * */
+    List<PurchaseOrder> selectAllByInspect(
             @Param("start") int start,
             @Param("end") int end,
             @Param("goodsId") String goodsId,
@@ -90,13 +126,6 @@ public interface PurchaseOrderMapper {
      * @return boolean 布尔类型
      */
     Boolean commitUpdate(PurchaseOrder purchaseOrder);
-
-    /**
-     * 审核inspect
-     * @param purchaseOrder 实体
-     * @return boolean 布尔类型
-     */
-    Boolean inspectUpdate(PurchaseOrder purchaseOrder);
 
     /**
      * 根据状态为待付款，查出所有

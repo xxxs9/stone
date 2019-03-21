@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,25 @@ public interface PurchaseOrderService {
     boolean updateByPrimaryKey(PurchaseOrder purchaseOrder);
 
     /**
+     * 根据state查看
+     * */
+    PurchaseOrder lookSelect(String state);
+
+    /**
+     * 查看 look
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     * */
+    boolean lookUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 审核inspect
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean inspectUpdate(PurchaseOrder purchaseOrder);
+
+    /**
      * 获取所有
      * @param page 页数
      * @param limit 限制
@@ -48,6 +68,16 @@ public interface PurchaseOrderService {
      * @return List<PurchaseOrder> 返回类型
      */
     List<PurchaseOrder> selectAll(String page,String limit,String goodsId,String state);
+
+    /**
+     * 根据id获取审核所需的列表
+     * @param page 页数
+     * @param limit 限制
+     * @param goodsId 商品名称
+     * @param state 订单类型
+     * @return List<PurchaseOrder> 返回类型
+     * */
+    List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state);
 
     /**
      * 获取个数
@@ -64,13 +94,6 @@ public interface PurchaseOrderService {
     List<PurchaseOrder> getSelectListGoods();
 
     /**
-    * 获取state下拉框
-    * @return List<PurchaseOrder> 返回集合类型
-    */
-
-    List<PurchaseOrder> getSelectListState();
-
-    /**
      * 提交commit
      * @param purchaseOrder 实体
      * @return boolean 布尔类型
@@ -84,14 +107,6 @@ public interface PurchaseOrderService {
      */
     boolean recallUpdate(String  id);
 
-    /**
-     * 审核inspect
-     * @param id id
-     * @param auditDescribe 审核描述
-     * @param agree 同意
-     * @return boolean 布尔类型
-     */
-    boolean inspectUpdate(String id,String auditDescribe,String agree);
 }
 
 

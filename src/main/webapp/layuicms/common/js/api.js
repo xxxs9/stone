@@ -178,6 +178,19 @@ layui.define(['$tool','jquery'], function (exports) {
         updatePurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/update.do',req,config,successCallback,errorCallback);
         },
+        //获取查看的id
+        lookGetPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
+        },
+
+        //查看
+        lookPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
+        },
+        //审核
+        inspectPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/inspect.do',req,config,successCallback,errorCallback);
+        },
 
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);

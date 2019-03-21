@@ -26,7 +26,6 @@ layui.config({
 
     init();
 
-
     /**
      * 初始化状态查询
      */
@@ -36,7 +35,6 @@ layui.config({
         html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
         html1 += '<option value="审核未通过">审核未通过</option>>';
-
         $('#state').append($(html1));
         form.render();
     }
@@ -101,6 +99,8 @@ layui.config({
                 commitPut(row.id);
             } else if(layEvent === 'back') { //撤回
                 recallPur(row.id);
+            } else if(layEvent === 'look') { //查看
+                lookPur(row.id);
             }
         });
     }
@@ -223,6 +223,29 @@ layui.config({
             });
 
         });
+    }
+
+    //查看
+    function lookPur(id){
+        var index = layui.layer.open({
+            title: "查看审核未通过原因",
+            type: 3,
+            content: "purApplyLook.html?id="+id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回采购列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
     }
 
 });

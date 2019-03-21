@@ -67,10 +67,50 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
+    /**根据state查看*/
+    public PurchaseOrder lookSelect(String state){
+        return dao.lookSelect(state);
+    }
+
+    /**查看*/
+    public boolean lookUpdate(PurchaseOrder purchaseOrder){
+        purchaseOrder.setOrderAuditTime(new Date());
+        String state = purchaseOrder.getState();
+        String str="审核未通过";
+        if(str.equals(state)){
+            purchaseOrder.setState(StateUtil.APPLY_NO_SUBMIT);
+        }else{
+            purchaseOrder.setState(StateUtil.APPLY_FAIL);
+        }
+        dao.lookUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**审核*/
+    public boolean inspectUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setOrderAuditTime(new Date());
+        String state = purchaseOrder.getState();
+        String str="审核通过";
+        if(str.equals(state)){
+            purchaseOrder.setState(StateUtil.APPLY_PASS);
+        }else{
+            purchaseOrder.setState(StateUtil.APPLY_FAIL);
+        }
+        dao.inspectUpdate(purchaseOrder);
+        return true;
+    }
+
     /**获取所有*/
     public List<PurchaseOrder> selectAll(String page, String limit, String goodsId, String state) {
         PageRange pageRange = new PageRange(page, limit);
         return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
+    }
+
+    /**根据id获取审核所需的状态*/
+    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state){
+        PageRange pageRange = new PageRange(page,limit);
+        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
     }
 
     /**获取分页*/
@@ -110,24 +150,4 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
-    /**审核*/
-    public boolean inspectUpdate(String id,String auditDescribe,String agree){
-        CheckUtil.notBlank(id,"订单id为空");
-        //获取订单信息
-        PurchaseOrder purchaseOrder = dao.selectByPrimaryKey(id);
-        //设置审核人orderAuditUser
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
-        purchaseOrder.setOrderAuditUser(orderAuditUser);
-        //根据状态来判断
-        //魔法值不允许中文直接放入，需要String
-        String str="审核通过";
-        if(str.equals(agree)){
-            purchaseOrder.setState(StateUtil.APPLY_PASS);
-        }else{
-            purchaseOrder.setState(StateUtil.APPLY_FAIL);
-        }
-        dao.inspectUpdate(purchaseOrder);
-        return true;
-    }
 }
