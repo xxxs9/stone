@@ -196,6 +196,40 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         DelsDepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotSet/dels.do',req,successCallback,errorCallback);
+
+        },//销售订单删除
+        DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
+        },//获取销售订单ID
+        GetMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'marker/get',req,successCallback,errorCallback);
+        },//销售订单修改
+        updateMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/update',req,successCallback,errorCallback);
+        },//销售订单添加
+        AddMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/add',req,successCallback,errorCallback);
+        },//提交
+        audiUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/audi',req,successCallback,errorCallback);
+        },//撤回
+        backUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/back',req,successCallback,errorCallback);
+        },//订单审核删除
+        DeleteOrderAudit:function(req,config,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'audit/delete', req, config, successCallback, errorCallback);
+        },//获取订单审核ID
+        GetOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'audit/get',req,successCallback,errorCallback);
+        },//订单审核修改
+        updateOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/update',req,successCallback,errorCallback);
+        },//驳回
+        backUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/back',req,successCallback,errorCallback);
+        },//驳回
+        passUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/pass',req,successCallback,errorCallback);
         },
 
 

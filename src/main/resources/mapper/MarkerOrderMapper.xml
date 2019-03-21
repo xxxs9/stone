@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.MarkerOrderMapper">
+    <!--结果集映射-->
+    <resultMap id="MarkerOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
+        <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
+        <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
+        <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
+        <result column="UNPAID_AMOUNT" property="unpaidAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        ORDER_ID,
+        ORDER_TIME,
+        CUSTOMER,
+        DELIVER_NUMBER,
+        CURRENT_NUMBER,
+        PLANNED_NUMBER,
+        ACCEPTED_AMOUNT,
+        UNPAID_AMOUNT,
+        APPLY_USER,
+
+        STATE,
+        ORDER_AUDIT_USER,
+        REMARKS
+    </sql>
+
+
+    <!--提交-->
+
+    <!--<update id="state" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+     update w_marker_order set STATE=#{state } where ID=#{id}
+  </update>-->
+
+
+<!--提交audi-->
+    <update id="audiUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        update
+            w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+  </update>
+
+    <!--撤回back-->
+    <update id="backUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+
+    <!--获取所有类表角色-->
+   <!-- <select id="selectAll" resultMap="MarkerOrderResultMap" >
+
+        select
+            ID, ORDER_ID, ORDER_TIME, CUSTOMER, DELIVER_NUMBER, CURRENT_NUMBER,PLANNED_NUMBER,ACCEPTED_AMOUNT,
+        UNPAID_AMOUNT,APPLY_USER,APPLY_TIME,STATE,ORDER_AUDIT_USER,REMARKS
+        from w_marker_order
+    </select>-->
+    <!--获取角色ID-->
+
+    <select id="getMaker" resultMap="MarkerOrderResultMap" parameterType="java.lang.String">
+        select
+           ID,
+           ORDER_ID,
+           ORDER_TIME,
+           CUSTOMER,
+           DELIVER_NUMBER,
+           CURRENT_NUMBER,
+           PLANNED_NUMBER,
+           ACCEPTED_AMOUNT,
+           UNPAID_AMOUNT,
+           APPLY_USER,
+           STATE,
+           ORDER_AUDIT_USER,
+           REMARKS
+        from
+          w_marker_order
+        where
+          ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <!--查找所有分页模糊查询-->
+    <select id="findAll"  parameterType="map" resultMap="MarkerOrderResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from
+          w_marker_order
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="orderTime != null and orderTime != ''">
+                and ORDER_TIME = #{orderTime,jdbcType=DATE}
+            </if>
+        </where>
+        order by ID asc
+          limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--查找条数-->
+    <select id="countGetAll" resultType="int" parameterType="map">
+
+        select
+        count(1)
+        from w_marker_order t
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and t.ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="orderTime != null and orderTime != ''">
+                and t.ORDER_TIME = #{orderTime,jdbcType=DATE}
+            </if>
+        </where>
+    </select>
+
+    <!--<select id="findById"  parameterType="java.lang.Integer" resultType="com.gameloft9.demo.dataaccess.model.system.Product">
+        select
+       *
+        from product
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>-->
+
+    <!--通过ID删除-->
+    <delete id="deleteById" parameterType="java.lang.String">
+    delete from w_marker_order
+    where ID = #{id}
+  </delete>
+    <!--添加-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        insert into
+          w_marker_order
+          (ID,
+          ORDER_ID,
+          ORDER_TIME,
+          CUSTOMER,
+          DELIVER_NUMBER,
+          CURRENT_NUMBER,
+          PLANNED_NUMBER,
+          ACCEPTED_AMOUNT,
+          UNPAID_AMOUNT,
+          APPLY_USER,
+          STATE,
+          ORDER_AUDIT_USER,
+          REMARKS)
+        values
+          (#{id},
+          #{orderId},
+          #{orderTime},
+          #{customer},
+          #{deliverNumber},
+          #{currentNumber},
+          #{plannedNumber},
+          #{acceptedAmount},
+          #{unpaidAmount},
+          #{applyUser},
+
+          #{state},
+          #{orderAuditUser},
+          #{remarks})
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        update
+            w_marker_order
+        set
+            ORDER_ID=#{orderId},
+            ORDER_TIME=#{orderTime},
+            CUSTOMER=#{customer},
+            DELIVER_NUMBER=#{deliverNumber},
+            CURRENT_NUMBER=#{currentNumber},
+            PLANNED_NUMBER=#{plannedNumber},
+            ACCEPTED_AMOUNT=#{acceptedAmount},
+            UNPAID_AMOUNT=#{unpaidAmount},
+            APPLY_USER=#{applyUser},
+
+            STATE=#{state},
+            ORDER_AUDIT_USER=#{orderAuditUser},
+            REMARKS=#{remarks}
+        where
+            ID=#{id}
+  </update>
+
+</mapper>
