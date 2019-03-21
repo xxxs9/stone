@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!--mapper映射-->
-<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProductMapper">
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper">
     <!--结果集映射-->
-    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
             <id column="ID" property="id"/>
-            <result  column="PRODUCT_NAME" property="productName"/>
-            <result column="PRODUCT_TYPE" property="productType"/>
-            <result column="STATE" property="state"/>
-            <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
-            <result column="WASTE_ID" property="wasteId"/>
+            <result column="PRODUCT_FORMULA_ID" property="productFormulaId"/>
+            <result column="MATERIAL_ID" property="materialId"/>
+            <result column="MATERIAL_NUMBER" property="materialNumber"/>
+            <result column="DEPOT_ID" property="depotId"/>
             <result column="OTHER1" property="other1"/>
             <result column="OTHER2" property="other2"/>
             <result column="OTHER3" property="other3"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+    ID,PRODUCT_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
      </sql>
 
-    <select id="selectAll" resultMap="BaseResultMap">
-
-        select ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3 from l_product
-    </select>
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
-        from l_product
+        <include refid="Base_Column_List"/>
+        from l_produce_formula_detail
         where ID = #{id,jdbcType=VARCHAR}
     </select>
 
 
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">
-        select * from l_product t
+        select * from l_produce_formula_detail t
         where 1=1
-        <if test="state != null and state != ''">
-            and t.STATE = #{state,jdbcType=VARCHAR}
+        <if test="materialId != null and materialId != ''">
+            and t.MATERIAL_ID= #{materialId,jdbcType=VARCHAR}
+        </if>
+        <if test="depotId != null and depotId != ''">
+            and t.DEPOT_ID= #{depotId,jdbcType=VARCHAR}
         </if>
         order by t.id desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -63,55 +61,51 @@
         )a where row_num &gt; #{start,jdbcType=DECIMAL}
     </select>-->
     <select id="dataCount" parameterType="map" resultType="Integer">
-        select count(1) from l_product t
+        select count(1) from l_produce_formula_detail t
         where 1=1
-        <if test="state != null and state != ''">
-            and t.STATE = #{state,jdbcType=VARCHAR}
+        <if test="depotId != null and depotId != ''">
+            and t.DEPOT_ID = #{depotId,jdbcType=VARCHAR}
         </if>
 
     </select>
 
 
     <delete id="delete" parameterType="java.lang.String">
-    delete from l_product
+    delete from l_produce_formula_detail
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
 
-    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-    insert into l_product ( ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3)
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+    insert into l_produce_formula_detail ( ID,PRODUCT_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3)
     values (
     #{id},
-    #{productName},
-    #{productType},
-    #{wasteId},
-    #{state},
-    #{productDescribe},
+    #{productFormulaId},
+    #{materialId},
+    #{materialNumber},
+    #{depotId},
     #{other1},
     #{other2},
-    #{other3}
+    #{other3},
     )
   </insert>
-    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-        insert into l_product
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+        insert into l_produce_formula_detail
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 ID,
             </if>
-            <if test="productName != null">
-                PRODUCT_TYPE,
+            <if test="productFormulaId != null">
+                PRODUCT_FORMULA_ID,
             </if>
-            <if test="productType != null">
-                PRODUCT_TYPE,
+            <if test="materialId != null">
+                MATERIAL_ID,
             </if>
-            <if test="wasteId != null">
-                WASTE_ID,
+            <if test="materialNumber != null">
+                MATERIAL_NUMBER,
             </if>
-            <if test="state != null">
-                STATE,
-            </if>
-            <if test="productDescribe != null">
-                PRODUCT_DESCRIBE,
+            <if test="depotId != null">
+                DEPOT_ID,
             </if>
             <if test="other1 != null">
                 OTHER1,
@@ -128,20 +122,17 @@
             <if test="id != null">
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="productName != null">
-                #{productName,jdbcType=VARCHAR},
+            <if test="productFormulaId != null">
+                #{productFormulaId,jdbcType=VARCHAR},
             </if>
-            <if test="productType != null">
-                #{productType,jdbcType=VARCHAR},
+            <if test="materialId != null">
+                #{materialId,jdbcType=VARCHAR},
             </if>
-            <if test="wasteId != null">
-                #{wasteId,jdbcType=VARCHAR},
+            <if test="materialNumber != null">
+                #{materialNumber,jdbcType=VARCHAR},
             </if>
-            <if test="state != null">
-                #{state,jdbcType=VARCHAR},
-            </if>
-            <if test="productDescribe != null">
-                #{productDescribe,jdbcType=VARCHAR},
+            <if test="depotId != null">
+                #{depotId,jdbcType=VARCHAR},
             </if>
             <if test="other1 != null">
                 #{other1,jdbcType=VARCHAR},
@@ -156,8 +147,8 @@
 
 
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-        update l_product
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+        update l_produce_formula_detail
         <set>
             <if test="id != null">
                 ID,
@@ -190,10 +181,10 @@
         where ID = #{id,jdbcType=VARCHAR}
     </update>
 
-    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-    update l_product
-    set PRODUCT_NAME=#{productName},PRODUCT_TYPE= #{productType},
-    WASTE_ID=#{wasteId},STATE=#{state},PRODUCT_DESCRIBE=#{productDescribe},
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+    update l_produce_formula_detail
+    set PRODUCT_FORMULA_ID=#{productFormulaId},MATERIAL_ID=#{materialId},
+    MATERIAL_NUMBER=#{materialNumber},DEPOT_ID=#{depotId},
     OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>

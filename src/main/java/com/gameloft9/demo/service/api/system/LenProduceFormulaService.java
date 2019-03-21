@@ -1,16 +1,18 @@
-package com.gameloft9.demo.dataaccess.dao.system;
+package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormula;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
+ * @packageName: com.gameloft9.demo.service.api.system
  * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
+ * @time: 2019/3/20 0020 - 上午 10:25
  * @description:
  */
-public interface LenProduceFormulaMapper {
+
+public interface LenProduceFormulaService {
     /**
      *查找所有（无条件）
      *
@@ -30,17 +32,13 @@ public interface LenProduceFormulaMapper {
     /**
      * 分页查找
      *
-     * @param start
-     * @param end
-     * @param productId
-     * @param createUserId
+
      * @return
      */
     List<LenProduceFormula> selectByPage(
-            @Param("start") int start,
-            @Param("end") int end,
-            @Param("productId") String productId,
-            @Param("createUserId") String createUserId
+            String page,String limit,
+            String productId,
+            String createUserId
     );
 
     /**
@@ -49,7 +47,7 @@ public interface LenProduceFormulaMapper {
      * @param lenProduceFormula
      * @return
      */
-    int insert(LenProduceFormula lenProduceFormula);
+    boolean insert(LenProduceFormula lenProduceFormula);
 
     /**
      * 修改
@@ -57,7 +55,7 @@ public interface LenProduceFormulaMapper {
      * @param lenProduceFormula
      * @return
      */
-    int update(LenProduceFormula lenProduceFormula);
+    boolean update(LenProduceFormula lenProduceFormula);
 
     /**
      * 删除
@@ -65,7 +63,7 @@ public interface LenProduceFormulaMapper {
      * @param id
      * @return
      */
-    int delete(String id);
+    boolean delete(String id);
 
     /**
      * 统计条数
@@ -79,12 +77,12 @@ public interface LenProduceFormulaMapper {
      * 选择修改
      * @return
      */
-    int updateByPrimaryKeySelective(LenProduceFormula lenProduceFormula);
+    boolean updateByPrimaryKeySelective(LenProduceFormula lenProduceFormula);
 
     /**
      * 选择插入
      *
      * @return
      */
-    int insertSelective(LenProduceFormula lenProduceFormula);
+    boolean insertSelective(LenProduceFormula lenProduceFormula);
 }

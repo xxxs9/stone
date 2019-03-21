@@ -1,17 +1,17 @@
-package com.gameloft9.demo.dataaccess.dao.system;
+package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenCreateUserInfo;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
+ * @packageName: com.gameloft9.demo.service.api.system
  * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
+ * @time: 2019/3/20 0020 - 上午 11:17
  * @description:
  */
-public interface LenCreateUserInfoMapper {
+public interface LenCreateUserInfoService {
+
     /**
      * 查找所有
      *
@@ -30,34 +30,35 @@ public interface LenCreateUserInfoMapper {
     /**
      * 分页查找
      *
-     * @param start
-     * @param end
+     * @param page
+     * @param limit
      * @param createUser
      * @param createTime
      * @return
      */
     List<LenCreateUserInfo> selectByPage(
-            @Param("start") int start,
-            @Param("end") int end,
-            @Param("createUser") String createUser,
-            @Param("createTime") String createTime
+           String page,String limit,
+            String createUser,
+           String createTime
     );
 
     /**
      * 增加
      *
-     * @param lenCreateUserInfo
+     * @param createUser
+     * @param createTime
+     * @param employeeId
      * @return
      */
-    int insert(LenCreateUserInfo lenCreateUserInfo);
+    boolean insert(String createUser,String createTime ,String employeeId);
 
     /**
      * 修改
      *
-     * @param lenCreateUserInfo
+     * @param len
      * @return
      */
-    int update(LenCreateUserInfo lenCreateUserInfo);
+    boolean update(LenCreateUserInfo len);
 
     /**
      * 删除
@@ -65,7 +66,7 @@ public interface LenCreateUserInfoMapper {
      * @param id
      * @return
      */
-    int delete(String id);
+    boolean delete(String id);
 
     /**
      * 统计条数
@@ -78,17 +79,17 @@ public interface LenCreateUserInfoMapper {
     /**
      * 选择插入
      *
-     * @param lenCreateUserInfo
+     * @param len
      * @return
      */
-    int insertSelective(LenCreateUserInfo lenCreateUserInfo);
+    boolean insertSelective(LenCreateUserInfo len);
 
     /**
      * 选择修改
-     * @param lenCreateUserInfo
+     * @param len
      * @return
      */
-    int updateByPrimaryKeySelective(LenCreateUserInfo lenCreateUserInfo);
+    boolean updateByPrimaryKeySelective(LenCreateUserInfo len);
 
 
 }

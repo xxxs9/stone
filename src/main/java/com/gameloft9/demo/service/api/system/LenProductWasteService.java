@@ -1,19 +1,19 @@
-package com.gameloft9.demo.dataaccess.dao.system;
-
-
+package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProductWaste;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
+ * @packageName: com.gameloft9.demo.service.api.system
  * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
+ * @time: 2019/3/19 0019 - 下午 4:49
  * @description:
  */
-public interface LenProductWasteMapper {
+
+public interface LenProductWasteService {
     /**
      *查找所有（无条件）
      *
@@ -33,32 +33,32 @@ public interface LenProductWasteMapper {
     /**
      * 分页查找
      *
-     * @param start
-     * @param end
+     * @param page
+     * @param limit
      * @param state
      * @return
      */
     List<LenProductWaste> selectByPage(
-            @Param("start") int start,
-            @Param("end") int end,
+            @Param("page") String page,
+            @Param("limit") String limit,
             @Param("state") String state
     );
 
     /**
      *增加
      *
-     * @param lenProductWaste
+     * @param lenProduct
      * @return
      */
-    int insert(LenProductWaste lenProductWaste);
+    boolean insert(LenProductWaste lenProduct);
 
     /**
      * 修改
      *
-     * @param lenProductWaste
+     * @param lenProduct
      * @return
      */
-    int update(LenProductWaste lenProductWaste);
+    boolean update(LenProductWaste lenProduct);
 
     /**
      * 删除
@@ -66,36 +66,37 @@ public interface LenProductWasteMapper {
      * @param id
      * @return
      */
-    int delete(String id);
+    boolean delete(String id);
 
     /**
-     * 查询条数
+     * 统计条数
      *
+     * @param state
      * @return
      */
-    int dataCount(@Param("state") String state);
+    int dataCount(String state);
 
     /**
      * 更改state状态码
      *
      * @return
      */
-    int changeState();
+    boolean changeState();
 
     /**
-     *选择更新
+     * 选择修改
      *
-     * @param lenProductWaste
+     * @param lenProduct
      * @return
      */
-    int updateByPrimaryKeySelective(LenProductWaste lenProductWaste);
+    boolean updateByPrimaryKeySelective(LenProductWaste lenProduct);
 
     /**
      * 选择插入
      *
-     * @param lenProductWaste
+     * @param lenProduct
      * @return
      */
-    int insertSelective(LenProductWaste lenProductWaste);
+    boolean insertSelective(LenProductWaste lenProduct);
 
 }

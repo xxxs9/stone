@@ -1,20 +1,22 @@
-package com.gameloft9.demo.dataaccess.dao.system;
-
+package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
+ * @packageName: com.gameloft9.demo.service.api.system
  * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
+ * @time: 2019/3/19 0019 - 下午 3:25
  * @description:
  */
-public interface LenProductMapper {
+
+public interface LenProductService {
+
     /**
-     *查找所有（无条件）
+     * 查找所有（无条件）
      *
      * @return
      *
@@ -32,17 +34,17 @@ public interface LenProductMapper {
     /**
      * 分页查找
      *
-     * @param start
-     * @param end
+     * @param page
+     * @param limit
      * @param productName
      * @param state
      * @return
      */
     List<LenProduct> selectByPage(
-            @Param("start") int start,
-            @Param("end") int end,
-            @Param("productName") String productName,
-            @Param("state") String state
+           String page,
+             String limit,
+           String productName,
+             String state
     );
 
     /**
@@ -51,7 +53,7 @@ public interface LenProductMapper {
      * @param lenProduct
      * @return
      */
-    int insert(LenProduct lenProduct);
+    boolean insert(LenProduct lenProduct);
 
     /**
      * 修改
@@ -59,7 +61,7 @@ public interface LenProductMapper {
      * @param lenProduct
      * @return
      */
-    int update(LenProduct lenProduct);
+    boolean update(LenProduct lenProduct);
 
     /**
      * 删除
@@ -67,7 +69,7 @@ public interface LenProductMapper {
      * @param id
      * @return
      */
-    int delete(String id);
+    boolean delete(String id);
 
     /**
      * 统计条数
@@ -82,7 +84,7 @@ public interface LenProductMapper {
      *
      * @return
      */
-    int changeState();
+    boolean changeState();
 
     /**
      * 选择修改
@@ -90,7 +92,7 @@ public interface LenProductMapper {
      * @param lenProduct
      * @return
      */
-    int updateByPrimaryKeySelective(LenProduct lenProduct);
+    boolean updateByPrimaryKeySelective(LenProduct lenProduct);
 
     /**
      * 选择插入
@@ -98,6 +100,6 @@ public interface LenProductMapper {
      * @param lenProduct
      * @return
      */
-    int insertSelective(LenProduct lenProduct);
+    boolean insertSelective(LenProduct lenProduct);
 
 }

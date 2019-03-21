@@ -1,18 +1,16 @@
-package com.gameloft9.demo.dataaccess.dao.system;
-
+package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
+ * @packageName: com.gameloft9.demo.service.api.system
  * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
+ * @time: 2019/3/20 0020 - 上午 10:46
  * @description:
  */
-public interface LenProduceFormulaDetailMapper {
+public interface LenProduceFormulaDetailService {
     /**
      *查找所有（无条件）
      *
@@ -32,17 +30,17 @@ public interface LenProduceFormulaDetailMapper {
     /**
      * 分页查找
      *
-     * @param start
-     * @param end
-     * @param materialId 原料ID
-     * @param depotId 仓库ID
+     * @param page
+     * @param limit
+     * @param materialId
+     * @param depotId
      * @return
      */
     List<LenProduceFormulaDetail> selectByPage(
-            @Param("start") int start,
-            @Param("end") int end,
-            @Param("materialId") String materialId,
-            @Param("depotId") String depotId
+            String page,
+            String limit,
+            String materialId,
+           String depotId
     );
 
     /**
@@ -51,7 +49,7 @@ public interface LenProduceFormulaDetailMapper {
      * @param lenProduceFormulaDetail
      * @return
      */
-    int insert(LenProduceFormulaDetail lenProduceFormulaDetail);
+    boolean insert(LenProduceFormulaDetail lenProduceFormulaDetail);
 
     /**
      * 修改
@@ -59,7 +57,7 @@ public interface LenProduceFormulaDetailMapper {
      * @param lenProduceFormulaDetail
      * @return
      */
-    int update(LenProduceFormulaDetail lenProduceFormulaDetail);
+    boolean update(LenProduceFormulaDetail lenProduceFormulaDetail);
 
     /**
      * 删除
@@ -67,7 +65,7 @@ public interface LenProduceFormulaDetailMapper {
      * @param id
      * @return
      */
-    int delete(String id);
+    boolean delete(String id);
 
     /**
      * 查询条数
@@ -83,7 +81,7 @@ public interface LenProduceFormulaDetailMapper {
      * @param produceFormulaDetail
      * @return
      */
-    int insertSelective(LenProduceFormulaDetail produceFormulaDetail);
+    boolean insertSelective(LenProduceFormulaDetail produceFormulaDetail);
 
     /**
      * 选择修改
@@ -91,7 +89,5 @@ public interface LenProduceFormulaDetailMapper {
      * @param lenProduceFormulaDetail
      * @return
      */
-    int updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
-
-
+    boolean updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
 }
