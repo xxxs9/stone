@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class SysFinanceChargeOff extends SysFinancePublicPayReceive {
+public class SysFinanceChargeOff {
 
     /**ID*/
     private String id;
@@ -17,6 +17,12 @@ public class SysFinanceChargeOff extends SysFinancePublicPayReceive {
     /**应付单ID*/
     private String payId;
 
-    /**公共表ID*/
-    private String publicId;
+    /**应付款*/
+    private String accountPayable;
+
+    /**实际付款*/
+    private String actualPayment;
+
+    /**欠款*/
+    private String arrears;
 }

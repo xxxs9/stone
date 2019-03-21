@@ -43,22 +43,16 @@ layui.config({
         tableIns = table.render({
             elem: '#menu-data'
             , height: 415
-            , url: $tool.getContext() + 'menu/menuList.do' //数据接口
+            , url: $tool.getContext() + 'finance/chargeOffList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'title', title: '菜单名称', width: '10%'}
-                , {field: 'code', title: '菜单编号', width: '10%'}
-                , {field: 'href', title: '链接地址', width: '10%'}
-                , {field: 'requestUrl', title: '后台请求路径', width: '10%'}
-                , {field: 'sort', title: '排序号', width: '10%'}
-                , {field: 'parentMenuName', title: '父菜单名称', width: '10%'}
-                , {field: 'parentMenuCode', title: '父菜单编号', width: '10%'}
-                , {field: 'createTime', title: '创建时间', width: '20%'}
-                , {field: 'updateUser', title: '更新者', width: '10%'}
-                , {field: 'updateTime', title: '更新时间', width: '20%'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                  {type:'numbers',title:'序号',fixed: 'left'}
+                , {field: 'payId', title: '应付单编号', width: '10%'}
+                , {field: 'accountPayable', title: '应付款', width: '10%'}
+                , {field: 'actualPayment', title: '实付款', width: '10%'}
+                , {field: 'arrears', title: '欠款', width: '10%'}
+                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码

@@ -15,6 +15,7 @@ layui.config({
 
     var tableIns;//表格实例
 
+alert(3)
     /**
      * 页面初始化
      * */
@@ -42,27 +43,26 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#purchase_check'
-            , height: 415
+            , height: 370
             , url: $tool.getContext() + 'finance/purchase_checkList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'orderNumber', title: '订单单号',width:100}
-                , {field: 'goodsId', title: '商品名称', width:120}
-                , {field: 'goodsNumber', title: '商品数量', width:100}
-                , {field: 'price', title: '商品价格', width:100}
-                , {field: 'applyUser', title: '申请人', width:80}
-                , {field: 'applyTime', title: '申请时间', width:120}
-                , {field: 'state', title: '订单状态', width:100}
-                , {field: 'applyDescribe', title: '申请描述', width:220}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'orderNumber', title: '订单单号',width:100,event:'show',style:'cursor:pointer'}
+                , {field: 'goodsId', title: '商品名称', width:120,event:'show',style:'cursor:pointer'}
+                , {field: 'goodsNumber', title: '商品数量', width:100,event:'show',style:'cursor:pointer'}
+                , {field: 'price', title: '商品价格', width:100,event:'show',style:'cursor:pointer'}
+                , {field: 'applyUser', title: '申请人', width:80,event:'show',style:'cursor:pointer'}
+                , {field: 'applyTime', title: '申请时间', width:140,event:'show',style:'cursor:pointer'}
+                , {field: 'state', title: '订单状态', width:100,event:'show',style:'cursor:pointer'}
+                , {field: 'applyDescribe', title: '申请描述', width:220,event:'show',style:'cursor:pointer'}
+                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
             }
         });
-
         //为toolbar添加事件响应
         table.on('tool(menuFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
@@ -75,8 +75,13 @@ layui.config({
             } else if (layEvent === 'edit') { //编辑
                 //do something
                 editMenu(row.id);
+            } else if (layEvent === 'show') { //编辑
+                //do something
+
             }
         });
+
+        table.on()
     }
     defineTable();
 
