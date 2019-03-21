@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>申请单审核</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <style type="text/css">
+        .layui-form-item .layui-inline {
+            width: 33.333%;
+            float: left;
+            margin-right: 0;
+        }
+
+        @media (max-width: 1240px) {
+            .layui-form-item .layui-inline {
+                width: 100%;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body class="childrenBody">
+<hr/>
+<form class="layui-form" style="width:80%;" name="inspectPurchaseForm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购编号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="id" readonly="readonly" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单单号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="orderNumber" readonly="readonly" lay-verify="required" placeholder="请输入订单编号">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品名称</label>
+        <div class="layui-input-block">
+            <select id="parentGoodsId" name="goodsId" disabled="disabled"></select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="goodsNumber" readonly="readonly" lay-verify="required" placeholder="请输入商品数量">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品价格</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="price" readonly="readonly" lay-verify="required" placeholder="请输入商品价格">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">申请人</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="applyUser" readonly="readonly" lay-verify="required" placeholder="请输入申请人名字">
+        </div>
+    </div>
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">申请时间</label>
+        <div class="layui-input-block">
+            <input type="date" class="layui-input" name="applyTime"  lay-verify="required">
+        </div>
+    </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">申请描述</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="applyDescribe" readonly="readonly" lay-verify="required" placeholder="请输入申请描述">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核人</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="orderAuditUser" lay-verify="required" placeholder="请输入您的姓名">
+        </div>
+    </div>
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">审核时间</label>
+        <div class="layui-input-block">
+            <input type="date" class="layui-input" name="orderAuditTime" lay-verify="required">
+        </div>
+    </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核描述</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="auditDescribe" lay-verify="required" placeholder="请输入审核描述">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit=""  lay-filter="inspectPur" name="state">审核通过</button>
+            <button class="layui-btn  layui-btn-primary"  lay-submit="" lay-filter="inspectPur" name="state">审核未通过</button>
+        </div>
+    </div>
+</form>
+
+<!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
+<script type="text/javascript" src="../../../lib/layui/layui.js"></script>
+<script type="text/javascript" src="../../../common/js/config.js"></script>
+<script type="text/javascript" src="purApplyInspect.js"></script>
+</body>
+</html>
