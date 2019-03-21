@@ -19,6 +19,10 @@
     ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
      </sql>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3 from l_product
+    </select>
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3

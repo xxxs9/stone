@@ -13,8 +13,6 @@ layui.config({
         $api = layui.$api;
 
 
-    var roleIdList = new Array();//所有的角色id列表
-    var menu_roleIds =[];//菜单所属角色列表
 
     /**
      * 初始化页面
@@ -22,6 +20,7 @@ layui.config({
     function init() {
         //初始化菜单信息
         initMenuInfo();
+
     }
     init();
 
@@ -30,24 +29,39 @@ layui.config({
      * */
     function initMenuInfo() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
-        var wid = queryArgs['Id'];
+        var wid = queryArgs['id'];
 
-        var url = $tool.getContext()+'/material/get';
+        var url = $tool.getContext()+'/formula/get';
         var req = {
             id:wid
         };
 
-        $api.GetMaterial(req,function (res) {
+        $api.getFormulaById(req,function (res) {
             var data = res.data;
-
-            $("[name='GoodsName']").val(data.goodsName);
-            $("[name='GoodsType']").val(data.goodsType);
-            $("[name='GoodsDescribe']").val(data.goodsDescribe);
-           // menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
-            //加载角色列表
-            // loadRoleList();
+            select(data.productId);
+            // $("[name='productId']").val(data.productId);
+            $("[name='formulaType']").val(data.formulaType);
+            $("[name='formulaNumber']").val(data.formulaNumber);
+            $("[name='createUserId']").val(data.createUserId);
             form.render();//重新绘制表单，让修改生效
         });
+
+        function select() {
+            $api.getAllProduct(null, function (res) {
+                var data2 = res.data;
+                if (data2.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data2.length; i++) {
+                        html += '<option value="' + data2[i].id + '">' + data2[i].id + '-------' + data2[i].productName+ '</option>>';
+                    }
+                    $('#parentMenu').append($(html));
+                    //$('#parentMenu').val(hh);
+                    form.render();
+                }
+
+            });
+
+        }
     }
 
     /**
@@ -87,9 +101,10 @@ layui.config({
     form.on("submit(editMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         console.log(queryArgs)
-        var GoodsName = data.field.GoodsName;
-        var GoodsType = data.field.GoodsType;
-        var GoodsDescribe = data.field.GoodsDescribe;
+        var productId = data.field.productId;
+        var formulaType = data.field.formulaType;
+        var formulaNumber = data.field.formulaNumber;
+        var createUserId = data.field.createUserId;
 
         /*var sort = data.field.sort;
         var idList = new Array();*/
@@ -102,16 +117,17 @@ layui.config({
         }
 */
         //请求
-        var url = $tool.getContext()+'/material/update';
+        var url = $tool.getContext()+'/formula/update';
         var req = {
-            Id:queryArgs['Id'],
-            GoodsName:GoodsName,
-            GoodsType:GoodsType,
-            GoodsDescribe:GoodsDescribe
-         //   roleIdList:idList
+            id:queryArgs['id'],
+            productId:productId,
+            formulaType:formulaType,
+            formulaNumber:formulaNumber,
+            createUserId:createUserId
+
         };
 
-        $api.UpdateMaterial(req,function (data) {
+        $api.udpFormula(req,function (data) {
             layer.msg("修改成功！",{time:1000},function () {
                 layer.closeAll("iframe");
                 //刷新父页面

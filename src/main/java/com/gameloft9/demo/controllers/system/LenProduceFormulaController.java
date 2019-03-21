@@ -56,5 +56,11 @@ public class LenProduceFormulaController {
         return  new ResultBean<Boolean>(service.delete(id));
     }
 
+    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult getById(String id){
+        return  new ResultBean<LenProduceFormula>(service.getByPrimaryKey(id));
+    }
+
 
 }

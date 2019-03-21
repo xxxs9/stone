@@ -3,10 +3,10 @@
 <!--mapper映射-->
 <mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenCreateUserInfoMapper">
     <!--结果集映射-->
-    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenCreateUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenCreateUserInfo">
             <id column="ID" property="id"/>
             <result column="CREATE_USER" property="createUser"/>
-            <result column="CREATE_TIME" property="createTime"/>
+            <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
             <result column="EMPLOYEE_ID" property="employeeId"/>
             <result column="OTHER1" property="other1"/>
             <result column="OTHER2" property="other2"/>
@@ -27,8 +27,7 @@
 
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">
-        select * from l_create_user_info t
-        where 1=1
+        select ID,CREATE_USER,CREATE_TIME,EMPLOYEE_ID,OTHER1,OTHER2,OTHER3 from l_create_user_info t where 1=1
         <if test="createUser != null and createUser != ''">
             and t.CREATE_USER = #{createUser,jdbcType=VARCHAR}
         </if>
@@ -84,7 +83,7 @@
     #{employeeId},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
 
   </insert>
@@ -137,9 +136,8 @@
                 #{other3,jdbcType=VARCHAR},
             </if>
         </trim>
-
-
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenCreateUserInfo">
         update l_create_user_info
         <set>

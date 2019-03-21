@@ -25,6 +25,8 @@ public class DateUtil {
         return sdf.format(data);
     }
 
+
+
     /**
      * 日期转字符串
      *
@@ -36,6 +38,8 @@ public class DateUtil {
         return sdf.format(data);
     }
 
+
+
     /**
      * 字符串转日期
      * @param str 日期字符串
@@ -43,6 +47,23 @@ public class DateUtil {
      */
     public static Date str2Date(String str) {
         SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
+        Date res;
+        try {
+            res = sdf.parse(str);
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("日期解析异常");
+        }
+    }
+
+    /**
+     *
+     * @param str
+     * @param str2
+     * @return
+     */
+    public static Date str2Date(String str, String str2) {
+        SimpleDateFormat sdf = new SimpleDateFormat(str2);
         Date res;
         try {
             res = sdf.parse(str);

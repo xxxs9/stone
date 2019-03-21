@@ -56,9 +56,11 @@ public class LenProductWasteController {
         return  new ResultBean<Boolean>(service.delete(id));
     }
 
-
-
-
+    @RequestMapping("/get")
+    @ResponseBody
+    public IResult getById(String id){
+        return  new ResultBean<LenProductWaste>(service.getByPrimaryKey(id));
+    }
 
 
 

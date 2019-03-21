@@ -150,18 +150,40 @@ layui.define(['$tool','jquery'], function (exports) {
         delProduct:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'product/del',req,config,successCallback,errorCallback);
         },
-        getAllProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/list',req,config,successCallback,errorCallback);
+        getAllProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
         getProductById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
         },
         updateProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
+            doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },
         delProduceFormula:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
-        }
+            doPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
+        },
+        udpFormula:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/upd',req,config,successCallback,errorCallback);
+        },
+        getFormulaById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/get',req,successCallback,errorCallback);
+        },
+        //列出配方表所有信息
+        getAllFormula:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
+        },
+        delCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
+        },
+        addCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/add',req,successCallback,errorCallback);
+        },
+        getCreateUserById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/get',req,successCallback,errorCallback);
+        },
+        editCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/upd',req,successCallback,errorCallback);
+        },
     };
 
 

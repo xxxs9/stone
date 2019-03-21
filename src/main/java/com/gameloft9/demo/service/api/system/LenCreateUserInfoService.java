@@ -45,10 +45,12 @@ public interface LenCreateUserInfoService {
     /**
      * 增加
      *
-     * @param len
+     * @param createUser
+     * @param createTime
+     * @param employeeId
      * @return
      */
-    boolean insert(LenCreateUserInfo len);
+    boolean insert(String createUser,String createTime ,String employeeId);
 
     /**
      * 修改
