@@ -191,14 +191,6 @@ layui.define(['$tool','jquery'], function (exports) {
         inspectPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/inspect.do',req,config,successCallback,errorCallback);
         },
-        //收货 bring
-        bringPurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/bring.do',req,config,successCallback,errorCallback);
-        },
-        //财务审核人员获取财务审核状态为待审核的信息
-        financePurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
-        },
 
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
@@ -263,6 +255,13 @@ layui.define(['$tool','jquery'], function (exports) {
         UpdatePay:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
         },
+
+        /*审核采购订单付款申请*/
+        auditingPurchase:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/auditingPurchaseOrder.do',req,successCallback,errorCallback);
+        },
+
+
         AddProduct:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
         },

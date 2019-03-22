@@ -77,4 +77,38 @@
 
         </where>
     </select>
+
+    <!--生成采购应付单  add(T t)-->
+    <!--<select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        insert into a_purchase_bills_payable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+              ID,
+            </if>
+            <if test="purchaseOrderId != null and id != ''">
+              PURCHASE_ORDER_ID,
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+              GOODS_NUMBER,
+            </if>
+        </trim>
+
+        <trim prefix=" vaulues(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+
+            </if>
+            <if test="purchaseOrderId != null and id != ''">
+
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+
+            </if>
+        </trim>
+
+    </select>-->
+    
+    <!--&lt;!&ndash;采购应付单对应的公共表&ndash;&gt;
+    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePublicPurchaseSale">
+
+    </select>-->
 </mapper>

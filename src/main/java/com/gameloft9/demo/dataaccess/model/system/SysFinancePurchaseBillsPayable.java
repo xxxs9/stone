@@ -23,4 +23,6 @@ public class SysFinancePurchaseBillsPayable extends SysFinancePublicPurchaseSale
     /**公共表ID*/
     private String publicId;
 
+
+
 }
