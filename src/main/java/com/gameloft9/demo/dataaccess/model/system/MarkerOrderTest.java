@@ -12,6 +12,7 @@ public class MarkerOrderTest {
     private String orderId;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
+    private String productId;
     private String customer;
     private String deliverNumber;
     private String currentNumber;
@@ -23,23 +24,5 @@ public class MarkerOrderTest {
     private String orderAuditUser;
     private String remarks;
 
-    @Override
-    public String toString() {
-        return "MarkerOrderTest{" +
-                "id='" + id + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", orderTime=" + orderTime +
-                ", customer='" + customer + '\'' +
-                ", deliverNumber='" + deliverNumber + '\'' +
-                ", currentNumber='" + currentNumber + '\'' +
-                ", plannedNumber='" + plannedNumber + '\'' +
-                ", acceptedAmount='" + acceptedAmount + '\'' +
-                ", unpaidAmount='" + unpaidAmount + '\'' +
-                ", applyUser='" + applyUser + '\'' +
 
-                ", state='" + state + '\'' +
-                ", orderAuditUser='" + orderAuditUser + '\'' +
-                ", remarks='" + remarks + '\'' +
-                '}';
-    }
 }

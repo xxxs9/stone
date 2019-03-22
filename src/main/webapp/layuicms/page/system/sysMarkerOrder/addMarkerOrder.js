@@ -93,6 +93,7 @@ layui.config({
         var id = data.field.id;
         var orderId = data.field.orderId;
         var orderTime = data.field.orderTime;
+        var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
         var currentNumber = data.field.currentNumber;
@@ -100,7 +101,6 @@ layui.config({
         var acceptedAmount = data.field.acceptedAmount;
         var unpaidAmount = data.field.unpaidAmount;
         var applyUser = data.field.applyUser;
-
         var state = data.field.state;
         var orderAuditUser = data.field.orderAuditUser;
         var remarks = data.field.remarks
@@ -123,6 +123,7 @@ layui.config({
             id: id,
             orderId: orderId,
             orderTime: orderTime,
+            productId: productId,
             customer: customer,
             deliverNumber: deliverNumber,
             currentNumber: currentNumber,
@@ -130,10 +131,8 @@ layui.config({
             acceptedAmount: acceptedAmount,
             unpaidAmount: unpaidAmount,
             applyUser: applyUser,
-
             state: state,
             orderAuditUser: orderAuditUser,
-
             remarks: remarks
 
         };
@@ -149,6 +148,16 @@ layui.config({
 
         return false;
     })
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'datetime'
+        });
+    });
 
 });
 

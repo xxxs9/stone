@@ -7,6 +7,7 @@
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
         <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
         <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
@@ -23,6 +24,7 @@
         ID,
         ORDER_ID,
         ORDER_TIME,
+        PRODUCT_ID,
         CUSTOMER,
         DELIVER_NUMBER,
         CURRENT_NUMBER,
@@ -92,6 +94,7 @@
            ID,
            ORDER_ID,
            ORDER_TIME,
+           PRODUCT_ID,
            CUSTOMER,
            DELIVER_NUMBER,
            CURRENT_NUMBER,
@@ -115,12 +118,10 @@
         from
           w_marker_order
         <where>
-            <if test="orderId != null and orderId != ''">
-                and ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            <if test="productId != null and productId != ''">
+                and PRODUCT_ID = #{productId,jdbcType=VARCHAR}
             </if>
-            <if test="orderTime != null and orderTime != ''">
-                and ORDER_TIME = #{orderTime,jdbcType=DATE}
-            </if>
+
         </where>
         order by ID asc
           limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -133,21 +134,13 @@
         count(1)
         from w_marker_order t
         <where>
-            <if test="orderId != null and orderId != ''">
-                and t.ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            <if test="productId != null and productId != ''">
+                and t.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
             </if>
-            <if test="orderTime != null and orderTime != ''">
-                and t.ORDER_TIME = #{orderTime,jdbcType=DATE}
-            </if>
+
         </where>
     </select>
 
-    <!--<select id="findById"  parameterType="java.lang.Integer" resultType="com.gameloft9.demo.dataaccess.model.system.Product">
-        select
-       *
-        from product
-        where ID = #{id,jdbcType=VARCHAR}
-    </select>-->
 
     <!--通过ID删除-->
     <delete id="deleteById" parameterType="java.lang.String">
@@ -161,6 +154,7 @@
           (ID,
           ORDER_ID,
           ORDER_TIME,
+          PRODUCT_ID,
           CUSTOMER,
           DELIVER_NUMBER,
           CURRENT_NUMBER,
@@ -175,6 +169,7 @@
           (#{id},
           #{orderId},
           #{orderTime},
+          #{productId},
           #{customer},
           #{deliverNumber},
           #{currentNumber},
@@ -182,7 +177,6 @@
           #{acceptedAmount},
           #{unpaidAmount},
           #{applyUser},
-
           #{state},
           #{orderAuditUser},
           #{remarks})
@@ -194,6 +188,7 @@
         set
             ORDER_ID=#{orderId},
             ORDER_TIME=#{orderTime},
+            PRODUCT_ID=#{productId},
             CUSTOMER=#{customer},
             DELIVER_NUMBER=#{deliverNumber},
             CURRENT_NUMBER=#{currentNumber},
@@ -201,12 +196,47 @@
             ACCEPTED_AMOUNT=#{acceptedAmount},
             UNPAID_AMOUNT=#{unpaidAmount},
             APPLY_USER=#{applyUser},
-
             STATE=#{state},
             ORDER_AUDIT_USER=#{orderAuditUser},
             REMARKS=#{remarks}
         where
             ID=#{id}
   </update>
+
+    <!--添加-->
+    <insert id="orderNum" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        insert into
+           w_marker_order
+          (ID,
+          ORDER_ID,
+          ORDER_TIME,
+          PRODUCT_ID,
+          CUSTOMER,
+          DELIVER_NUMBER,
+          CURRENT_NUMBER,
+          PLANNED_NUMBER,
+          ACCEPTED_AMOUNT,
+          UNPAID_AMOUNT,
+          APPLY_USER,
+          STATE,
+          ORDER_AUDIT_USER,
+          REMARKS)
+        values
+          (#{id},
+          #{orderId},
+          #{orderTime},
+          #{productId},
+          #{customer},
+          #{deliverNumber},
+          #{currentNumber},
+          #{plannedNumber},
+          #{acceptedAmount},
+          #{unpaidAmount},
+          #{applyUser},
+          #{state},
+          #{orderAuditUser},
+          #{remarks})
+    </insert>
+
 
 </mapper>

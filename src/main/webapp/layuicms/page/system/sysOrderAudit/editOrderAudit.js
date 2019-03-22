@@ -56,6 +56,7 @@ layui.config({
                     $("[name='markerOrderId']").val(data.markerOrderId);
                     $("[name='orderId']").val(data.orderId);
                     $("[name='orderTime']").val(data.orderTime);
+                    $("[name='productId']").val(data.productId);
                     $("[name='customer']").val(data.customer);
                     $("[name='deliverNumber']").val(data.deliverNumber);
                     $("[name='currentNumber']").val(data.currentNumber);
@@ -84,6 +85,7 @@ layui.config({
                 var markerOrderId = data.field.markerOrderId;
                 var orderId = data.field.orderId;
                 var orderTime = data.field.orderTime;
+                var productId = data.field.productId;
                 var customer = data.field.customer;
                 var deliverNumber = data.field.deliverNumber;
                 var currentNumber = data.field.currentNumber;
@@ -113,6 +115,7 @@ layui.config({
                     markerOrderId: markerOrderId,
                     orderId: orderId,
                     orderTime: orderTime,
+                    productId:productId,
                     customer: customer,
                     deliverNumber: deliverNumber,
                     currentNumber: currentNumber,

@@ -6,6 +6,7 @@ import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,26 +24,23 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * 获取所有订单信息
      * @param page
      * @param limit
-     * @param orderId
-     * @param orderTime
+     * @param productId
      * @return
      */
-    @Override
-    public List<MarkerOrderTest> findAll(String page, String limit, String orderId, Date orderTime) {
+
+    public List<MarkerOrderTest> findAll(String page, String limit, String productId) {
         PageRange pageRange = new PageRange(page,limit);
-        return markerOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),orderId,orderTime);
+        return markerOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
     }
 
     /**
      * 获取所有订单个数
-     * @param orderId
-     * @param orderTime
+     * @param productId
      * @return
      */
-    @Override
-    public int countGetAll(String orderId, Date orderTime) {
 
-        return markerOrderMapper.countGetAll(orderId,orderTime);
+    public int countGetAll(String productId) {
+        return markerOrderMapper.countGetAll(productId);
     }
 
     /**
@@ -50,7 +48,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param id
      * @return
      */
-    @Override
+
     public int deleteById(String id) {
         return markerOrderMapper.deleteById(id);
     }
@@ -60,7 +58,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-    @Override
+
     public Boolean update(MarkerOrderTest markerOrderTest) {
         return markerOrderMapper.update(markerOrderTest);
     }
@@ -70,8 +68,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-    @Override
-    public String add(MarkerOrderTest markerOrderTest) {
+
+    public int add(MarkerOrderTest markerOrderTest) {
         return markerOrderMapper.add(markerOrderTest);
     }
 
@@ -80,7 +78,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param id
      * @return
      */
-    @Override
+
     public MarkerOrderTest getMaker(String id) {
         return markerOrderMapper.getMaker(id);
     }
@@ -90,7 +88,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-    @Override
+
     public Boolean audiUpdate(MarkerOrderTest markerOrderTest) {
 
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
@@ -104,12 +102,23 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-    @Override
+
     public Boolean backUpdate(MarkerOrderTest markerOrderTest) {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUtil.APPLY_NO_AUDI);
         markerOrderMapper.backUpdate(markerOrderTest);
         return true;
+    }
+
+    /**
+     * 自动生成订单编号
+     * @param
+     * @return
+     */
+    public String orderNum(MarkerOrderTest markerOrderTest) {
+        markerOrderTest.setOrderId(OrderUtil.getLocalTrmSeqNum());
+        markerOrderMapper.orderNum(markerOrderTest);
+        return null;
     }
 
 

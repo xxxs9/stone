@@ -31,29 +31,23 @@ layui.config({
         tableIns = table.render({
             elem: '#user-data'
 
-            , url: $tool.getContext() + 'audit/list' //数据接口
+            , url: $tool.getContext() + 'marker/list' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                 {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'markerOrderId', title: '订单审核编号'}
-
-                , {field: 'orderId', title: '订单编号'}
-                , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品ID' }
+                , {field: 'shipmentId', title: '发货单编号'}
+                , {field: 'goodsName', title: '货品名称' }
                 , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '发货数量' }
-                , {field: 'currentNumber', title: '当前库存' }
-                , {field: 'plannedNumber', title: '生产计划数量' }
-                , {field: 'acceptedAmount', title: '已收款金额' }
-                , {field: 'unpaidAmount', title: '未付款金额' }
-                , {field: 'applyUser', title: '申请人' }
-                , {field: 'state', title: '订单状态' }
-                , {field: 'orderAuditUser', title: '订单审核人' }
+                , {field: 'quantityNumber', title: '发货数量' }
+                , {field: 'deliveryTime', title: '发货时间' }
+                , {field: 'receivingAddress', title: '收货地址' }
+                , {field: 'phone', title: '收货人电话' }
+                , {field: 'consignee', title: '收货人' }
+                , {field: 'receivingTime', title: '收货时间' }
+                , {field: 'state', title: '收货状态' }
                 , {field: 'remarks', title: '备注' }
-
-                , {field: 'auditTime', title: '审核时间' }
                 , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -69,16 +63,14 @@ layui.config({
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delOrderAudit(row.id);
+                delMarkerOrder(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editOrderAudit(row.id);
+                editMarkerOrder(row.id);
             }else if (layEvent === 'audi'){//提交
                 audi(row.id);
             }else if (layEvent === 'back') {//撤回
                 back(row.id);
-            }else if (layEvent === 'pass') {//审核通过
-                pass(row.id);
             }
         });
     }
@@ -89,48 +81,33 @@ layui.config({
     form.on("submit(queryUser)", function (data) {
         /*var status = data.field.status;*/
         var id=data.field.id;
-        var markerOrderId = data.field.markerOrderId;
-
-        var orderId = data.field.orderId;
-        var orderTime = data.field.orderTime;
-        var productId = data.field.productId;
+        var shipmentId = data.field.shipmentId;
+        var goodsName = data.field.goodsName;
         var customer = data.field.customer;
-        var deliverNumber = data.field.deliverNumber;
-        var currentNumber = data.field.currentNumber;
-        var plannedNumber = data.field.plannedNumber;
-        var acceptedAmount = data.field.acceptedAmount;
-        var unpaidAmount = data.field.unpaidAmount;
-        var applyUser = data.field.applyUser;
+        var quantityNumber = data.field.quantityNumber;
+        var deliveryTime = data.field.deliveryTime;
+        var receivingAddress = data.field.receivingAddress;
+        var phone = data.field.phone;
+        var consignee = data.field.consignee;
+        var receivingTime = data.field.receivingTime;
         var state = data.field.state;
-        var orderAuditUser = data.field.orderAuditUser;
         var remarks = data.field.remarks;
-
-        var auditTime = data.field.auditTime;
-
-
         //表格重新加载
         tableIns.reload({
             where:{
                 /*status:status,*/
                 id:id,
-                markerOrderId:markerOrderId,
-                orderId:orderId,
-                orderTime:orderTime,
-                productId:productId,
+                shipmentId:shipmentId,
+                goodsName:goodsName,
                 customer:customer,
-                deliverNumber:deliverNumber,
-                currentNumber:currentNumber,
-                plannedNumber:plannedNumber,
-                acceptedAmount:acceptedAmount,
-                unpaidAmount:unpaidAmount,
-                applyUser:applyUser,
+                quantityNumber:quantityNumber,
+                deliveryTime:deliveryTime,
+                receivingAddress:receivingAddress,
+                phone:phone,
+                consignee:consignee,
+                receivingTime:receivingTime,
                 state:state,
-                orderAuditUser:orderAuditUser,
-                remarks:remarks,
-
-                auditTime:auditTime,
-
-
+                remarks:remarks
             }
         });
 
@@ -160,7 +137,7 @@ layui.config({
     });
 
     //删除
-    function delOrderAudit(id){
+    function delMarkerOrder(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -168,7 +145,7 @@ layui.config({
                 id: id
             };
 
-            $api.DeleteOrderAudit(req,function (data) {
+            $api.DeleteMarkerOrder(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -204,10 +181,10 @@ layui.config({
         });
     }
 
-    //驳回
+    //撤回
 
     function back(id){
-        layer.confirm('确认驳回吗？', function (confirmIndex) {
+        layer.confirm('确认撤回吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
@@ -215,7 +192,7 @@ layui.config({
             };
 
             $api.backUpdate(req,function (data) {
-                layer.msg("驳回成功",{time:1000},function(){
+                layer.msg("撤回成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -229,39 +206,16 @@ layui.config({
         layui.layer.full(index);
     }
 
-    //审核通过
 
-    function pass(id){
-        layer.confirm('确认通过吗？', function (confirmIndex) {
-            layer.close(confirmIndex);//关闭confirm
-            //向服务端发送成功指令
-            var req = {
-                id: id
-            };
-
-            $api.passUpdate(req,function (data) {
-                layer.msg("审核成功",{time:1000},function(){
-                    //obj.del(); //撤回对应行（tr）的DOM结构
-                    //重新加载表格
-                    tableIns.reload();
-                });
-            });
-        });
-        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        $(window).resize(function () {
-            layui.layer.full(index);
-        });
-        layui.layer.full(index);
-    }
 
 
 
     //编辑
-    function editOrderAudit(id) {
+    function editMarkerOrder(id) {
         var index = layui.layer.open({
             title: "编辑订单",
             type: 2,
-            content: "editOrderAudit.html?id=" + id,
+            content: "editMarkerOrder.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

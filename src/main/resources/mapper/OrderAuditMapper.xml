@@ -14,6 +14,7 @@
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
         <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
         <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
@@ -31,9 +32,9 @@
     <resultMap id="OrderAuditbeanResultMap" type="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="MARKER_ORDER_ID" property="markerOrderId" jdbcType="VARCHAR"/>
-
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
         <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
         <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
@@ -44,7 +45,6 @@
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
-
         <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE"/>
     </resultMap>
 
@@ -130,6 +130,7 @@
         MARKER_ORDER_ID,
         ORDER_ID,
         ORDER_TIME,
+        PRODUCT_ID,
         CUSTOMER,
         DELIVER_NUMBER,
         CURRENT_NUMBER,
@@ -175,7 +176,7 @@
     <!--审核成功pass-->
     <update id="passUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
         update
-        stone.w_marker_order
+        w_marker_order
         <set>
             <if test="state != null and state != ''">
                 STATE = #{state,jdbcType=VARCHAR}

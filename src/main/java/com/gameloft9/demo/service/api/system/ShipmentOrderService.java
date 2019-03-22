@@ -1,32 +1,29 @@
-package com.gameloft9.demo.dataaccess.dao.system;
+package com.gameloft9.demo.service.api.system;
 
 
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
-import org.apache.ibatis.annotations.Param;
+
 
 
 import java.util.List;
 
-
-public interface ShipmentOrderMapper {
+public interface ShipmentOrderService {
 
     /**
      * 分页获取所有发货单信息
-     * @param start 开始
-     * @param end 结束
-     *@return
+     * @param page
+     * @param limit
+     * @param shipmentId
+     * @return
      */
-    List<ShipmentOrder> findAll(
-            @Param("start") int start,
-            @Param("end") int end,
-            @Param("shipmentId") String shipmentId);
+    List<ShipmentOrder> findAll(String page, String limit, String shipmentId);
 
     /**
      * 获取所有发货单单个数
      * @param shipmentId
      * @return
      */
-    int countGetAll( @Param("shipmentId") String shipmentId);
+    int countGetAll(String shipmentId);
 
     /**
      * 通过ID删除发货单信息
@@ -56,7 +53,6 @@ public interface ShipmentOrderMapper {
      * @return
      */
     String add(ShipmentOrder shipmentOrder);
-
 
 
 }

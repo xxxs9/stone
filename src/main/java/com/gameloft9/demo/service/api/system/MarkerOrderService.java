@@ -10,12 +10,12 @@ public interface MarkerOrderService {
     /**
      * 获取所有销售订单信息
      */
-    List<MarkerOrderTest> findAll(String page, String limit, String orderId, Date orderTime);
+    List<MarkerOrderTest> findAll(String page, String limit, String productId);
 
     /**
      * 获取所有销售订单个数
      * */
-    int countGetAll(String orderId,Date orderTime);
+    int countGetAll(String productId);
 
     /**
      * 通过ID删除销售订单信息
@@ -30,7 +30,7 @@ public interface MarkerOrderService {
     /**
      * 增加销售订单表信息
      */
-    String add(MarkerOrderTest markerOrderTest);
+    int add(MarkerOrderTest markerOrderTest);
 
     /**
      * 获取销售订单id
@@ -52,5 +52,10 @@ public interface MarkerOrderService {
      * 撤回back
      */
     Boolean backUpdate(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 自动生成订单编号
+     */
+    String orderNum(MarkerOrderTest markerOrderTest);
 
 }
