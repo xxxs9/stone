@@ -44,10 +44,10 @@ public interface PurchaseOrderMapper {
 
     /**
      * 根据state查看
-     * @param record 记录
+     * @param id id
      * @return int 返回值
      */
-    PurchaseOrder lookSelect(String state);
+    PurchaseOrder lookSelect(String id);
 
     /**
      * 查看 look
@@ -78,6 +78,19 @@ public interface PurchaseOrderMapper {
             @Param("state") String state);
 
     /**
+     * 根据仓管财务状态获取信息
+     * @param start 开始
+     * @param end 结束
+     * @param goodsId 货品名称
+     * @param depotState 仓管订单状态
+     * @return List<PurchaseOrder> 返回值 */
+    List<PurchaseOrder> selectAllByInOrder(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("goodsId") String goodsId,
+            @Param("depotState") String depotState);
+
+    /**
      * 审核页面根据id获取列表
      * @param start 开始
      * @param end 结束
@@ -100,6 +113,8 @@ public interface PurchaseOrderMapper {
     int countGetAll(
             @Param("goodsId") String goodsId,
             @Param("state") String state);
+
+
 
     /**
      * 获取goodsId下拉框
@@ -128,12 +143,29 @@ public interface PurchaseOrderMapper {
     Boolean commitUpdate(PurchaseOrder purchaseOrder);
 
     /**
+     * 收货 bring
+     * @param purchaseOrder 实体
+     * @return boolean 布尔类型
+     * */
+    Boolean bringUpdate(PurchaseOrder purchaseOrder);
+
+    /**
      * 根据状态为待付款，查出所有
      *
      * @return
      *         啊
-     */
-    List<PurchaseOrder> getAllPurchaseOrderByState();
+     *//*
+    List<PurchaseOrder> getAllPurchaseOrderByState();*/
 
+    /**
+     * 根据财务审核状态financeState来获取所有 分页
+     * @param start 开始
+     * @param end 结束
+     * @return List<PurchaseOrder> 返回值
+     *         啊
+     * */
+    List<PurchaseOrder> getAllByFinance(
+            @Param("start") int start,
+            @Param("end") int end);
 
 }

@@ -42,8 +42,10 @@ public interface PurchaseOrderService {
 
     /**
      * 根据state查看
+     * @param id id
+     * @return PurchaseOrder 实体
      * */
-    PurchaseOrder lookSelect(String state);
+    PurchaseOrder lookSelect(String id);
 
     /**
      * 查看 look
@@ -106,6 +108,13 @@ public interface PurchaseOrderService {
      * @return boolean 布尔类型
      */
     boolean recallUpdate(String  id);
+
+    /**
+     * 收货bring
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean bringUpdate(PurchaseOrder purchaseOrder);
 
 }
 

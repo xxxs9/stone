@@ -9,8 +9,8 @@ import java.util.UUID;
 public class UUIDUtil {
 
     /**
-     * 产生紧凑型32位UUID
-     * @return
+     * 产生紧凑型
+     * @return32位UUID
      */
     public static String getUUID(){
         UUID uuid = UUID.randomUUID();

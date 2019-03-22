@@ -9,6 +9,7 @@ import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -33,6 +35,13 @@ public class PurchaseOrderController {
 
     @Autowired
     PurchaseOrderService service;
+
+    @InitBinder
+    protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
 
     /**
      * 根据id获取内容
@@ -80,12 +89,12 @@ public class PurchaseOrderController {
     }
 
     /**
-     * 获取state来查看
+     * 根据id来查看
      */
     @RequestMapping(value = "/lookGet.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult lookSelect(String state){
-        return new ResultBean<PurchaseOrder>(service.lookSelect(state));
+    public IResult lookSelect(String id){
+        return new ResultBean<PurchaseOrder>(service.lookSelect(id));
     }
 
     /**
@@ -136,6 +145,15 @@ public class PurchaseOrderController {
     }
 
     /**
+     * 收货bring
+     */
+    @RequestMapping(value = "/bring.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult bringUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.bringUpdate(purchaseOrder));
+    }
+
+    /**
      * 撤回recall
      */
     @RequestMapping(value = "/recall.do",method = RequestMethod.POST)
@@ -143,5 +161,4 @@ public class PurchaseOrderController {
     public IResult recallPurOrder(String id){
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
-
 }

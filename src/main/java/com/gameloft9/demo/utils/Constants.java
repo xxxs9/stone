@@ -101,4 +101,34 @@ public class Constants {
         /**销售（客户退货）应付单类型*/
         public static final Integer SALE_PAYABLE=4;
     }
+
+    /**
+     * 审核状态：采购人员
+     */
+    public static class PurchaseState{
+        public static final String APPLY_NO_SUBMIT="未提交";
+        public static final String APPLY_WAITING="提交审核中";
+        public static final String APPLY_PASS="审核通过";
+        public static final String APPLY_FAIL="审核未通过";
+    }
+
+    /**
+     * 审核状态：财务
+     */
+    public static class FinanceState{
+        public static final String APPLY_PASS_WAIT="待审核";
+        public static final String APPLY_PAY="待付款";
+        public static final String APPLY_PASS_PAY="已付款";
+    }
+
+    /**
+     * 审核状态：仓库管理人员
+     */
+    public static class DepotState{
+        public static final String DEPOT_PASS_SEND="已发货";
+        public static final String DEPOT_NO_SUNMIT="未提交";
+        public static final String DEPOT_WAITING="入库单审核中";
+        public static final String DEPOT_PASS="审核通过";
+        public static final String DEPOT_FAIL="审核未通过";
+    }
 }

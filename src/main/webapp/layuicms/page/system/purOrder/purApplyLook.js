@@ -17,7 +17,7 @@ layui.config({
     /**
      * 初始化页面
      * */
-    function initTestarea(){
+    /*function initTestarea(){
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
         var req = {
@@ -25,14 +25,14 @@ layui.config({
         };
 
         $api.getPurOrder(req,function (res) {
-            /*var data = res.data;
+            /!*var data = res.data;
             if(data.state == '审核未通过'){
                 $('#lookState').remove();
-            }*/
+            }*!/
         });
     }
 
-    initTestarea();
+    initTestarea();*/
     function init() {
         //初始化商品名称下拉框
         initDepotInfo();
@@ -53,11 +53,11 @@ layui.config({
         $api.lookGetPurOrder(req,function (res) {
             var data = res.data;
             console.log(data)
+            $("[name='id']").val(data.id);
             $("[name='state']").val(data.state);
-            $("[name='auditApplyUser']").val(data.auditApplyUser);
-            //$("[name='auditApplyTime']").val(data.auditApplyTime);
+            $("[name='orderAuditUser']").val(data.orderAuditUser);
+            $("[name='orderAuditTime']").val(data.orderAuditTime);
             $("[name='auditDescribe']").val(data.auditDescribe);
-            loadRoleList();
             form.render();//重新绘制表单，让修改生效
         });
     }
@@ -96,10 +96,11 @@ layui.config({
     /**
      * 表单提交
      * */
-    form.on("submit(submitFilter)", function (data) {
+    form.on("submit(purLook)", function (data) {
+        var queryArgs =  $tool.getQueryParam();//获取查询参数
         var state = data.field.state;
-        var auditApplyUser = data.field.auditApplyUser;
-        //var auditApplyTime = data.field.auditApplyTime;
+        var orderAuditUser = data.field.orderAuditUser;
+        var orderAuditTime = data.field.orderAuditTime;
         var auditDescribe = data.field.auditDescribe;
         var idList = new Array();
 
@@ -113,9 +114,10 @@ layui.config({
         //请求
         //var url = $tool.getContext()+'purchase_order/update.do';
         var req = {
+            id:queryArgs['id'],
             state:state,
-            auditApplyUser:auditApplyUser,
-            //auditApplyTime:auditApplyTime,
+            orderAuditUser:orderAuditUser,
+            orderAuditTime:orderAuditTime,
             auditDescribe:auditDescribe,
             depotIdList:idList
         };

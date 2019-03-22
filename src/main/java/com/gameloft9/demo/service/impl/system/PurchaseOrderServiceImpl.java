@@ -5,21 +5,10 @@ import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.StateUtil;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.UUIDUtil;
-import org.apache.commons.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.WebRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +27,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     /**根据id获取*/
     public PurchaseOrder selectByPrimaryKey(String id) {
-        CheckUtil.notBlank(id,"角色id为空");
+        CheckUtil.notBlank(id,"订单id为空");
         return dao.selectByPrimaryKey(id);
     }
 
@@ -67,20 +56,19 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
-    /**根据state查看*/
-    public PurchaseOrder lookSelect(String state){
-        return dao.lookSelect(state);
+    /**根据id获取查看的行*/
+    public PurchaseOrder lookSelect(String id){
+        return dao.lookSelect(id);
     }
 
-    /**查看*/
+    /**查看完，点击确定*/
     public boolean lookUpdate(PurchaseOrder purchaseOrder){
-        purchaseOrder.setOrderAuditTime(new Date());
         String state = purchaseOrder.getState();
         String str="审核未通过";
         if(str.equals(state)){
-            purchaseOrder.setState(StateUtil.APPLY_NO_SUBMIT);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
         }else{
-            purchaseOrder.setState(StateUtil.APPLY_FAIL);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
         dao.lookUpdate(purchaseOrder);
         return true;
@@ -90,12 +78,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean inspectUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
+        purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
         String state = purchaseOrder.getState();
         String str="审核通过";
         if(str.equals(state)){
-            purchaseOrder.setState(StateUtil.APPLY_PASS);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
         }else{
-            purchaseOrder.setState(StateUtil.APPLY_FAIL);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
         dao.inspectUpdate(purchaseOrder);
         return true;
@@ -118,6 +107,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return dao.countGetAll(goodsId,state);
     }
 
+
+
     /**获取下拉框goodsId商品名称*/
     public List<PurchaseOrder> getSelectListGoods() {
         List<PurchaseOrder> list = new ArrayList<PurchaseOrder>();
@@ -135,8 +126,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**提交*/
     public boolean commitUpdate(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        purchaseOrder.setState(StateUtil.APPLY_WAITING);
+        purchaseOrder.setState(Constants.PurchaseState.APPLY_WAITING);
         dao.commitUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**收货*/
+    public boolean bringUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
+        dao.bringUpdate(purchaseOrder);
         return true;
     }
 
@@ -144,8 +143,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean recallUpdate(String  id) {
         CheckUtil.notBlank(id,"订单id为空");
         PurchaseOrder purchaseOrder = dao.selectByPrimaryKey(id);
-        //调用工具类StateUtil  APPLY_NO_SUBMIT定义'未提交'
-        purchaseOrder.setState(StateUtil.APPLY_NO_SUBMIT);
+        //Constants  APPLY_NO_SUBMIT定义'未提交'
+        purchaseOrder.setState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.recallUpdate(purchaseOrder);
         return true;
     }

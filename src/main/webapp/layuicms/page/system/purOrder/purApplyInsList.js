@@ -55,6 +55,7 @@ layui.config({
             }
         });
     }
+
     /**
      * 定义表格
      * */
@@ -71,13 +72,14 @@ layui.config({
                 , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品价格', width:100}
-                , {field: 'state', title: '订单状态', width:120}
+                , {field: 'state', title: '审核状态', width:120}
                 , {field: 'applyUser', title: '申请人', width:80}
                 , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'applyDescribe', title: '申请描述', width:220}
                 , {field: 'orderAuditUser', title: '审核人', width:80}
                 , {field: 'orderAuditTime', title: '审核时间', width:200}
                 , {field: 'auditDescribe', title: '审核描述', width:220}
+                , {field: 'financeState', title: '财务审核状态', width:120}
                 , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调

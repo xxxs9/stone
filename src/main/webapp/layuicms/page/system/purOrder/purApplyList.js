@@ -163,19 +163,19 @@ layui.config({
     }
 
     //修改
-    function editPur(id){
-        var index = layui.layer.open({
-            title: "修改",
-            type: 2,
-            content: "purApplyEdit.html?id="+id,
-            success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500)
-            }
-        });
+        function editPur(id){
+            var index = layui.layer.open({
+                title: "修改",
+                type: 2,
+                content: "purApplyEdit.html?id="+id,
+                success: function (layero, index) {
+                    setTimeout(function () {
+                        layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
+            });
 
 
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -229,7 +229,7 @@ layui.config({
     function lookPur(id){
         var index = layui.layer.open({
             title: "查看审核未通过原因",
-            type: 3,
+            type: 2,
             content: "purApplyLook.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {

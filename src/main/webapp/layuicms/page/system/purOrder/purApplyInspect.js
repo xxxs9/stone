@@ -66,6 +66,7 @@ layui.config({
             $("[name='orderAuditUser']").val(data.orderAuditUser);
             //$("[name='orderAuditTime']").val(data.orderAuditTime);
             $("[name='auditDescribe']").val(data.auditDescribe);
+            $("[name='financeState']").val(data.financeState);
             //depotIds = data.depotIds;//保存菜单所属角色id列表，初始化选中时用
             //加载角色列表
             loadRoleList();
@@ -119,6 +120,7 @@ layui.config({
         var orderAuditUser = data.field.orderAuditUser;
         //var orderAuditTime = data.field.orderAuditTime;
         var auditDescribe = data.field.auditDescribe;
+        var financeState = data.field.financeState;
         var idList = new Array();
 
         //请求
@@ -136,6 +138,7 @@ layui.config({
             orderAuditUser:orderAuditUser,
             //orderAuditTime:orderAuditTime,
             auditDescribe:auditDescribe,
+            financeState:financeState,
             depotIdList:idList
         };
 
