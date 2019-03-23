@@ -110,12 +110,65 @@ public interface PurchaseOrderService {
     boolean recallUpdate(String  id);
 
     /**
-     * 收货bring
+     *采购收货 获取所有
+     * @param page 页面
+     * @param limit 页面页数
+     * @param goodsId 商品名称
+     * @param depotState 仓管审核状态
+     * @return List<PurchaseOrder> 返回值*/
+    List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsId,
+                                           String depotState);
+
+    /**
+     * 采购收货
+     * 获取个数
+     * @param goodsId 商品名称
+     * @param depotState 订单类型
+     * @return int 返回类型
+     */
+    int countGetAllByInOrder(String goodsId,String depotState);
+
+    /**
+     * 采购入库之收货bring
      * @param purchaseOrder 实体类
      * @return boolean 布尔类型
      */
-    boolean bringUpdate(PurchaseOrder purchaseOrder);
+    boolean bringInUpdate(PurchaseOrder purchaseOrder);
 
+    /**
+     * 采购入库之确认sure
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean sureInUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购入库之提交commit
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean commitInUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购入库之撤回back
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean backInUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购入库之编辑edit
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     * */
+    boolean InUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购入库之查看审核未通过原因 look
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean lookIn(PurchaseOrder purchaseOrder);
 }
 
 

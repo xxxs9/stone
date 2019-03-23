@@ -114,8 +114,6 @@ public interface PurchaseOrderMapper {
             @Param("goodsId") String goodsId,
             @Param("state") String state);
 
-
-
     /**
      * 获取goodsId下拉框
      * @return List<PurchaseOrder>
@@ -143,19 +141,26 @@ public interface PurchaseOrderMapper {
     Boolean commitUpdate(PurchaseOrder purchaseOrder);
 
     /**
-     * 收货 bring
+     * 采购入库之收货、确认、撤回、提交
      * @param purchaseOrder 实体
      * @return boolean 布尔类型
      * */
-    Boolean bringUpdate(PurchaseOrder purchaseOrder);
+    Boolean toolsUpdate(PurchaseOrder purchaseOrder);
+
+    /**
+    * 采购入库之编辑
+    * @param purchaseOrder 实体
+    * @return boolean 布尔类型
+    */
+    Boolean InUpdate(PurchaseOrder purchaseOrder);
 
     /**
      * 根据状态为待付款，查出所有
      *
      * @return
      *         啊
-     *//*
-    List<PurchaseOrder> getAllPurchaseOrderByState();*/
+     */
+    List<PurchaseOrder> getAllPurchaseOrderByState();
 
     /**
      * 根据财务审核状态financeState来获取所有 分页
@@ -168,4 +173,22 @@ public interface PurchaseOrderMapper {
             @Param("start") int start,
             @Param("end") int end);
 
+    /**
+     * 采购收货
+     * 分页获取个数
+     * @param goodsId 货品名称
+     * @param depotState 订单状态
+     * @return int
+     * */
+    int countGetAllByInOrder(
+            @Param("goodsId") String goodsId,
+            @Param("depotState") String depotState);
+
+    /**
+     * 采购收货
+     * 查看审核未通过原因
+     * @param record 记录
+     * @return int 返回值
+     * */
+    int lookIn(PurchaseOrder record);
 }

@@ -131,14 +131,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
-    /**收货*/
-    public boolean bringUpdate(PurchaseOrder purchaseOrder){
-        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
-        dao.bringUpdate(purchaseOrder);
-        return true;
-    }
-
     /**撤回*/
     public boolean recallUpdate(String  id) {
         CheckUtil.notBlank(id,"订单id为空");
@@ -149,4 +141,68 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
+    /**
+     * 采购收货 获取所有
+     */
+    public List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsId,String depotState){
+        PageRange pageRange = new PageRange(page,limit);
+        return dao.selectAllByInOrder(pageRange.getStart(),pageRange.getEnd(),goodsId,depotState);
+    }
+
+    /**采购收货 获取分页*/
+    public int countGetAllByInOrder(String goodsId, String depotState) {
+        return dao.countGetAllByInOrder(goodsId,depotState);
+    }
+
+    /**采购入库之收货 bring*/
+    public boolean bringInUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_SURE);
+        dao.toolsUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**采购入库之确认 sure*/
+    public boolean sureInUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
+        dao.toolsUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**采购入库之提交*/
+    public boolean commitInUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_WAITING);
+        dao.toolsUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**采购入库之撤回*/
+    public boolean backInUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_SURE);
+        dao.toolsUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**采购入库之编辑*/
+    public boolean InUpdate(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        dao.InUpdate(purchaseOrder);
+        return true;
+    }
+
+    /**采购入库之查看审核未通过原因*/
+    public boolean lookIn(PurchaseOrder purchaseOrder){
+        String depotState = purchaseOrder.getDepotState();
+        String str ="审核未通过";
+        if(str.equals(depotState)){
+            purchaseOrder.setDepotState(Constants.DepotState.DEPOT_SURE);
+        }else{
+            purchaseOrder.setDepotState(Constants.DepotState.DEPOT_FAIL);
+        }
+        dao.lookIn(purchaseOrder);
+        return true;
+    }
 }

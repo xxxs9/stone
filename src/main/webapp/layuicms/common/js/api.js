@@ -191,13 +191,37 @@ layui.define(['$tool','jquery'], function (exports) {
         inspectPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/inspect.do',req,config,successCallback,errorCallback);
         },
-        //收货 bring
-        bringPurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/bring.do',req,config,successCallback,errorCallback);
+        //采购入库之收货 bring
+        bringInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/bringIn.do',req,config,successCallback,errorCallback);
         },
         //财务审核人员获取财务审核状态为待审核的信息
         financePurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之确认 sure
+        sureInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/sureIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之撤回 back
+        backInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/backIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之提交 commit
+        commitInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/commitIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之编辑 edit
+        editInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/editIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之获取所有信息 listIn
+        listInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/listIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之查看未审核通过原因 look
+        lookInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/lookIn.do',req,config,successCallback,errorCallback);
         },
 
         GetDepotType:function(req,successCallback,errorCallback){
