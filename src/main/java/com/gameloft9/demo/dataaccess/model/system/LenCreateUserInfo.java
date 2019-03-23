@@ -14,8 +14,10 @@ import java.util.Date;
 public class LenCreateUserInfo extends LenSuperClass {
     private String id;
     private String createUser;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date createTime;
+
     private String employeeId;
 
 }

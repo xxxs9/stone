@@ -18,6 +18,7 @@ public interface BaseMapper<T> {
      */
     List<T> getAll();
 
+    List<T> getAlls();
     /**
      * 添加
      *
@@ -38,5 +39,6 @@ public interface BaseMapper<T> {
      * @param id id
      */
     void delete(String id);
+
 
 }

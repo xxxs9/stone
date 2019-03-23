@@ -33,14 +33,14 @@ public interface LenProductWasteMapper {
     /**
      * 分页查找
      *
-     * @param page
-     * @param limit
+     * @param start
+     * @param end
      * @param state
      * @return
      */
     List<LenProductWaste> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
+            @Param("start") int start,
+            @Param("end") int end,
             @Param("state") String state
     );
 

@@ -30,17 +30,17 @@ public interface LenCreateUserInfoMapper {
     /**
      * 分页查找
      *
-     * @param page
-     * @param limit
+     * @param start
+     * @param end
      * @param createUser
      * @param createTime
      * @return
      */
     List<LenCreateUserInfo> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            String createUser,
-            String createTime
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("createUser") String createUser,
+            @Param("createTime") String createTime
     );
 
     /**
@@ -70,8 +70,25 @@ public interface LenCreateUserInfoMapper {
     /**
      * 统计条数
      *
+     * @param createUser
      * @return
      */
-    int dataCount();
+    int dataCount(String createUser);
+
+    /**
+     * 选择插入
+     *
+     * @param lenCreateUserInfo
+     * @return
+     */
+    int insertSelective(LenCreateUserInfo lenCreateUserInfo);
+
+    /**
+     * 选择修改
+     * @param lenCreateUserInfo
+     * @return
+     */
+    int updateByPrimaryKeySelective(LenCreateUserInfo lenCreateUserInfo);
+
 
 }

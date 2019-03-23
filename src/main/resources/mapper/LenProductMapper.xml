@@ -19,17 +19,21 @@
     ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
      </sql>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3 from l_product
+    </select>
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List"/>
-        from l_product_waste
+        ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+        from l_product
         where ID = #{id,jdbcType=VARCHAR}
     </select>
 
 
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">
-        select * from l_product_waste t
+        select * from l_product t
         where 1=1
         <if test="state != null and state != ''">
             and t.STATE = #{state,jdbcType=VARCHAR}
@@ -85,7 +89,7 @@
     #{productDescribe},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">

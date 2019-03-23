@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper">
+
+<!--采购订单List-->
+<resultMap id="purOrderMap" type="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
+    <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+    <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+    <result column="PRICE" property="price" jdbcType="VARCHAR"/>
+    <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
+    <result column="APPLY_PAY_TIME" property="applyPayTime" jdbcType="DATE"/>
+    <result column="STATE" property="state" jdbcType="VARCHAR"/>
+    <result column="FINANCE_STATE" property="financeState" jdbcType="VARCHAR"/>
+    <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+    <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="DATE"/>
+    <result column="APPLY_DESCRIBE" property="applyDescribe" jdbcType="VARCHAR"/>
+    <result column="AUDIT_DESCRIBE" property="auditDescribe" jdbcType="VARCHAR"/>
+    <result column="FINANCE_AUDIT_USER" property="financeAuditUser" jdbcType="VARCHAR"/>
+    <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="DATE"/>
+    <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
+    <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
+    <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
+</resultMap>
+
+<!--原料商品List 需要ID来获取原料名称-->
+<resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.MaterialGoods">
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+    <result column="SUPPLIER_ID" property="supplierId" jdbcType="VARCHAR"/>
+    <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR"/>
+</resultMap>
+
+    <!--分页查找所有-->
+    <select id="selectAll" resultMap="purOrderMap">
+        SELECT
+            t.ID,
+            t.ORDER_NUMBER,
+            t.GOODS_ID,
+            t.GOODS_NUMBER,
+            t.PRICE,
+            t.APPLY_USER,
+            t.APPLY_TIME,
+            t.STATE,
+            t.APPLY_DESCRIBE
+        FROM
+            t_purchase_order t,
+            y_material_goods m
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                AND GOODS_ID = #{goodsId}
+            </if>
+            <if test="state != null and state != ''">
+                AND STATE = #{state}
+            </if>
+            AND m.MATERIAL_ID = t.GOODS_ID
+        </where>
+            ORDER BY t.ID ASC
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--审核所获取的列表-->
+    <select id="selectAllByInspect" resultMap="purOrderMap" parameterType="java.lang.String">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_DESCRIBE,
+            STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            AUDIT_DESCRIBE,
+            FINANCE_STATE
+        FROM
+            t_purchase_order
+        WHERE
+            STATE != '未提交'
+    </select>
+
+    <!--根据id获取-->
+    <select id="selectByPrimaryKey" resultMap="purOrderMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            ID=#{id}
+    </select>
+
+    <!--增加-->
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        INSERT INTO
+            t_purchase_order
+              (ID,
+              ORDER_NUMBER,
+              GOODS_ID,
+              GOODS_NUMBER,
+              PRICE,
+              APPLY_USER,
+              APPLY_TIME,
+              STATE,
+              APPLY_DESCRIBE)
+        VALUES
+              (#{id},
+              #{orderNumber},
+              #{goodsId},
+              #{goodsNumber},
+              #{price},
+              #{applyUser},
+              #{applyTime},
+              #{state},
+              #{applyDescribe})
+    </insert>
+
+    <!--删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM
+            t_purchase_order
+        WHERE
+            ID=#{id}
+    </delete>
+
+    <!--修改-->
+    <update id="updateByPrimaryKey" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            ID=#{id},
+            ORDER_NUMBER=#{orderNumber},
+            GOODS_ID=#{goodsId},
+            GOODS_NUMBER=#{goodsNumber},
+            PRICE=#{price},
+            APPLY_USER=#{applyUser},
+            APPLY_TIME=#{applyTime},
+            STATE=#{state},
+            AUDIT_TYPE=#{auditType},
+            APPLY_DESCRIBE=#{applyDescribe}
+        WHERE
+            ID=#{id}
+    </update>
+    
+    <!--总条数查询所有-->
+    <select id="countGetAll" resultType="int" parameterType="Map">
+        SELECT
+            count(1)
+        FROM
+            t_purchase_order t
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                AND t.GOODS_ID = #{goodsId}
+            </if>
+            <if test="state != null and state != ''">
+                AND t.state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <!--货品名称goodsId下拉框-->
+    <select id="getSelectListGoods" resultType="java.lang.String">
+        SELECT DISTINCT
+            GOODS_ID
+        FROM
+            t_purchase_order
+    </select>
+
+    <!--订单状态state下拉框-->
+    <select id="getSelectListState" resultType="java.lang.String">
+        SELECT DISTINCT
+            STATE
+        FROM
+            t_purchase_order
+    </select>
+
+    <!--查看 look-->
+    <select id="lookSelect" resultMap="purOrderMap" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        SELECT
+            STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            AUDIT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            ID=#{id}
+    </select>
+
+    <!--查看后修改 lookUpdate-->
+    <update id="lookUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            STATE=#{state},
+            ORDER_AUDIT_USER=#{orderAuditUser},
+            ORDER_AUDIT_TIME=#{orderAuditTime},
+            AUDIT_DESCRIBE=#{auditDescribe}
+        WHERE
+            ID=#{id}
+    </update>
+
+
+    <!--提交 commit-->
+    <update id="commitUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        <set>
+            <if test="state != null and state !=''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+           <if test="id != null and id != ''">
+               AND ID = #{id,jdbcType=VARCHAR}
+           </if>
+        </where>
+    </update>
+
+    <!--撤回 recall-->
+    <update id="recallUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                AND ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>    
+    </update>
+    
+    <!--仓管审核时的修改-->
+    <update id="inspectUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            STATE=#{state},
+            ORDER_AUDIT_USER=#{orderAuditUser},
+            ORDER_AUDIT_TIME=#{orderAuditTime},
+            AUDIT_DESCRIBE=#{auditDescribe},
+            FINANCE_STATE=#{financeState}
+        WHERE
+            ID=#{id}
+    </update>
+
+    <!--查找所有待付款啊  List<PurchaseOrder> getAllPurchaseOrderByState();-->
+    <select id="getAllPurchaseOrderByState" resultMap="purOrderMap">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            FINANCE_STATE = '待审核'
+    </select>
+
+    <!--财务管理人员  根据财务审核状态来获取内容,分页-->
+    <select id="getAllByFinance" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            STATE,
+            FINANCE_STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            APPLY_DESCRIBE,
+            AUDIT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            AUDIT_TYPE,
+            FINANCE_AUDIT_DESCRIBE,
+            DEPOT_STATE
+        FROM
+            t_purchase_order
+        WHERE
+            FINANCE_STATE='待审核'
+            AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--采购收货管理 获取需要字段List-->
+    <select id="selectAllByInOrder" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            DEPOT_STATE
+        FROM
+            t_purchase_order
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                AND GOODS_ID = #{goodsId}
+            </if>
+            <if test="depotState != null and depotState != ''">
+                AND DEPOT_STATE = #{depotState}
+            </if>
+            AND FINANCE_STATE="已发货"
+        </where>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+</mapper>

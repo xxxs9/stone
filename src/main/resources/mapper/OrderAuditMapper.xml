@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.OrderAuditMapper">
+    <!--订单审核结果集映射-->
+    <resultMap id="OrderAuditResultMap" type="com.gameloft9.demo.dataaccess.model.system.OrderAudit">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="MARKER_ORDER_ID" property="markerOrderId" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <!--销售订单结果集映射-->
+    <resultMap id="MarkerOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
+        <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
+        <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
+        <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
+        <result column="UNPAID_AMOUNT" property="unpaidAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--新bean映射-->
+
+    <resultMap id="OrderAuditbeanResultMap" type="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="MARKER_ORDER_ID" property="markerOrderId" jdbcType="VARCHAR"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
+        <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
+        <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
+        <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
+        <result column="UNPAID_AMOUNT" property="unpaidAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TIME" property="auditTime" jdbcType="DATE"/>
+    </resultMap>
+
+
+
+
+    <sql id="Base_Column_List">
+        ID,
+        MARKER_ORDER_ID,
+        AUDIT_TIME
+    </sql>
+
+<!--新bean分页模糊查询-->
+
+    <select id="findAll" resultMap="OrderAuditbeanResultMap">
+
+
+        select
+        *
+        from
+        w_order_audit o inner join w_marker_order m on o.MARKER_ORDER_ID=m.ID
+        <where>
+            <if test="markerOrderId != null and markerOrderId != ''">
+                and MARKER_ORDER_ID = #{markerOrderId,jdbcType=DATE}
+            </if>
+        </where>
+        order by o.ID asc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <select id="dataCount" resultType="int" >
+
+        select count(1) from w_order_audit
+    </select>
+
+
+
+   <!--删除-->
+    <delete id="deleteById" parameterType="java.lang.String">
+    delete from
+    w_order_audit
+    where
+    ID = #{id}
+  </delete>
+
+    <!--查找所有分页模糊查询-->
+<!--    <select id="findAll"  parameterType="map" resultMap="OrderAuditResultMap">
+        select
+        ID,
+        MARKER_ORDER_ID,
+        AUDIT_TIME
+        from
+        w_order_audit
+        <where>
+            <if test="markerOrderId != null and markerOrderId != ''">
+                and MARKER_ORDER_ID = #{orderTime,jdbcType=DATE}
+            </if>
+        </where>
+        order by ID asc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>-->
+
+    <!--查找条数-->
+    <select id="countGetAll" resultType="int" parameterType="map">
+
+        select
+        count(1)
+        from
+        w_order_audit
+        <where>
+            <if test="markerOrderId != null and markerOrderId != ''">
+                and MARKER_ORDER_ID = #{markerOrderId,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </select>
+
+   <!--获取审核订单id-->
+    <select id="getById" resultMap="OrderAuditbeanResultMap" parameterType="java.lang.String">
+
+        select
+        ID,
+        MARKER_ORDER_ID,
+        ORDER_ID,
+        ORDER_TIME,
+        PRODUCT_ID,
+        CUSTOMER,
+        DELIVER_NUMBER,
+        CURRENT_NUMBER,
+        PLANNED_NUMBER,
+        ACCEPTED_AMOUNT,
+        UNPAID_AMOUNT,
+        APPLY_USER,
+        STATE,
+        ORDER_AUDIT_USER,
+        REMARKS,
+        AUDIT_TIME
+        from
+        w_order_audit o inner join w_marker_order m on o.MARKER_ORDER_ID=m.ID
+        where o.ID = #{o.id,jdbcType=VARCHAR}
+    </select>
+
+    <!--修改-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAudit">
+    update w_order_audit
+    set
+    MARKER_ORDER_ID=#{markerOrderId},AUDIT_TIME=#{auditTime}
+     where ID=#{id}
+
+  </update>
+
+
+    <!--驳回back-->
+    <update id="backUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--审核成功pass-->
+    <update id="passUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+</mapper>

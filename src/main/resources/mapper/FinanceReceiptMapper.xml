@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinanceReceiptMapper" >
+
+    <resultMap id="receiptMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceReceipt">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="receiveId" column="RECEIVE_ID" jdbcType="VARCHAR"/>
+        <result property="amountReceivable" column="AMOUNT_RECEIVABLE" jdbcType="VARCHAR"/>
+        <result property="actualAmount" column="ACTUAL_AMOUNT" jdbcType="VARCHAR"/>
+        <result property="arrears" column="ARREARS" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--TODO...优化-->
+    <!--获取所有  getAll-->
+    <select id="getAll" resultMap="receiptMap">
+      select
+        r.ID,r.RECEIVE_ID,r.AMOUNT_RECEIVABLE,r.ACTUAL_AMOUNT,r.ARREARS
+      from
+        a_recepit r,
+        a_purchase_receivable p,
+        a_sale_receivable s
+      where
+        r.RECEIVE_ID = p.ID
+      or
+        r.RECEIVE_ID = s.ID
+    </select>
+
+
+    <!--TODO...优化-->
+    <!--获取条件查询总条数  int getCount-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1)
+        from
+        a_charge_off
+    </select>
+
+    <!--添加 add()-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
+        insert into a_receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="payId != null and payId != ''">
+                PAY_ID,
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                SHOULD_PAY,
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+                ACTUAL_PAY,
+            </if>
+            <if test="arreara != null and arreara != ''">
+                ARREARA,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="payId != null and payId != ''">
+                #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                #{shouldPay,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+                #{actualPay,jdbcType=VARCHAR},
+            </if>
+            <if test="arreara != null and arreara != ''">
+                #{arreara,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改 update()-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
+        update a_receipt
+        <set>
+            <if test="payId != null and payId != ''">
+                PAY_ID = #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                SHOULD_PAY = #{shouldPay,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+               ACTUAL_PAY =  #{actualPay,jdbcType=VARCHAR},
+            </if>
+            <if test="arreara != null and arreara != ''">
+                ARREARA = #{arreara,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{ID,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--删除   delete()-->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from a_receipt
+        <where>
+            <if test="id != null and id != ''">
+                and id = = #{ID,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+</mapper>

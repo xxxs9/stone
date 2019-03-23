@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinanceGatheringMapper">
+
+    <resultMap id="gatheringMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceGathering">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="receiveId" column="RECEIVE_ID" jdbcType="VARCHAR"/>
+        <result property="receiveType" column="RECEIVE_TYPE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+            );-->
+    <select id="getAll" resultMap="gatheringMap">
+        select
+            gathering.ID,
+            gathering.RECEIVE_ID,
+            gathering.RECEIVE_TYPE,
+            gathering.BALANCE,
+            gathering.DOCUMENT_MAKER,
+            gathering.DOCUMENT_MAKE_TIME,
+            purchase.ID,
+            sale.ID
+        from
+            a_gathering gathering,
+            a_purchase_receivable purchase,
+            a_sale_receivable sale
+        <where>
+            <if test="receiveType != null and receiveType != ''">
+                and gathering.RECEIVE_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
+                and gathering.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            </if>
+
+                and (gathering.RECEIVE_ID = purchase.ID or gathering.RECEIVE_ID = sale.ID)
+
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <!--条件查询总条数   int getCount(
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+    );-->
+    <select id="getCount" resultType="int">
+        select
+          count(1)
+        from
+            a_gathering gathering,
+            a_purchase_receivable purchase,
+            a_sale_receivable sale
+        <where>
+            <if test="receiveType != null and receiveType != ''">
+                and gathering.RECEIVE_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
+                and gathering.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            </if>
+
+            and (gathering.RECEIVE_ID = purchase.ID or gathering.RECEIVE_ID = sale.ID)
+
+        </where>
+    </select>
+</mapper>
