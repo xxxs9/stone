@@ -1,9 +1,11 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,4 +52,26 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         FinanceServiceUtil util = new FinanceServiceUtil(auditType,startTime,endTime);
         return purchaseBillsPayableMapper.getCount(util.getAuditType(), util.getStartTime(), util.getEndTIme());
     }
+
+    /**
+     *
+     * @param purchaseBillsPayable 申请订单
+     * @return string
+     */
+    public String addPurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable) {
+        purchaseBillsPayable.setId(UUIDUtil.getUUID());
+        purchaseBillsPayableMapper.add(purchaseBillsPayable);
+        return purchaseBillsPayable.getId();
+    }
+
+    /**
+     *
+     * @param purchaseOrderId 申请单id
+     * @return
+     */
+    public SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId) {
+        return purchaseBillsPayableMapper.getPurchasePay(purchaseOrderId);
+    }
+
+
 }

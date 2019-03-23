@@ -144,6 +144,54 @@ layui.define(['$tool','jquery'], function (exports) {
         UpdateUserInfo:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
+
+        //purOrder 采购订单管理
+        //初始化GoodsId下拉框
+        getListGoods:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/goods.do',req,config,successCallback,errorCallback);
+        },
+        //删除
+        deletePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/delete.do',req,config,successCallback,errorCallback);
+        },
+        //提交
+        commitPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/commit.do',req,config,successCallback,errorCallback);
+        },
+        //撤回
+        recallPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/recall.do',req,config,successCallback,errorCallback);
+        },
+        //添加
+        insertPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/insert.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取数据
+        getPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/get.do',req,config,successCallback,errorCallback);
+        },
+        //查询所有
+        listPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/list.do',req,config,successCallback,errorCallback);
+        },
+        //修改
+        updatePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/update.do',req,config,successCallback,errorCallback);
+        },
+        //获取查看的id
+        lookGetPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
+        },
+
+        //查看
+        lookPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
+        },
+        //审核
+        inspectPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/inspect.do',req,config,successCallback,errorCallback);
+        },
+
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
         },
@@ -374,10 +422,24 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
         },
 
-        /*审核采购订单付款申请*/
-        auditingPurchase:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/auditingPurchaseOrder.do',req,successCallback,errorCallback);
+        /*提交应付单*/
+        generatePurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generatePurchasePay.do',req,successCallback,errorCallback);
         },
+
+        /*添加采购应付单*/
+        insertPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/addPurchasePay.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应付单*/
+        getPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应付单*/
+        getPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        },
+
 
 
         AddProduct:function(req,config,successCallback,errorCallback){

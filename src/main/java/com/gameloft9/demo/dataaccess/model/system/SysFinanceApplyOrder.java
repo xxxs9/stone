@@ -1,6 +1,9 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author: 啊发包
@@ -19,7 +22,8 @@ public class SysFinanceApplyOrder {
     private String applyUser;
 
     /** 申请时间 */
-    private String applyTime;
+    @JsonFormat(timezone =  "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date applyTime;
 
     /** 申请类型 */
     private Integer applyType;

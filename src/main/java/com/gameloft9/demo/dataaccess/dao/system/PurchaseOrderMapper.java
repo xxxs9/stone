@@ -154,8 +154,8 @@ public interface PurchaseOrderMapper {
      *
      * @return
      *         啊
-     *//*
-    List<PurchaseOrder> getAllPurchaseOrderByState();*/
+     */
+    List<PurchaseOrder> getAllPurchaseOrderByState();
 
     /**
      * 根据财务审核状态financeState来获取所有 分页

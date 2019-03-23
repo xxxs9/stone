@@ -4,7 +4,6 @@
 
     <resultMap id="purchaseBillsPayableMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
         <id property="id" column="ID" jdbcType="VARCHAR"/>
-        <id property="pid" column="PID" jdbcType="VARCHAR"/>
         <result property="purchaseOrderId" column="PURCHASE_ORDER_ID" jdbcType="VARCHAR"/>
         <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
         <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
@@ -16,7 +15,6 @@
         <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
         <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
         <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
-        <result property="publicId" column="PUBLIC_ID" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
@@ -79,36 +77,68 @@
     </select>
 
     <!--生成采购应付单  add(T t)-->
-    <!--<select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
         insert into a_purchase_bills_payable
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">
-              ID,
+                ID,
             </if>
-            <if test="purchaseOrderId != null and id != ''">
-              PURCHASE_ORDER_ID,
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE,
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE,
             </if>
             <if test="goodsNumber != null and goodsNumber != ''">
-              GOODS_NUMBER,
+                GOODS_NUMBER,
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE,
+            </if>
+            <if test="purchaseOrderId != null and id != ''">
+                PURCHASE_ORDER_ID,
             </if>
         </trim>
 
-        <trim prefix=" vaulues(" suffix=")" suffixOverrides=",">
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">
-
+                #{id,jdbcType=VARCHAR},
             </if>
-            <if test="purchaseOrderId != null and id != ''">
-
+            <if test="auditType != null and auditType != ''">
+                #{auditType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                #{unitPrice,jdbcType=VARCHAR},
             </if>
             <if test="goodsNumber != null and goodsNumber != ''">
-
+                #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseOrderId != null and id != ''">
+                #{purchaseOrderId,jdbcType=VARCHAR},
             </if>
         </trim>
+    </select>
 
-    </select>-->
+    <!--根据id获取采购应付单   SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);-->
+    <select id="getPurchasePay" parameterType="java.lang.String" resultMap="purchaseBillsPayableMap">
+        select * from
+        a_purchase_bills_payable
+        where
+        <if test="purchaseOrderId != null and purchaseOrderId != '' ">
+            PURCHASE_ORDER_ID = #{purchaseOrderId,jdbcType=VARCHAR}
+        </if>
+    </select>
     
-    <!--&lt;!&ndash;采购应付单对应的公共表&ndash;&gt;
-    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePublicPurchaseSale">
+    <!--更新采购应付单   void generatePurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable);-->
+    <update id="generatePurchasePay" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        update a_purchase_bills_payable
+        <set>
 
-    </select>-->
+        </set>
+    </update>
+    
+
 </mapper>

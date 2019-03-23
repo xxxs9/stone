@@ -6,7 +6,7 @@
         <id property="id" column="ID" jdbcType="VARCHAR"/>
         <result property="applyId" column="APPLY_ID" jdbcType="VARCHAR" />
         <result property="applyUser" column="APPLY_USER" jdbcType="VARCHAR" />
-        <result property="applyTime" column="APPLY_TIME" jdbcType="VARCHAR" />
+        <result property="applyTime" column="APPLY_TIME" jdbcType="TIMESTAMP" />
         <result property="applyType" column="APPLY_TYPE" jdbcType="VARCHAR" />
         <result property="applyMoney" column="APPLY_MONEY" jdbcType="VARCHAR" />
         <result property="applyState" column="APPLY_STATE" jdbcType="VARCHAR" />
@@ -102,7 +102,7 @@
                 #{applyUser,jdbcType=VARCHAR},
             </if>
             <if test="applyTime != null and applyTime != ''">
-                #{applyTime,jdbcType=VARCHAR},
+                #{applyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="applyType != null and applyType != ''">
                 #{applyType,jdbcType=VARCHAR},
@@ -115,5 +115,7 @@
             </if>
         </trim>
     </insert>
+
+
 
 </mapper>
