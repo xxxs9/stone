@@ -85,4 +85,9 @@ public class Constants {
      * */
     public static final String INIT_PWD = "123456";
 
+    /**
+     *仓库人员的机构名
+     */
+    public static final String DPOT_ORG = "供应部";
+
 }

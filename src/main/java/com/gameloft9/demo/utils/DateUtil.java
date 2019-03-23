@@ -53,6 +53,22 @@ public class DateUtil {
     }
 
     /**
+     * 字符串转日期
+     * @param str 日期字符串
+     * @return Date 日期对象
+     */
+    public static Date str2Date(String str, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date res;
+        try {
+            res = sdf.parse(str);
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("日期解析异常");
+        }
+    }
+
+    /**
      * 测试
      * */
     public static void main(String[] args) {

@@ -156,7 +156,7 @@ public class SysDepotServiceImpl implements SysDepotService {
      * */
     @Override
     public Boolean delsDepot(String ids) {
-        CheckUtil.notBlank(ids, "仓库id为空");
+        CheckUtil.notBlank(ids, "仓库ids为空");
         List<String> depotIds = new ArrayList<String>();
         String[] split = ids.split(",");
         for (String s : split) {
@@ -164,5 +164,13 @@ public class SysDepotServiceImpl implements SysDepotService {
         }
         sysDepotMapper.delsByIds(depotIds);
         return true;
+    }
+
+    /**
+     * 获取仓库编号
+     * */
+    @Override
+    public List<String> getDepotNumber() {
+        return sysDepotMapper.getDepotNumber();
     }
 }

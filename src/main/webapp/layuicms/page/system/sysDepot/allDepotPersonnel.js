@@ -20,18 +20,6 @@ layui.config({
      * */
     function init() {
 
-        //初始化下拉框
-        $api.GetDepotType(null,function (res) {
-            var data = res.data;
-            if(data.length > 0){
-                var html = '<option value="">--请填写--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i]+'">'+data[i]+'</option>>';
-                }
-                $('#depotType').append($(html));
-                form.render();
-            }
-        });
     }
     init();
 
@@ -39,71 +27,67 @@ layui.config({
     /**
      * 定义表格
      * */
+
     function defineTable() {
         tableIns = table.render({
             id: 'testReload'//配置动态表格id以便于执行重载操作
-            ,elem: '#depot-data'
+            ,elem: '#depotPersonnel-data'
             , height: 'full'
-            , url: $tool.getContext() + 'depotSet/depotList.do' //数据接口
+            , url: $tool.getContext() + 'depotPersonnel/depotPersonnelList.do' //数据接口
             , method: 'post'
-            , page:true //开启分页
             , cols: [[ //表头
                 {type:'numbers',title:'',fixed: 'left',width: '2.5%'}
                 ,{type:'checkbox',title:'',fixed: 'left',width: '2.5%'}
-                ,{field: 'depotNumber', title: '仓库编号', width: '10%'}
-                , {field: 'depotName', title: '仓库名称', width: '10%'}
-                , {field: 'depotType', title: '仓库类型', width: '10%'}
-                , {field: 'depotAddress', title: '仓库地址', width: '20%'}
-                , {field: 'depotDescribe', title: '仓库描述', width: '25%'}
+                ,{field: 'personPortrait', title: '人员头像', width: '10%', align: 'center',templet:'<div><img src="{{d.personPortrait}}"/></div>'}
+                ,{field: 'userLoginName', title: '用户登入名', width: '10%'}
+                ,{field: 'depotNumber', title: '仓库编号', width: '20%'}
+                , {field: 'contactAddress', title: '联系地址', width: '20%'}
+                , {field: 'birthday', title: '出生日期', width: '15%'}
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo', width: '20%'} //这里的toolbar值是模板元素的选择器
             ]]
-            , done: function (res, curr) {//请求完毕后的回调
-                //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+            ,done:function(res,curr,count){//请求完毕后的回调
             }
         });
 
         //为toolbar添加事件响应
-        table.on('tool(depotFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(depotPersonnelFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delDepot(row.id);
+                delDepotPersonnel(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editDepot(row.id);
+                editDepotPersonnel(row.id);
             }
         });
     }
     defineTable();
 
-
     //查询
-    form.on("submit(queryDepot)", function (data) {
+    form.on("submit(queryDepotPersonnel)", function (data) {
         var depotNumber = data.field.depotNumber;
-        var depotName = data.field.depotName;
-        var depotType = data.field.depotType;
+        var userLoginName = data.field.userLoginName;
 
         //表格重新加载
         tableIns.reload({
             where:{
                 depotNumber:depotNumber,
-                depotName:depotName,
-                depotType:depotType
+                userLoginName:userLoginName
             }
         });
 
         return false;
     });
 
-    //添加仓库
+    //新增仓库人员
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "新增仓库",
+            title: "新增仓库人员",
             type: 2,
-            content: "addDepot.html",
+            content: "addDepotPersonnel.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回仓库列表', '.layui-layer-setwin .layui-layer-close', {
@@ -141,7 +125,7 @@ layui.config({
                     ids: ids
                 };
 
-                $api.DelsDepot(req,function (data) {
+                $api.DelsDepotPersonnel(req,function (data) {
                     layer.msg("删除成功",{time:1000},function(){
                         //obj.del(); //删除对应行（tr）的DOM结构
                         //重新加载表格
@@ -155,7 +139,7 @@ layui.config({
     });
 
     //删除
-    function delDepot(id){
+    function delDepotPersonnel(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -163,7 +147,7 @@ layui.config({
                 id: id
             };
 
-            $api.DeleteDepot(req,function (data) {
+            $api.DeleteDepotPersonnel(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -174,11 +158,11 @@ layui.config({
     }
 
     //编辑
-    function editDepot(id){
+    function editDepotPersonnel(id){
         var index = layui.layer.open({
-            title: "编辑仓库",
+            title: "编辑订单项",
             type: 2,
-            content: "editDepot.html?id="+id,
+            content: "editDepotPersonnel.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回原料列表', '.layui-layer-setwin .layui-layer-close', {

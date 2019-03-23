@@ -84,4 +84,5 @@ public interface SysUserRoleTestMapper {
      * @param userId 用户id
      * */
     int deleteByUserId(@Param("userId") String userId);
+
 }

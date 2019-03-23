@@ -229,4 +229,11 @@
     UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+    <select id="getUserLoginNameByOrgName" parameterType="java.lang.String" resultType="java.lang.String" >
+        SELECT DISTINCT
+	      t.LOGIN_NAME
+        FROM
+	      USER_TEST t
+	    WHERE t.ORG_NAME = #{orgName,jdbcType=VARCHAR}
+    </select>
 </mapper>

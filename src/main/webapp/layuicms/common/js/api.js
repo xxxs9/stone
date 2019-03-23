@@ -161,6 +161,81 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         DelsDepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotSet/dels.do',req,successCallback,errorCallback);
+        },
+        GetDepotNumber:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotSet/getDepotNumber.do',req,successCallback,errorCallback);
+        },
+        GetDepotUserLoginName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotPersonnel/getDepotUserLoginName.do',req,successCallback,errorCallback);
+        },
+        GetUserByLoginName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'sysUser/getByLoginName.do',req,successCallback,errorCallback);
+        },
+        addDepotPersonnel:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotPersonnel/add.do',req,successCallback,errorCallback);
+        },
+        GetDepotPersonnel:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotPersonnel/get.do',req,successCallback,errorCallback);
+        },
+        UpdateDepotPersonnel:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotPersonnel/update.do',req,successCallback,errorCallback);
+        },
+        DeleteDepotPersonnel:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotPersonnel/delete.do',req,successCallback,errorCallback);
+        },
+        DelsDepotPersonnel:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
+        },
+        GetGoodsType:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
+        },
+        GetSupplier:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'supplier/get.do',req,successCallback,errorCallback);
+        },
+        UpdateSupplier:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext()+'supplier/update.do',req,config,successCallback,errorCallback);
+        },
+        DeleteSupplier:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'supplier/delete.do',req,successCallback,errorCallback);
+        },
+        AddSupplier:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'supplier/add.do',req,successCallback,errorCallback);
+        },
+        GetSupplierName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'supplier/getSupplierName.do',req,successCallback,errorCallback);
+        },
+        GetGoodsSpecification:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/getGoodsSpecification.do',req,successCallback,errorCallback);
+        },
+        GetGoodsName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/getGoodsName.do',req,successCallback,errorCallback);
+        },
+        GetMaterial:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/get.do',req,successCallback,errorCallback);
+        },
+        UpdateMaterial:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext()+'material/update.do',req,config,successCallback,errorCallback);
+        },
+        DeleteMaterial:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/delete.do',req,successCallback,errorCallback);
+        },
+        AddMaterial:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/add.do',req,successCallback,errorCallback);
+        },
+        DeleteMaterialGoods:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/delete.do',req,successCallback,errorCallback);
+        },
+        AddMaterialGoods:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/add.do',req,successCallback,errorCallback);
+        },
+        GetMaterialGoods:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/get.do',req,successCallback,errorCallback);
+        },
+        UpdateMaterialGoods:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);
+        },
+        GetMaterialByGoodsName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
         }
     };
 

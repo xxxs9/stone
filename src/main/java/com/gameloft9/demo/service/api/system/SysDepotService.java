@@ -67,4 +67,9 @@ public interface SysDepotService {
      * @param ids 仓库ids
      * */
     Boolean delsDepot(String ids);
+
+    /**
+     * 获取仓库编号
+     * */
+    List<String> getDepotNumber();
 }
