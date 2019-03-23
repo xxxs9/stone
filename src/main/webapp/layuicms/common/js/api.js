@@ -328,7 +328,98 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
-        }
+        },//销售订单删除
+        DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
+        },//获取销售订单ID
+        GetMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'marker/get',req,successCallback,errorCallback);
+        },//销售订单修改
+        updateMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/update',req,successCallback,errorCallback);
+        },//销售订单添加
+        AddMarkerOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/add',req,successCallback,errorCallback);
+        },//提交
+        audiUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/audi',req,successCallback,errorCallback);
+        },//撤回
+        backUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/back',req,successCallback,errorCallback);
+        },//订单审核删除
+        DeleteOrderAudit:function(req,config,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'audit/delete', req, config, successCallback, errorCallback);
+        },//获取订单审核ID
+        GetOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'audit/get',req,successCallback,errorCallback);
+        },//订单审核修改
+        updateOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/update',req,successCallback,errorCallback);
+        },//驳回
+        backUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/back',req,successCallback,errorCallback);
+        },//驳回
+        passUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/pass',req,successCallback,errorCallback);
+        },
+
+
+        <!--财务-->
+        //无需删除逻辑
+        /*DeletePay:function(req,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'finance/delete.do',req,successCallback,errorCallback);
+        },*/
+        /*更新应付单内容*/
+        UpdatePay:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
+        },
+
+        /*审核采购订单付款申请*/
+        auditingPurchase:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/auditingPurchaseOrder.do',req,successCallback,errorCallback);
+        },
+
+
+        AddProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
+        },
+        delProduct:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'product/del',req,config,successCallback,errorCallback);
+        },
+        getAllProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
+        },
+        getProductById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
+        },
+        updateProduct:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
+        },
+        delProduceFormula:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
+        },
+        udpFormula:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/upd',req,config,successCallback,errorCallback);
+        },
+        getFormulaById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/get',req,successCallback,errorCallback);
+        },
+        //列出配方表所有信息
+        getAllFormula:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
+        },
+        delCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
+        },
+        addCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/add',req,successCallback,errorCallback);
+        },
+        getCreateUserById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/get',req,successCallback,errorCallback);
+        },
+        editCreateUserInfo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'create/upd',req,successCallback,errorCallback);
+        },
     };
 
 
