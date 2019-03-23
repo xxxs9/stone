@@ -256,10 +256,24 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
         },
 
-        /*审核采购订单付款申请*/
-        auditingPurchase:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/auditingPurchaseOrder.do',req,successCallback,errorCallback);
+        /*提交应付单*/
+        generatePurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generatePurchasePay.do',req,successCallback,errorCallback);
         },
+
+        /*添加采购应付单*/
+        insertPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/addPurchasePay.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应付单*/
+        getPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应付单*/
+        getPurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        },
+
 
 
         AddProduct:function(req,config,successCallback,errorCallback){
@@ -302,6 +316,7 @@ layui.define(['$tool','jquery'], function (exports) {
         editCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/upd',req,successCallback,errorCallback);
         },
+
     };
 
 

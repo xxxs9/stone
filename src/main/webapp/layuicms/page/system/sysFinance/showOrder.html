@@ -73,82 +73,78 @@
                 <textarea name="financeAuditDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
         </div>
+        <div class="layui-form-item">
+            <div class="layui-inline" style="margin-left: 110px">
+                <span class="layui-btn layui-btn-normal" value="generate" id="show">生成应付单</span>
+            </div>
+            <div class="layui-inline">
+                <span class="layui-btn layui-btn-warm" value="withdraw">撤回</span>
+            </div>
+        </div>
 
-        <div class="layui-inline" style="margin-left: 110px">
-            <button class="layui-btn search_btn" lay-submit=""  lay-filter="auditing" value="agree" id="agree"><i class="layui-icon">&#xe605;</i>同意</button>
-        </div>
-        <div class="layui-inline">
-            <button class="layui-btn search_btn" lay-submit=""  lay-filter="auditing" value="disagree"><i class="layui-icon">&#x1006;</i>不同意</button>
-        </div>
     </form>
 </div>
 
-<div style="float:left;width: 1px;height: 25px; background: #000;"></div>
 
-<div class="layui-inline" style="margin-right: 10px">
+
+
+<div class="layui-inline" id="addPurchasePay" style="margin-right: 10px;display: none" >
 
     <div align="center">
         <ul class="site-dir">
             <ui><a href="#use"><cite> <font size="4" id="order"></font></cite></a></ui>
         </ul>
     </div>
-
     <form class="layui-inline" style="margin-right: 0px">
         <!--商品名称-->
         <div class="layui-form-item">
-            <label class="layui-form-label">商品名称</label>
+            <label class="layui-form-label">申请单号</label>
             <div class="layui-input-inline" style="width: 400px">
-                <input type="text" class="layui-input" name="goodsId" readonly>
+                <input type="text" class="layui-input" name="purchaseOrderId" readonly>
             </div>
         </div>
         <!--商品数量-->
         <div class="layui-form-item">
-            <label class="layui-form-label">商品数量</label>
+            <label class="layui-form-label">申请类型</label>
             <div class="layui-input-inline"  style="width: 400px">
-                <input type="text" class="layui-input" name="goodsNumber" readonly>
+                <input type="text" class="layui-input" name="auditType" readonly>
             </div>
         </div>
         <!--商品价格-->
         <div class="layui-form-item">
-            <label class="layui-form-label">商品价格</label>
+            <label class="layui-form-label">单价</label>
             <div class="layui-input-inline"  style="width: 400px">
-                <input type="text" class="layui-input" name="price" readonly>
+                <input type="text" class="layui-input" name="unitPrice" readonly>
             </div>
         </div>
         <!--申请人-->
         <div class="layui-form-item">
-            <label class="layui-form-label">申请人</label>
+            <label class="layui-form-label">数量</label>
             <div class="layui-input-inline"  style="width: 400px">
-                <input type="text" class="layui-input" name="applyUser" readonly>
+                <input type="text" class="layui-input" name="number" readonly>
             </div>
         </div>
         <!--申请时间-->
         <div class="layui-form-item">
-            <label class="layui-form-label">申请时间</label>
+            <label class="layui-form-label">总价</label>
             <div class="layui-input-inline"  style="width: 400px">
-                <input type="text" class="layui-input" name="applyTime" readonly>
+                <input type="text" class="layui-input" name="totalPrice" readonly>
             </div>
         </div>
-        <!--采购审核内容-->
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">采购审核</label>
-            <div class="layui-input-block"  style="width: 400px">
-                <textarea name="applyDescribe" placeholder="请输入内容" class="layui-textarea" readonly></textarea>
-            </div>
-        </div>
-        <!--财务审核内容-->
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">财务审核</label>
-            <div class="layui-input-block"  style="width: 400px">
-                <textarea name="financeAuditDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
+        <!--实际价格-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">实际价格</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="actualPrice" readonly>
             </div>
         </div>
 
+
         <div class="layui-inline" style="margin-left: 110px">
-            <button class="layui-btn search_btn" lay-submit=""  lay-filter="auditing" value="agree" id="agree"><i class="layui-icon">&#xe605;</i>同意</button>
+            <button class="layui-btn search_btn" lay-submit=""  lay-filter="auditing" value="agree" id="agree"><i class="layui-icon">&#xe605;</i>提交</button>
         </div>
         <div class="layui-inline">
-            <button class="layui-btn search_btn" lay-submit=""  lay-filter="auditing" value="disagree"><i class="layui-icon">&#x1006;</i>不同意</button>
+            <button class="layui-btn layui-btn-danger" lay-submit=""  lay-filter="auditing" value="disagree"><i class="layui-icon">&#x1006;</i>驳回</button>
         </div>
     </form>
 </div>

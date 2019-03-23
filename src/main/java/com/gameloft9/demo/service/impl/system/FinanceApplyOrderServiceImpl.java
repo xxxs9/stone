@@ -29,6 +29,14 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
 
+    /**
+     * 方法抽取
+     *
+     * @param applyType 申请类型
+     * @param applyState 申请状态
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     */
     public void format(String applyType, String applyState, String startTime, String endTime){
         int applyType1 = NumberUtil.strToInt(applyState);
         int applyState1 = NumberUtil.strToInt(applyType);
@@ -36,18 +44,39 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
         Date endTime1 = DateUtil.ifNull(endTime);
     }
 
+    /**
+     *
+     * @param page 开始
+     * @param limit 结束
+     * @param applyType 申请类型
+     * @param applyState 审核状态
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     */
     public List<SysFinanceApplyOrder> getAll(String page, String limit, String applyType, String applyState, String startTime, String endTime) {
         PageRange pageRange = new PageRange(page,limit);
         format(applyType,applyState,startTime,endTime);
         return applyOrderMapper.getAll(pageRange.getStart(),pageRange.getEnd(),applyType1,applyState1,startTime1,endTime1);
     }
 
+    /**
+     *
+     * @param applyType 申请类型
+     * @param applyState 审核状态
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     */
     public int getCount(String applyType, String applyState, String startTime, String endTime) {
         format(applyType,applyState,startTime,endTime);
         return applyOrderMapper.getCount(applyType1,applyState1,startTime1,endTime1);
     }
 
+    public String addPurchasePay(SysFinanceApplyOrder financeApplyOrder) {
 
+        return null;
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 
 import java.util.List;
@@ -35,4 +36,22 @@ public interface FinancePurchaseBillPayService {
      *          条件查询总条数
      */
     int getCount(String auditType, String startTime, String endTime);
+
+    /**
+     * 添加申请订单
+     *
+     * @param financePurchaseBillsPayable 申请订单
+     * @return
+     *      String
+     */
+    String addPurchasePay(SysFinancePurchaseBillsPayable financePurchaseBillsPayable);
+
+    /**
+     * 根据申请单id查找应付单
+     *
+     * @param purchaseOrderId 申请单id
+     * @return
+     *      采购应付单
+     */
+    SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);
 }
