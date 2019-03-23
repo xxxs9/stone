@@ -27,7 +27,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      *
      * @return
      */
-    @Override
     public List<LenProduceFormulaDetail> selectAll() {
         return mapper.selectAll();
     }
@@ -38,7 +37,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param id
      * @return
      */
-    @Override
     public LenProduceFormulaDetail getByPrimaryKey(String id) {
         return mapper.getByPrimaryKey(id);
     }
@@ -52,7 +50,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param depotId
      * @return
      */
-    @Override
     public List<LenProduceFormulaDetail> selectByPage(String page, String limit, String materialId, String depotId) {
         PageRange pageRange = new PageRange(page, limit);
         return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), materialId, depotId);
@@ -65,7 +62,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param lenProduceFormulaDetail
      * @return
      */
-    @Override
     public boolean insert(LenProduceFormulaDetail lenProduceFormulaDetail) {
         String uuid = UUIDUtil.getUUID();
         LenProduceFormulaDetail len = new LenProduceFormulaDetail();
@@ -87,7 +83,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param len
      * @return
      */
-    @Override
     public boolean update(LenProduceFormulaDetail len) {
         if (mapper.update(len) > 0) {
             return true;
@@ -102,7 +97,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param id
      * @return
      */
-    @Override
     public boolean delete(String id) {
         if (mapper.delete(id) > 0) {
             return true;
@@ -117,7 +111,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param depotId 仓库ID
      * @return
      */
-    @Override
     public int dataCount(String depotId) {
         return mapper.dataCount(depotId);
     }
@@ -128,7 +121,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param produceFormulaDetail
      * @return
      */
-    @Override
     public boolean insertSelective(LenProduceFormulaDetail produceFormulaDetail) {
         return false;
     }
@@ -139,7 +131,6 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @param lenProduceFormulaDetail
      * @return
      */
-    @Override
     public boolean updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail) {
         return false;
     }
