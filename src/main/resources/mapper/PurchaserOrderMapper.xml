@@ -390,8 +390,8 @@
             ID=#{id}
     </update>
 
-    <!--阿发包  -->
-    <select id="selectByFinance" resultMap="purOrderMap">
+    <!--阿发包  财务经理审核状态：付款申请-->
+    <select id="selectApplyByFinance" resultMap="purOrderMap">
         SELECT
             ID,
             ORDER_NUMBER,
@@ -415,5 +415,9 @@
             DEPOT_USER,
             DEPOT_TIME,
             DEPOT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            FINANCE_STATE='付款申请'
     </select>
 </mapper>
