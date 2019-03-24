@@ -114,8 +114,6 @@ public interface PurchaseOrderMapper {
             @Param("goodsId") String goodsId,
             @Param("state") String state);
 
-
-
     /**
      * 获取goodsId下拉框
      * @return List<PurchaseOrder>

@@ -1,14 +1,21 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.NumberUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +31,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Autowired
     PurchaseOrderMapper dao;
+    @Autowired
+    FinanceApplyOrderMapper applyOrderMapper;
 
     /**根据id获取*/
     public PurchaseOrder selectByPrimaryKey(String id) {
@@ -51,7 +60,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**修改*/
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        purchaseOrder.setApplyTime(new Date());
+        //purchaseOrder.setApplyTime(new Date());
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -80,10 +89,24 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         purchaseOrder.setOrderAuditTime(new Date());
         purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
         String state = purchaseOrder.getState();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String str="审核通过";
         if(str.equals(state)){
             purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
-
+            //插入订单
+            SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
+            financeApplyOrder.setId(UUIDUtil.getUUID());
+            financeApplyOrder.setApplyId(purchaseOrder.getId());
+            int price = NumberUtil.strToInt(purchaseOrder.getPrice());
+            int goodsNumber = NumberUtil.strToInt(purchaseOrder.getGoodsNumber());
+            int applyMoney = price * goodsNumber;
+            financeApplyOrder.setApplyMoney(applyMoney+"");
+            financeApplyOrder.setApplyType(1);
+            financeApplyOrder.setApplyState(1);
+            financeApplyOrder.setApplyTime(new Date());
+            String applyUser = (String) request.getSession().getAttribute("sysUser");
+            financeApplyOrder.setApplyUser(applyUser);
+            applyOrderMapper.add(financeApplyOrder);
         }else{
             purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
