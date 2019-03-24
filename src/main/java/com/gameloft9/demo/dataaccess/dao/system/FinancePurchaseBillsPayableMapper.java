@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,4 +45,15 @@ public interface FinancePurchaseBillsPayableMapper extends BaseMapper<SysFinance
             @Param("startTime") Date startTime,
             @Param("endTime") Date endTime
     );
+
+    /**
+     * 根据申请单id查找应付单
+     *
+     * @param purchaseOrderId 申请单id
+     * @return
+     *      采购应付单
+     */
+    SysFinancePurchaseBillsPayable getPurchasePay(@Param("purchaseOrderId") String purchaseOrderId);
+
+
 }

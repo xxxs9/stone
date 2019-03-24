@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -48,9 +49,9 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page, String limit, String orderId, Date orderTime){
-        List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, orderId, orderTime);
-        return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(orderId,orderTime));
+    public IResult findAll(String page, String limit, String productId){
+        List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, productId);
+        return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(productId));
     }
     /**
      * 删除
@@ -84,8 +85,10 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(MarkerOrderTest markerOrderTest){
-       return new ResultBean<String>(markerOrderService.add(markerOrderTest));
+    public IResult add(MarkerOrderTest markerOrderTest, HttpServletRequest request){
+        request.getSession().getAttribute("sysUser");
+        System.out.println(markerOrderTest);
+        return new ResultBean<Integer>(markerOrderService.add(markerOrderTest));
     }
     /**
      * 获取所有类表信息
@@ -114,4 +117,14 @@ public class MarkerOrderController {
     public IResult backUpdate(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.backUpdate(markerOrderTest));
     }
+
+    /**
+     * 订单编号
+     */
+    @RequestMapping(value = "/ordernumber",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult orderNum(MarkerOrderTest markerOrderTest){
+        return new ResultBean<String>(markerOrderService.orderNum(markerOrderTest));
+    }
+
 }

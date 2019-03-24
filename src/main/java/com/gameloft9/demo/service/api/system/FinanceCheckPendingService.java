@@ -17,4 +17,15 @@ public interface FinanceCheckPendingService {
      * @return
      */
     List<PurchaseOrder> getPurchaseList();
+
+    /**
+     * 财务审核采购申请订单
+     *
+     * @param id id
+     * @param financeAuditDescribe 审核内容
+     * @param isAgree 是够同意
+     * @return
+     *      boolean
+     */
+    Boolean auditingPurchaseOrder(String id, String financeAuditDescribe ,String isAgree);
 }

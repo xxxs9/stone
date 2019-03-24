@@ -28,7 +28,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @return
      */
 
-    @Override
+
     public List<OrderAudit> findAll(String page, String limit, String markerOrderId) {
         PageRange pageRange = new PageRange(page, limit);
 
@@ -39,7 +39,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      *
      * @return
      */
-    @Override
+
     public int dataCount() {
         return orderAuditMapper.dataCount();
     }
@@ -49,7 +49,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param id
      * @return
      */
-    @Override
+
     public int deleteById(String id) {
         return orderAuditMapper.deleteById(id);
     }
@@ -57,7 +57,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
     /**
      * 获取订单审核ID
      */
-    @Override
+
     public OrderAuditBean getById(String id) {
         return orderAuditMapper.getById(id);
     }
@@ -67,7 +67,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param
      * @return
      */
-    @Override
+
     public Boolean update(OrderAuditBean orderAuditBean) {
         orderAuditMapper.update(orderAuditBean);
         return true;
@@ -78,7 +78,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param
      * @return
      */
-    @Override
+
     public Boolean backUpdate(OrderAuditBean orderAuditBean) {
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
         orderAuditBean.setState(StateUtil.APPLY_FAIL);
@@ -91,7 +91,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param orderAuditBean
      * @return
      */
-    @Override
+
     public Boolean passUpdate(OrderAuditBean orderAuditBean) {
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
         orderAuditBean.setState(StateUtil.APPLY_PASS);

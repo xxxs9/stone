@@ -164,4 +164,10 @@
             </foreach>
         </where>
     </delete>
+    <select id="getDepotNumber"  resultType="java.lang.String">
+        SELECT DISTINCT
+	      t.DEPOT_NUMBER
+        FROM
+	      D_SYS_DEPOT t
+    </select>
 </mapper>

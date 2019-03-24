@@ -81,4 +81,8 @@ public interface SysDepotMapper {
      * */
     int delsByIds(@Param("ids") List<String> ids);
 
+    /**
+     * 获取仓库编号
+     * */
+    List<String> getDepotNumber();
 }

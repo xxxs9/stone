@@ -41,6 +41,7 @@ layui.config({
 
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
+                , {field: 'productId', title: '产品ID' }
                 , {field: 'customer', title: '购买客户'}
                 , {field: 'deliverNumber', title: '发货数量' }
                 , {field: 'currentNumber', title: '当前库存' }
@@ -92,6 +93,7 @@ layui.config({
 
         var orderId = data.field.orderId;
         var orderTime = data.field.orderTime;
+        var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
         var currentNumber = data.field.currentNumber;
@@ -114,6 +116,7 @@ layui.config({
                 markerOrderId:markerOrderId,
                 orderId:orderId,
                 orderTime:orderTime,
+                productId:productId,
                 customer:customer,
                 deliverNumber:deliverNumber,
                 currentNumber:currentNumber,

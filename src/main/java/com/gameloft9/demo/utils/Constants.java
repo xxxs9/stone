@@ -132,4 +132,9 @@ public class Constants {
         public static final String DEPOT_PASS="审核通过";
         public static final String DEPOT_FAIL="审核未通过";
     }
+    /**
+     *仓库人员的机构名
+     */
+    public static final String DPOT_ORG = "供应部";
+
 }

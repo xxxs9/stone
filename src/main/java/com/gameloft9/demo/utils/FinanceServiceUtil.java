@@ -11,6 +11,9 @@ import java.util.*;
 public class FinanceServiceUtil {
 
     private PageRange pageRange;
+    /**
+     * s
+     */
     private int auditType;
     private Date startTime;
     private Date endTIme;

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysMaterialMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="GOODS_DESCRIBE" property="goodsDescribe" jdbcType="VARCHAR"/>
+        <result column="GOODS_SPECIFICATION" property="goodsSpecification" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, GOODS_NAME, GOODS_TYPE, GOODS_ DESCRIBE, GOODS_SPECIFICATION
+    </sql>
+
+    <select id="getGoodsType" resultType="java.lang.String">
+        select DISTINCT t.GOODS_TYPE
+        FROM SYS_MATERIAL t
+    </select>
+    <select id="getGoodsName" resultType="java.lang.String">
+        select DISTINCT t.GOODS_NAME
+        FROM SYS_MATERIAL t
+    </select>
+    <select id="getGoodsSpecification" resultType="java.lang.String">
+        select DISTINCT t.GOODS_SPECIFICATION
+        FROM SYS_MATERIAL t
+    </select>
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        select * from SYS_MATERIAL t
+        where 1=1
+        <if test="goodsName !=null and goodsName != ''">
+            and (
+            t.GOODS_NAME LIKE (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_NAME >' '
+            )
+        </if>
+        <if test="goodsType !=null and goodsType != ''">
+            and t.GOODS_TYPE = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsSpecification !=null and goodsSpecification != ''">
+            and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
+        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        select count(1)
+        from SYS_MATERIAL t
+        where 1=1
+        <if test="goodsName !=null and goodsName != ''">
+            and (
+            t.GOODS_NAME LIKE (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_NAME >' '
+            )
+        </if>
+        <if test="goodsType !=null and goodsType != ''">
+            and t.GOODS_TYPE = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsSpecification !=null and goodsSpecification != ''">
+            and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
+        insert into SYS_MATERIAL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="goodsName != null">
+                GOODS_NAME,
+            </if>
+            <if test="goodsType != null">
+                GOODS_TYPE,
+            </if>
+            <if test="goodsDescribe != null">
+                GOODS_DESCRIBE,
+            </if>
+            <if test="goodsSpecification != null">
+                GOODS_SPECIFICATION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsType != null">
+                #{goodsType,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDescribe != null">
+                #{goodsDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSpecification != null">
+                #{goodsSpecification,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getByGoodsName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from SYS_MATERIAL t where t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+    </select>
+    <select id="getById" parameterType="map" resultMap="BaseResultMap">
+    select * from SYS_MATERIAL t where t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterial" >
+
+        update SYS_MATERIAL
+        <set >
+            <if test="goodsName != null" >
+                GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsType != null" >
+                GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDescribe != null" >
+                GOODS_DESCRIBE = #{goodsDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSpecification != null" >
+                GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from SYS_MATERIAL
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+</mapper>

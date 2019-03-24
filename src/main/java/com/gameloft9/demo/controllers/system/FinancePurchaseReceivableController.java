@@ -1,8 +1,10 @@
 package com.gameloft9.demo.controllers.system;
 
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
+import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,5 +41,13 @@ public class FinancePurchaseReceivableController {
 
         return new PageResultBean<Collection<SysFinancePurchaseReceivable>>(purchaseReceivableService.getAll(page,limit,auditType,startTime,endTime), purchaseReceivableService.getCount(auditType,startTime,endTime));
     }
+
+    @RequestMapping(value = "/generatePurchaseReceive",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult generatePurchaseReceive(PurchaseOrder purchaseOrder){
+
+        return new ResultBean<String>(purchaseReceivableService.generatePurchaseReceive(purchaseOrder));
+    }
+
 
 }

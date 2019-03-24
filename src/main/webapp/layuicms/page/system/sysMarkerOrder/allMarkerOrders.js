@@ -36,13 +36,14 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-                {field: 'id', title: 'ID' ,fixed:'left'}
+               {field: 'id', title: 'ID' ,fixed:'left'}
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
+                , {field: 'productId', title: '产品ID' }
                 , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '发货数量' }
+                , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
-                , {field: 'plannedNumber', title: '生产计划数量' }
+                , {field: 'plannedNumber', title: '产品单价' }
                 , {field: 'acceptedAmount', title: '已收款金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
@@ -84,6 +85,7 @@ layui.config({
         var id=data.field.id;
         var orderId = data.field.orderId;
         var orderTime = data.field.orderTime;
+        var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
         var currentNumber = data.field.currentNumber;
@@ -101,6 +103,7 @@ layui.config({
                 id:id,
                 orderId:orderId,
                 orderTime:orderTime,
+                productId:productId,
                 customer:customer,
                 deliverNumber:deliverNumber,
                 currentNumber:currentNumber,
@@ -236,4 +239,16 @@ layui.config({
 
 
     }
+
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'datetime'
+        });
+    });
+
 });

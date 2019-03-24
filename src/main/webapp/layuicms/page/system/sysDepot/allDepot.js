@@ -50,10 +50,10 @@ layui.config({
             , cols: [[ //表头
                 {type:'numbers',title:'',fixed: 'left',width: '2.5%'}
                 ,{type:'checkbox',title:'',fixed: 'left',width: '2.5%'}
-                ,{field: 'depotNumber', title: '仓库编号', width: '15%'}
-                , {field: 'depotName', title: '仓库名称', width: '15%'}
-                , {field: 'depotType', title: '仓库类型', width: '20%'}
-                , {field: 'depotAddress', title: '仓库地址', width: '25%'}
+                ,{field: 'depotNumber', title: '仓库编号', width: '10%'}
+                , {field: 'depotName', title: '仓库名称', width: '10%'}
+                , {field: 'depotType', title: '仓库类型', width: '10%'}
+                , {field: 'depotAddress', title: '仓库地址', width: '20%'}
                 , {field: 'depotDescribe', title: '仓库描述', width: '25%'}
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo', width: '20%'} //这里的toolbar值是模板元素的选择器
             ]]

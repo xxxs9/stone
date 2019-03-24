@@ -7,6 +7,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.SysDepotService;
+import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequestMapping("/depotSet")
-public class SysDepotController {
+public class DepotController {
     @Autowired
     private SysDepotService sysDepotServiceImpl;
 
@@ -42,6 +43,7 @@ public class SysDepotController {
 
     /**
      * 添加仓库
+     * @param depotNumber           仓库编号
      * @param depotName             仓库名
      * @param depotType             仓库类型
      * @param depotAddress          仓库地址
@@ -109,6 +111,16 @@ public class SysDepotController {
     public IResult delsDepot(String ids){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysDepotServiceImpl.delsDepot(ids));
+    }
+
+    /**
+     * 获取仓库编号
+     * */
+    @RequestMapping(value = "/getDepotNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getDepotNumber(){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<List<String>>(sysDepotServiceImpl.getDepotNumber());
     }
 
 }

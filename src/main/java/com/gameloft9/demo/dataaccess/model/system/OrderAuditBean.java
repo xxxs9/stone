@@ -13,6 +13,7 @@ public class OrderAuditBean {
     private String orderId;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
+    private String productId;
     private String customer;
     private String deliverNumber;
     private String currentNumber;

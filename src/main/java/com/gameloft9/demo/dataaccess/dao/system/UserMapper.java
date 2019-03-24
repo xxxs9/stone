@@ -54,4 +54,9 @@ public interface UserMapper {
     int countGetAll(@Param("loginName") String loginName,
                     @Param("realName") String realName,
                     @Param("isForbidden") String isForbidden);
+
+    /**
+     * 根据机构名获取机构人员登入用户名
+     * */
+    List<String> getUserLoginNameByOrgName(@Param("orgName") String orgName);
 }

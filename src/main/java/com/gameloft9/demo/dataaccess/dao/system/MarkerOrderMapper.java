@@ -17,14 +17,12 @@ public interface MarkerOrderMapper {
     List<MarkerOrderTest> findAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("orderId") String orderId,
-            @Param("orderTime") Date orderTime);
+            @Param("productId") String productId);
 
     /**
      * 获取所有销售订单个数
      * */
-    int countGetAll( @Param("orderId") String orderId,
-                     @Param("orderTime") Date orderTime);
+    int countGetAll( @Param("productId") String productId);
 
     /**
      * 通过ID删除销售订单信息
@@ -41,7 +39,7 @@ public interface MarkerOrderMapper {
     /**
      * 增加销售订单信息
      */
-    String add(MarkerOrderTest markerOrderTest);
+    int add(MarkerOrderTest markerOrderTest);
 
 
     /**
@@ -66,4 +64,10 @@ public interface MarkerOrderMapper {
      * 撤回back
      */
     Boolean backUpdate(MarkerOrderTest markerOrderTest);
+
+
+    /**
+     * 自动生成订单编号
+     */
+    String orderNum(MarkerOrderTest markerOrderTest);
 }
