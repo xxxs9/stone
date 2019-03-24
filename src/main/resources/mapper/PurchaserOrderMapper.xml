@@ -275,38 +275,6 @@
             FINANCE_STATE = '待审核'
     </select>
 
-    <!--财务管理人员  根据财务审核状态来获取内容,分页-->
-    <select id="getAllByFinance" resultMap="purOrderMap">
-        SELECT
-            ID,
-            ORDER_NUMBER,
-            GOODS_ID,
-            GOODS_NUMBER,
-            PRICE,
-            APPLY_USER,
-            APPLY_TIME,
-            APPLY_PAY_TIME,
-            STATE,
-            FINANCE_STATE,
-            ORDER_AUDIT_USER,
-            ORDER_AUDIT_TIME,
-            APPLY_DESCRIBE,
-            AUDIT_DESCRIBE,
-            FINANCE_AUDIT_USER,
-            FINANCE_AUDIT_TIME,
-            AUDIT_TYPE,
-            FINANCE_AUDIT_DESCRIBE,
-            DEPOT_STATE,
-            DEPOT_USER,
-            DEPOT_TIME,
-            DEPOT_DESCRIBE
-        FROM
-            t_purchase_order
-        WHERE
-            FINANCE_STATE='待审核'
-            AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
-    </select>
-
     <!--采购收货管理 获取需要字段List-->
     <select id="selectAllByInOrder" resultMap="purOrderMap">
         SELECT
@@ -390,6 +358,42 @@
             ID=#{id}
     </update>
 
+
+
+
+
+    <!--阿发包  财务管理人员  根据财务审核状态来获取内容,分页-->
+    <select id="getAllByFinance" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            STATE,
+            FINANCE_STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            APPLY_DESCRIBE,
+            AUDIT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            AUDIT_TYPE,
+            FINANCE_AUDIT_DESCRIBE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            FINANCE_STATE='待审核'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
     <!--阿发包  财务经理审核状态：付款申请-->
     <select id="selectApplyByFinance" resultMap="purOrderMap">
         SELECT
@@ -419,5 +423,37 @@
             t_purchase_order
         WHERE
             FINANCE_STATE='付款申请'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--华锋  仓库审核人员  审核入库单-->
+    <select id="selectApplyByDepot" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            STATE,
+            FINANCE_STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            APPLY_DESCRIBE,
+            AUDIT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            AUDIT_TYPE,
+            FINANCE_AUDIT_DESCRIBE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            DEPOT_STATE='入库单审核中'
     </select>
 </mapper>

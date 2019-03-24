@@ -163,17 +163,6 @@ public interface PurchaseOrderMapper {
     List<PurchaseOrder> getAllPurchaseOrderByState();
 
     /**
-     * 根据财务审核状态financeState来获取所有 分页
-     * @param start 开始
-     * @param end 结束
-     * @return List<PurchaseOrder> 返回值
-     *         啊
-     * */
-    List<PurchaseOrder> getAllByFinance(
-            @Param("start") int start,
-            @Param("end") int end);
-
-    /**
      * 采购收货
      * 分页获取个数
      * @param goodsId 货品名称
@@ -191,4 +180,33 @@ public interface PurchaseOrderMapper {
      * @return int 返回值
      * */
     int lookIn(PurchaseOrder record);
+
+
+
+
+
+    /**
+     * 根据财务审核状态financeState来获取所有 分页
+     * @param start 开始
+     * @param end 结束
+     * @return List<PurchaseOrder> 返回值
+     *         啊
+     * */
+    List<PurchaseOrder> getAllByFinance(
+            @Param("start") int start,
+            @Param("end") int end);
+
+    /**
+     * 阿发包
+     * 通过财务审核状态为申请付款获取列表*/
+    List<PurchaseOrder> selectApplyByFinance(
+            @Param("start") int start,
+            @Param("end") int end);
+
+    /**
+     * 华锋
+     * 根据仓库审核状态获取列表*/
+    List<PurchaseOrder> selectApplyByDepot(
+            @Param("start") int start,
+            @Param("end") int end);
 }

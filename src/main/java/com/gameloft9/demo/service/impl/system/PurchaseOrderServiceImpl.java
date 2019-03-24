@@ -83,6 +83,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String str="审核通过";
         if(str.equals(state)){
             purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
+
         }else{
             purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }

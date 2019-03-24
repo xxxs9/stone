@@ -195,10 +195,6 @@ layui.define(['$tool','jquery'], function (exports) {
         bringInPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/bringIn.do',req,config,successCallback,errorCallback);
         },
-        //财务审核人员获取财务审核状态为待审核的信息
-        financePurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
-        },
         //采购入库之确认 sure
         sureInPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/sureIn.do',req,config,successCallback,errorCallback);
@@ -223,6 +219,21 @@ layui.define(['$tool','jquery'], function (exports) {
         lookInPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookIn.do',req,config,successCallback,errorCallback);
         },
+
+
+        //阿发包 财务审核人员获取财务审核状态为待审核的信息
+        financePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
+        },
+        //阿发包 财务审核人员获取财务审核状态为付款申请的信息
+        financeApplyPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/financeApply.do',req,config,successCallback,errorCallback);
+        },
+        //华锋 仓库审核人员获取仓库审核状态为入库单审核中的信息
+        depotPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/depot.do',req,config,successCallback,errorCallback);
+        },
+
 
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
