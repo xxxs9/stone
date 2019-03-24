@@ -28,50 +28,20 @@ layui.config({
 
     init();
 
-    /**
-     * 初始化组织机构树
-     * */
-    /*function initOrgTree() {
-        //获取所有组织机构树
-
-        $api.GetAllOrg(null,function (res) {
-            renderTree('#org-tree', res.data);
-        });
-
-    }*/
 
     /**
-     * 绘制树
-     * @param id dom id
-     * @param nodes 树节点数据
-     * */
-    /*function renderTree(id, nodes) {
-        //绘制前先清空
-        $(id).empty();
+     * 初始化下拉框
+     */
 
-        //绘制
-        layui.tree({
-            elem: id
-            , nodes: nodes
-            , click: function (node) {//显示组织机构数据
-                console.log(node); //node即为当前点击的节点数据
-                orgId = node.id;//保存机构id
-                orgName = node.name;
-            }
-        });
-    }*/
 
-    /**
-     * 加载产品列表
-     * */
- /*   function loadRoleList() {
+    function loadRoleList() {
         var req = {
             page: 1,
             limit: 999
         };
 
 
-        $api.GetRoleList(req,function (res) {
+        $api.getProductId(req,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var roleHtml = "";
@@ -84,7 +54,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }*/
+    }
 
     /**
      * 表单提交

@@ -127,4 +127,13 @@ public class MarkerOrderController {
         return new ResultBean<String>(markerOrderService.orderNum(markerOrderTest));
     }
 
+    /**
+     * 获取下拉框值
+     * @return
+     */
+    @RequestMapping(value = "/getprocutid",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getProductId(){
+        return new ResultBean<Collection<MarkerOrderTest>>(markerOrderService.getProductId());
+    }
 }

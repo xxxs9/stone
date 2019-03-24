@@ -31,7 +31,7 @@ layui.config({
         tableIns = table.render({
             elem: '#user-data'
 
-            , url: $tool.getContext() + 'marker/list' //数据接口
+            , url: $tool.getContext() + 'shipment/list' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
@@ -63,14 +63,16 @@ layui.config({
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delMarkerOrder(row.id);
+                delShipmnetOrder(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editMarkerOrder(row.id);
-            }else if (layEvent === 'audi'){//提交
-                audi(row.id);
+                editShipmentOrder(row.id);
+            }else if (layEvent === 'confirm'){//确认收货
+                confirm(row.id);
             }else if (layEvent === 'back') {//撤回
                 back(row.id);
+            }else if (layEvent === 'look') {//撤回
+                look(row.id);
             }
         });
     }
@@ -119,7 +121,7 @@ layui.config({
         var index = layui.layer.open({
             title: "添加订单",
             type: 2,
-            content: "addMarkerOrder.html",
+            content: "addShipmentOrder.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -137,7 +139,7 @@ layui.config({
     });
 
     //删除
-    function delMarkerOrder(id){
+    function delShipmnetOrder(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -145,7 +147,7 @@ layui.config({
                 id: id
             };
 
-            $api.DeleteMarkerOrder(req,function (data) {
+            $api.DeleteShipmentOrder(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -159,16 +161,16 @@ layui.config({
 
     //提交
 
-    function audi(id){
-        layer.confirm('确认提交吗？', function (confirmIndex) {
+    function confirm(id){
+        layer.confirm('确认收货吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
                 id: id
             };
 
-            $api.audiUpdate(req,function (data) {
-                layer.msg("提交成功",{time:1000},function(){
+            $api.confirmUpdate(req,function (data) {
+                layer.msg("收货成功",{time:1000},function(){
                     //obj.del(); //提交对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -180,6 +182,32 @@ layui.config({
             layui.layer.full(index);
         });
     }
+
+
+    //查看
+    function look(id) {
+        var index = layui.layer.open({
+            title: "查看订单",
+            type: 2,
+            content: "lookShipmentOrder.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+
+    }
+
 
     //撤回
 
@@ -211,11 +239,11 @@ layui.config({
 
 
     //编辑
-    function editMarkerOrder(id) {
+    function editShipmentOrder(id) {
         var index = layui.layer.open({
             title: "编辑订单",
             type: 2,
-            content: "editMarkerOrder.html?id=" + id,
+            content: "editShipmentOrder.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

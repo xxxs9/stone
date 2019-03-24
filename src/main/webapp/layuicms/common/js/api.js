@@ -560,7 +560,31 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         editCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/upd',req,successCallback,errorCallback);
-        },
+        },//发货单删除
+        DeleteShipmentOrder:function(req,config,successCallback,errorCallback) {
+        doPost($tool.getContext() + 'shipment/delete', req, config, successCallback, errorCallback);
+    },//发货单添加
+        AddShipmentOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment /add',req,successCallback,errorCallback);
+        },//发货单ID
+        GetShipmentOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'shipment/get',req,successCallback,errorCallback);
+        },//销售订单修改
+        updateShipmentOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/update',req,successCallback,errorCallback);
+        },//获取订单审核ID
+        GetOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'audit/get',req,successCallback,errorCallback);
+        },//订单审核修改
+        updateOrderAudit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/update',req,successCallback,errorCallback);
+        },//收货成功
+        confirmUpdate:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/confirm',req,successCallback,errorCallback);
+        }, //初始化productId下拉框
+        getProductId:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/getprocutid',req,config,successCallback,errorCallback);
+        }
     };
 
 

@@ -49,9 +49,9 @@ public class OrderAuditController {
      */
     @RequestMapping(value = "list",method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page,String limit,String markerOrderId){
+    public IResult findAll(String page,String limit,String productId){
 
-        List<OrderAudit> list = orderAuditService.findAll(page, limit, markerOrderId);
+        List<OrderAudit> list = orderAuditService.findAll(page, limit, productId);
         return new PageResultBean<Collection<OrderAudit>>(list,orderAuditService.dataCount());
     }
 

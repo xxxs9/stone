@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -117,8 +118,17 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     public String orderNum(MarkerOrderTest markerOrderTest) {
         markerOrderTest.setOrderId(OrderUtil.getLocalTrmSeqNum());
-        markerOrderMapper.orderNum(markerOrderTest);
-        return null;
+        return markerOrderMapper.orderNum(markerOrderTest);
+    }
+
+    /**
+     *获取productid下拉框
+     * @return
+     */
+    public List<MarkerOrderTest> getProductId() {
+        List<MarkerOrderTest> list = new ArrayList<MarkerOrderTest>();
+        list=markerOrderMapper.getProductId();
+        return list;
     }
 
 
