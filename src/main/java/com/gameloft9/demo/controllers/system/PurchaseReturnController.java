@@ -44,9 +44,9 @@ public class PurchaseReturnController {
      *查询所有列表*/
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAll(String page,String limit,String goodsId,String state){
+    public IResult selectAll(String page,String limit,String goodsId,String depotState){
         return new PageResultBean<Collection<PurchaseReturn>>(service.selectAll(page,limit,goodsId,
-                state),service.countGetAll(goodsId,state));
+                depotState),service.countGetAll(goodsId,depotState));
     }
 
     /**

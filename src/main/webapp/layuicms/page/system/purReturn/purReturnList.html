@@ -26,7 +26,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">订单状态</label>
             <div class="layui-input-block">
-                <select id="state" name="state"></select>
+                <select id="depotState" name="depotState"></select>
             </div>
         </div>
         <div class="layui-inline">
@@ -51,16 +51,18 @@
 <!--toolbar模板-->
 <!--设置按钮-->
 <script type="text/html" id="barDemo">
-    {{# if(d.state=="未提交"){ }}
+    {{# if(d.depotState=="未提交"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="commit"><i class="layui-icon">&#xe643;</i>提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# } else if(d.state=="提交审核中"){ }}
+    {{# } else if(d.depotState=="提交审核中"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
     <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# } else if(d.state=="审核通过"){ }}
+    {{# } else if(d.depotState=="审核通过"){ }}
     <label>审核已通过，待退款</label>
+    {{# } else if(d.depotState=="审核结束"){ }}
+    <label>退货完成，已退款</label>
     {{# } }}
 </script>
 

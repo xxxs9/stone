@@ -34,6 +34,7 @@ layui.config({
         html1 += '<option value="未提交">未提交</option>>';
         html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
+        html1 += '<option value="审核结束">审核结束</option>>';
         $('#depotState').append($(html1));
         form.render();
     }
@@ -61,7 +62,7 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#pur-data'
-            , url: $tool.getContext() + 'purchase_order/list.do' //数据接口
+            , url: $tool.getContext() + 'purchase_return/list.do' //数据接口
             , method: 'post'
             , height: 415
             , page:true //开启分页

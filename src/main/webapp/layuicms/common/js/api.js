@@ -234,8 +234,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },
-        //修改
+        },        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },

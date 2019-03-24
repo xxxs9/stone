@@ -27,14 +27,14 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     PurchaseReturnMapper dao;
 
     /**查询所有*/
-    public List<PurchaseReturn> selectAll(String page, String limit, String goodsId, String state) {
+    public List<PurchaseReturn> selectAll(String page, String limit, String goodsId, String depotState) {
         PageRange pageRange = new PageRange(page, limit);
-        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
+        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,depotState);
     }
 
     /**分页查找*/
-    public int countGetAll(String goodsId, String state) {
-        return dao.countGetAll(goodsId,state);
+    public int countGetAll(String goodsId, String depotState) {
+        return dao.countGetAll(goodsId,depotState);
     }
 
     /**增加*/

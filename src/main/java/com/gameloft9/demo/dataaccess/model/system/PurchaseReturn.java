@@ -5,6 +5,11 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * model class
+ * @author OliverCH
+ * @date 2016/03/24
+ */
 @Data
 public class PurchaseReturn {
     private String id;

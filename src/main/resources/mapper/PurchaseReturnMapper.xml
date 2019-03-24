@@ -64,9 +64,6 @@
             <if test="depotState != null and depotState != ''">
                 AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
             </if>
-            <if test="financeState != null and financeState != ''">
-                AND FINANCE_STATE = #{financeState,jdbcType=VARCHAR}
-            </if>
                 AND m.MATERIAL_ID = t.GOODS_ID
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
@@ -86,9 +83,6 @@
             </if>
             <if test="depotState != null and depotState != ''">
                 DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
-            </if>
-            <if test="financeState != null and financeState != ''">
-                FINANCE_STATE = #{financeState,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -165,7 +159,7 @@
     </select>
 
     <!--修改-->
-    <update id="update" parameterMap="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
         UPDATE
             t_purchase_return
         SET
@@ -222,4 +216,58 @@
         </where>
     </update>
 
+
+
+
+    <!--阿发包 财务主管 当depotState为审核通过时获取信息-->
+    <select id="selectReturnByFinance" resultMap="purReturnMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            DEPOT_STATE,
+            FINANCE_STATE,
+            AUDIT_TYPE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_AUDIT_DESCRIBE
+        FROM
+            t_purchase_return
+        WHERE
+            DEPOT_STATE='审核通过'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--华锋 仓库主管 当depotState为提交审核中时获取信息-->
+    <select id="selectReturnByDepot" resultMap="purReturnMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            DEPOT_STATE,
+            FINANCE_STATE,
+            AUDIT_TYPE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_AUDIT_DESCRIBE
+        FROM
+            t_purchase_return
+        WHERE
+            DEPOT_STATE='提交审核中'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
 </mapper>

@@ -5,6 +5,13 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
+/**
+ * PurchaseOrder dao
+ * 采购订单 dao层
+ * @author OliverCH
+ * @date 2019/03/24
+ */
 public interface PurchaseReturnMapper {
 
     /**
@@ -12,22 +19,22 @@ public interface PurchaseReturnMapper {
      * @param start 开始
      * @param end 结束
      * @param goodsId 商品名称
-     * @param state 审核
+     * @param depotState 审核
      * @return List<PurchaseReturn> 返回内容*/
     List<PurchaseReturn> selectAll(
             @Param("start") int start,
             @Param("end") int end,
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("depotState") String depotState);
 
     /**
      * 分页显示
      * @param goodsId 商品名称
-     * @param state 审核
+     * @param depotState 审核
      * @return int 返回值*/
     int countGetAll(
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("depotState") String depotState);
 
     /**
      * 增加
@@ -71,5 +78,25 @@ public interface PurchaseReturnMapper {
      * @return Boolean 布尔类型
      * */
     Boolean updateTools(PurchaseReturn purchaseReturn);
-    
+
+
+
+
+    /**
+     * 阿发包 财务主管 审核状态为审核通过
+     * @param start 开始
+     * @param end 结束
+     * @return List<purchaseReturn> 集合*/
+    List<PurchaseReturn> selectReturnByFinance(
+            @Param("start") int start,
+            @Param("end") int end);
+
+    /**华锋 仓库主管 审核状态为提交审核中
+     * @param start 开始
+     * @param end 结束
+     * @return List<purchaseReturn> 集合*/
+    List<PurchaseReturn> selectReturnByDepot(
+            @Param("start") int start,
+            @Param("end") int end);
+
 }

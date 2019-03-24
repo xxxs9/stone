@@ -16,16 +16,16 @@ public interface PurchaseReturnService {
      * @param page 页数
      * @param limit 显示的条数
      * @param goodsId 商品名称
-     * @param state 审核
+     * @param depotState 审核
      * @return List<PurchaseReturn> 返回值*/
-    List<PurchaseReturn> selectAll(String page,String limit,String goodsId,String state);
+    List<PurchaseReturn> selectAll(String page,String limit,String goodsId,String depotState);
 
     /**
      * 分页查找
      * @param goodsId 商品名称
-     * @param state 审核
-     * @return List<PurchaseReturn> 返回值*/
-    int countGetAll(String goodsId,String state);
+     * @param depotState 审核
+     * @return int 返回值*/
+    int countGetAll(String goodsId,String depotState);
 
     /**
      * 增加
