@@ -4,7 +4,6 @@
 
     <resultMap id="purchaseReceivableMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable">
         <id property="id" column="ID" jdbcType="VARCHAR"/>
-        <id property="pid" column="PID" jdbcType="VARCHAR"/>
         <result property="purchaseOrderRejectedId" column="PURCHASE_ORDER_REJECTED_ID" jdbcType="VARCHAR"/>
         <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
         <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
@@ -16,7 +15,6 @@
         <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
         <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
         <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
-        <result property="publicId" column="PUBLIC_ID" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
@@ -76,5 +74,63 @@
                 and f.PID = p.PUBLIC_ID
 
         </where>
+    </select>
+
+    <!--生成采购应收单  add(T t)-->
+    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable">
+      insert into a_purchase_receivable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE,
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE,
+            </if>
+            <if test="rejectedNumber != null and rejectedNumber != ''">
+                REJECTED_NUMBER,
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE,
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+            <if test="purchaseOrderRejectedId != null and purchaseOrderRejectedId != ''">
+                PURCHASE_ORDER_REJECTED_ID,
+            </if>
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                #{auditType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="rejectedNumber != null and rejectedNumber != ''">
+                #{rejectedNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseOrderRejectedId != null and purchaseOrderRejectedId != ''">
+                #{purchaseOrderRejectedId,jdbcType=VARCHAR},
+            </if>
+        </trim>
     </select>
 </mapper>

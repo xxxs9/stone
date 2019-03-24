@@ -256,9 +256,13 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
         },
 
-        /*审核采购订单付款申请*/
-        auditingPurchase:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/auditingPurchaseOrder.do',req,successCallback,errorCallback);
+        /*生成采购应付单*/
+        generatePurchasePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generatePurchasePay.do',req,successCallback,errorCallback);
+        },
+        /*生成采购应收单*/
+        generatePurchaseReceive:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generatePurchaseReceive.do',req,successCallback,errorCallback);
         },
 
 
@@ -420,11 +424,6 @@ layui.define(['$tool','jquery'], function (exports) {
         /*更新应付单内容*/
         UpdatePay:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'finance/update.do',req,config,successCallback,errorCallback);
-        },
-
-        /*提交应付单*/
-        generatePurchasePay:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/generatePurchasePay.do',req,successCallback,errorCallback);
         },
 
         /*添加采购应付单*/

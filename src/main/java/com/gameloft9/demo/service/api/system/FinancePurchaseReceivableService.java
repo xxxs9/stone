@@ -1,5 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable;
 
@@ -36,4 +37,13 @@ public interface FinancePurchaseReceivableService {
      *          条件查询总条数
      */
     int getCount(String auditType, String startTime, String endTime);
+
+    /**
+     * 添加采购申请应收单
+     *
+     * @param purchaseOrder 采购申请单
+     * @return
+     *      string
+     */
+    String generatePurchaseReceive(PurchaseOrder purchaseOrder);
 }

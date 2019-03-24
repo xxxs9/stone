@@ -55,10 +55,5 @@ public interface FinancePurchaseBillsPayableMapper extends BaseMapper<SysFinance
      */
     SysFinancePurchaseBillsPayable getPurchasePay(@Param("purchaseOrderId") String purchaseOrderId);
 
-    /**
-     * 填写（更新）应付单
-     *
-     * @param purchaseBillsPayable 应付单
-     */
-    void generatePurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable);
+
 }

@@ -54,23 +54,40 @@
 <!--分页元素-->
 <div id="page"></div>
 <!--toolbar 模板-->
-<script type="text/html" id="barDemo">
-    <!--通过lay-event定义事件-->
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="check"><i class="layui-icon">&#xe60e;</i>查看</a>
-    <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
-</script>
+<!--<script type="text/html" id="barDemo">
+    &lt;!&ndash;通过lay-event定义事件&ndash;&gt;
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>查看</a>
 
+    &lt;!&ndash;<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>&ndash;&gt;
+</script>-->
+
+
+<script type="text/html" id="barDemo">
+    {{#  if(d.applyType == '1'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购申请应付单</a>
+    {{#  } else if(d.applyType == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购退货应付单</a>
+    {{#  } else if(d.applyType == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售发货应付单</a>
+    {{#  } else if(d.applyType == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售退货应付单</a>
+    {{#  } }}
+</script>
 
 <script type="text/html" id="applyType">
     {{# if(d.applyType == 1){ }}
     <span>采购应付单</span>
     {{# } else if(d.applyType == 2) { }}
-    <span>采购应收单</span>
-    {{# } else if(d.applyType == 3) { }}
     <span>销售应付单</span>
+    {{# } else if(d.applyType == 3) { }}
+    <span>采购应收单</span>
     {{# } else if(d.applyType == 4) { }}
     <span>销售应收单</span>
     {{# } }}
+</script>
+
+<script type="text/html" id="clickThis">
+    <span style="color: #F581B1;">{{ d.applyId }}</span>
 </script>
 
 <script type="text/html" id="applyState">

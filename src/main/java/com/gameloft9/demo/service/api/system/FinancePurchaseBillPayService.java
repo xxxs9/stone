@@ -1,5 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper;
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 
@@ -54,4 +56,13 @@ public interface FinancePurchaseBillPayService {
      *      采购应付单
      */
     SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);
+
+    /**
+     * 添加采购申请应付单
+     *
+     * @param purchaseOrder 采购申请单
+     * @return
+     *      string
+     */
+    String generatePurchasePay(PurchaseOrder purchaseOrder);
 }

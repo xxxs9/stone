@@ -21,14 +21,15 @@ layui.config({
 
         //初始化采购订单申请信息
         var queryArgs = $tool.getQueryParam();//获取查询参数
-        var id = queryArgs['id'];
+        var id = queryArgs['applyId','applyType'];
         var url = $tool.getContext()+'purchase_order/get.do';
         var req = {
-            id:id
+            id:queryArgs.applyId,
+            applyType:queryArgs.applyType
         };
+
         //沧海的getPurOrder
         $api.getPurOrder(req,function (res) {
-
             var data = res.data;
             $('#id').val(id);
             $("[name='goodsId']").val(data.goodsId);
@@ -40,14 +41,17 @@ layui.config({
             //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
             //加载角色列表
             //loadRoleList();
-            if(data.auditType == 1){
+
+
+            if(queryArgs.applyType == 1 || queryArgs.applyType==3){
                 $('#apply').text('采购订单申请');
-                $('#order').text('采购应付单');
+            } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
+                $('#apply').text('销售订单申请');
             }
             form.render();//重新绘制表单，让修改生效
         });
 
-        $api.getPurOrder(req,function (res) {
+        /*$api.getPurOrder(req,function (res) {
             //alert($('#id').val())  申请订单id
             var data = res.data;
             $("[name='goodsId']").val(data.goodsId);
@@ -61,7 +65,7 @@ layui.config({
             //加载角色列表
             //loadRoleList();
             form.render();//重新绘制表单，让修改生效
-        });
+        });*/
     }
 
     init();

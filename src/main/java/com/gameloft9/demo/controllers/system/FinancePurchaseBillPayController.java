@@ -1,5 +1,6 @@
 package com.gameloft9.demo.controllers.system;
 
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -70,8 +71,8 @@ public class FinancePurchaseBillPayController {
 
     @RequestMapping(value = "/generatePurchasePay", method = RequestMethod.POST)
     @ResponseBody
-    public IResult generatePurchasePay(String payId){
+    public IResult generatePurchasePay(PurchaseOrder purchaseOrder){
 
-        return null;
+        return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder));
     }
 }

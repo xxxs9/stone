@@ -95,7 +95,13 @@
             <if test="totalPrice != null and totalPrice != ''">
                 TOTAL_PRICE,
             </if>
-            <if test="purchaseOrderId != null and id != ''">
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
                 PURCHASE_ORDER_ID,
             </if>
         </trim>
@@ -116,7 +122,13 @@
             <if test="totalPrice != null and totalPrice != ''">
                 #{totalPrice,jdbcType=VARCHAR},
             </if>
-            <if test="purchaseOrderId != null and id != ''">
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
                 #{purchaseOrderId,jdbcType=VARCHAR},
             </if>
         </trim>

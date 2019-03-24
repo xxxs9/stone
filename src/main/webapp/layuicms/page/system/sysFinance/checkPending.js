@@ -28,13 +28,13 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'applyId', title: '订单单号',width:100,event:'show',style:'cursor:pointer'}
-                , {field: 'applyUser', title: '申请人', width:120,event:'show',style:'cursor:pointer'}
-                , {field: 'applyTime', title: '申请时间', width:170,event:'show',style:'cursor:pointer'}
-                , {field: 'applyType', title: '申请类型', width:100,event:'show',style:'cursor:pointer',templet:'#applyType'}
-                , {field: 'applyState', title: '申请状态', width:100,event:'show',style:'cursor:pointer',templet:'#applyState'}
-                , {field: 'applyMoney', title: '申请款', width:80,event:'show',style:'cursor:pointer'}
-                , {fixed: 'right', title: '操作', width: 100, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'applyId', title: '订单单号',width:100,event:'show',style:'cursor:pointer',templet:'#clickThis'}
+                , {field: 'applyUser', title: '申请人', width:120,}
+                , {field: 'applyTime', title: '申请时间', width:170,}
+                , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}
+                , {field: 'applyState', title: '申请状态', width:100,templet:'#applyState'}
+                , {field: 'applyMoney', title: '申请款', width:80,}
+                , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -47,11 +47,22 @@ layui.config({
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             //区分事件
-            if (layEvent === 'check') { //查看
-                checkPurchaseOrder(row.applyId);
+            if (layEvent === 'generateApply') { //生成应付或应收单
+                checkPurchaseOrder1(row.applyId,row.applyType);
+                /*if(row.applyType == 1){
+                    checkPurchaseOrder1(row.applyId,row.applyType);
+                }else if(row.applyType == 2){
+                    //checkPurchaseReceive(row.applyId,row.applyType);
+                }else if(row.applyType == 3){
+                    checkPurchaseReceive(row.applyId,row.applyType);
+                }else if(row.applyType == 4){
+                    //checkPurchaseReceive(row.applyId,row.applyType);
+                }*/
+
             } else if (layEvent === 'show') { //点击行出发事件
                 //do something
-                checkPurchaseOrder(row.applyId);
+
+                checkPurchaseOrder(row.applyId,row.applyType);
             }
         });
 
@@ -76,12 +87,36 @@ layui.config({
     });
 
 
-    //查看
-    function checkPurchaseOrder(applyId){
+    //查看订单
+    function checkPurchaseOrder(applyId,applyType){
+        var applyType1 = applyType;
         var index = layui.layer.open({
             title: "订单详情",
             type: 2,
-            content: "showOrder.html?id="+applyId,
+            content: "showOrder.html?applyId="+applyId+"&applyType="+applyType,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+    //申请单
+    function checkPurchaseOrder1(applyId,applyType){
+        var applyType1 = applyType;
+        var index = layui.layer.open({
+            title: "订单详情",
+            type: 2,
+            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {
