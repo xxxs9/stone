@@ -6,7 +6,7 @@
     <resultMap id="MarkerOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
-        <result column="ORDER_TIME" property="orderTime" jdbcType="DATE"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP"/>
         <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
@@ -49,7 +49,7 @@
 <!--提交audi-->
     <update id="audiUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
         update
-            w_marker_order
+        w_marker_order
         <set>
             <if test="state != null and state != ''">
                 STATE = #{state,jdbcType=VARCHAR}
@@ -60,7 +60,7 @@
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
         </where>
-  </update>
+    </update>
 
     <!--撤回back-->
     <update id="backUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
@@ -78,15 +78,15 @@
         </where>
     </update>
 
+    <!--获取产品id下拉框-->
+    <select id="getProductId" parameterType="java.lang.String">
+        select DISTINCT
+        PRODUCT_ID
+        from
+          w_marker_order
 
-    <!--获取所有类表角色-->
-   <!-- <select id="selectAll" resultMap="MarkerOrderResultMap" >
+    </select>
 
-        select
-            ID, ORDER_ID, ORDER_TIME, CUSTOMER, DELIVER_NUMBER, CURRENT_NUMBER,PLANNED_NUMBER,ACCEPTED_AMOUNT,
-        UNPAID_AMOUNT,APPLY_USER,APPLY_TIME,STATE,ORDER_AUDIT_USER,REMARKS
-        from w_marker_order
-    </select>-->
     <!--获取角色ID-->
 
     <select id="getMaker" resultMap="MarkerOrderResultMap" parameterType="java.lang.String">

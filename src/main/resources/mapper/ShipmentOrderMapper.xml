@@ -9,11 +9,11 @@
         <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="QUANTITY_NUMBER" property="quantityNumber" jdbcType="VARCHAR"/>
-        <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="DATE"/>
+        <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="TIMESTAMP"/>
         <result column="RECEIVING_ADDRESS" property="receivingAddress" jdbcType="VARCHAR"/>
         <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
         <result column="CONSIGNEE" property="consignee" jdbcType="VARCHAR"/>
-        <result column="RECEIVING_TIME" property="receivingTime" jdbcType="DATE"/>
+        <result column="RECEIVING_TIME" property="receivingTime" jdbcType="TIMESTAMP"/>
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
     </resultMap>
@@ -35,10 +35,10 @@
 
 
 
-    <!--提交audi-->
-    <update id="audiUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+    <!--提交confirm-->
+    <update id="confirmUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         update
-        w_marker_order
+        w_shipment_order
         <set>
             <if test="state != null and state != ''">
                 STATE = #{state,jdbcType=VARCHAR}
@@ -71,7 +71,7 @@
 
     <!--获取角色ID-->
 
-    <select id="getMaker" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
+    <select id="getById" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
         select
         ID,
        SHIPMENT_ID,
@@ -122,7 +122,7 @@
 
     <!--通过ID删除-->
     <delete id="deleteById" parameterType="java.lang.String">
-    delete from w_marker_order
+    delete from w_shipment_order
     where ID = #{id}
   </delete>
     <!--添加-->
@@ -143,37 +143,33 @@
        REMARKS)
         values
           (#{id},
-          #{orderId},
-          #{orderTime},
+          #{shipmentId},
+          #{goodsName},
           #{customer},
-          #{deliverNumber},
-          #{currentNumber},
-          #{plannedNumber},
-          #{acceptedAmount},
-          #{unpaidAmount},
-          #{applyUser},
-
+          #{quantityNumber},
+          #{deliveryTime},
+          #{receivingAddress},
+          #{phone},
+          #{consignee},
+          #{receivingTime},
           #{state},
-          #{orderAuditUser},
           #{remarks})
     </insert>
     <!--修改-->
     <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         update
-            w_marker_order
+           w_shipment_order
         set
-            ORDER_ID=#{orderId},
-            ORDER_TIME=#{orderTime},
+            SHIPMENT_ID=#{shipmentId},
+            GOODS_NAME=#{goodsName},
             CUSTOMER=#{customer},
-            DELIVER_NUMBER=#{deliverNumber},
-            CURRENT_NUMBER=#{currentNumber},
-            PLANNED_NUMBER=#{plannedNumber},
-            ACCEPTED_AMOUNT=#{acceptedAmount},
-            UNPAID_AMOUNT=#{unpaidAmount},
-            APPLY_USER=#{applyUser},
-
+            QUANTITY_NUMBER=#{quantityNumber},
+            DELIVERY_TIME=#{deliveryTime},
+            RECEIVING_ADDRESS=#{receivingAddress},
+            PHONE=#{phone},
+            CONSIGNEE=#{consignee},
+            RECEIVING_TIME=#{receivingTime},
             STATE=#{state},
-            ORDER_AUDIT_USER=#{orderAuditUser},
             REMARKS=#{remarks}
         where
             ID=#{id}

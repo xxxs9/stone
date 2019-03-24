@@ -12,7 +12,7 @@ public interface OrderAuditService {
     /**
      * 获取所有销售订单信息
      */
-    List<OrderAudit> findAll(String page, String limit, String markerOrderId);
+    List<OrderAudit> findAll(String page, String limit, String productId);
 
     /**
      * 获取所有销售订单个数

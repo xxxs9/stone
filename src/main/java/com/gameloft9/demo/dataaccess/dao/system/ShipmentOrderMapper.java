@@ -55,8 +55,11 @@ public interface ShipmentOrderMapper {
      * @param shipmentOrder
      * @return
      */
-    String add(ShipmentOrder shipmentOrder);
+    int add(ShipmentOrder shipmentOrder);
 
-
+    /**
+     * 确认收货
+     */
+    Boolean confirmUpdate(ShipmentOrder shipmentOrder);
 
 }

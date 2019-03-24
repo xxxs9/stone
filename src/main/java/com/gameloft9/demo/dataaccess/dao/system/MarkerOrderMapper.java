@@ -10,9 +10,10 @@ public interface MarkerOrderMapper {
 
     /**
      * 获取所有销售订单信息
-     * @param start 开始
-     * @param end 结束
-     *
+     * @param start
+     * @param end
+     * @param productId
+     * @return
      */
     List<MarkerOrderTest> findAll(
             @Param("start") int start,
@@ -21,32 +22,40 @@ public interface MarkerOrderMapper {
 
     /**
      * 获取所有销售订单个数
-     * */
+     * @param productId
+     * @return
+     */
     int countGetAll( @Param("productId") String productId);
 
     /**
      * 通过ID删除销售订单信息
+     * @param id
+     * @return
      */
     int deleteById(String id);
 
     /**
      * 修改销售订单信息
+     * @param markerOrderTest
+     * @return
      */
     Boolean update(MarkerOrderTest markerOrderTest);
 
 
-
     /**
      * 增加销售订单信息
+     * @param markerOrderTest
+     * @return
      */
     int add(MarkerOrderTest markerOrderTest);
 
 
     /**
      * 获取销售订单id
+     * @param id
+     * @return
      */
     MarkerOrderTest getMaker(String id);
-
 
 
     /**
@@ -56,18 +65,30 @@ public interface MarkerOrderMapper {
 
     /**
      * 提交audi
+     * @param markerOrderTest
+     * @return
      */
 
     Boolean audiUpdate(MarkerOrderTest markerOrderTest);
 
     /**
      * 撤回back
+     * @param markerOrderTest
+     * @return
      */
     Boolean backUpdate(MarkerOrderTest markerOrderTest);
 
 
     /**
      * 自动生成订单编号
+     * @param markerOrderTest
+     * @return
      */
     String orderNum(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 获取下拉框
+     * @return
+     */
+    List<MarkerOrderTest> getProductId();
 }

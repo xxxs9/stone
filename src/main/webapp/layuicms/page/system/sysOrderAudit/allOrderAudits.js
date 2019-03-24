@@ -37,7 +37,6 @@ layui.config({
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                 {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'markerOrderId', title: '订单审核编号'}
 
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
@@ -53,7 +52,7 @@ layui.config({
                 , {field: 'orderAuditUser', title: '订单审核人' }
                 , {field: 'remarks', title: '备注' }
 
-                , {field: 'auditTime', title: '审核时间' }
+
                 , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -79,6 +78,8 @@ layui.config({
                 back(row.id);
             }else if (layEvent === 'pass') {//审核通过
                 pass(row.id);
+            }else if (layEvent === 'look') {//审核通过
+                look(row.id);
             }
         });
     }
@@ -89,7 +90,7 @@ layui.config({
     form.on("submit(queryUser)", function (data) {
         /*var status = data.field.status;*/
         var id=data.field.id;
-        var markerOrderId = data.field.markerOrderId;
+
 
         var orderId = data.field.orderId;
         var orderTime = data.field.orderTime;
@@ -105,7 +106,7 @@ layui.config({
         var orderAuditUser = data.field.orderAuditUser;
         var remarks = data.field.remarks;
 
-        var auditTime = data.field.auditTime;
+
 
 
         //表格重新加载
@@ -113,7 +114,7 @@ layui.config({
             where:{
                 /*status:status,*/
                 id:id,
-                markerOrderId:markerOrderId,
+
                 orderId:orderId,
                 orderTime:orderTime,
                 productId:productId,
@@ -128,7 +129,7 @@ layui.config({
                 orderAuditUser:orderAuditUser,
                 remarks:remarks,
 
-                auditTime:auditTime,
+               
 
 
             }
@@ -254,7 +255,29 @@ layui.config({
         layui.layer.full(index);
     }
 
+    //查看
+    function look(id) {
+        var index = layui.layer.open({
+            title: "查看订单",
+            type: 2,
+            content: "lookOrderAudit.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
 
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+
+    }
 
     //编辑
     function editOrderAudit(id) {

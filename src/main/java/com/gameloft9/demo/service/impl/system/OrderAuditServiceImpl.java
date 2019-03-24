@@ -24,15 +24,15 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * 分页模糊查询
      * @param page
      * @param limit
-     * @param markerOrderId
+     * @param
      * @return
      */
 
 
-    public List<OrderAudit> findAll(String page, String limit, String markerOrderId) {
+    public List<OrderAudit> findAll(String page, String limit, String productId) {
         PageRange pageRange = new PageRange(page, limit);
 
-        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),markerOrderId);
+        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
     }
 
     /**

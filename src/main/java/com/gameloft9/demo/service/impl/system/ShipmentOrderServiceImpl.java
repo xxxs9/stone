@@ -2,6 +2,8 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.ShipmentOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
+import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.ShipmentOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +74,20 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
      * @param shipmentOrder
      * @return
      */
-    public String add(ShipmentOrder shipmentOrder) {
+    public int add(ShipmentOrder shipmentOrder) {
         return shipmentOrderMapper.add(shipmentOrder);
+    }
+
+
+    /**
+     * 确认收货
+     * @param shipmentOrder
+     * @return
+     */
+    public Boolean confirmUpdate(ShipmentOrder shipmentOrder) {
+        CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
+        shipmentOrder.setState(StateUtil.APPLY_SUCCESS);
+        shipmentOrderMapper.confirmUpdate(shipmentOrder);
+        return true;
     }
 }
