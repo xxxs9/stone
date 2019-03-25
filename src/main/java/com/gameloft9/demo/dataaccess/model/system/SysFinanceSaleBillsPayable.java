@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 @Data
-public class SysFinanceSaleBillsPayable extends SysFinancePublicPurchaseSale {
+public class SysFinanceSaleBillsPayable {
 
     /**ID*/
     private String id;

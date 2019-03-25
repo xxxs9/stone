@@ -38,7 +38,7 @@ public class FinancePurchaseBillPayController {
      * @param endTime 结束时间
      * @return jason
      */
-    @RequestMapping(value = "/purchaseBillPayList" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/purchasePayList" ,method = RequestMethod.POST)
     @ResponseBody
     public IResult billPayList(String page, String limit, String auditType, String startTime, String endTime){
 
@@ -71,8 +71,8 @@ public class FinancePurchaseBillPayController {
 
     @RequestMapping(value = "/generatePurchasePay", method = RequestMethod.POST)
     @ResponseBody
-    public IResult generatePurchasePay(PurchaseOrder purchaseOrder){
+    public IResult generatePurchasePay(PurchaseOrder purchaseOrder,String id1){
 
-        return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder));
+        return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder,id1));
     }
 }

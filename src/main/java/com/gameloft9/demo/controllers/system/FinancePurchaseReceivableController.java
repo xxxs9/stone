@@ -42,11 +42,19 @@ public class FinancePurchaseReceivableController {
         return new PageResultBean<Collection<SysFinancePurchaseReceivable>>(purchaseReceivableService.getAll(page,limit,auditType,startTime,endTime), purchaseReceivableService.getCount(auditType,startTime,endTime));
     }
 
+    /**
+     * s生成采购应收单
+     * @param purchaseOrder 订单
+     * @param id1 ID
+     *
+     * @return
+     *      json
+     */
     @RequestMapping(value = "/generatePurchaseReceive",method = RequestMethod.POST)
     @ResponseBody
-    public IResult generatePurchaseReceive(PurchaseOrder purchaseOrder){
+    public IResult generatePurchaseReceive(PurchaseOrder purchaseOrder,String id1){
 
-        return new ResultBean<String>(purchaseReceivableService.generatePurchaseReceive(purchaseOrder));
+        return new ResultBean<String>(purchaseReceivableService.generatePurchaseReceive(purchaseOrder,id1));
     }
 
 

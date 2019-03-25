@@ -25,30 +25,11 @@
             );-->
     <select id="getAll" resultMap="purchaseReceivableMap">
         select
-        p.PURCHASE_ORDER_REJECTED_ID,
-        f.AUDIT_TYPE,
-        f.UNIT_PRICE,
-        p.REJECTED_NUMBER,
-        f.TOTAL_PRICE,
-        f.ACTUAL_BALANCE,
-        f.DOCUMENT_MAKER,
-        f.DOCUMENT_MAKE_TIME,
-        f.AUDIT_USER,
-        f.AUDIT_TIME,
-        f.AUDIT_DESCRIBE
+        *
         from
-        a_finance_public_purchase_sale f,
-        a_purchase_receivable p
+        a_purchase_receivable
         <where>
-            <if test="auditType != null and auditType != ''">
-                and f.AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
-            </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and f.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
-            </if>
-
-                and f.PID = p.PUBLIC_ID
-
+                and AUDIT_TYPE=3
         </where>
         limit #{start},#{end}
     </select>
@@ -61,18 +42,9 @@
         select
           count(1)
         from
-          a_finance_public_purchase_sale f,
-          a_purchase_receivable p
+          a_purchase_receivable
         <where>
-            <if test="auditType != null and auditType != ''">
-                and f.AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
-            </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and f.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
-            </if>
-
-                and f.PID = p.PUBLIC_ID
-
+            and AUDIT_TYPE=3
         </where>
     </select>
 

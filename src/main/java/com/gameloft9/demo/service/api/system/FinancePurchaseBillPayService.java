@@ -61,8 +61,9 @@ public interface FinancePurchaseBillPayService {
      * 添加采购申请应付单
      *
      * @param purchaseOrder 采购申请单
+     * @param id1 id
      * @return
      *      string
      */
-    String generatePurchasePay(PurchaseOrder purchaseOrder);
+    String generatePurchasePay(PurchaseOrder purchaseOrder,String id1);
 }

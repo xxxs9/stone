@@ -91,6 +91,7 @@ layui.config({
     form.on("submit(generate)", function (data) {
         if($('[name=auditType]').val() == 1){
             var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
             //请求
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
@@ -98,6 +99,7 @@ layui.config({
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=auditType]').val();
             var req = {
+                id1:id1,
                 id:payId,
                 auditType : auditType,
                 price:price,
@@ -117,6 +119,7 @@ layui.config({
 
         }else if($('[name=auditType]').val() == 3){
             var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
             //请求
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
@@ -124,12 +127,12 @@ layui.config({
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
+                id1:id1,
                 id:payId,
                 auditType : auditType,
                 price:price,
                 goodsNumber:goodsNumber
             };
-            alert(goodsNumber)
             $api.generatePurchaseReceive(req ,function (data) {
                 layer.msg("生成成功！",{time:1000},function () {
                     layer.closeAll("iframe");

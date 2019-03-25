@@ -100,6 +100,19 @@ public class Constants {
 
         /**销售（客户退货）应付单类型*/
         public static final Integer SALE_PAYABLE=4;
+
+        /**未生成对应申请单*/
+        public static final Integer APPLY_ORDER_UNCOMMIT=1;
+
+        /**待审核*/
+        public static final Integer APPLY_ORDER_UNAUDIT=2;
+
+        /**审核通过*/
+        public static final Integer APPLY_ORDER_PASS=3;
+
+        /**审核不通过*/
+        public static final Integer APPLY_ORDER_UNPASS=4;
+
     }
 
     /**
@@ -119,6 +132,7 @@ public class Constants {
         public static final String APPLY_PASS_WAIT="待审核";
         public static final String APPLY_PAY="待付款";
         public static final String APPLY_PASS_PAY="已付款";
+
     }
 
     /**

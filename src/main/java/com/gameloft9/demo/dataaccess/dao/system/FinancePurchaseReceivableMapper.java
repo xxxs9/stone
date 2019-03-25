@@ -46,4 +46,6 @@ public interface FinancePurchaseReceivableMapper extends BaseMapper<SysFinancePu
             @Param("startTime") Date startTime,
             @Param("endTime") Date endTime
     );
+
+
 }

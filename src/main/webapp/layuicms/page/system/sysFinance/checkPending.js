@@ -48,7 +48,7 @@ layui.config({
 
             //区分事件
             if (layEvent === 'generateApply') { //生成应付或应收单
-                checkPurchaseOrder1(row.applyId,row.applyType);
+                checkPurchaseOrder1(row.id,row.applyId,row.applyType);
                 /*if(row.applyType == 1){
                     checkPurchaseOrder1(row.applyId,row.applyType);
                 }else if(row.applyType == 2){
@@ -111,12 +111,12 @@ layui.config({
     }
 
     //申请单
-    function checkPurchaseOrder1(applyId,applyType){
+    function checkPurchaseOrder1(id,applyId,applyType){
         var applyType1 = applyType;
         var index = layui.layer.open({
             title: "订单详情",
             type: 2,
-            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType,
+            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType+"&id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {

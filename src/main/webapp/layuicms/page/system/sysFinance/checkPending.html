@@ -91,11 +91,13 @@
 </script>
 
 <script type="text/html" id="applyState">
-    {{# if(d.applyType == 1){ }}
-    <span>未审核</span>
-    {{# } else if(d.applyType == 2) { }}
+    {{# if(d.applyState == 1){ }}
+    <span>未生成</span>
+    {{# } else if(d.applyState == 2) { }}
+    <span>待审核</span>
+    {{# } else if(d.applyState == 3) { }}
     <span>审核通过</span>
-    {{# } else if(d.applyType == 3) { }}
+    {{# } else if(d.applyState == 4) { }}
     <span>审核不通过</span>
     {{# } }}
 </script>

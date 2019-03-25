@@ -1,9 +1,13 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseReceivableMapper;
+import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
 import com.gameloft9.demo.utils.NumberUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
@@ -27,6 +31,10 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
 
     @Autowired
     FinancePurchaseReceivableMapper purchaseReceivableMapper;
+    @Autowired
+    FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    PurchaseOrderMapper purchaseOrderMapper;
 
     /**
      *
@@ -63,7 +71,7 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
      * @return
      *      string
      */
-    public String generatePurchaseReceive(PurchaseOrder purchaseOrder) {
+    public String generatePurchaseReceive(PurchaseOrder purchaseOrder,String id1) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         SysFinancePurchaseReceivable purchaseReceivable = new SysFinancePurchaseReceivable();
         purchaseReceivable.setId(UUIDUtil.getUUID());
@@ -77,7 +85,15 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         purchaseReceivable.setDocumentMaker(documentMaker);
         purchaseReceivable.setDocumentMakeTime(new Date());
+        //根据id获取申请订单
+        SysFinanceApplyOrder applyOrder = applyOrderMapper.getById1(id1);
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNAUDIT);
+        //更新订单申请状态
+        applyOrderMapper.updateApplyState(applyOrder);
+        //更新purchaseOrder的financeState
+        purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
 
+        //添加销售应付申请单
         purchaseReceivableMapper.add(purchaseReceivable);
         return purchaseReceivable.getId();
     }

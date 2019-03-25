@@ -1,10 +1,12 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
 import com.gameloft9.demo.utils.NumberUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
@@ -29,6 +31,8 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
 
     @Autowired
     FinancePurchaseBillsPayableMapper purchaseBillsPayableMapper;
+    @Autowired
+    FinanceApplyOrderMapper applyOrderMapper;
 
     /**
      *
@@ -85,7 +89,8 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
      * @return
      *  string
      */
-    public String generatePurchasePay(PurchaseOrder purchaseOrder) {
+    public String generatePurchasePay(PurchaseOrder purchaseOrder,String id1) {
+
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         SysFinancePurchaseBillsPayable  purchaseBillsPayable = new SysFinancePurchaseBillsPayable();
         purchaseBillsPayable.setId(UUIDUtil.getUUID());
@@ -99,7 +104,13 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         purchaseBillsPayable.setDocumentMaker(documentMaker);
         purchaseBillsPayable.setDocumentMakeTime(new Date());
+        //根据id获取applyOrder
+        SysFinanceApplyOrder applyOrder = applyOrderMapper.getById1(id1);
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNAUDIT);
+        //更新申请订单的状态
+        applyOrderMapper.updateApplyState(applyOrder);
 
+        //添加应付单
         purchaseBillsPayableMapper.add(purchaseBillsPayable);
         return purchaseBillsPayable.getId();
     }

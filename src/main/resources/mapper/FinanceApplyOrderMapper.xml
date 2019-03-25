@@ -116,6 +116,32 @@
         </trim>
     </insert>
 
+    <!--根据id获取applyOrder   SysFinanceApplyOrder getById1(String id1);-->
+    <select id="getById1" parameterType="java.lang.String" resultMap="applyOrderMap">
+        select * from
+        a_apply_order
+        <where>
+            <if test="id1 != null and id1 != ''">
+                ID=#{id1,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--更新申请单审核状态   void updateApplyState(SysFinanceApplyOrder financeApplyOrder);-->
+    <update id="updateApplyState" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder">
+        update a_apply_order
+        <set>
+            <if test="applyState != null and applyState != ''">
+                APPLY_STATE=#{applyState,jdbcType=INTEGER}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
 
 
 </mapper>

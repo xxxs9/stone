@@ -42,8 +42,9 @@ public interface FinancePurchaseReceivableService {
      * 添加采购申请应收单
      *
      * @param purchaseOrder 采购申请单
+     * @param id1 id1
      * @return
      *      string
      */
-    String generatePurchaseReceive(PurchaseOrder purchaseOrder);
+    String generatePurchaseReceive(PurchaseOrder purchaseOrder,String id1);
 }
