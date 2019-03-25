@@ -132,6 +132,7 @@ public class Constants {
         public static final String APPLY_PASS_WAIT="待审核";
         public static final String APPLY_PAY="待付款";
         public static final String APPLY_PASS_PAY="已付款";
+        public static final String NO_PASS="未通过";
 
     }
 

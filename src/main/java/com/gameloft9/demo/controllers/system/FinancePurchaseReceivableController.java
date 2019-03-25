@@ -57,5 +57,32 @@ public class FinancePurchaseReceivableController {
         return new ResultBean<String>(purchaseReceivableService.generatePurchaseReceive(purchaseOrder,id1));
     }
 
+    /**
+     * 根据id获取
+     * @param id id
+     * @return
+     *      json
+     */
+    @RequestMapping(value = "/getPurchaseReceiveById",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getPurchaseReceiveById(String id){
+        return new ResultBean<SysFinancePurchaseReceivable>(purchaseReceivableService.getPurchaseReceiveById(id));
+    }
+
+    /**
+     * 审核采购应收单
+     * @param attitude q
+     * @param purchaseOrderRejectedId q
+     * @param auditType q
+     * @param actualPrice q
+     * @param auditDescribe q
+     * @return q
+     */
+    @RequestMapping(value = "/purchaseOrderReceivePass",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult purchaseOrderReceivePass(String attitude,String purchaseOrderRejectedId,String auditType,String actualPrice,String auditDescribe){
+        return new ResultBean<Boolean>(purchaseReceivableService.purchaseOrderReceivePass(attitude,purchaseOrderRejectedId,auditType,actualPrice,auditDescribe));
+    }
+
 
 }

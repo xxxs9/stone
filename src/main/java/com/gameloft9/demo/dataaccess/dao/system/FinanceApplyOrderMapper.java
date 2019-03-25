@@ -66,5 +66,16 @@ public interface FinanceApplyOrderMapper extends BaseMapper<SysFinanceApplyOrder
      */
     void updateApplyState(SysFinanceApplyOrder financeApplyOrder);
 
+    /**
+     * 根据申请单号和申请类型
+     * @param applyId 申请单号
+     * @param applyType 申请类型
+     * @return
+     *  SysFinanceApplyOrder
+     */
+    SysFinanceApplyOrder getByApplyIdAndApplyType(@Param("applyId") String applyId,@Param("applyType") Integer applyType);
+
+
+
 
 }

@@ -4,6 +4,7 @@ import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMappe
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -66,4 +67,26 @@ public interface FinancePurchaseBillPayService {
      *      string
      */
     String generatePurchasePay(PurchaseOrder purchaseOrder,String id1);
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      applyOrder
+     */
+    SysFinancePurchaseBillsPayable getPurchasePayById(String id);
+
+    /**
+     * 更新purchaseOrder的财务审核状态
+     * @param attitude purchaseOrder
+     * @param id id
+     * @param auditType 申请类型
+     * @param actualPrice 实际价格
+     * @param auditDescribe 审核信息
+     *
+     * @return
+     *  boolean
+     */
+    Boolean purchaseOrderPayPass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
 }

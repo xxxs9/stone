@@ -23,8 +23,9 @@ layui.config({
             height:500,
             //height: 'full-100',
             cols:[[
-                {field:'purchaseOrderId',width:120,title:'订单编号'},
+                {field:'purchaseOrderId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderId'},
                 {field:'unitPrice',width:120,title:'单价'},
+                {field:'auditType',width:120,title:'订单类型',hide : false},
                 {field:'goodsNumber',width:120,title:'采购数量'},
                 {field:'totalPrice',width:120,title:'总价'},
                 {field:'actualBalance',width:120,title:'实际价格'},
@@ -33,13 +34,18 @@ layui.config({
                 {field:'auditUser',width:120,title:'审核人'},
                 {field:'auditTime',width:180,title:'审核时间'},
                 {field:'auditDescribe',width:120,title:'审核信息'},
-                {fixed:'right',title:'操作',toolbar:'#barDemo',width:180},
+                {field:'auditState',width:120,title:'审核状态'},
+                {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
             ]],
             url:$tool.getContext() + 'finance/purchasePayList.do',
             method:'post',
             page:true,
             limit:[10,20,30,40],
-            limit:10
+            limit:10,
+            done:function(res,curr,count){
+                // 隐藏列
+                $(".layui-table-box").find("[data-field='auditType']").css("display","none");
+            }
         };
     table.render(option1)
 
@@ -50,9 +56,10 @@ layui.config({
         height:500,
         //height: 'full-100',
         cols:[[
-            {field:'purchaseOrderRejectedId',width:120,title:'订单编号'},
+            {field:'purchaseOrderRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderRejectedId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'rejectedNumber',width:120,title:'退货数量'},
+            {field:'auditType',width:120,title:'单价',style:'display:none;'},
             {field:'totalPrice',width:120,title:'总价'},
             {field:'actualBalance',width:120,title:'实际价格'},
             {field:'documentMaker',width:120,title:'制单人'},
@@ -60,7 +67,8 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {fixed:'right',title:'操作',toolbar:'#barDemo',width:180},
+            {field:'auditState',width:120,title:'审核状态'},
+            {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/purchaseReceiveList.do',
         method:'post',
@@ -77,9 +85,10 @@ layui.config({
         height:500,
         //height: 'full-100',
         cols:[[
-            {field:'saleRejectedId',width:120,title:'订单编号'},
+            {field:'saleRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#saleRejectedId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'rejectedNumber',width:120,title:'退货数量'},
+            {field:'auditType',width:120,title:'单价',style:'display:none;'},
             {field:'totalPrice',width:120,title:'总价'},
             {field:'actualBalance',width:120,title:'实际价格'},
             {field:'documentMaker',width:120,title:'制单人'},
@@ -87,7 +96,8 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {fixed:'right',title:'操作',toolbar:'#barDemo',width:180},
+            {field:'auditState',width:120,title:'审核状态'},
+            {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/salePayList.do',
         method:'post',
@@ -104,9 +114,10 @@ layui.config({
         height:500,
         //height: 'full-100',
         cols:[[
-            {field:'saleId',width:120,title:'订单编号',fixed: 'left',},
+            {field:'saleId',width:120,title:'订单编号',fixed: 'left',event:'show',style:'cursor:pointer',templet:'#saleId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'productNumber',width:120,title:'发货数量'},
+            {field:'auditType',width:120,title:'单价',style:'display:none;'},
             {field:'totalPrice',width:120,title:'总价'},
             {field:'actualBalance',width:120,title:'实际价格'},
             {field:'documentMaker',width:120,title:'制单人'},
@@ -114,7 +125,8 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {fixed: 'right',title:'操作',toolbar:'#barDemo',width:180},
+            {field:'auditState',width:120,title:'审核状态'},
+            {fixed: 'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/saleReceiveList.do',
         method:'post',
@@ -125,12 +137,107 @@ layui.config({
     table.render(option4)
     form.render();
 
+    //为toolbar添加事件响应,采购应付
+    table.on('tool(purchasePay)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var row = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-    /*element.on('tab(test)',function(data){
-        if(data.index == '1'){
-            showOption1(this.getAttribute("lay_id"));
+        //区分事件
+        if (layEvent === 'audit') {
+            edit(row.id,row.auditType);
+        } else if(layEvent === 'show'){
+            show(row.purchaseOrderId,1);
         }
-    })*/
+    });
 
+    //为toolbar添加事件响应 //采购应收
+    table.on('tool(purchaseReceive)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var row = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        //区分事件
+        if (layEvent === 'audit') {
+            edit(row.id,row.auditType);
+        }else if(layEvent === 'show'){
+            show(row.purchaseOrderRejectedId,3);
+        }
+    });
+
+    //为toolbar添加事件响应 //销售应付
+    table.on('tool(salePay)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var row = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        //区分事件
+        if (layEvent === 'audit') {
+            edit(row.id,row.auditType);
+        }else if(layEvent === 'show'){
+            show(row.saleRejectedId,2);
+        }
+    });
+
+    //为toolbar添加事件响应 //销售应收
+    table.on('tool(saleReceive)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var row = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        //区分事件
+        if (layEvent === 'audit') {
+            alert(1)
+            edit(row.id,row.auditType);
+
+        }else if(layEvent === 'show'){
+            show(row.saleId,4);
+        }
+    });
+
+    //审核
+    function edit(id,auditType){
+        var index = layui.layer.open({
+            title: "订单审核",
+            type: 2,
+            content: "audit.html?id="+id+"&auditType="+auditType,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回应付单列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+    //查看订单
+    function show(id,applyType){
+        var applyType1 = applyType;
+        var index = layui.layer.open({
+            title: "订单详情",
+            type: 2,
+            content: "showOrder.html?applyId="+id+"&applyType="+applyType,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
 
 });

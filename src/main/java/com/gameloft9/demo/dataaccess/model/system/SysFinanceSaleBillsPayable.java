@@ -49,6 +49,9 @@ public class SysFinanceSaleBillsPayable {
     /**购买数量*/
     private String rejectedNumber;
 
+    /**审核状态*/
+    public int auditState;
+
     /**客户退货单id*/
     private String saleRejectedId;
 

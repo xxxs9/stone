@@ -63,14 +63,38 @@
 
 
 <script type="text/html" id="barDemo">
-    {{#  if(d.applyType == '1'){ }}
+    {{#  if(d.applyType == '1' && d.applyState == '1'){ }}
     <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购申请应付单</a>
-    {{#  } else if(d.applyType == '3'){ }}
-    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购退货应付单</a>
-    {{#  } else if(d.applyType == '2'){ }}
-    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售发货应付单</a>
-    {{#  } else if(d.applyType == '4'){ }}
+    {{#  } else if(d.applyType == '1' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单待审核</a>
+    {{#  } else if(d.applyType == '1' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单已付款</a>
+    {{#  } else if(d.applyType == '1' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单未通过</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '1'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售发货应收单</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单待审核</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单已收款</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单未通过</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '1'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购退货应收单</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单待审核</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单已收款</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单未通过</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '1'){ }}
     <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售退货应付单</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单待审核</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单已付款</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单未通过</a>
     {{#  } }}
 </script>
 
@@ -78,11 +102,11 @@
     {{# if(d.applyType == 1){ }}
     <span>采购应付单</span>
     {{# } else if(d.applyType == 2) { }}
-    <span>销售应付单</span>
+    <span>销售应收单</span>
     {{# } else if(d.applyType == 3) { }}
     <span>采购应收单</span>
     {{# } else if(d.applyType == 4) { }}
-    <span>销售应收单</span>
+    <span>销售应付单</span>
     {{# } }}
 </script>
 
@@ -96,7 +120,7 @@
     {{# } else if(d.applyState == 2) { }}
     <span>待审核</span>
     {{# } else if(d.applyState == 3) { }}
-    <span>审核通过</span>
+    <span>已付款</span>
     {{# } else if(d.applyState == 4) { }}
     <span>审核不通过</span>
     {{# } }}

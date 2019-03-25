@@ -73,6 +73,17 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
         return applyOrderMapper.getCount(applyType1,applyState1,startTime1,endTime1);
     }
 
+    /**
+     * 根据id查找applyOrder
+     *
+     * @param id id
+     * @return
+     *  applyOrder
+     */
+    public SysFinanceApplyOrder getPurchasePayById(String id) {
+        return applyOrderMapper.getById1(id);
+    }
+
     public String addPurchasePay(SysFinanceApplyOrder financeApplyOrder) {
 
         return null;

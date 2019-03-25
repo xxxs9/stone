@@ -1,10 +1,10 @@
 layui.config({
-    base: $config.resUrl+'layuicms/common/js/'//定义基目录
+    base: $config.resUrl + 'layuicms/common/js/'//定义基目录
 }).extend({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
-    $api:'api'
-}).use(['form', 'laydate', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+    $api: 'api'
+}).use(['form', 'laydate', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool', '$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
@@ -22,6 +22,7 @@ layui.config({
     function init() {
         initDate();
     }
+
     init();
 
     /**
@@ -46,10 +47,10 @@ layui.config({
             , height: 415
             , url: $tool.getContext() + 'finance/purchaseBillPayList.do' //数据接口
             , method: 'post'
-            , page:true //开启分页
+            , page: true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'purchaseOrderId', title: '申请编号', width: '10%'}
+                {type: 'numbers', title: '序号', fixed: 'left'},
+                {field: 'purchaseOrderId', title: '申请编号', width: '10%'}
                 , {field: 'unitPrice', title: '单价', width: '10%'}
                 , {field: 'goodsNumber', title: '购买数量', width: '10%'}
                 , {field: 'totalPrice', title: '总价', width: '10%'}
@@ -81,6 +82,7 @@ layui.config({
             }*/
         });
     }
+
     defineTable();
 
     //查询
@@ -90,9 +92,9 @@ layui.config({
 
         //表格重新加载
         tableIns.reload({
-            where:{
-                auditType:auditType,
-                documentMakeTime:documentMakeTime
+            where: {
+                auditType: auditType,
+                documentMakeTime: documentMakeTime
             }
         });
 
@@ -141,11 +143,11 @@ layui.config({
     }*/
 
     //编辑
-    function editPay(id){
+    function editPay(id) {
         var index = layui.layer.open({
             title: "编辑销售应付单",
             type: 2,
-            content: "purchaseBillPayableEdit.html?id="+id,
+            content: "purchaseBillPayableEdit.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回应付单列表', '.layui-layer-setwin .layui-layer-close', {
@@ -161,4 +163,4 @@ layui.config({
         });
         layui.layer.full(index);
     }
-});
+})

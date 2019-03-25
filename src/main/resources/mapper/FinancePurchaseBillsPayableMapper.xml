@@ -15,6 +15,7 @@
         <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
         <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
         <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
@@ -76,6 +77,9 @@
             <if test="purchaseOrderId != null and purchaseOrderId != ''">
                 PURCHASE_ORDER_ID,
             </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE,
+            </if>
         </trim>
 
         <trim prefix=" values(" suffix=")" suffixOverrides=",">
@@ -103,10 +107,13 @@
             <if test="purchaseOrderId != null and purchaseOrderId != ''">
                 #{purchaseOrderId,jdbcType=VARCHAR},
             </if>
+            <if test="auditState != null and auditState != ''">
+                #{auditState,jdbcType=INTEGER},
+            </if>
         </trim>
     </select>
 
-    <!--根据id获取采购应付单   SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);-->
+    <!--根据purchaseId获取采购应付单   SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);-->
     <select id="getPurchasePay" parameterType="java.lang.String" resultMap="purchaseBillsPayableMap">
         select * from
         a_purchase_bills_payable
@@ -115,7 +122,94 @@
             PURCHASE_ORDER_ID = #{purchaseOrderId,jdbcType=VARCHAR}
         </if>
     </select>
-    
+
+    <!--   SysFinancePurchaseBillsPayable getPurchasePayById(@Param("id1") String id);-->
+    <select id="getPurchasePayById" parameterType="java.lang.String" resultMap="purchaseBillsPayableMap">
+        select * from
+        a_purchase_bills_payable
+        where
+        <if test="id != null and id != '' ">
+            ID = #{id,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--根据purchaseOrderId 和auditType   SysFinancePurchaseBillsPayable getPurchasePayBypurchaseOrderIdAndAuditType-->
+    <select id="getPurchasePayBypurchaseOrderIdAndAuditType" resultMap="purchaseBillsPayableMap">
+        select * from a_purchase_bills_payable
+        <where>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                and PURCHASE_ORDER_ID=#{purchaseOrderId,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--更新  update-->
+    <!-- <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="purchaseOrderId" column="PURCHASE_ORDER_ID" jdbcType="VARCHAR"/>
+        <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
+        <result property="goodsNumber" column="GOODS_NUMBER" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        update a_purchase_bills_payable
+        <set>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                PURCHASE_ORDER_ID = #{purchaseOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE = #{auditType,jdbcType=INTEGER},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+                GOODS_NUMBER = #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE = #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="actualBalance != null and actualBalance != ''">
+                ACTUAL_BALANCE = #{actualBalance,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER = #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME = #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditUser != null and auditUser != ''">
+                AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="auditTime != null and auditTime != ''">
+                AUDIT_TIME = #{auditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditDescribe != null and auditDescribe != ''">
+                AUDIT_DESCRIBE = #{auditDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+
     <!--更新采购应付单   void generatePurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable);-->
     <update id="generatePurchasePay" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
         update a_purchase_bills_payable

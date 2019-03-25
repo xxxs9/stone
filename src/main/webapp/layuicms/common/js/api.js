@@ -509,13 +509,25 @@ layui.define(['$tool','jquery'], function (exports) {
         insertPurchasePay:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/addPurchasePay.do',req,successCallback,errorCallback);
         },
-        /*根据申请单id查找应付单*/
+        /*根据订单id查找应付单*/
         getPurchasePay:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
         },
         /*根据申请单id查找应付单*/
-        getPurchasePay:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        getPurchasePayById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePayById.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应收单*/
+        getPurchaseReceiveById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchaseReceiveById.do',req,successCallback,errorCallback);
+        },
+        /*审核采购应付单*/
+        purchaseOrderPayPass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/purchaseOrderPayPass.do',req,successCallback,errorCallback);
+        },
+        /*审核采购应收单*/
+        purchaseOrderReceivePass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
 
 

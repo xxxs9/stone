@@ -2,10 +2,9 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseReceivableMapper;
+import com.gameloft9.demo.dataaccess.dao.system.FinanceReceiptMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
-import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable;
+import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
@@ -35,6 +34,8 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
     FinanceApplyOrderMapper applyOrderMapper;
     @Autowired
     PurchaseOrderMapper purchaseOrderMapper;
+    @Autowired
+    FinanceReceiptMapper receiptMapper;
 
     /**
      *
@@ -85,6 +86,7 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         purchaseReceivable.setDocumentMaker(documentMaker);
         purchaseReceivable.setDocumentMakeTime(new Date());
+        purchaseReceivable.setAuditState(Constants.Finance.APPLY_ORDER_UNAUDIT);
         //根据id获取申请订单
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getById1(id1);
         applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNAUDIT);
@@ -92,9 +94,73 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         applyOrderMapper.updateApplyState(applyOrder);
         //更新purchaseOrder的financeState
         purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
-
+        purchaseOrderMapper.updateByIdAndState(purchaseOrder);
         //添加销售应付申请单
         purchaseReceivableMapper.add(purchaseReceivable);
         return purchaseReceivable.getId();
+    }
+
+    /**
+     *
+     * @param id 主键id
+     * @return q
+     */
+    public SysFinancePurchaseReceivable getPurchaseReceiveById(String id) {
+        return purchaseReceivableMapper.getPurchaseReceiveById(id);
+    }
+
+    public Boolean purchaseOrderReceivePass(String attitude, String id, String auditType, String actualPrice, String auditDescribe) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        Integer auditType1 = NumberUtil.strToInt(auditType);
+        //获取PurchaseOrder
+        PurchaseOrder purchaseOrder = purchaseOrderMapper.findByIdAndAuditType(id, auditType1);
+        //获取ApplyOrder
+        SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
+        //purchaseReceivable
+        SysFinancePurchaseReceivable purchaseReceivable = purchaseReceivableMapper.getPurchaseReceiveBypurchaseOrderIdAndAuditType(id, auditType1);
+        String agree = "agree";
+        if(agree.equals(attitude)){
+            purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_PAY);
+            purchaseReceivable.setAuditState(Constants.Finance.APPLY_ORDER_PASS);
+            applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_PASS);
+        }else{
+            purchaseOrder.setFinanceState(Constants.FinanceState.NO_PASS);
+            purchaseReceivable.setAuditState(Constants.Finance.APPLY_ORDER_UNPASS);
+            applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNPASS);
+
+        }
+        String auditUser = (String) request.getSession().getAttribute("sysUser");
+
+        purchaseOrder.setFinanceAuditUser(auditUser);
+        purchaseOrder.setFinanceAuditTime(new Date());
+        purchaseOrder.setFinanceAuditDescribe(auditDescribe);
+
+        purchaseReceivable.setAuditUser(auditUser);
+        purchaseReceivable.setActualBalance(actualPrice);
+        purchaseReceivable.setAuditTime(new Date());
+        purchaseReceivable.setAuditDescribe(auditDescribe);
+
+        if(agree.equals(attitude)){
+            //生成付款单
+            SysFinanceReceipt receipt = new SysFinanceReceipt();
+            receipt.setId(UUIDUtil.getUUID());
+            receipt.setBalance(actualPrice);
+            receipt.setDocumentMaker(purchaseOrder.getFinanceAuditUser());
+            receipt.setDocumentMakeTime(purchaseOrder.getFinanceAuditTime());
+            receipt.setReceiveId(purchaseReceivable.getId());
+            receipt.setReceiveType(purchaseReceivable.getAuditType());
+            //添加付款单
+            receiptMapper.add(receipt);
+        }
+
+
+        //更新applyOrder
+        applyOrderMapper.updateApplyState(applyOrder);
+        //更新purchaseORder
+        purchaseOrderMapper.purchaseOrderPayPass(purchaseOrder);
+        //purchaseReceivable
+        purchaseReceivableMapper.update(purchaseReceivable);
+
+        return true;
     }
 }

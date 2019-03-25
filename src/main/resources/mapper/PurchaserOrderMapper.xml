@@ -456,4 +456,62 @@
         WHERE
             DEPOT_STATE='入库单审核中'
     </select>
+
+    <!--啊发包 根据id和state更新pruchaseOrder   void updateByIdAndState(PurchaseOrder purchaseOrder);-->
+    <update id="updateByIdAndState" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        update t_purchase_order
+        <set>
+            <if test="financeState != null and financeState != ''">
+                FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
+
+    <!--啊发包  根据id和订单类型    PurchaseOrder findByIdAndAuditType(String id,Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="purOrderMap">
+        select * from t_purchase_order
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--啊发包  更新purchaseOrder的财务审核状态  void purchaseOrderPayPass(PurchaseOrder purchaseOrder);-->
+    <update id="purchaseOrderPayPass" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        update t_purchase_order
+        <set>
+            <if test="financeState != null and financeState != ''">
+                FINANCE_STATE=#{financeState,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditUser != null and financeAuditUser != ''">
+                FINANCE_AUDIT_USER=#{financeAuditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditTime != null and financeAuditTime != ''">
+                FINANCE_AUDIT_TIME=#{financeAuditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditDescribe != null and financeAuditDescribe != ''">
+                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 </mapper>

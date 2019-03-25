@@ -49,6 +49,9 @@ public class SysFinancePurchaseBillsPayable extends SysFinancePublicPurchaseSale
     /**审核描述*/
     public String auditDescribe;
 
+    /**审核状态*/
+    public int auditState;
+
     /**采购订单id*/
     private String purchaseOrderId;
 

@@ -47,11 +47,13 @@ layui.config({
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'receiveId', title: '应收单编号', width: '10%'}
-                , {field: 'amountReceivable', title: '应收款', width: '10%'}
-                , {field: 'actualAmount', title: '实收款', width: '10%'}
-                , {field: 'arrears', title: '欠款', width: '10%'}
+                {type:'numbers',title:'序号',fixed: 'left', width: 50}
+
+                , {field: 'receiveId', title: '应收单编号', width: 150}
+                , {field: 'receiveType', title: '应收类型', width: 120}
+                , {field: 'balance', title: '金额', width: 100}
+                , {field: 'documentMaker', title: '制单人', width: 150}
+                , {field: 'documentMakeTime', title: '制单时间', width: 180}
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调

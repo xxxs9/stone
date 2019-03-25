@@ -209,4 +209,28 @@ public interface PurchaseOrderMapper {
     List<PurchaseOrder> selectApplyByDepot(
             @Param("start") int start,
             @Param("end") int end);
+
+    /**
+     * 啊发包
+     * 根据id和财务审核类型更新purchaseOrder
+     * @param purchaseOrder purchaseOrder
+     */
+    void updateByIdAndState(PurchaseOrder purchaseOrder);
+
+    /**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseOrder findByIdAndAuditType(@Param("id") String id,@Param("auditType") Integer auditType);
+
+    /**
+     * 啊发包
+     * 更新purchaseOrder的财务审核状态
+     * @param purchaseOrder
+     */
+    void purchaseOrderPayPass(PurchaseOrder purchaseOrder);
 }

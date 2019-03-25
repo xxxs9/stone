@@ -142,6 +142,17 @@
         </where>
     </update>
 
-
+    <!--SysFinanceApplyOrder getByApplyIdAndApplyType(@Param("id") String applyId,@Param("auditType") Integer applyType);-->
+    <select id="getByApplyIdAndApplyType" resultMap="applyOrderMap">
+        select * from a_apply_order
+        <where>
+            <if test="applyId != null and applyId != '' ">
+                and APPLY_ID=#{applyId,jdbcType=VARCHAR}
+            </if>
+            <if test="applyType != null and applyType != '' ">
+                and APPLY_TYPE=#{applyType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
 
 </mapper>

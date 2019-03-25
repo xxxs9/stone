@@ -58,22 +58,22 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item  layui-show">
-                <table id="purchasePay">
+                <table id="purchasePay" lay-filter="purchasePay">
                 </table>
             </div>
             <div class="layui-tab-item">
                 <div class="llayui-tab-item">
-                    <table id="purchaseReceive"></table>
+                    <table id="purchaseReceive" lay-filter="purchaseReceive"></table>
                 </div>
             </div>
             <div class="layui-tab-item">
                 <div class="llayui-tab-item">
-                    <table id="salePay"></table>
+                    <table id="salePay" lay-filter="salePay"></table>
                 </div>
             </div>
             <div class="layui-tab-item">
                 <div class="llayui-tab-item">
-                    <table id="saleReceive"></table>
+                    <table id="saleReceive" lay-filter="saleReceive"></table>
                 </div>
             </div>
         </div>
@@ -84,8 +84,31 @@
 <!--toolbar 模板-->
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe642;</i>审核</a>-->
+    {{#  if(d.auditState == '2'){ }}
+    <a class="layui-btn layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe642;</i>待审核</a>
+    {{#  } else if(d.auditState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="audit"><i class="layui-icon">&#xe60e;</i>审核通过</a>
+    {{#  } else if(d.auditState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="audit"><i class="layui-icon">&#xe60e;</i>审核未通过</a>
+    {{#  } }}
+    <!--<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+</script>
+
+<script type="text/html" id="purchaseOrderId">
+    <span style="color: #F581B1;">{{ d.purchaseOrderId }}</span>
+</script>
+
+<script type="text/html" id="purchaseOrderRejectedId">
+    <span style="color: #F581B1;">{{ d.purchaseOrderRejectedId }}</span>
+</script>
+
+<script type="text/html" id="saleRejectedId">
+    <span style="color: #F581B1;">{{ d.saleRejectedId }}</span>
+</script>
+
+<script type="text/html" id="saleId">
+    <span style="color: #F581B1;">{{ d.saleId }}</span>
 </script>
 
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
