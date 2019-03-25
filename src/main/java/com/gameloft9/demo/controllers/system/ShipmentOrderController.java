@@ -97,6 +97,15 @@ public class ShipmentOrderController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public IResult add(ShipmentOrder shipmentOrder){
-        return new ResultBean<String>(shipmentOrderService.add(shipmentOrder));
+        return new ResultBean<Integer>(shipmentOrderService.add(shipmentOrder));
+    }
+
+    /**
+     * 确认收货
+     */
+    @RequestMapping(value = "/confirm",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult confirmUpdate(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.confirmUpdate(shipmentOrder));
     }
 }

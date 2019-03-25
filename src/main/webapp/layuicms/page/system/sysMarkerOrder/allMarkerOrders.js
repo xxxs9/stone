@@ -20,6 +20,21 @@ layui.config({
      * 页面初始化
      * */
     function init() {
+
+        //初始化下拉框
+      /*  $api. GetFirstProductFormula(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '<option value="">--请选择--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
+                }
+                $('#parentMenu').append($(html));
+                form.render();
+            }
+        });*/
+
+
     }
     init();
 
@@ -44,7 +59,7 @@ layui.config({
                 , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
                 , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '已收款金额' }
+                , {field: 'acceptedAmount', title: '付款金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }
@@ -73,6 +88,8 @@ layui.config({
                 audi(row.id);
             }else if (layEvent === 'back') {//撤回
                 back(row.id);
+            }else if (layEvent === 'look') {//撤回
+                look(row.id);
             }
         });
     }
@@ -239,6 +256,34 @@ layui.config({
 
 
     }
+
+
+
+    //查看
+    function look(id) {
+        var index = layui.layer.open({
+            title: "查看订单",
+            type: 2,
+            content: "lookMarkerOrder.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+
+    }
+
+
 
 
     layui.use('laydate', function(){

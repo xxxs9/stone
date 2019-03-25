@@ -89,20 +89,19 @@ layui.config({
     /**
      * 表单提交
      * */
-    form.on("submit(addMarkerOrder)", function (data) {
+    form.on("submit(addShipmentOrder)", function (data) {
         var id = data.field.id;
-        var orderId = data.field.orderId;
-        var orderTime = data.field.orderTime;
+        var shipmentId= data.field.shipmentId;
+        var goodsName = data.field.goodsName;
         var customer = data.field.customer;
-        var deliverNumber = data.field.deliverNumber;
-        var currentNumber = data.field.currentNumber;
-        var plannedNumber = data.field.plannedNumber;
-        var acceptedAmount = data.field.acceptedAmount;
-        var unpaidAmount = data.field.unpaidAmount;
-        var applyUser = data.field.applyUser;
+        var quantityNumber = data.field.quantityNumber;
+        var deliveryTime = data.field.deliveryTime;
+        var receivingAddress = data.field.receivingAddress;
+        var phone = data.field.phone;
+        var consignee = data.field.consignee;
+        var receivingTime= data.field.receivingTime;
 
         var state = data.field.state;
-        var orderAuditUser = data.field.orderAuditUser;
         var remarks = data.field.remarks
       /*  var idList = new Array();
 
@@ -121,24 +120,21 @@ layui.config({
         //请求
         var req = {
             id: id,
-            orderId: orderId,
-            orderTime: orderTime,
+            shipmentId: shipmentId,
+            goodsName: goodsName,
             customer: customer,
-            deliverNumber: deliverNumber,
-            currentNumber: currentNumber,
-            plannedNumber: plannedNumber,
-            acceptedAmount: acceptedAmount,
-            unpaidAmount: unpaidAmount,
-            applyUser: applyUser,
-
+            quantityNumber: quantityNumber,
+            deliveryTime: deliveryTime,
+            receivingAddress: receivingAddress,
+            phone: phone,
+            consignee: consignee,
+            receivingTime: receivingTime,
             state: state,
-            orderAuditUser: orderAuditUser,
-
             remarks: remarks
 
         };
 
-        $api.AddMarkerOrder(req,function (data) {
+        $api.AddShipmentOrder(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("用户添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
@@ -149,6 +145,25 @@ layui.config({
 
         return false;
     })
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'datetime'
+        });
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test2' //指定元素
+            ,type: 'datetime'
+        });
+    });
 
 });
 

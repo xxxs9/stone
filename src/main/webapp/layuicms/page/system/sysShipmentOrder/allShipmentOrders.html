@@ -33,39 +33,6 @@
                 <input type="text" class="layui-input" name="shipmentId" placeholder="请输入发货单编号">
             </div>
         </div>
-       <!-- <div class="layui-inline">
-            <label class="layui-form-label">订单日期</label>
-            <div class="layui-input-inline">
-                <input id="orderTime" type="text" class="layui-input" name="orderTime" placeholder="请输入订单日期">
-            </div>
-        </div>-->
-
-        <!--<div class="layui-inline">
-            <label class="layui-form-label">订单日期</label>
-            <div class="layui-input-inline">
-                <input id="orderTime" type="date" class="layui-input" name="orderTime" placeholder="请选择订单日期">
-            </div>
-        </div>-->
-        <!--<div class="layui-inline">
-            <label class="layui-form-label">产品描述</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="productDescribe" placeholder="请输入产品描述">
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">产品价格</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="productPrice" placeholder="请输入产品价格">
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">产品地址</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="productAddress" placeholder="请输入产品地址">
-            </div>
-        </div>-->
 
 
 
@@ -73,7 +40,7 @@
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryUser">查询</a>
         </div>
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal add_btn">添加发货单信息</a>
+            <a class="layui-btn layui-btn-normal add_btn">添加发货单</a>
         </div>
     </form>
 </blockquote>
@@ -89,30 +56,28 @@
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
 
-<!--
-    {{#  if(d.state =='未提交'){ }}
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
+    {{#  if(d.state =='等待收货'){ }}
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="confirm"><i class="layui-icon">&#xe642;</i>确认收货</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# }else if(d.state =='等待审核') { }}
-
-    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    &lt;!&ndash;<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>&ndash;&gt;
+    {{# }else if(d.state =='收货成功') { }}
+    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>成功收货</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='审核失败') { }}
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='审核成功') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>审核已通过</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}
--->
 
-    <!--<a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>-->
 
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+
+   <!-- <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
 
 </script>
 <!--用户状态模板-->

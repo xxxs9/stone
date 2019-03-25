@@ -145,15 +145,6 @@ public class PurchaseOrderController {
     }
 
     /**
-     * 收货bring
-     */
-    @RequestMapping(value = "/bring.do",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult bringUpdate(PurchaseOrder purchaseOrder){
-        return new ResultBean<Boolean>(service.bringUpdate(purchaseOrder));
-    }
-
-    /**
      * 撤回recall
      */
     @RequestMapping(value = "/recall.do",method = RequestMethod.POST)
@@ -161,4 +152,69 @@ public class PurchaseOrderController {
     public IResult recallPurOrder(String id){
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
+
+    /**
+     * 采购入库之收货 获取所有信息
+     */
+    @RequestMapping(value = "/listIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllByInOrder(String page,String limit,String goodsId,String depotState){
+        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInOrder(page,limit,
+                goodsId,depotState),service.countGetAllByInOrder(goodsId,depotState));
+    }
+
+    /**
+     * 采购入库之收货bring
+     */
+    @RequestMapping(value = "/bringIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult bringInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.bringInUpdate(purchaseOrder));
+    }
+
+    /**
+     * 采购入库之确认sure
+     */
+    @RequestMapping(value = "/sureIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult sureInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.sureInUpdate(purchaseOrder));
+    }
+
+    /**
+     * 采购入库之提交commit
+     */
+    @RequestMapping(value = "/commitIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult commitInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.commitInUpdate(purchaseOrder));
+    }
+
+    /**
+     * 采购入库之撤回back
+     */
+    @RequestMapping(value = "/backIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult backInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.backInUpdate(purchaseOrder));
+    }
+
+    /**
+     * 采购入库之编辑edit
+     */
+    @RequestMapping(value = "/editIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult editInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.InUpdate(purchaseOrder));
+    }
+
+    /**
+     * 采购入库之查看look
+     */
+    @RequestMapping(value = "/lookIn.do")
+    @ResponseBody
+    public IResult lookInUpdate(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.lookIn(purchaseOrder));
+    }
+
 }

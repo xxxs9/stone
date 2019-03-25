@@ -20,7 +20,7 @@ public interface OrderAuditMapper {
     List<OrderAudit> findAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("markerOrderId") String markerOrderId);
+            @Param("productId") String productId);
 
     /**
      * 获取所有销售订单个数

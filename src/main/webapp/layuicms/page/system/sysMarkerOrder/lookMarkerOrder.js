@@ -33,6 +33,7 @@ layui.config({
      * 初始化组织机构树
      * */
 
+
             /**
              * 初始化用户信息
              * */
@@ -45,7 +46,7 @@ layui.config({
                     id: id
                 };
 
-                $api.GetOrderAudit(req, function (res) {
+                $api.GetMarkerOrder(req, function (res) {
                     var data = res.data;
                     console.log(data)
                     //$("[name='id']").val(data.id);
@@ -59,9 +60,11 @@ layui.config({
                     $("[name='acceptedAmount']").val(data.acceptedAmount);
                     $("[name='unpaidAmount']").val(data.unpaidAmount);
                     $("[name='applyUser']").val(data.applyUser);
+
                     $("[name='state']").val(data.state);
                     $("[name='orderAuditUser']").val(data.orderAuditUser);
                     $("[name='remarks']").val(data.remarks)
+
 
                     /*orgId = data.orgId;
                     orgName = data.orgName;*/
@@ -75,11 +78,11 @@ layui.config({
             /**
              * 表单提交
              * */
-            form.on("submit(editOrderAudit)", function (data) {
+            form.on("submit(look)", function (data) {
                 var queryArgs = $tool.getQueryParam();//获取查询参数
                 var id = queryArgs['id'];
                 console.log(data)
-              //  var id = data.field.id;
+                //  var id = data.field.id;
                 var orderId = data.field.orderId;
                 var orderTime = data.field.orderTime;
                 var productId = data.field.productId;
@@ -99,15 +102,15 @@ layui.config({
                 }*/
 
                 //获取选中的产品列表
-               /* for (var i = 0; i < roleIdList.length; i++) {
-                    if (data.field[roleIdList[i]] === 'on') {
-                        idList.push(roleIdList[i]);
-                    }
-                }*/
+                /* for (var i = 0; i < roleIdList.length; i++) {
+                     if (data.field[roleIdList[i]] === 'on') {
+                         idList.push(roleIdList[i]);
+                     }
+                 }*/
 
                 //请求
                 var req = {
-                    id:id,
+                    id: id,
                     orderId: orderId,
                     orderTime: orderTime,
                     productId: productId,
@@ -123,14 +126,17 @@ layui.config({
                     remarks: remarks
                 };
 
-                $api.updateOrderAudit(req, function (data) {
+                $api.updateMarkerOrder(req, function (data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                    layer.msg("审核成功！", {time: 1000}, function () {
-                        layer.closeAll("iframe");
-                        //刷新父页面
-                        parent.location.reload();
-                    });
-                });
+                  //   layer.msg("关闭", {time: 1000}, function () {
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+
+                    
+
+
+            });
 
                 return false;
             })

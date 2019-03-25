@@ -70,13 +70,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">产品ID</label>
         <div class="layui-input-block">
-            <select name="productId" lay-verify="required">
-                <option value=""></option>
-                <option value="0">001</option>
-                <option value="1">002</option>
-                <option value="2">003</option>
-                <option value="3">004</option>
-                <option value="4">005</option>
+            <select id="productId" name="productId" lay-verify="required">
+
             </select>
         </div>
     </div>
@@ -110,9 +105,9 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">已收款金额</label>
+        <label class="layui-form-label">付款金额</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="acceptedAmount" placeholder="请输入已收款金额">
+            <input type="text" class="layui-input" name="acceptedAmount" placeholder="请输入付款金额">
         </div>
     </div>
 
@@ -169,7 +164,7 @@
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit="" lay-filter="addMarkerOrder">新增</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+            <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
         </div>
     </div>
 </form>

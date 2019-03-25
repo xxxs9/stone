@@ -28,9 +28,9 @@
             </div>
         </div>-->
         <div class="layui-inline">
-            <label class="layui-form-label">订单审核编号</label>
+            <label class="layui-form-label">产品ID</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="markerOrderId" placeholder="请输入订单审核编号">
+                <input type="text" class="layui-input" name="productId" placeholder="请输入产品ID">
             </div>
         </div>
        <!-- <div class="layui-inline">
@@ -90,21 +90,24 @@
     <!--通过lay-event定义事件-->
 
     {{#  if(d.state =='未提交'){ }}
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
+   <!-- <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# }else if(d.state =='等待审核') { }}
-    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="pass"><i class="layui-icon">&#xe65c;</i>通过审核</a>
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="pass"><i class="layui-icon">&#xe65c;</i>审核</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>驳回</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+
     <!--<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='审核失败') { }}
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="fail"><i class="layui-icon">&#xe642;</i>审核未通过</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <!--<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='审核成功') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>审核已通过</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}
 
 
