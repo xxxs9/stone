@@ -50,6 +50,31 @@ public interface FinanceApplyOrderMapper extends BaseMapper<SysFinanceApplyOrder
             @Param("startTime") Date startTime,
             @Param("endTime") Date endTime);
 
+    /**
+     * 根据id获取applyOrder
+     *
+     * @param id1 主键id
+     * @return
+     *      applyOrder
+     */
+    SysFinanceApplyOrder getById1(@Param("id1") String id1);
+
+    /**
+     * 更新申请单的审核状态
+     *
+     * @param financeApplyOrder 申请单
+     */
+    void updateApplyState(SysFinanceApplyOrder financeApplyOrder);
+
+    /**
+     * 根据申请单号和申请类型
+     * @param applyId 申请单号
+     * @param applyType 申请类型
+     * @return
+     *  SysFinanceApplyOrder
+     */
+    SysFinanceApplyOrder getByApplyIdAndApplyType(@Param("applyId") String applyId,@Param("applyType") Integer applyType);
+
 
 
 

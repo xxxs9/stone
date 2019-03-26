@@ -1,6 +1,5 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseReceivable;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,4 +45,26 @@ public interface FinancePurchaseReceivableMapper extends BaseMapper<SysFinancePu
             @Param("startTime") Date startTime,
             @Param("endTime") Date endTime
     );
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      SysFinancePurchaseReceivable
+     */
+    SysFinancePurchaseReceivable getPurchaseReceiveById(@Param("id") String id);
+
+    /**
+     * 根据id和订单类型查找
+     * @param purchaseOrderRejectedId id
+     * @param auditType 订单类型
+     * @return
+     *      SysFinancePurchaseReceivable
+     */
+    SysFinancePurchaseReceivable getPurchaseReceiveBypurchaseOrderIdAndAuditType(
+            @Param("purchaseOrderRejectedId") String purchaseOrderRejectedId,
+            @Param("auditType") Integer auditType);
+
+
 }

@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -46,6 +47,14 @@ public interface FinanceApplyOrderService {
             String applyState,
             String startTime,
             String endTime);
+
+    /**
+     * 根据主键查找applyOrder
+     * @param id id
+     * @return
+     *    applyOrder
+     */
+    SysFinanceApplyOrder getPurchasePayById(@Param("id") String id);
 
 
 }

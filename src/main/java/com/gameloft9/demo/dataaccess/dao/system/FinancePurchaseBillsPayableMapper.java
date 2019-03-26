@@ -56,4 +56,27 @@ public interface FinancePurchaseBillsPayableMapper extends BaseMapper<SysFinance
     SysFinancePurchaseBillsPayable getPurchasePay(@Param("purchaseOrderId") String purchaseOrderId);
 
 
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      applyOrder
+     */
+    SysFinancePurchaseBillsPayable getPurchasePayById(@Param("id") String id);
+
+    /**
+     * 根据purchaseOrderId 和auditType
+     *
+     * @param purchaseOrderId 采购订单编号
+     * @param auditType 采购订单类型
+     * @return
+     *
+     */
+    SysFinancePurchaseBillsPayable getPurchasePayBypurchaseOrderIdAndAuditType(
+            @Param("purchaseOrderId") String purchaseOrderId,
+            @Param("auditType") Integer auditType
+    );
+
+
 }

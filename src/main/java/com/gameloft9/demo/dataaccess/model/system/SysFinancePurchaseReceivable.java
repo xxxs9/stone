@@ -50,6 +50,9 @@ public class SysFinancePurchaseReceivable {
     /**采购退货数量*/
     private String rejectedNumber;
 
+    /**审核状态*/
+    public int auditState;
+
     /**采购退货单id*/
     private String purchaseOrderRejectedId;
 

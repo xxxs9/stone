@@ -19,29 +19,10 @@
             );-->
     <select id="getAll" resultMap="paymentMap">
         select
-            payment.ID,
-            payment.PAY_ID,
-            payment.PAY_TYPE,
-            payment.BALANCE,
-            payment.DOCUMENT_MAKER,
-            payment.DOCUMENT_MAKE_TIME,
-            purchase.ID,
-            sale.ID
+            *
         from
-            a_payment payment,
-            a_purchase_receivable purchase,
-            a_sale_receivable sale
-        <where>
-            <if test="payType != null and payType != ''">
-                and payment.PAY_TYPE = #{auditType,jdbcType=VARCHAR}
-            </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and payment.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
-            </if>
+            a_payment
 
-                and (payment.PAY_ID = purchase.ID or payment.PAY_ID = sale.ID)
-
-        </where>
         limit #{start},#{end}
     </select>
 
@@ -53,20 +34,58 @@
         select
           count(1)
         from
-            a_payment payment,
-            a_purchase_receivable purchase,
-            a_sale_receivable sale
-        <where>
-            <if test="payType != null and payType != ''">
-                and payment.PAY_TYPE = #{auditType,jdbcType=VARCHAR}
-            </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and payment.DOCUMENT_MAKE_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
-            </if>
+            a_payment
 
-            and (payment.PAY_ID = purchase.ID or payment.PAY_ID = sale.ID)
-
-
-        </where>
     </select>
+
+    <!--add 添加付款单-->
+    <!--<id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="payType" column="PAY_TYPE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="VARCHAR"/>-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePayment">
+        insert into a_payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="payId != null and payId != ''">
+                PAY_ID,
+            </if>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE,
+            </if>
+            <if test="balance != null and balance != ''">
+                BALANCE,
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="payId != null and payId != ''">
+                #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null and payType != ''">
+                #{payType,jdbcType=INTEGER},
+            </if>
+            <if test="balance != null and balance != ''">
+                #{balance,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

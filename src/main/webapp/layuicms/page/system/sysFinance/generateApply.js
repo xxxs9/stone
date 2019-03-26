@@ -39,6 +39,7 @@ layui.config({
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = price * goodsNumber;
+                var financeState = data.financeState;
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsId);
                 $("[name='goodsId']").val(data.id);
@@ -50,10 +51,15 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
 
+                if(financeState != null){
+                    $('#gnrt').css("display",'none');
+                }
+                /*var f  = financeState != '待审核'
+                alert(f)*/
                 if(queryArgs.applyType == 1 ){
                     $('#apply').text('采购订单应付单');
                 } else if(queryArgs.applyType == 2){
-                    $('#apply').text('销售订单应付单');
+                    $('#apply').text('销售出货应收单');
                 }else if(queryArgs.applyType == 3 ){
                     $('#apply').text('采购退货应付单');
                 }else if(queryArgs.applyType == 4){
@@ -90,14 +96,18 @@ layui.config({
      * */
     form.on("submit(generate)", function (data) {
         if($('[name=auditType]').val() == 1){
+
             var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
             //请求
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=auditType]').val();
+            alert(1)
             var req = {
+                id1:id1,
                 id:payId,
                 auditType : auditType,
                 price:price,
@@ -117,6 +127,7 @@ layui.config({
 
         }else if($('[name=auditType]').val() == 3){
             var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
             //请求
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
@@ -124,12 +135,12 @@ layui.config({
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
+                id1:id1,
                 id:payId,
                 auditType : auditType,
                 price:price,
                 goodsNumber:goodsNumber
             };
-            alert(goodsNumber)
             $api.generatePurchaseReceive(req ,function (data) {
                 layer.msg("生成成功！",{time:1000},function () {
                     layer.closeAll("iframe");

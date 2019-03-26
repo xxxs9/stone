@@ -34,4 +34,8 @@ public class PurchaseOrder {
     private Integer auditType;
     private String financeAuditDescribe;
     private String depotState;
+    private String depotUser;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date depotTime;
+    private String depotDescribe;
 }

@@ -23,6 +23,9 @@
     <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
     <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
     <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
+    <result column="DEPOT_USER" property="depotUser" jdbcType="VARCHAR"/>
+    <result column="DEPOT_TIME" property="depotTime" jdbcType="DATE"/>
+    <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
 </resultMap>
 
 <!--原料商品List 需要ID来获取原料名称-->
@@ -131,16 +134,24 @@
         UPDATE
             t_purchase_order
         SET
-            ID=#{id},
             ORDER_NUMBER=#{orderNumber},
             GOODS_ID=#{goodsId},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
             APPLY_USER=#{applyUser},
             APPLY_TIME=#{applyTime},
+            APPLY_PAY_TIME=#{applyPayTime},
             STATE=#{state},
+            FINANCE_STATE=#{financeState},
+            ORDER_AUDIT_USER=#{orderAuditUser},
+            ORDER_AUDIT_TIME=#{orderAuditTime},
+            APPLY_DESCRIBE=#{applyDescribe},
+            AUDIT_DESCRIBE=#{auditDescribe},
+            FINANCE_AUDIT_USER=#{financeAuditUser},
+            FINANCE_AUDIT_TIME=#{financeAuditTime},
             AUDIT_TYPE=#{auditType},
-            APPLY_DESCRIBE=#{applyDescribe}
+            FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe},
+            DEPOT_STATE=#{depotState}
         WHERE
             ID=#{id}
     </update>
@@ -183,7 +194,11 @@
             STATE,
             ORDER_AUDIT_USER,
             ORDER_AUDIT_TIME,
-            AUDIT_DESCRIBE
+            AUDIT_DESCRIBE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
         FROM
             t_purchase_order
         WHERE
@@ -260,7 +275,94 @@
             FINANCE_STATE = '待审核'
     </select>
 
-    <!--财务管理人员  根据财务审核状态来获取内容,分页-->
+    <!--采购收货管理 获取需要字段List-->
+    <select id="selectAllByInOrder" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_STATE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            FINANCE_STATE='已付款'
+    </select>
+
+    <!--总条数查询所有-->
+    <select id="countGetAllByInOrder" resultType="int" parameterType="Map">
+        SELECT
+            count(1)
+        FROM
+            t_purchase_order t
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                AND t.GOODS_ID = #{goodsId}
+            </if>
+            <if test="depotState != null and depotState != ''">
+                AND t.DEPOT_STATE = #{depotState}
+            </if>
+        </where>
+    </select>
+
+    <!--采购收货 仓库审核状态 收货、确认、提交、撤回-->
+    <update id="toolsUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        <set>
+            <if test="depotState != null and depotState != ''">
+                DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                AND ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--采购入库 编辑信息-->
+    <update id="InUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            ORDER_NUMBER=#{orderNumber},
+            GOODS_ID=#{goodsId},
+            GOODS_NUMBER=#{goodsNumber},
+            PRICE=#{price},
+            APPLY_USER=#{applyUser}
+        WHERE
+            ID=#{id}
+    </update>
+
+    <!--采购入库 查看审核未通过原因-->
+    <update id="lookIn" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            DEPOT_STATE=#{depotState},
+            DEPOT_USER=#{depotUser},
+            DEPOT_TIME=#{depotTime},
+            DEPOT_DESCRIBE=#{depotDescribe}
+        WHERE
+            ID=#{id}
+    </update>
+
+
+
+
+
+    <!--阿发包  财务管理人员  根据财务审核状态来获取内容,分页-->
     <select id="getAllByFinance" resultMap="purOrderMap">
         SELECT
             ID,
@@ -281,16 +383,19 @@
             FINANCE_AUDIT_TIME,
             AUDIT_TYPE,
             FINANCE_AUDIT_DESCRIBE,
-            DEPOT_STATE
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
         FROM
             t_purchase_order
         WHERE
             FINANCE_STATE='待审核'
-            AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
-    <!--采购收货管理 获取需要字段List-->
-    <select id="selectAllByInOrder" resultMap="purOrderMap">
+    <!--阿发包  财务经理审核状态：付款申请-->
+    <select id="selectApplyByFinance" resultMap="purOrderMap">
         SELECT
             ID,
             ORDER_NUMBER,
@@ -300,21 +405,113 @@
             APPLY_USER,
             APPLY_TIME,
             APPLY_PAY_TIME,
+            STATE,
+            FINANCE_STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            APPLY_DESCRIBE,
+            AUDIT_DESCRIBE,
             FINANCE_AUDIT_USER,
             FINANCE_AUDIT_TIME,
-            DEPOT_STATE
+            AUDIT_TYPE,
+            FINANCE_AUDIT_DESCRIBE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
         FROM
             t_purchase_order
-        <where>
-            <if test="goodsId != null and goodsId != ''">
-                AND GOODS_ID = #{goodsId}
-            </if>
-            <if test="depotState != null and depotState != ''">
-                AND DEPOT_STATE = #{depotState}
-            </if>
-            AND FINANCE_STATE="已发货"
-        </where>
-        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+        WHERE
+            FINANCE_STATE='付款申请'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
+    <!--华锋  仓库审核人员  审核入库单-->
+    <select id="selectApplyByDepot" resultMap="purOrderMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_PAY_TIME,
+            STATE,
+            FINANCE_STATE,
+            ORDER_AUDIT_USER,
+            ORDER_AUDIT_TIME,
+            APPLY_DESCRIBE,
+            AUDIT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            AUDIT_TYPE,
+            FINANCE_AUDIT_DESCRIBE,
+            DEPOT_STATE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE
+        FROM
+            t_purchase_order
+        WHERE
+            DEPOT_STATE='入库单审核中'
+    </select>
+
+    <!--啊发包 根据id和state更新pruchaseOrder   void updateByIdAndState(PurchaseOrder purchaseOrder);-->
+    <update id="updateByIdAndState" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        update t_purchase_order
+        <set>
+            <if test="financeState != null and financeState != ''">
+                FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
+
+    <!--啊发包  根据id和订单类型    PurchaseOrder findByIdAndAuditType(String id,Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="purOrderMap">
+        select * from t_purchase_order
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--啊发包  更新purchaseOrder的财务审核状态  void purchaseOrderPayPass(PurchaseOrder purchaseOrder);-->
+    <update id="purchaseOrderPayPass" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        update t_purchase_order
+        <set>
+            <if test="financeState != null and financeState != ''">
+                FINANCE_STATE=#{financeState,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditUser != null and financeAuditUser != ''">
+                FINANCE_AUDIT_USER=#{financeAuditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditTime != null and financeAuditTime != ''">
+                FINANCE_AUDIT_TIME=#{financeAuditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="financeAuditDescribe != null and financeAuditDescribe != ''">
+                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 </mapper>

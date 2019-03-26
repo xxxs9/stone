@@ -100,6 +100,25 @@ public class Constants {
 
         /**销售（客户退货）应付单类型*/
         public static final Integer SALE_PAYABLE=4;
+
+        /**未生成对应申请单*/
+        public static final Integer APPLY_ORDER_UNCOMMIT=1;
+
+        /**待审核*/
+        public static final Integer APPLY_ORDER_UNAUDIT=2;
+
+        /**审核通过*/
+        public static final Integer APPLY_ORDER_PASS=3;
+
+        /**审核不通过*/
+        public static final Integer APPLY_ORDER_UNPASS=4;
+
+        /**采购部*/
+        public static final String PURCHASE="采购部";
+
+        /**销售部*/
+        public static final String SALE="销售部";
+
     }
 
     /**
@@ -119,6 +138,8 @@ public class Constants {
         public static final String APPLY_PASS_WAIT="待审核";
         public static final String APPLY_PAY="待付款";
         public static final String APPLY_PASS_PAY="已付款";
+        public static final String NO_PASS="未通过";
+
     }
 
     /**
@@ -126,6 +147,7 @@ public class Constants {
      */
     public static class DepotState{
         public static final String DEPOT_PASS_SEND="已发货";
+        public static final String DEPOT_SURE="确认中";
         public static final String DEPOT_NO_SUNMIT="未提交";
         public static final String DEPOT_WAITING="入库单审核中";
         public static final String DEPOT_PASS="审核通过";

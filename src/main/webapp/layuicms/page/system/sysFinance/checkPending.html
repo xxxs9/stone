@@ -28,20 +28,42 @@
 
     <form class="layui-form">
         <div class="layui-inline">
-            <label class="layui-form-label">订单状态</label>
-            <div class="layui-input-block">
-                <select id="financeState" name="financeState">
+            <label class="layui-form-label">申请状态</label>
+            <div class="layui-input-inline">
+                <select  name="applyState">
                     <option value=""></option>
-                    <option value="1">未审核</option>
-                    <option value="2">已审核</option>
+                    <option value="1">未生成</option>
+                    <option value="2">待审核</option>
+                    <option value="3">已付款</option>
+                    <option value="4">审核不通过</option>
                 </select>
             </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">申请类型</label>
+                <div class="layui-input-inline">
+                    <select  name="applyType">
+                        <option value=""></option>
+                        <option value="1">采购应付单</option>
+                        <option value="3">采购应收单</option>
+                        <option value="2">销售应收单</option>
+                        <option value="4">销售应付单</option>
+                    </select>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input id="applyTime" type="text" class="layui-input" name="applyTime" placeholder="开始 到 结束">
+                    </div>
+                </div>
         </div>
+
 
         <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryState">查询</a>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="query">查询</a>
         </div>
-
+        </div>
     </form>
 
 </blockquote>
@@ -63,14 +85,38 @@
 
 
 <script type="text/html" id="barDemo">
-    {{#  if(d.applyType == '1'){ }}
+    {{#  if(d.applyType == '1' && d.applyState == '1'){ }}
     <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购申请应付单</a>
-    {{#  } else if(d.applyType == '3'){ }}
-    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购退货应付单</a>
-    {{#  } else if(d.applyType == '2'){ }}
-    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售发货应付单</a>
-    {{#  } else if(d.applyType == '4'){ }}
+    {{#  } else if(d.applyType == '1' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单待审核</a>
+    {{#  } else if(d.applyType == '1' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单已付款</a>
+    {{#  } else if(d.applyType == '1' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购申请应付单未通过</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '1'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售发货应收单</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单待审核</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单已收款</a>
+    {{#  } else if(d.applyType == '2' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售发货应收单未通过</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '1'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成采购退货应收单</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单待审核</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单已收款</a>
+    {{#  } else if(d.applyType == '3' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>采购退货应收单未通过</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '1'){ }}
     <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>生成销售退货应付单</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '2'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单待审核</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '3'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单已付款</a>
+    {{#  } else if(d.applyType == '4' && d.applyState == '4'){ }}
+    <a href="#" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="generateApply"><i class="layui-icon">&#xe60e;</i>销售退货应付单未通过</a>
     {{#  } }}
 </script>
 
@@ -78,11 +124,11 @@
     {{# if(d.applyType == 1){ }}
     <span>采购应付单</span>
     {{# } else if(d.applyType == 2) { }}
-    <span>销售应付单</span>
+    <span>销售应收单</span>
     {{# } else if(d.applyType == 3) { }}
     <span>采购应收单</span>
     {{# } else if(d.applyType == 4) { }}
-    <span>销售应收单</span>
+    <span>销售应付单</span>
     {{# } }}
 </script>
 
@@ -91,11 +137,13 @@
 </script>
 
 <script type="text/html" id="applyState">
-    {{# if(d.applyType == 1){ }}
-    <span>未审核</span>
-    {{# } else if(d.applyType == 2) { }}
-    <span>审核通过</span>
-    {{# } else if(d.applyType == 3) { }}
+    {{# if(d.applyState == 1){ }}
+    <span>未生成</span>
+    {{# } else if(d.applyState == 2) { }}
+    <span>待审核</span>
+    {{# } else if(d.applyState == 3) { }}
+    <span>已付款</span>
+    {{# } else if(d.applyState == 4) { }}
     <span>审核不通过</span>
     {{# } }}
 </script>

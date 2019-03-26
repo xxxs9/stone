@@ -1,6 +1,9 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author: jc
@@ -27,5 +30,6 @@ public class SysFinancePayment {
     private String documentMaker;
 
     /**制单时间*/
-    private String documentMakeTime;
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date documentMakeTime;
 }

@@ -34,7 +34,7 @@ public class FinanceSaleBillPayableController {
      * @param endTime 结束时间
      * @return jason
      */
-    @RequestMapping(value = "/saleBillPayList", method = RequestMethod.POST)
+    @RequestMapping(value = "/salePayList", method = RequestMethod.POST)
     @ResponseBody
     public IResult saleBillPayList(String page, String limit, String auditType, String startTime, String endTime){
         return new PageResultBean<Collection<SysFinanceSaleBillsPayable>>(saleBillPayService.getAll(page,limit,auditType,startTime,endTime),

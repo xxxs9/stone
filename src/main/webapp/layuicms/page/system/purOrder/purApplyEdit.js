@@ -65,7 +65,7 @@ layui.config({
             var queryArgs = $tool.getQueryParam();//获取查询参数
             var id = queryArgs['id'];
 
-            var url = $tool.getContext()+'purchase_order/get.do';
+            //var url = $tool.getContext()+'purchase_order/get.do';
             var req = {
                 id:id
             };
@@ -127,7 +127,7 @@ layui.config({
      * 表单提交
      * */
     form.on("submit(submitFilter)", function (data) {
-        var id = data.field.id;
+        var queryArgs =  $tool.getQueryParam();//获取查询参数
         var orderNumber = data.field.orderNumber;
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
@@ -148,7 +148,7 @@ layui.config({
         //请求
         var url = $tool.getContext()+'purchase_order/update.do';
         var req = {
-            id:id,
+            id:queryArgs['id'],
             orderNumber:orderNumber,
             goodsId:goodsId,
             goodsNumber:goodsNumber,

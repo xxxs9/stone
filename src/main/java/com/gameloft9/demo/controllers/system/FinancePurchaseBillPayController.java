@@ -1,6 +1,7 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -38,7 +39,7 @@ public class FinancePurchaseBillPayController {
      * @param endTime 结束时间
      * @return jason
      */
-    @RequestMapping(value = "/purchaseBillPayList" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/purchasePayList" ,method = RequestMethod.POST)
     @ResponseBody
     public IResult billPayList(String page, String limit, String auditType, String startTime, String endTime){
 
@@ -71,8 +72,36 @@ public class FinancePurchaseBillPayController {
 
     @RequestMapping(value = "/generatePurchasePay", method = RequestMethod.POST)
     @ResponseBody
-    public IResult generatePurchasePay(PurchaseOrder purchaseOrder){
+    public IResult generatePurchasePay(PurchaseOrder purchaseOrder,String id1){
 
-        return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder));
+        return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder,id1));
     }
+
+    /**
+     * 根据ID获取
+     * @param id id
+     * @return
+     *  json
+     */
+    @RequestMapping(value = "/getPurchasePayById",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getPurchasePayById(String id){
+        return new ResultBean<SysFinancePurchaseBillsPayable>(purchaseBillPayService.getPurchasePayById(id));
+    }
+
+    /**
+     * 审核
+     * @param attitude q
+     * @param purchaseOrderId q
+     * @param auditType q
+     * @param actualPrice q
+     * @param auditDescribe q
+     * @return q
+     */
+    @RequestMapping(value = "/purchaseOrderPayPass", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult purchaseOrderPayPass(String attitude,String purchaseOrderId,String auditType,String actualPrice,String auditDescribe){
+        return new ResultBean<Boolean>(purchaseBillPayService.purchaseOrderPayPass(attitude,purchaseOrderId,auditType,actualPrice,auditDescribe));
+    }
+
 }

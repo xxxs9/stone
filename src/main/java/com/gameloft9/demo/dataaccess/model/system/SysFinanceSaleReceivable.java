@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 @Data
-public class SysFinanceSaleReceivable extends SysFinancePublicPurchaseSale {
+public class SysFinanceSaleReceivable {
 
     /**ID*/
     private String id;
@@ -48,6 +48,9 @@ public class SysFinanceSaleReceivable extends SysFinancePublicPurchaseSale {
 
     /**销售发货成品数量*/
     private String productNumber;
+
+    /**审核状态*/
+    public int auditState;
 
     /**销售发货单id*/
     private String saleId;

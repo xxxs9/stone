@@ -8,4 +8,6 @@ import com.gameloft9.demo.dataaccess.model.system.SysFinancePublicPurchaseSale;
  */
 
 public interface FinancePublicPurchaseSaleMapper extends BaseMapper<SysFinancePublicPurchaseSale> {
+
+
 }

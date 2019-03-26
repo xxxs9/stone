@@ -230,7 +230,7 @@ layui.config({
         var index = layui.layer.open({
             title: "查看审核未通过原因",
             type: 2,
-            content: "purApplyLook.html?id="+id,
+            content: "purInLook.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回采购列表', '.layui-layer-setwin .layui-layer-close', {

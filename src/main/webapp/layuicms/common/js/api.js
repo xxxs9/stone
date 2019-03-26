@@ -145,7 +145,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
 
-        //purOrder 采购订单管理
+        //purOrder 采购订单管理purchase_order
         //初始化GoodsId下拉框
         getListGoods:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/goods.do',req,config,successCallback,errorCallback);
@@ -182,7 +182,6 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
-
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -191,6 +190,86 @@ layui.define(['$tool','jquery'], function (exports) {
         inspectPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/inspect.do',req,config,successCallback,errorCallback);
         },
+        //采购入库之收货 bring
+        bringInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/bringIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之确认 sure
+        sureInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/sureIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之撤回 back
+        backInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/backIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之提交 commit
+        commitInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/commitIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之编辑 edit
+        editInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/editIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之获取所有信息 listIn
+        listInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/listIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购入库之查看未审核通过原因 look
+        lookInPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/lookIn.do',req,config,successCallback,errorCallback);
+        },
+        //采购退货管理purchase_return
+        //获取所有列表
+        listPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/list.do',req,config,successCallback,errorCallback);
+        },
+        //增加
+        insertPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/insert.do',req,config,successCallback,errorCallback);
+        },
+        //删除
+        deletePurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/delete.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取
+        getPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
+        },        //修改
+        updatePurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
+        },
+        //获取goodsId下拉框
+        selectGoodsIdPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/goodsId.do',req,config,successCallback,errorCallback);
+        },
+        //获取orderNumber下拉框
+        selectOrderNumberPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/orderNumber.do',req,config,successCallback,errorCallback);
+        },
+        //提交commit
+        commitPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/commit.do',req,config,successCallback,errorCallback);
+        },
+        //撤回bacl
+        backPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
+        },
+
+
+        //采购订单管理  接口
+        //阿发包 财务审核人员获取财务审核状态为待审核的信息
+        financePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
+        },
+        //阿发包 财务审核人员获取财务审核状态为付款申请的信息
+        financeApplyPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/financeApply.do',req,config,successCallback,errorCallback);
+        },
+        //华锋 仓库审核人员获取仓库审核状态为入库单审核中的信息
+        depotPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/depot.do',req,config,successCallback,errorCallback);
+        },
+
 
         GetDepotType:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotType.do',req,successCallback,errorCallback);
@@ -430,13 +509,25 @@ layui.define(['$tool','jquery'], function (exports) {
         insertPurchasePay:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/addPurchasePay.do',req,successCallback,errorCallback);
         },
-        /*根据申请单id查找应付单*/
+        /*根据订单id查找应付单*/
         getPurchasePay:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
         },
         /*根据申请单id查找应付单*/
-        getPurchasePay:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/getPurchasePay.do',req,successCallback,errorCallback);
+        getPurchasePayById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchasePayById.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应收单*/
+        getPurchaseReceiveById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getPurchaseReceiveById.do',req,successCallback,errorCallback);
+        },
+        /*审核采购应付单*/
+        purchaseOrderPayPass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/purchaseOrderPayPass.do',req,successCallback,errorCallback);
+        },
+        /*审核采购应收单*/
+        purchaseOrderReceivePass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
 
 

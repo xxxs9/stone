@@ -20,24 +20,18 @@
             );-->
     <select id="getAll" resultMap="applyOrderMap">
         select
-        ID,
-        APPLY_ID,
-        APPLY_USER,
-        APPLY_TIME,
-        APPLY_TYPE,
-        APPLY_MONEY,
-        APPLY_STATE
+          *
         from
-        a_apply_order
+          a_apply_order
         <where>
             <if test="applyType != null and applyType != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_TYPE = #{applyType,jdbcType=VARCHAR}
             </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and APPLY_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and APPLY_TIME between (#{startTime,jdbcType=TIMESTAMP}) and (#{endTime,jdbcType=TIMESTAMP})
             </if>
             <if test="applyState != null and applyState != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_STATE = #{applyState,jdbcType=VARCHAR}
             </if>
         </where>
         limit #{start},#{end}
@@ -54,13 +48,13 @@
         a_apply_order
         <where>
             <if test="applyType != null and applyType != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_TYPE = #{applyType,jdbcType=VARCHAR}
             </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and APPLY_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and APPLY_TIME between (#{startTime,jdbcType=TIMESTAMP}) and (#{endTime,jdbcType=TIMESTAMP})
             </if>
             <if test="applyState != null and applyState != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_STATE = #{applyState,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -116,6 +110,43 @@
         </trim>
     </insert>
 
+    <!--根据id获取applyOrder   SysFinanceApplyOrder getById1(String id1);-->
+    <select id="getById1" parameterType="java.lang.String" resultMap="applyOrderMap">
+        select * from
+        a_apply_order
+        <where>
+            <if test="id1 != null and id1 != ''">
+                ID=#{id1,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 
+    <!--更新申请单审核状态   void updateApplyState(SysFinanceApplyOrder financeApplyOrder);-->
+    <update id="updateApplyState" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder">
+        update a_apply_order
+        <set>
+            <if test="applyState != null and applyState != ''">
+                APPLY_STATE=#{applyState,jdbcType=INTEGER}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--SysFinanceApplyOrder getByApplyIdAndApplyType(@Param("id") String applyId,@Param("auditType") Integer applyType);-->
+    <select id="getByApplyIdAndApplyType" resultMap="applyOrderMap">
+        select * from a_apply_order
+        <where>
+            <if test="applyId != null and applyId != '' ">
+                and APPLY_ID=#{applyId,jdbcType=VARCHAR}
+            </if>
+            <if test="applyType != null and applyType != '' ">
+                and APPLY_TYPE=#{applyType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
 
 </mapper>
