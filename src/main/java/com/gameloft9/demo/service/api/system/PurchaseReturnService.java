@@ -61,6 +61,9 @@ public interface PurchaseReturnService {
      * @return List<PurchaseReturn> 返回类型*/
     List<PurchaseReturn> selectAllOrderNumber();
 
+    /**根据orderNumber下拉框自动获取信息*/
+    PurchaseReturn selectOtherByOrderNumber(String orderNumber);
+
     /**
      * 采购退货 提交
      * @param purchaseReturn 实体

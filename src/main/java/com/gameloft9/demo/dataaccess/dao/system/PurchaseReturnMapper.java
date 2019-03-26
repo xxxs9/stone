@@ -71,6 +71,9 @@ public interface PurchaseReturnMapper {
      * */
     List<PurchaseReturn> selectAllOrderNumber();
 
+    /**根据orderNumber自动获取其他信息*/
+    PurchaseReturn selectOtherByOrderNumber(String orderNumber);
+
     /**
      * 采购退货
      * 提交、撤回

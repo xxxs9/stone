@@ -31,13 +31,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
-            <select id="orderNumber" name="orderNumber" lay-filter="initOrder"></select>
+            <input type="text" class="layui-input" name="orderNumber" readonly="readonly" lay-verify="required">
+            <!--<select id="orderNumber" name="orderNumber" disabled="disabled" lay-filter="initOrder"></select>-->
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品名称</label>
         <div class="layui-input-block">
-            <select id="goodsId" name="goodsId" lay-filter="initGoods"></select>
+            <input type="text" class="layui-input" name="goodsId" readonly="readonly" lay-verify="required">
+            <!--<select id="goodsId" name="goodsId" disabled="disabled" lay-filter="initGoods"></select>-->
         </div>
     </div>
     <div class="layui-form-item">
@@ -53,9 +55,21 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">申请时间</label>
+        <div class="layui-input-block">
+            <input type="text" id="time" class="layui-input" readonly="readonly" name="applyTime" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="applyUser" readonly="readonly" lay-verify="required" placeholder="请输入申请人名字">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核状态</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="depotState" readonly="readonly" lay-verify="required" placeholder="请输入申请人名字">
         </div>
     </div>
     <div class="layui-form-item" id="tool">

@@ -17,7 +17,7 @@ layui.config({
     /**
      * 初始化页面
      * */
-    /*function initTestarea(){
+    function initTestarea(){
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
         var req = {
@@ -25,14 +25,14 @@ layui.config({
         };
 
         $api.getPurOrder(req,function (res) {
-            /!*var data = res.data;
+            /*var data = res.data;
             if(data.state == '审核未通过'){
                 $('#lookState').remove();
-            }*!/
+            }*/
         });
     }
 
-    initTestarea();*/
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initDepotInfo();
@@ -62,9 +62,9 @@ layui.config({
         });
     }
 
-    /*/!**
+    /**
      * 加载查看列表
-     * *!/
+     * */
     function loadRoleList() {
         //var url = $tool.getContext()+'purchase_order/look.do';
         var req =  {
@@ -92,7 +92,6 @@ layui.config({
             }
         });
     }
-*/
     /**
      * 表单提交
      * */

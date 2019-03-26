@@ -97,6 +97,13 @@ public class PurchaseReturnController {
         return new ResultBean<Collection<PurchaseReturn>>(service.selectAllOrderNumber());
     }
 
+    /**根据orderNumber自动获取信息*/
+    @RequestMapping(value = "/byOrderNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectOtherByOrderNumber(String orderNumber){
+        return new ResultBean<PurchaseReturn>(service.selectOtherByOrderNumber(orderNumber));
+    }
+
     /**
      * 采购退货 提交*/
     @RequestMapping(value = "/commit.do",method = RequestMethod.POST)

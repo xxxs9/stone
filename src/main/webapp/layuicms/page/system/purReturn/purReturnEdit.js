@@ -57,7 +57,7 @@ layui.config({
     /**
      * 初始化订单编号下拉框
      * */
-    function initOrderNumber() {
+    function initOrderNumber(hh) {
         $api.selectOrderNumberPurchaseReturn(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
@@ -66,6 +66,7 @@ layui.config({
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
                 $('#orderNumber').append($(html));
+                $('#orderNumber').val(hh)
                 form.render();
             }
         });
@@ -86,12 +87,14 @@ layui.config({
             console.log(data)
             $("[name='id']").val(data.id);
             $("[name='orderNumber']").val(data.orderNumber);
+            initOrderNumber(data.orderNumber);
             $("[name='goodsId']").val(data.goodsId);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
             $("[name='depotState']").val(data.depotState);
             $("[name='applyUser']").val(data.applyUser);
-            loadRoleList();
+            $("[name='applyTime']").val(data.applyTime);
+            //loadRoleList();
             form.render();//重新绘制表单，让修改生效
         });
     }
@@ -137,6 +140,7 @@ layui.config({
         var price = data.field.price;
         var depotState = data.field.depotState;
         var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
         var idList = new Array();
         console.log(data.field);
         //获取选中的角色列表
@@ -155,6 +159,7 @@ layui.config({
             price:price,
             depotState:depotState,
             applyUser:applyUser,
+            applyTime:applyTime,
             depotIdList:idList
         };
 
@@ -167,6 +172,16 @@ layui.config({
         });
         return false;
     })
+
+    /*layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });
 
 

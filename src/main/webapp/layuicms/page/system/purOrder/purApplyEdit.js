@@ -64,8 +64,6 @@ layui.config({
         function initDepotInfo() {
             var queryArgs = $tool.getQueryParam();//获取查询参数
             var id = queryArgs['id'];
-
-            //var url = $tool.getContext()+'purchase_order/get.do';
             var req = {
                 id:id
             };
@@ -79,7 +77,7 @@ layui.config({
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
                 $("[name='applyUser']").val(data.applyUser);
-                //$("[name='applyTime']").val(data.applyTime);
+                $("[name='applyTime']").val(data.applyTime);
                 $("[name='state']").val(data.state);
                 $("[name='applyDescribe']").val(data.applyDescribe);
                 //加载orderType，整型转字符串
@@ -133,7 +131,7 @@ layui.config({
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var applyUser = data.field.applyUser;
-        //var applyTime = data.field.applyTime;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
         var idList = new Array();
@@ -154,7 +152,7 @@ layui.config({
             goodsNumber:goodsNumber,
             price:price,
             applyUser:applyUser,
-            //applyTime:applyTime,
+            applyTime:applyTime,
             state:state,
             applyDescribe:applyDescribe,
             depotIdList:idList
@@ -170,6 +168,16 @@ layui.config({
 
         return false;
     })
+
+    /*layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });
 
 
