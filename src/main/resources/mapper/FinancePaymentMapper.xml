@@ -19,10 +19,14 @@
             );-->
     <select id="getAll" resultMap="paymentMap">
         select
-            *
+        *
         from
-            a_payment
-
+        a_payment
+        <where>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE=#{payType,jdbcType=INTEGER}
+            </if>
+        </where>
         limit #{start},#{end}
     </select>
 
@@ -35,6 +39,11 @@
           count(1)
         from
             a_payment
+        <where>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE=#{payType,jdbcType=INTEGER}
+            </if>
+        </where>
 
     </select>
 

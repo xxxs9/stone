@@ -16,34 +16,21 @@
 <body class="childrenBody">
 <!--搜索栏-->
 <blockquote class="layui-elem-quote news_search">
-    <form class="layui-form">
-
-        <div class="layui-inline">
-            <label class="layui-form-label">应付类型</label>
-            <div class="layui-input-block">
-                <select id="receiveType" name="receiveType">
-                    <option value="">请选择</option>
-                    <option value="2">采购应付单</option>
-                    <option value="3">销售应付单</option>
-                </select>
+        <form class="layui-form">
+            <div class="layui-inline">
+                <label class="layui-form-label">应付类型</label>
+                <div class="layui-input-block">
+                    <select id="paymentType" name="paymentType">
+                        <option value="">请选择</option>
+                        <option value="1">采购应付单</option>
+                        <option value="4">销售应收单</option>
+                    </select>
+                </div>
             </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">日期范围</label>
-            <div class="layui-input-inline">
-                <input id="documentMakeTime" type="text" class="layui-input" name="documentMakeTime" placeholder="开始 到 结束">
+            <div class="layui-inline">
+                <a class="layui-btn search_btn" lay-submit="" lay-filter="queryPay">查询</a>
             </div>
-        </div>
-
-
-        <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryPay">查询</a>
-        </div>
-        <!--<div class="layui-inline">
-            <a class="layui-btn layui-btn-normal payAdd_btn">添加应付单</a>
-        </div>-->
-    </form>
+        </form>
 </blockquote>
 <!--表格区-->
 <div class="layui-form users_list">

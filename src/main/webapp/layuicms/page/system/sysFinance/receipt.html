@@ -18,28 +18,17 @@
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
         <div class="layui-inline">
-            <label class="layui-form-label">父菜单</label>
+            <label class="layui-form-label">应收类型</label>
             <div class="layui-input-block">
-                <select id="parentMenu" name="parentMenuId"></select>
+                <select id="receiptType" name="receiptType">
+                    <option value="">请选择</option>
+                    <option value="2">销售应收</option>
+                    <option value="3">采购应收</option>
+                </select>
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">菜单名称</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuName" placeholder="请输入菜单名称">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">菜单编码</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuCode" placeholder="请输入菜单编码">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
-        </div>
-        <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal usersAdd_btn">添加菜单</a>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryReceive">查询</a>
         </div>
     </form>
 </blockquote>
@@ -52,11 +41,7 @@
 <!--分页元素-->
 <div id="page"></div>
 <!--toolbar 模板-->
-<script type="text/html" id="barDemo">
-    <!--通过lay-event定义事件-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-</script>
+
 
 <script type="text/html" id="receiveType">
     {{#  if(d.receiveType == '2'){ }}

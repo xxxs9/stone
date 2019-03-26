@@ -18,22 +18,18 @@ public interface FinancePaymentService {
      * @param page 当前页
      * @param limit 每条条数
      * @param payType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
      * @return
      *      付款单集合
      */
-    List<SysFinancePayment> getAll(String page, String limit, String payType, String startTime, String endTime);
+    List<SysFinancePayment> getAll(String page, String limit, String payType);
 
 
     /**
      * 条件查询总条数
      *
      * @param payType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
      * @return
      *          条件查询总条数
      */
-    int getCount(String payType, String startTime, String endTime);
+    int getCount(String payType);
 }

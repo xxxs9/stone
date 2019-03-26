@@ -2,6 +2,8 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceBill;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -28,4 +30,10 @@ public interface FinanceBillService {
      *      总条数
      */
     int getCount();
+
+    /**
+     * 导出数据
+     */
+    void export(HttpServletRequest request, HttpServletResponse response);
+
 }

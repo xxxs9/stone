@@ -29,4 +29,11 @@ public interface FinanceBillMapper extends BaseMapper<SysFinanceBill>{
      */
     int getCount();
 
+    /**
+     * 获取所有的bill
+     * @return
+     *      bill集合
+     */
+    List<SysFinanceBill> getAllBill();
+
 }

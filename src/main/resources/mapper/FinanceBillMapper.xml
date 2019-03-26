@@ -53,4 +53,9 @@
         select count(1) from a_bill
     </select>
 
+    <!--查找所有bill   List<SysFinanceBill> getAllBill();-->
+    <select id="getAllBill" resultMap="billMap">
+        select * from a_bill
+    </select>
+
 </mapper>
