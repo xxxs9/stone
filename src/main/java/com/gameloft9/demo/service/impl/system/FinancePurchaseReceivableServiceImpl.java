@@ -1,9 +1,6 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseReceivableMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinanceReceiptMapper;
-import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
+import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
 import com.gameloft9.demo.utils.Constants;
@@ -36,6 +33,8 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
     PurchaseOrderMapper purchaseOrderMapper;
     @Autowired
     FinanceReceiptMapper receiptMapper;
+    @Autowired
+    FinanceBillMapper billMapper;
 
     /**
      *
@@ -140,6 +139,7 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         purchaseReceivable.setAuditTime(new Date());
         purchaseReceivable.setAuditDescribe(auditDescribe);
 
+        //审核通过才生成付款单和账单记录
         if(agree.equals(attitude)){
             //生成付款单
             SysFinanceReceipt receipt = new SysFinanceReceipt();
@@ -151,6 +151,15 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
             receipt.setReceiveType(purchaseReceivable.getAuditType());
             //添加付款单
             receiptMapper.add(receipt);
+            //生成账单
+            SysFinanceBill financeBill = new SysFinanceBill();
+            Integer balance = Integer.parseInt(purchaseReceivable.getActualBalance());
+            financeBill.setId(UUIDUtil.getUUID());
+            financeBill.setBalance(balance);
+            financeBill.setBillTime(purchaseReceivable.getAuditTime());
+            financeBill.setDepartment(Constants.Finance.PURCHASE);
+            //添加账单
+            billMapper.add(financeBill);
         }
 
 

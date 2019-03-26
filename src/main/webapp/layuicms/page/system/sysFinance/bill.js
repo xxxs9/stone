@@ -4,53 +4,33 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['laydate','form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
         laypage = layui.laypage,
         $tool = layui.$tool,
         table = layui.table,
-        $api = layui.$api,
-        laydate = layui.laydate;
+        $api = layui.$api;
 
     var tableIns;//表格实例
 
-    function init() {
-        initDate();//初始化日期选择框
-    }
-
-    init();
-    /**
-     * 初始化日期选择
-     * */
-    function initDate() {
-        laydate.render({
-            elem: '#applyTime'
-            , type: 'datetime'
-            , range: '&'
-            , format: 'yyyy-MM-dd HH:mm:ss'
-        });
-    }
 
     /**
      * 定义表格
      * */
     function defineTable() {
         tableIns = table.render({
-            elem: '#applyList'
+            elem: '#bill'
             , height: 370
-            , url: $tool.getContext() + 'finance/applyList.do' //数据接口
+            , url: $tool.getContext() + 'bill/billList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'applyId', title: '订单单号',width:100,event:'show',style:'cursor:pointer',templet:'#clickThis'}
-                , {field: 'applyUser', title: '申请人', width:120,}
-                , {field: 'applyTime', title: '申请时间', width:170,}
-                , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}
-                , {field: 'applyState', title: '申请状态', width:100,templet:'#applyState'}
-                , {field: 'applyMoney', title: '申请款', width:80,}
+                , {field: 'department', title: '部门',width:100,}
+                , {field: 'balance', title: '款', width:120,}
+                , {field: 'billTime', title: '时间', width:170,}
                 , {fixed: 'right', title: '操作', width: 180, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -79,20 +59,14 @@ layui.config({
 
 
     //查询
-    form.on("submit(query)", function (data) {
+    form.on("submit(queryState)", function (data) {
 
-        var applyState = data.field.applyState;
-        var applyType = data.field.applyType;
-        var applyTime = data.field.applyTime;
-        var startTime = applyTime.split("&")[0];
-        var endTime = applyTime.split("&")[1];
+        var financeState = data.field.financeState;
+
         //表格重新加载
         tableIns.reload({
             where:{
-                applyState:applyState,
-                applyType:applyType,
-                startTime:startTime,
-                endTime:endTime,
+                financeState:financeState,
             }
         });
 

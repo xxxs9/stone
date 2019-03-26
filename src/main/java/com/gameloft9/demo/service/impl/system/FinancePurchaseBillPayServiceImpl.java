@@ -1,13 +1,7 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinancePaymentMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper;
-import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
-import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePayment;
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
+import com.gameloft9.demo.dataaccess.dao.system.*;
+import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
@@ -40,6 +34,8 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
     PurchaseOrderMapper purchaseOrderMapper;
     @Autowired
     FinancePaymentMapper paymentMapper;
+    @Autowired
+    FinanceBillMapper billMapper;
 
     /**
      *
@@ -186,6 +182,17 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
             payment.setPayType(financePurchaseBillsPayable.getAuditType());
             //添加付款单
             paymentMapper.add(payment);
+
+            //生成账单
+            SysFinanceBill financeBill = new SysFinanceBill();
+            financeBill.setId(UUIDUtil.getUUID());
+            Integer balance = Integer.parseInt(financePurchaseBillsPayable.getActualBalance());
+            financeBill.setBalance(balance*(-1));
+            financeBill.setBillTime(financePurchaseBillsPayable.getAuditTime());
+            financeBill.setDepartment(Constants.Finance.PURCHASE);
+            //添加账单
+            billMapper.add(financeBill);
+
         }
         //更新applyOrder
         applyOrderMapper.updateApplyState(applyOrder);
