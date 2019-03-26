@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.OrderAuditBean;
 
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,7 @@ public interface MarkerOrderService {
     /**
      * 增加销售订单表信息
      */
-    int add(MarkerOrderTest markerOrderTest);
+    String add(MarkerOrderTest markerOrderTest);
 
     /**
      * 获取销售订单id
@@ -67,17 +68,17 @@ public interface MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
+
     Boolean backUpdate(MarkerOrderTest markerOrderTest);
 
-    /**
-     * 自动生成订单编号
-     */
-    String orderNum(MarkerOrderTest markerOrderTest);
 
     /**
      * 获取productID下来框
      * @return
      */
+
     List<MarkerOrderTest> getProductId();
+
+
 
 }

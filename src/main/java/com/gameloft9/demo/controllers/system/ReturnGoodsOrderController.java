@@ -1,9 +1,13 @@
 package com.gameloft9.demo.controllers.system;
+
+
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
+import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
-import com.gameloft9.demo.service.api.system.MarkerOrderService;
+import com.gameloft9.demo.service.api.system.ReturnGoodsOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,12 +28,12 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/marker")
-public class MarkerOrderController {
+@RequestMapping("/goods")
 
-   @Autowired
-   MarkerOrderService markerOrderService;
+public class ReturnGoodsOrderController {
 
+    @Autowired
+    ReturnGoodsOrderService returnGoodsOrderService;
 
     /**
      * 处理时间
@@ -44,88 +48,85 @@ public class MarkerOrderController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+
     /**
-     * 获取所有销售订单信息
+     * 获取所有发货单信息
+     * @param page
+     * @param limit
+     * @param goodsName
+     * @return
      */
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page, String limit, String productId){
-        List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, productId);
-        return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(productId));
+    public IResult findAll(String page, String limit, String goodsName){
+        List<ReturnGoodsOrder> list = returnGoodsOrderService.findAll(page, limit, goodsName);
+        return new PageResultBean<Collection<ReturnGoodsOrder>>(list,returnGoodsOrderService.countGetAll(goodsName));
     }
+
     /**
      * 删除
+     * @param id
+     * @return
      */
-   @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public IResult deleteById(String id){
-       return new ResultBean(markerOrderService.deleteById(id));
-   }
+        return new ResultBean(returnGoodsOrderService.deleteById(id));
+    }
 
     /**
      * 修改
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public IResult update(MarkerOrderTest markerOrderTest){
-        return new ResultBean<Boolean>(markerOrderService.update(markerOrderTest));
+    public IResult update(ReturnGoodsOrder returnGoodsOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.update(returnGoodsOrder));
     }
 
     /**
-     * 获取销售订单ID
+     * 获取发货单ID
+     * @param id
+     * @return
      */
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getMaker(String id){
-        return new ResultBean<MarkerOrderTest>(markerOrderService.getMaker(id));
+    public IResult getById(String id){
+        return new ResultBean<ReturnGoodsOrder>(returnGoodsOrderService.getById(id));
     }
 
     /**
      * 增加
+     * @param returnGoodsOrder
+     * @param request
+     * @return
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(MarkerOrderTest markerOrderTest, HttpServletRequest request){
+    public IResult add(ReturnGoodsOrder returnGoodsOrder, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
-        System.out.println(markerOrderTest);
-        return new ResultBean<String>(markerOrderService.add(markerOrderTest));
+        System.out.println(returnGoodsOrder);
+        return new ResultBean<String>(returnGoodsOrderService.add(returnGoodsOrder));
     }
-    /**
-     * 获取所有类表信息
-     */
-   /* @RequestMapping(value = "/selectAll",method = RequestMethod.POST)
-      @ResponseBody
-    public IResult selectAll(){
-        List<MarkerOrderTest> list = markerOrderService.selectAll();
-        return new ResultBean<Collection<MarkerOrderTest>>(list);
-    }*/
 
     /**
      * 提交
-     */
-    @RequestMapping(value = "/audi",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult audiUpdate(MarkerOrderTest markerOrderTest){
-        return new ResultBean<Boolean>(markerOrderService.audiUpdate(markerOrderTest));
-    }
-
-    /**
-     * 撤回
-     */
-    @RequestMapping(value = "/back",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult backUpdate(MarkerOrderTest markerOrderTest){
-        return new ResultBean<Boolean>(markerOrderService.backUpdate(markerOrderTest));
-    }
-
-
-    /**
-     * 获取下拉框值
+     * @param shipmentOrder
      * @return
      */
-    @RequestMapping(value = "/getprocutid",method = RequestMethod.POST)
+    @RequestMapping(value = "/audit",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getProductId(){
-        return new ResultBean<Collection<MarkerOrderTest>>(markerOrderService.getProductId());
+    public IResult audit(ShipmentOrder shipmentOrder){
+       return new ResultBean<Boolean>(returnGoodsOrderService.audit(shipmentOrder));
+    }
+
+    /**
+     * 提交仓库
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/depot",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult depot(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.depot(shipmentOrder));
     }
 }

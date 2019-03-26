@@ -32,13 +32,14 @@ public class OrderAuditController {
 
     /**
      * 处理时间
+     *
      * @param binder
      * @param request
      */
     @InitBinder
-    public void initBinder(WebDataBinder binder, WebRequest request){
+    public void initBinder(WebDataBinder binder, WebRequest request) {
         //转换日期
-        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // CustomDateEditor为自定义日期编辑器
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
@@ -47,18 +48,18 @@ public class OrderAuditController {
     /**
      * 分页查询
      */
-    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page,String limit,String productId){
+    public IResult findAll(String page, String limit, String productId) {
 
         List<OrderAudit> list = orderAuditService.findAll(page, limit, productId);
-        return new PageResultBean<Collection<OrderAudit>>(list,orderAuditService.dataCount());
+        return new PageResultBean<Collection<OrderAudit>>(list, orderAuditService.dataCount());
     }
 
     /**
      * 删除
      */
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
 
     public IResult deleteById(String id) {
@@ -69,9 +70,9 @@ public class OrderAuditController {
     /**
      * 获取订单审核ID
      */
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @ResponseBody
-     public IResult getById(String id){
+    public IResult getById(String id) {
         OrderAuditBean byId = orderAuditService.getById(id);
         return new ResultBean(byId);
     }
@@ -79,10 +80,10 @@ public class OrderAuditController {
     /**
      * 修改
      */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
 
-    public IResult update(OrderAuditBean orderAuditBean){
+    public IResult update(OrderAuditBean orderAuditBean) {
 
         return new ResultBean<Boolean>(orderAuditService.update(orderAuditBean));
     }
@@ -90,9 +91,9 @@ public class OrderAuditController {
     /**
      * 驳回
      */
-    @RequestMapping(value = "/back",method = RequestMethod.POST)
+    @RequestMapping(value = "/back", method = RequestMethod.POST)
     @ResponseBody
-    public IResult backUpdate(OrderAuditBean orderAuditBean){
+    public IResult backUpdate(OrderAuditBean orderAuditBean) {
 
         return new ResultBean<Boolean>(orderAuditService.backUpdate(orderAuditBean));
     }
@@ -100,9 +101,18 @@ public class OrderAuditController {
     /**
      * 审核成功
      */
-    @RequestMapping(value = "/pass",method = RequestMethod.POST)
+    @RequestMapping(value = "/pass", method = RequestMethod.POST)
     @ResponseBody
-    public IResult passUpdate(OrderAuditBean orderAuditBean){
-       return new ResultBean<Boolean>(orderAuditService.passUpdate(orderAuditBean));
+    public IResult passUpdate(OrderAuditBean orderAuditBean) {
+        return new ResultBean<Boolean>(orderAuditService.passUpdate(orderAuditBean));
+    }
+
+    /**
+     * 审核
+     */
+    @RequestMapping(value = "/audit", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult audit(OrderAuditBean orderAuditBean) {
+        return new ResultBean<Boolean>(orderAuditService.passUpdate(orderAuditBean));
     }
 }

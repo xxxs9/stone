@@ -51,7 +51,7 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-               {field: 'id', title: 'ID' ,fixed:'left'}
+                  {field: 'id', title: 'ID' ,fixed:'left'}
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
                 , {field: 'productId', title: '产品ID' }
@@ -117,7 +117,7 @@ layui.config({
         tableIns.reload({
             where:{
                 /*status:status,*/
-                id:id,
+               id:id,
                 orderId:orderId,
                 orderTime:orderTime,
                 productId:productId,

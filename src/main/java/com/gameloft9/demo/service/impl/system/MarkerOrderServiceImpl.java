@@ -70,8 +70,15 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @return
      */
     @Override
-    public int add(MarkerOrderTest markerOrderTest) {
-        return markerOrderMapper.add(markerOrderTest);
+    public String add(MarkerOrderTest markerOrderTest) {
+        TimeZone zone = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(zone);
+        markerOrderTest.setId(UUIDUtil.getUUID());
+        markerOrderTest.setOrderTime(new Date());
+        //设置固定格式生成订单编号
+        markerOrderTest.setOrderId("xs"+OrderUtil.createOrderNumber());
+        markerOrderMapper.add(markerOrderTest);
+        return markerOrderTest.getId();
     }
 
     /**
@@ -111,16 +118,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         return true;
     }
 
-    /**
-     * 自动生成订单编号
-     * @param
-     * @return
-     */
-    @Override
-    public String orderNum(MarkerOrderTest markerOrderTest) {
-        markerOrderTest.setOrderId(OrderUtil.getLocalTrmSeqNum());
-        return markerOrderMapper.orderNum(markerOrderTest);
-    }
+
+
 
     /**
      *获取productid下拉框

@@ -1,14 +1,11 @@
 package com.gameloft9.demo.service.api.system;
 
-
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 
-
-
 import java.util.List;
 
-public interface ShipmentOrderService {
+public interface ReturnGoodsOrderService {
 
     /**
      * 获取所有销售订单信息
@@ -17,8 +14,7 @@ public interface ShipmentOrderService {
      * @param goodsName
      * @return
      */
-
-    List<ShipmentOrder> findAll(String page, String limit, String goodsName);
+    List<ReturnGoodsOrder> findAll(String page, String limit, String goodsName);
 
     /**
      * 获取所有销售订单个数
@@ -39,30 +35,32 @@ public interface ShipmentOrderService {
      * @param id
      * @return
      */
-    ShipmentOrder getById(String id);
+    ReturnGoodsOrder getById(String id);
 
     /**
      * 修改销售订单表信息
-     * @param shipmentOrder
+     * @param returnGoodsOrder
      * @return
      */
-    Boolean update(ShipmentOrder shipmentOrder);
+    Boolean update(ReturnGoodsOrder returnGoodsOrder);
 
     /**
      * 增加销售订单表信息
      */
-    String add(ShipmentOrder shipmentOrder);
+    String add(ReturnGoodsOrder returnGoodsOrder);
 
     /**
-     * 确认收货
+     * 提交
      * @param shipmentOrder
      * @return
      */
-    Boolean confirm(ShipmentOrder shipmentOrder);
+    Boolean audit(ShipmentOrder shipmentOrder);
+
     /**
-     * 退货
+     * 提交仓库
      * @param shipmentOrder
      * @return
      */
-    Boolean back(ShipmentOrder shipmentOrder);
+    Boolean depot(ShipmentOrder shipmentOrder);
+
 }

@@ -53,4 +53,11 @@ public interface OrderAuditMapper {
      * 审核成功
      */
    Boolean passUpdate(OrderAuditBean orderAuditBean);
+
+    /**
+     * 审核
+     * @param orderAuditBean
+     * @return
+     */
+    Boolean audit(OrderAuditBean orderAuditBean);
 }

@@ -78,13 +78,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">产品ID</label>
         <div class="layui-input-block">
-            <select name="productId" lay-verify="required">
-                <option value=""></option>
-                <option value="0">001</option>
-                <option value="1">002</option>
-                <option value="2">003</option>
-                <option value="3">004</option>
-                <option value="4">005</option>
+            <select id="productId" name="productId" lay-verify="required">
+
             </select>
         </div>
     </div>
@@ -175,9 +170,9 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
 
-            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">提交</button>
-            <button type="reset" class="layui-btn  layui-btn-primary">重置</button>
-
+            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">审核成功</button>
+            <!--<button type="reset" class="layui-btn  layui-btn-primary">重置</button>-->
+            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">审核失败</button>
         </div>
     </div>
 </form>
@@ -186,5 +181,6 @@
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
 <script type="text/javascript" src="editOrderAudit.js"></script>
+
 </body>
 </html>

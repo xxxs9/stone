@@ -28,9 +28,9 @@
             </div>
         </div>-->
         <div class="layui-inline">
-            <label class="layui-form-label">产品ID</label>
+            <label class="layui-form-label">货物名称</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="productId" placeholder="请输入产品ID">
+                <input type="text" class="layui-input" name="goodsName" placeholder="请输入货物名称">
             </div>
         </div>
        <!-- <div class="layui-inline">
@@ -72,9 +72,9 @@
         <div class="layui-inline">
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryUser">查询</a>
         </div>
-        <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal add_btn">添加订单信息</a>
-        </div>
+        <!--<div class="layui-inline">
+            <a class="layui-btn layui-btn-normal add_btn">添加退货单</a>
+        </div>-->
     </form>
 </blockquote>
 <!--表格区-->
@@ -90,22 +90,27 @@
     <!--通过lay-event定义事件-->
 
     {{#  if(d.state =='未提交'){ }}
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
+    <!--   <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
+       <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+       <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    {{# }else if(d.state =='退货') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe65c;</i>主管审核</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# }else if(d.state =='等待审核') { }}
-    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    {{# }else if(d.state =='审核失败') { }}
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# }else if(d.state =='审核成功') { }}
-    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>审核已通过</a>
+   <!-- <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    {{# }else if(d.state =='主管审核成功') { }}
+    <a class="layui-btn  layui-btn-warm   layui-btn-sm" lay-event="depot"><i class="layui-icon">&#xe65c;</i>提交仓库</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    {{# }else if(d.state =='仓库审核成功') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="finance"><i class="layui-icon">&#xe65c;</i>提交财务</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+
+    {{# }else if(d.state =='财务审核成功') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe65c;</i>退货成功</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}
-
-    <!--<a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+   <!-- <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
 
 </script>
@@ -123,6 +128,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="allMarkerOrders.js"></script>
+<script type="text/javascript" src="allReturnGoodsOrders.js"></script>
 </body>
 </html>

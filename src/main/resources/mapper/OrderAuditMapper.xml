@@ -198,4 +198,20 @@
             </if>
         </where>
     </update>
+
+    <!--审核audit-->
+    <update id="audit" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
 </mapper>
