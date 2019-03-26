@@ -60,6 +60,14 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 
+<script type="text/html" id="payType">
+    {{#  if(d.receiveType == '1'){ }}
+    <span>采购应付</span>
+    {{#  } else if(d.receiveType == '4'){ }}
+    <span>销售应付</span>
+    {{#  } }}
+</script>
+
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

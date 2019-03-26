@@ -50,7 +50,7 @@ layui.config({
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left', width: 50}
                 , {field: 'payId', title: '应付单编号', width: 150}
-                , {field: 'payType', title: '应付类型', width: 120}
+                , {field: 'payType', title: '应付类型', width: 120,templet:'#payType'}
                 , {field: 'balance', title: '金额', width: 100}
                 , {field: 'documentMaker', title: '制单人', width: 150}
                 , {field: 'documentMakeTime', title: '制单时间', width: 180}

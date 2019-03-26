@@ -34,16 +34,14 @@ public class FinancePurchaseBillPayController {
      *
      * @param page 当前页
      * @param limit 每页条数
-     * @param auditType 订单类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 申请状态
      * @return jason
      */
     @RequestMapping(value = "/purchasePayList" ,method = RequestMethod.POST)
     @ResponseBody
-    public IResult billPayList(String page, String limit, String auditType, String startTime, String endTime){
+    public IResult billPayList(String page, String limit, String auditState){
 
-        return new PageResultBean<Collection<SysFinancePurchaseBillsPayable>>(purchaseBillPayService.getAll(page,limit,auditType,startTime,endTime), purchaseBillPayService.getCount(auditType,startTime,endTime));
+        return new PageResultBean<Collection<SysFinancePurchaseBillsPayable>>(purchaseBillPayService.getAll(page,limit,auditState), purchaseBillPayService.getCount(auditState));
     }
 
     /**

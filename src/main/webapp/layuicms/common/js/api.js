@@ -595,7 +595,8 @@ layui.define(['$tool','jquery'], function (exports) {
         }, //初始化productId下拉框
         getProductId:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'marker/getprocutid',req,config,successCallback,errorCallback);
-        }
+        },
+
     };
 
 

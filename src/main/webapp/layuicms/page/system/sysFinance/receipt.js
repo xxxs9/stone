@@ -50,7 +50,7 @@ layui.config({
                 {type:'numbers',title:'序号',fixed: 'left', width: 50}
 
                 , {field: 'receiveId', title: '应收单编号', width: 150}
-                , {field: 'receiveType', title: '应收类型', width: 120}
+                , {field: 'receiveType', title: '应收类型', width: 120,templet:'#receiveType'}
                 , {field: 'balance', title: '金额', width: 100}
                 , {field: 'documentMaker', title: '制单人', width: 150}
                 , {field: 'documentMakeTime', title: '制单时间', width: 180}

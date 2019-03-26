@@ -29,7 +29,26 @@ layui.config({
 
         //如果订单类型为3
         if(queryArgs.applyType == 2){
-            
+            $api.GetShipmentOrder(req,function (res) {
+                var data = res.data;
+                var price = data.price;
+                var goodsNumber = data.goodsNumber;
+                var totalPrice = price * goodsNumber;
+                var financeState = data.financeState;
+                console.log(data)
+                $('#id').val(id);
+                $("[name='goodsName']").val(data.goodsId);
+                $("[name='goodsId']").val(data.id);
+                $("[name='auditType']").val(data.auditType);
+                $("[name='goodsNumber']").val(goodsNumber);
+                $("[name='price']").val(price);
+                $("[name='totalPrice']").val(totalPrice);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+
+            });
+
         }else if(queryArgs.applyType == 4){//如果订单类型为4
 
         }else if(queryArgs.applyType == 1 || queryArgs.applyType == 3){//如果订单类型为1和2
