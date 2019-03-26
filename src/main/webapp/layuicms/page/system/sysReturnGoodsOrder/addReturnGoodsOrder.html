@@ -27,7 +27,15 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
-
+ <!--   <div class="layui-form-item">
+        <label class="layui-form-label">所属机构</label>
+        <div class="layui-input-block">
+            &lt;!&ndash;机构树&ndash;&gt;
+            <div class="org-tree">
+                <ul id="org-tree" class="layui-box layui-tree"></ul>
+            </div>
+        </div>
+    </div>-->
 
 
     <!--<div class="layui-form-item parent-menu">
@@ -37,7 +45,7 @@
         </div>
     </div>-->
 
-    <!--div class="layui-form-item parent-menu">
+    <<!--div class="layui-form-item parent-menu">
         <label class="layui-form-label">退货单号</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" lay-verify="required" name="goodsId" placeholder="请输入订单编号">
@@ -92,7 +100,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">退货状态</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="state" readonly="readonly" value="等待收货" placeholder="请输入发货状态">
+            <input type="text" class="layui-input" name="state" readonly="readonly" value="等待审核" placeholder="请输入退货状态">
         </div>
     </div>
 
@@ -120,10 +128,15 @@
     </div>
 
 
-
+    <<!--div class="layui-form-item">
+        <label class="layui-form-label">权限配置</label>
+        <div class="layui-input-block role-check-list">
+            &lt;!&ndash;动态生成角色列表&ndash;&gt;
+        </div>
+    </div>-->
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addShipmentOrder">新增</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addReturnGoodsOrder">新增</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 
         </div>
@@ -133,6 +146,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="addShipmentOrder.js"></script>
+<script type="text/javascript" src="addReturnGoodsOrder.js"></script>
 </body>
 </html>

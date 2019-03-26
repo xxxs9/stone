@@ -41,7 +41,7 @@ layui.config({
         };
 
 
-        $api.GetShipmentOrder(req,function (res) {
+        $api.GetReturnGoodsOrder(req,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var roleHtml = "";
@@ -59,7 +59,7 @@ layui.config({
     /**
      * 表单提交
      * */
-    form.on("submit(addShipmentOrder)", function (data) {
+    form.on("submit(addReturnGoodsOrder)", function (data) {
         var id = data.field.id;
         var goodsId = data.field.goodsId;
         var goodsName = data.field.goodsName;
@@ -103,7 +103,7 @@ layui.config({
 
         };
 
-        $api.AddShipmentOrder(req,function (data) {
+        $api.AddReturnGoodsOrder(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("用户添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");

@@ -58,13 +58,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="orderId" placeholder="请输入订单编号">
+            <input type="text" class="layui-input" readonly="readonly" name="orderId" placeholder="请输入订单编号">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">订单日期</label>
         <div class="layui-input-block">
-            <input type="text" id="test1" class="layui-input" name="orderTime" placeholder="请选择订单日期">
+            <input type="text" id="test1" class="layui-input" readonly="readonly" name="orderTime" placeholder="请选择订单日期">
         </div>
     </div>
 
@@ -94,49 +94,49 @@
     <div class="layui-form-item">
         <label class="layui-form-label">购买客户</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="customer" placeholder="请输入购买客户">
+            <input type="text" class="layui-input" readonly="readonly" name="customer" placeholder="请输入购买客户">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">销售数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="deliverNumber" placeholder="请输入销售数量">
+            <input type="text" class="layui-input" readonly="readonly" name="deliverNumber" placeholder="请输入销售数量">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">当前库存</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="currentNumber" placeholder="请输入当前库存">
+            <input type="text" class="layui-input" readonly="readonly" name="currentNumber" placeholder="请输入当前库存">
     </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">产品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="plannedNumber" placeholder="请输入产品单价">
+            <input type="text" class="layui-input" readonly="readonly" name="plannedNumber" placeholder="请输入产品单价">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">已收款金额</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="acceptedAmount" placeholder="请输入已收款金额">
+            <input type="text" class="layui-input" readonly="readonly" name="acceptedAmount" placeholder="请输入已收款金额">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">未付款金额</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="unpaidAmount" placeholder="请输入未付款金额">
+            <input type="text" class="layui-input" readonly="readonly" name="unpaidAmount" placeholder="请输入未付款金额">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="applyUser" placeholder="请输入申请人">
+            <input type="text" class="layui-input" readonly="readonly" name="applyUser" placeholder="请输入申请人">
         </div>
     </div>
 
@@ -175,9 +175,9 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
 
-            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">提交</button>
-            <button type="reset" class="layui-btn  layui-btn-primary">重置</button>
-           
+            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">审核成功</button>
+            <!--<button type="reset" class="layui-btn  layui-btn-primary">重置</button>-->
+            <button class="layui-btn" lay-submit=""  lay-filter="editOrderAudit">审核失败</button>
         </div>
     </div>
 </form>

@@ -1,15 +1,13 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
-
+import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import org.apache.ibatis.annotations.Param;
 
-
 import java.util.List;
 
-
-public interface ShipmentOrderMapper {
+public interface ReturnGoodsOrderMapper {
 
     /**
      * 获取所有退货单信息
@@ -18,7 +16,7 @@ public interface ShipmentOrderMapper {
      * @param goodsName
      * @return
      */
-    List<ShipmentOrder> findAll(
+    List<ReturnGoodsOrder> findAll(
             @Param("start") int start,
             @Param("end") int end,
             @Param("goodsName") String goodsName);
@@ -42,33 +40,36 @@ public interface ShipmentOrderMapper {
      * @param id
      * @return
      */
-    ShipmentOrder getById(String id);
+    ReturnGoodsOrder getById(String id);
 
     /**
      * 修改销售订单信息
-     * @param shipmentOrder
+     * @param returnGoodsOrder
      * @return
      */
-    Boolean update(ShipmentOrder shipmentOrder);
+    Boolean update(ReturnGoodsOrder returnGoodsOrder);
 
 
     /**
      * 增加销售订单信息
-     * @param shipmentOrder
+     * @param returnGoodsOrder
      * @return
      */
-    int add(ShipmentOrder shipmentOrder);
+    int add(ReturnGoodsOrder returnGoodsOrder);
 
     /**
-     * 确认收货
+     * 提交
      * @param shipmentOrder
      * @return
      */
-    Boolean confirm(ShipmentOrder shipmentOrder);
+    Boolean audit(ShipmentOrder shipmentOrder);
+
     /**
-     * 退货
+     * 提交仓库
      * @param shipmentOrder
      * @return
      */
-    Boolean back(ShipmentOrder shipmentOrder);
+    Boolean depot(ShipmentOrder shipmentOrder);
+
+
 }

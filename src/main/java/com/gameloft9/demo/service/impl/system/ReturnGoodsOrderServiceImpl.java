@@ -1,11 +1,10 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.dataaccess.dao.system.ShipmentOrderMapper;
+import com.gameloft9.demo.dataaccess.dao.system.ReturnGoodsOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
-import com.gameloft9.demo.mgrframework.utils.StateUtil;
-import com.gameloft9.demo.service.api.system.ShipmentOrderService;
+import com.gameloft9.demo.service.api.system.ReturnGoodsOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.StateUUtil;
@@ -20,11 +19,10 @@ import java.util.TimeZone;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-
-public class ShipmentOrderServiceImpl implements ShipmentOrderService {
+public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
 
     @Autowired
-    ShipmentOrderMapper shipmentOrderMapper;
+    ReturnGoodsOrderMapper returnGoodsOrderMapper;
 
 
     /**
@@ -35,9 +33,9 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
      * @return
      */
     @Override
-    public List<ShipmentOrder> findAll(String page, String limit, String goodsName) {
+    public List<ReturnGoodsOrder> findAll(String page, String limit, String goodsName) {
         PageRange pageRange = new PageRange(page,limit);
-        return shipmentOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),goodsName);
+        return returnGoodsOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),goodsName);
     }
 
     /**
@@ -47,7 +45,7 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
      */
     @Override
     public int countGetAll(String goodsName) {
-        return shipmentOrderMapper.countGetAll(goodsName);
+        return returnGoodsOrderMapper.countGetAll(goodsName);
     }
 
     /**
@@ -57,7 +55,7 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
      */
     @Override
     public int deleteById(String id) {
-        return shipmentOrderMapper.deleteById(id);
+        return returnGoodsOrderMapper.deleteById(id);
     }
 
     /**
@@ -66,59 +64,58 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
      * @return
      */
     @Override
-    public ShipmentOrder getById(String id) {
-        return shipmentOrderMapper.getById(id);
+    public ReturnGoodsOrder getById(String id) {
+        return returnGoodsOrderMapper.getById(id);
     }
 
     /**
      * 修改
-     * @param shipmentOrder
+     * @param returnGoodsOrder
      * @return
      */
     @Override
-    public Boolean update(ShipmentOrder shipmentOrder) {
-        return shipmentOrderMapper.update(shipmentOrder);
+    public Boolean update(ReturnGoodsOrder returnGoodsOrder) {
+        return returnGoodsOrderMapper.update(returnGoodsOrder);
     }
 
     /**
      * 添加
-     * @param shipmentOrder
+     * @param returnGoodsOrder
      * @return
      */
     @Override
-    public String add(ShipmentOrder shipmentOrder) {
+    public String add(ReturnGoodsOrder returnGoodsOrder) {
         TimeZone zone = TimeZone.getTimeZone("ETC/GMT-8");
         TimeZone.setDefault(zone);
-        shipmentOrder.setId(UUIDUtil.getUUID());
+        returnGoodsOrder.setId(UUIDUtil.getUUID());
         //设置固定格式生成订单编号
-        shipmentOrder.setGoodsId("xs"+ OrderUtil.createOrderNumber());
-        shipmentOrder.setApplyTime(new Date());
-        shipmentOrderMapper.add(shipmentOrder);
-        return shipmentOrder.getId();
+        returnGoodsOrder.setGoodsId("xs"+ OrderUtil.createOrderNumber());
+        returnGoodsOrder.setApplyTime(new Date());
+        returnGoodsOrderMapper.add(returnGoodsOrder);
+        return returnGoodsOrder.getId();
     }
-
     /**
-     * 确认收货
+     * 提交
      * @param shipmentOrder
      * @return
      */
     @Override
-    public Boolean confirm(ShipmentOrder shipmentOrder) {
+    public Boolean audit(ShipmentOrder shipmentOrder) {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_confirm);
-        shipmentOrderMapper.confirm(shipmentOrder);
+        shipmentOrder.setState(StateUUtil.APPLY_pass);
+        returnGoodsOrderMapper.audit(shipmentOrder);
         return true;
     }
     /**
-     * 退货
+     * 提交仓库
      * @param shipmentOrder
      * @return
      */
     @Override
-    public Boolean back(ShipmentOrder shipmentOrder) {
+    public Boolean depot(ShipmentOrder shipmentOrder) {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_end);
-        shipmentOrderMapper.back(shipmentOrder);
+        shipmentOrder.setState(StateUUtil.APPLY_depot);
+        returnGoodsOrderMapper.depot(shipmentOrder);
         return true;
     }
 }

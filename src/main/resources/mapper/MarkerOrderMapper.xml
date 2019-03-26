@@ -123,7 +123,7 @@
             </if>
 
         </where>
-        order by ID asc
+        order by ORDER_TIME desc
           limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -203,40 +203,7 @@
             ID=#{id}
   </update>
 
-    <!--添加-->
-    <insert id="orderNum" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
-        insert into
-           w_marker_order
-          (ID,
-          ORDER_ID,
-          ORDER_TIME,
-          PRODUCT_ID,
-          CUSTOMER,
-          DELIVER_NUMBER,
-          CURRENT_NUMBER,
-          PLANNED_NUMBER,
-          ACCEPTED_AMOUNT,
-          UNPAID_AMOUNT,
-          APPLY_USER,
-          STATE,
-          ORDER_AUDIT_USER,
-          REMARKS)
-        values
-          (#{id},
-          #{orderId},
-          #{orderTime},
-          #{productId},
-          #{customer},
-          #{deliverNumber},
-          #{currentNumber},
-          #{plannedNumber},
-          #{acceptedAmount},
-          #{unpaidAmount},
-          #{applyUser},
-          #{state},
-          #{orderAuditUser},
-          #{remarks})
-    </insert>
+
 
 
 </mapper>

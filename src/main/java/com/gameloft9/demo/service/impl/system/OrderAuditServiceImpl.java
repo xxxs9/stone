@@ -8,13 +8,17 @@ import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.OrderAuditService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class OrderAuditServiceImpl implements OrderAuditService {
 
     @Autowired
@@ -28,7 +32,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @return
      */
 
-
+    @Override
     public List<OrderAudit> findAll(String page, String limit, String productId) {
         PageRange pageRange = new PageRange(page, limit);
 
@@ -39,7 +43,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      *
      * @return
      */
-
+    @Override
     public int dataCount() {
         return orderAuditMapper.dataCount();
     }
@@ -49,7 +53,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param id
      * @return
      */
-
+    @Override
     public int deleteById(String id) {
         return orderAuditMapper.deleteById(id);
     }
@@ -57,7 +61,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
     /**
      * 获取订单审核ID
      */
-
+    @Override
     public OrderAuditBean getById(String id) {
         return orderAuditMapper.getById(id);
     }
@@ -67,7 +71,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param
      * @return
      */
-
+    @Override
     public Boolean update(OrderAuditBean orderAuditBean) {
         orderAuditMapper.update(orderAuditBean);
         return true;
@@ -78,7 +82,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param
      * @return
      */
-
+    @Override
     public Boolean backUpdate(OrderAuditBean orderAuditBean) {
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
         orderAuditBean.setState(StateUtil.APPLY_FAIL);
@@ -91,11 +95,32 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      * @param orderAuditBean
      * @return
      */
-
+    @Override
     public Boolean passUpdate(OrderAuditBean orderAuditBean) {
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
         orderAuditBean.setState(StateUtil.APPLY_PASS);
         orderAuditMapper.passUpdate(orderAuditBean);
+        return true;
+    }
+
+    /**
+     * 审核
+     * @param orderAuditBean
+     * @return
+     */
+    @Override
+    public Boolean audit(OrderAuditBean orderAuditBean) {
+        CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
+        orderAuditBean.setState(StateUtil.APPLY_PASS);
+        orderAuditMapper.audit(orderAuditBean);
+        String state=orderAuditBean.getState();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String str="通过审核";
+        if (str.equals(state)){
+            orderAuditBean.setState(StateUtil.APPLY_PASS);
+        }else{orderAuditBean.setState(StateUtil.APPLY_FAIL);
+        }
+
         return true;
     }
 

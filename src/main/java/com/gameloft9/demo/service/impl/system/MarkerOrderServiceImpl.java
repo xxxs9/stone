@@ -7,6 +7,7 @@ import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class MarkerOrderServiceImpl implements MarkerOrderService {
 
     @Autowired
@@ -28,7 +31,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param productId
      * @return
      */
-
+    @Override
     public List<MarkerOrderTest> findAll(String page, String limit, String productId) {
         PageRange pageRange = new PageRange(page,limit);
         return markerOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
@@ -39,7 +42,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param productId
      * @return
      */
-
+    @Override
     public int countGetAll(String productId) {
         return markerOrderMapper.countGetAll(productId);
     }
@@ -49,7 +52,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param id
      * @return
      */
-
+    @Override
     public int deleteById(String id) {
         return markerOrderMapper.deleteById(id);
     }
@@ -59,7 +62,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-
+    @Override
     public Boolean update(MarkerOrderTest markerOrderTest) {
         return markerOrderMapper.update(markerOrderTest);
     }
@@ -69,9 +72,16 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-
-    public int add(MarkerOrderTest markerOrderTest) {
-        return markerOrderMapper.add(markerOrderTest);
+    @Override
+    public String add(MarkerOrderTest markerOrderTest) {
+        TimeZone zone = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(zone);
+        markerOrderTest.setId(UUIDUtil.getUUID());
+        markerOrderTest.setOrderTime(new Date());
+        //设置固定格式生成订单编号
+        markerOrderTest.setOrderId("xs"+OrderUtil.createOrderNumber());
+        markerOrderMapper.add(markerOrderTest);
+        return markerOrderTest.getId();
     }
 
     /**
@@ -79,7 +89,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param id
      * @return
      */
-
+    @Override
     public MarkerOrderTest getMaker(String id) {
         return markerOrderMapper.getMaker(id);
     }
@@ -89,7 +99,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-
+    @Override
     public Boolean audiUpdate(MarkerOrderTest markerOrderTest) {
 
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
@@ -103,7 +113,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @param markerOrderTest
      * @return
      */
-
+    @Override
     public Boolean backUpdate(MarkerOrderTest markerOrderTest) {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUtil.APPLY_NO_AUDI);
@@ -111,20 +121,14 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         return true;
     }
 
-    /**
-     * 自动生成订单编号
-     * @param
-     * @return
-     */
-    public String orderNum(MarkerOrderTest markerOrderTest) {
-        markerOrderTest.setOrderId(OrderUtil.getLocalTrmSeqNum());
-        return markerOrderMapper.orderNum(markerOrderTest);
-    }
+
+
 
     /**
      *获取productid下拉框
      * @return
      */
+    @Override
     public List<MarkerOrderTest> getProductId() {
         List<MarkerOrderTest> list = new ArrayList<MarkerOrderTest>();
         list=markerOrderMapper.getProductId();

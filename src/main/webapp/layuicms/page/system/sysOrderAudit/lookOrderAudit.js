@@ -125,11 +125,11 @@ layui.config({
 
                 $api.updateOrderAudit(req, function (data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                    layer.msg("审核成功！", {time: 1000}, function () {
+                   // layer.msg("审核成功！", {time: 1000}, function () {
                         layer.closeAll("iframe");
                         //刷新父页面
                         parent.location.reload();
-                    });
+
                 });
 
                 return false;

@@ -6,8 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ShipmentOrder {
-
+public class ReturnGoodsOrder {
     private String id;
     private String goodsId;
     private String goodsName;
@@ -21,4 +20,5 @@ public class ShipmentOrder {
     private String auditUser;
     private String auditType;
     private String remarks;
+
 }
