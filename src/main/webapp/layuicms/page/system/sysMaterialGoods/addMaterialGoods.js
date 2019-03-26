@@ -142,12 +142,12 @@ layui.config({
             }
             ,done: function(data){
                 var res = data.data;
-                //如果上传失败
-                if(res.code > 0){
-                    return layer.msg('上传失败');
+                //如果上传成功
+                if(res.code == 1){
+                    return layer.msg('上传成功');
                 }
-                //上传成功
-                return layer.msg('上传成功');
+                //上传失败
+                return layer.msg('上传失败');
             }
             ,error: function(){
                 //演示失败状态，并实现重传
