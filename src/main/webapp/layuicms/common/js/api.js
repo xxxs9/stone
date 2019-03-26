@@ -246,11 +246,15 @@ layui.define(['$tool','jquery'], function (exports) {
         selectOrderNumberPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/orderNumber.do',req,config,successCallback,errorCallback);
         },
+        //根据orderNumber下拉框获取其他信息
+        selectOtherByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/byOrderNumber.do',req,config,successCallback,errorCallback);
+        },
         //提交commit
         commitPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/commit.do',req,config,successCallback,errorCallback);
         },
-        //撤回bacl
+        //撤回back
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },

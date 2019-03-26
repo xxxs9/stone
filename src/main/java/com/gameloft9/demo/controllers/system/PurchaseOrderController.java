@@ -214,7 +214,7 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/lookIn.do")
     @ResponseBody
     public IResult lookInUpdate(PurchaseOrder purchaseOrder){
-        return new ResultBean<Boolean>(service.lookIn(purchaseOrder));
+        return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
     }
 
 }
