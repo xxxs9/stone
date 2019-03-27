@@ -7,7 +7,7 @@
             <id column="ID" property="id"/>
             <result  column="WASTE_NUMBER" property="wasteNumber"/>
             <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
-            <result column="WASTE_TIME" property="wasteTime"/>
+            <result column="WASTE_TIME" property="wasteTime" jdbcType="DATE"/>
             <result column="WASTE_REMARK" property="wasteRemark"/>
             <result column="STATE" property="state"/>
             <result column="OTHER1" property="other1"/>
@@ -16,7 +16,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    ID,WASTE_NUMBER,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3
+    ID,WASTE_TIME,WASTE_NUMBER,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3
      </sql>
 
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -26,7 +26,9 @@
         where ID = #{id,jdbcType=VARCHAR}
     </select>
 
-
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from  l_product_waste
+    </select>
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">
         select * from l_product_waste t
@@ -75,16 +77,17 @@
 
 
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">
-    insert into l_product_waste ( ID,WASTE_NUMBER,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3)
+    insert into l_product_waste ( ID,WASTE_NUMBER,WASTE_TIME,PRODUCE_FORMULA_ID,WASTE_REMARK,STATE,OTHER1,OTHER2,OTHER3)
     values (
     #{id},
     #{wasteNumber},
+    #{wasteTime},
     #{produceFormulaId},
     #{wasteRemark},
     #{state},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProductWaste">

@@ -1,8 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -66,7 +64,6 @@ public interface LenProductService {
     /**
      * 删除
      *
-     * @param id
      * @return
      */
     boolean delete(String id);
@@ -74,7 +71,6 @@ public interface LenProductService {
     /**
      * 统计条数
      *
-     * @param state
      * @return
      */
     int dataCount(String state);
@@ -84,7 +80,15 @@ public interface LenProductService {
      *
      * @return
      */
-    boolean changeState();
+    boolean changeState(String id);
+
+    /**
+     * 撤回操作
+     *
+     * @param id
+     * @return
+     */
+    boolean stepBack(String id);
 
     /**
      * 选择修改
@@ -101,5 +105,12 @@ public interface LenProductService {
      * @return
      */
     boolean insertSelective(LenProduct lenProduct);
+
+    /**
+     * 查询已审核产品订单
+     *
+     * @return
+     */
+    List<LenProduct> selectByState();
 
 }

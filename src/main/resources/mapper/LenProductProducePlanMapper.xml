@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProductProducePlanMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap1" type="com.gameloft9.demo.dataaccess.model.system.LenProducePlan">
+            <id column="ID" property="id"/>
+            <result  column="PRODUCT_ID" property="productId"/>
+            <result column="PlAN_NUMBER" property="planNumber"/>
+            <result column="REAL_NUMBER" property="realNumber"/>
+            <result column="STATE" property="state"/>
+            <result column="GOODS_NUMBER" property="goodNumber"/>
+            <result column="PRODUCE_DATE" property="produceDate" jdbcType="DATE"/>
+            <result column="FINISH_DATE" property="finishDate" jdbcType="DATE"/>
+            <result column="BILL_DATE" property="billDate" jdbcType="DATE"/>
+            <result column="BILL_CYCLE" property="billCycle"/>
+            <result column="PLAN_REMARK" property="planRemark"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <resultMap id="product" type="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        <id column="ID" property="id"/>
+        <result  column="PRODUCT_NAME" property="productName"/>
+        <result column="PRODUCT_TYPE" property="productType"/>
+        <result column="PRODUCT_NUMBER" property="productNumber"/>
+        <result column="STATE" property="state"/>
+        <result column="CAN_SOLD" property="canSold"/>
+        <result column="SUPPORT_PRICE" property="supportPrice"/>
+        <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+    </resultMap>
+
+    <resultMap id="Base_Column_List" type="com.gameloft9.demo.dataaccess.model.system.LenProductProductPlan">
+        <result column="ID" property="id"/>
+        <result column="PRODUCT_NAME" property="productName"/>
+        <result column="PRODUCT_TYPE" property="productType"/>
+        <result column="PRODUCT_NUMBER" property="productNumber"/>
+        <result column="STATE" property="productState"/>
+        <result column="SUPPORT_PRICE" property="supportPrice"/>
+        <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="PlAN_NUMBER" property="planNumber"/>
+        <result column="REAL_NUMBER" property="realNumber"/>
+        <result column="GOODS_NUMBER" property="goodsNumber"/>
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="DATE"/>
+        <result column="FINISH_DATE" property="finishDate" jdbcType="DATE"/>
+        <result column="BILL_DATE" property="billDate" jdbcType="DATE"/>
+        <result column="BILL_CYCLE" property="billCycle"/>
+        <result column="PLAN_REMARK" property="planRemark"/>
+        <result column="STATE" property="planState"/>
+
+    </resultMap>
+
+    <select id="selectAll" resultMap="Base_Column_List">
+        select * from l_produce_plan p,l_product d where p.PRODUCT_ID=d.ID
+    </select>
+
+    <select id="getById" resultMap="Base_Column_List">
+         select * from l_produce_plan p,l_product d where p.PRODUCT_ID=d.ID and d.ID=#{id}
+    </select>
+
+</mapper>

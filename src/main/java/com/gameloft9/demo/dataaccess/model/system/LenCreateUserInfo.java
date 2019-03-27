@@ -11,7 +11,7 @@ import java.util.Date;
  * @description:
  */
 @Data
-public class LenCreateUserInfo extends LenSuperClass {
+public class LenCreateUserInfo {
     private String id;
     private String createUser;
 
@@ -19,6 +19,9 @@ public class LenCreateUserInfo extends LenSuperClass {
     private Date createTime;
 
     private String employeeId;
+    private String other1;
+    private String other2;
+    private String other3;
 
 }
 

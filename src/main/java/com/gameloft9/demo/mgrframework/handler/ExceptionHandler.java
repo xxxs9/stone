@@ -59,4 +59,5 @@ public class ExceptionHandler {
         result.setCode(ResultBean.SYSTEM_FAIL);
         return result;
     }
+
 }

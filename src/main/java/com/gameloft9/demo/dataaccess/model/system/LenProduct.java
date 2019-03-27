@@ -12,9 +12,15 @@ import lombok.Data;
 public class LenProduct extends LenSuperClass {
     private String id;
     private String productName;
+    private String supportPrice;
+    private String productNumber;
     private String productType;
     private String state;
     private String productDescribe;
-    private String wasteId;
+    private String canSold;
+    private String other1;
+    private String other2;
+    private String other3;
+
 
 }

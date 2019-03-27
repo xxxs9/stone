@@ -127,7 +127,7 @@ layui.config({
                 id: id
             };
 
-            $api.delProduct(req,function (data) {
+            $api.delProductWaste(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格

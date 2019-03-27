@@ -4,9 +4,12 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProductWasteMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProductWaste;
 import com.gameloft9.demo.service.api.system.LenProductWasteService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.DateUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,6 +19,7 @@ import java.util.List;
  * @description:
  */
 @Service
+
 public class LenProductWasteServiceImpl implements LenProductWasteService {
     @Autowired
     LenProductWasteMapper mapper;
@@ -36,8 +40,18 @@ public class LenProductWasteServiceImpl implements LenProductWasteService {
     }
 
     @Override
-    public boolean insert(LenProductWaste lenProduct) {
-        if (mapper.insert(lenProduct)>0){
+    public boolean insert(String wasteNumber,String produceFormulaId,String wasteTime,String wasteRemark,String state) {
+        LenProductWaste waste = new LenProductWaste();
+        String uuid = UUIDUtil.getUUID();
+        waste.setId(uuid);
+        Date date = DateUtil.str2Date(wasteTime, "yyyy-MM-dd");
+        waste.setWasteTime(date);
+        waste.setProduceFormulaId(produceFormulaId);
+        waste.setState(state);
+        waste.setWasteRemark(wasteRemark);
+        waste.setWasteNumber(wasteNumber);
+
+        if (mapper.insert(waste)>0){
             return true;
         }else{
             return false;

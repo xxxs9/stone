@@ -8,17 +8,9 @@ import java.io.Serializable;
  * @description:
  */
 
-public class LenSuperClass implements Serializable {
-    /**
-     * 备注字段1
-     */
-    public String other1;
-    /**
-     * 备注字段2
-     */
-    public String other2;
-    /**
-     * 备注字段3
-     */
-    public String other3;
+public class LenSuperClass extends Exception{
+
+
+
+
 }

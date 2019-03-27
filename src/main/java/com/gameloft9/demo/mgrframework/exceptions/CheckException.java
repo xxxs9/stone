@@ -14,6 +14,7 @@ public class CheckException extends RuntimeException {
 
 	private String errorCode;
 
+
 	/**
 	 * 构造函数
 	 * */
@@ -44,5 +45,7 @@ public class CheckException extends RuntimeException {
 	public CheckException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
+
 
 }

@@ -4,10 +4,12 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormula;
 import com.gameloft9.demo.service.api.system.LenProduceFormulaService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.DateUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,21 +34,23 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     }
 
     @Override
-    public List<LenProduceFormula> selectByPage(String page, String limit, String productId, String createUserId) {
+    public List<LenProduceFormula> selectByPage(String page, String limit,String createUser ,String productId ) {
         PageRange pageRange = new PageRange(page, limit);
-        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), productId, createUserId);
+        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), createUser, productId );
 
     }
 
     @Override
-    public boolean insert(LenProduceFormula lenProduceFormula) {
+    public boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime) {
         String uuid = UUIDUtil.getUUID();
         LenProduceFormula formula = new LenProduceFormula();
         formula.setId(uuid);
-        formula.setFormulaNumber(lenProduceFormula.getFormulaNumber());
-        formula.setFormulaType(lenProduceFormula.getFormulaType());
-        formula.setProductId(lenProduceFormula.getProductId());
-        formula.setCreateUserId(lenProduceFormula.getCreateUserId());
+        formula.setProductId(productId);
+        formula.setFormulaType(formulaType);
+        formula.setFormulaNumber(formulaNumber);
+        formula.setCreateUser(createUser);
+        Date date = DateUtil.str2Date(createTime,"yyyy-MM-dd");
+        formula.setCreateTime(date);
         if (mapper.insert(formula) > 0) {
             return true;
         } else {
@@ -55,8 +59,15 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     }
 
     @Override
-    public boolean update(LenProduceFormula lenProduceFormula) {
-        if (mapper.update(lenProduceFormula) > 0) {
+    public boolean update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime) {
+        LenProduceFormula formula = new LenProduceFormula();
+        Date date = DateUtil.str2Date(createTime,"yyyy-MM-dd");
+        formula.setCreateTime(date);
+        formula.setProductId(productId);
+        formula.setFormulaType(formulaType);
+        formula.setFormulaNumber(formulaNumber);
+        formula.setCreateUser(createUser);
+        if (mapper.update(formula) > 0) {
             return true;
         } else {
             return false;
@@ -74,7 +85,7 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
 
     @Override
     public int dataCount(String productId) {
-        return 0;
+        return mapper.dataCount(productId);
     }
 
     @Override

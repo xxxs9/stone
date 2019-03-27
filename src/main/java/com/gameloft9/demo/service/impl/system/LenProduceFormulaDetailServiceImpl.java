@@ -73,7 +73,7 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         len.setDepotId(lenProduceFormulaDetail.getDepotId());
         len.setMaterialId(lenProduceFormulaDetail.getMaterialId());
         len.setMaterialNumber(lenProduceFormulaDetail.getMaterialNumber());
-        len.setProductFormulaId(lenProduceFormulaDetail.getProductFormulaId());
+        len.setProduceFormulaId(lenProduceFormulaDetail.getProduceFormulaId());
         if (mapper.insert(len) > 0) {
             return true;
         } else {
