@@ -41,9 +41,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">配方类型</label>
         <div class="layui-input-block ">
-            <select name="formulaType" lay-verify="required">
-                <option value="-1">---请选择--</option>
-                <option value="0" >1.类型Ⅰ</option>
+            <select name="formulaType" lay-verify="required" id="formulaType">
+                <option value="0">1.类型Ⅰ</option>
                 <option value="1">2.类型Ⅱ</option>
                 <option value="2">3.类型Ⅲ</option>
                 <option value="3">4.类型Ⅳ</option>
@@ -58,11 +57,16 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">主管编号</label>
+        <label class="layui-form-label">创建者</label>
         <div class="layui-input-block">
-            <select name="createUserId" lay-verify="required">
+            <input type="text" class="layui-input" name="createUser" lay-verify="required" placeholder="请输入创建者姓名">
+        </div>
+    </div>
 
-            </select>
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="createTime" lay-verify="required" id="test1">
         </div>
     </div>
 

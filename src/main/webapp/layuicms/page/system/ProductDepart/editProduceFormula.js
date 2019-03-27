@@ -11,8 +11,50 @@ layui.config({
         $ = layui.jquery,
         $tool = layui.$tool,
         $api = layui.$api;
+    function select1(hh) {
+        $api.getAllProduct(null, function (res) {
+            var data2 = res.data;
+            if (data2.length > 0) {
+                var html = '';
+                for (var i = 0; i < data2.length; i++) {
+                    html += '<option value="' + data2[i].productType + '"></option>';
+                }
+                $('#formulaType').append($(html));
+                $('#formulaType').val(hh);
+                form.render();
+            }
 
+        });
 
+    }
+
+    function select() {
+        $api.getAllProduct(null, function (res) {
+            var data2 = res.data;
+            if (data2.length > 0) {
+                var html = '';
+                for (var i = 0; i < data2.length; i++) {
+                    html += '<option value="' + data2[i].id + '">' + data2[i].id + '-------' + data2[i].productName+ '</option>>';
+                }
+                $('#parentMenu').append($(html));
+               /* $('#parentMenu').val(hh);*/
+                form.render();
+            }
+
+        });
+
+    }
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' ,//指定元素
+            type:'date',
+
+            format:'yyyy-MM-dd'
+        });
+    });
 
     /**
      * 初始化页面
@@ -38,30 +80,20 @@ layui.config({
 
         $api.getFormulaById(req,function (res) {
             var data = res.data;
-            select(data.productId);
-            // $("[name='productId']").val(data.productId);
+            select();
+
+           /*select1(data.productType);*/
+             /*$("[name='productId']").val(data.productId);*/
+            /*todo(取不到值)*/
             $("[name='formulaType']").val(data.formulaType);
             $("[name='formulaNumber']").val(data.formulaNumber);
-            $("[name='createUserId']").val(data.createUserId);
+            $("[name='createUser']").val(data.createUser);
+            $("[name='createTime']").val(data.createTime);
+
             form.render();//重新绘制表单，让修改生效
         });
 
-        function select() {
-            $api.getAllProduct(null, function (res) {
-                var data2 = res.data;
-                if (data2.length > 0) {
-                    var html = '<option value="">--请选择--</option>';
-                    for (var i = 0; i < data2.length; i++) {
-                        html += '<option value="' + data2[i].id + '">' + data2[i].id + '-------' + data2[i].productName+ '</option>>';
-                    }
-                    $('#parentMenu').append($(html));
-                    //$('#parentMenu').val(hh);
-                    form.render();
-                }
 
-            });
-
-        }
     }
 
     /**
@@ -104,7 +136,8 @@ layui.config({
         var productId = data.field.productId;
         var formulaType = data.field.formulaType;
         var formulaNumber = data.field.formulaNumber;
-        var createUserId = data.field.createUserId;
+        var createUser = data.field.createUser;
+        var createTime = data.field.createTime;
 
         /*var sort = data.field.sort;
         var idList = new Array();*/
@@ -123,7 +156,8 @@ layui.config({
             productId:productId,
             formulaType:formulaType,
             formulaNumber:formulaNumber,
-            createUserId:createUserId
+            createUser:createUser,
+            createTime:createTime
 
         };
 
