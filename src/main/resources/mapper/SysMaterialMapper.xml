@@ -9,46 +9,51 @@
         <result column="GOODS_SPECIFICATION" property="goodsSpecification" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        ID, GOODS_NAME, GOODS_TYPE, GOODS_ DESCRIBE, GOODS_SPECIFICATION
+        ID,GOODS_NAME,GOODS_TYPE,GOODS_DESCRIBE,GOODS_SPECIFICATION
     </sql>
 
     <select id="getGoodsType" resultType="java.lang.String">
-        select DISTINCT t.GOODS_TYPE
-        FROM SYS_MATERIAL t
+        select distinct t.GOODS_TYPE
+        from sys_material t
     </select>
+
     <select id="getGoodsName" resultType="java.lang.String">
-        select DISTINCT t.GOODS_NAME
-        FROM SYS_MATERIAL t
+        select distinct t.GOODS_NAME
+        from sys_material t
     </select>
+
     <select id="getGoodsSpecification" resultType="java.lang.String">
-        select DISTINCT t.GOODS_SPECIFICATION
-        FROM SYS_MATERIAL t
+        select distinct t.GOODS_SPECIFICATION
+        from sys_material t
     </select>
+
     <select id="getAll" resultMap="BaseResultMap" parameterType="map">
-        select * from SYS_MATERIAL t
+        select ID,GOODS_NAME,GOODS_TYPE,GOODS_DESCRIBE,GOODS_SPECIFICATION
+        from sys_material t
         where 1=1
-        <if test="goodsName !=null and goodsName != ''">
+        <if test="goodsName !=null and goodsName != '' ">
             and (
-            t.GOODS_NAME LIKE (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
-            AND t.GOODS_NAME >' '
+            t.GOODS_NAME like (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
+            and t.GOODS_NAME >' '
             )
         </if>
-        <if test="goodsType !=null and goodsType != ''">
+        <if test="goodsType !=null and goodsType != '' ">
             and t.GOODS_TYPE = #{goodsType,jdbcType=VARCHAR}
         </if>
-        <if test="goodsSpecification !=null and goodsSpecification != ''">
+        <if test="goodsSpecification !=null and goodsSpecification != '' ">
             and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
         </if>
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
+
     <select id="countGetAll" resultType="Integer" parameterType="map">
         select count(1)
-        from SYS_MATERIAL t
+        from sys_material t
         where 1=1
-        <if test="goodsName !=null and goodsName != ''">
+        <if test="goodsName !=null and goodsName != '' ">
             and (
-            t.GOODS_NAME LIKE (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
-            AND t.GOODS_NAME >' '
+            t.GOODS_NAME like (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
+            and t.GOODS_NAME >' '
             )
         </if>
         <if test="goodsType !=null and goodsType != ''">
@@ -58,70 +63,78 @@
             and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
         </if>
     </select>
+
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
-        insert into SYS_MATERIAL
+        insert into sys_material
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 ID,
             </if>
-            <if test="goodsName != null">
+            <if test="goodsName != null and goodsName != '' ">
                 GOODS_NAME,
             </if>
-            <if test="goodsType != null">
+            <if test="goodsType != null amd goodsType != '' ">
                 GOODS_TYPE,
             </if>
-            <if test="goodsDescribe != null">
+            <if test="goodsDescribe != null and goodsDescribe != '' ">
                 GOODS_DESCRIBE,
             </if>
-            <if test="goodsSpecification != null">
+            <if test="goodsSpecification != null and goodsSpecification != '' ">
                 GOODS_SPECIFICATION,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+            <if test="id != null and id != '' ">
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="goodsName != null">
+            <if test="goodsName != null and goodsName != '' ">
                 #{goodsName,jdbcType=VARCHAR},
             </if>
-            <if test="goodsType != null">
+            <if test="goodsType != null and goodsType != '' ">
                 #{goodsType,jdbcType=VARCHAR},
             </if>
-            <if test="goodsDescribe != null">
+            <if test="goodsDescribe != null and goodsDescribe != '' ">
                 #{goodsDescribe,jdbcType=VARCHAR},
             </if>
-            <if test="goodsSpecification != null">
+            <if test="goodsSpecification != null and goodsSpecification != '' ">
                 #{goodsSpecification,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="getByGoodsName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from SYS_MATERIAL t where t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
-    </select>
-    <select id="getById" parameterType="map" resultMap="BaseResultMap">
-    select * from SYS_MATERIAL t where t.ID = #{id,jdbcType=VARCHAR}
-    </select>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterial" >
 
-        update SYS_MATERIAL
+    <select id="getByGoodsName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select ID,GOODS_NAME,GOODS_TYPE,GOODS_DESCRIBE,GOODS_SPECIFICATION
+        from sys_material t
+        where t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getById" parameterType="map" resultMap="BaseResultMap">
+        select ID,GOODS_NAME,GOODS_TYPE,GOODS_DESCRIBE,GOODS_SPECIFICATION
+        from sys_material t
+        where t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterial" >
+        update sys_material
         <set >
-            <if test="goodsName != null" >
+            <if test="goodsName != null and goodsName != '' " >
                 GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
             </if>
-            <if test="goodsType != null" >
+            <if test="goodsType != null and goodsType != '' " >
                 GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
             </if>
-            <if test="goodsDescribe != null" >
+            <if test="goodsDescribe != null and goodsDescribe != '' " >
                 GOODS_DESCRIBE = #{goodsDescribe,jdbcType=VARCHAR},
             </if>
-            <if test="goodsSpecification != null" >
+            <if test="goodsSpecification != null and goodsSpecification != '' " >
                 GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR},
             </if>
         </set>
         where ID = #{id,jdbcType=VARCHAR}
     </update>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from SYS_MATERIAL
+        delete from sys_material
         where ID = #{id,jdbcType=VARCHAR}
     </delete>
 </mapper>

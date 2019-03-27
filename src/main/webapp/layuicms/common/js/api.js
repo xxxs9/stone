@@ -409,6 +409,8 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepotPersonnel:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
         },
+
+
         GetGoodsType:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
         },
@@ -459,7 +461,8 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
-        },//销售订单删除
+        },
+        //销售订单删除
         DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
             doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
         },//获取销售订单ID
