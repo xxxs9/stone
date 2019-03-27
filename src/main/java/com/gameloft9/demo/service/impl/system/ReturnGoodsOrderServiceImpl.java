@@ -73,18 +73,18 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      * @return
      */
     @Override
-    public ReturnGoodsOrder getById(String id) {
+    public ShipmentOrder getById(String id) {
         return returnGoodsOrderMapper.getById(id);
     }
 
     /**
      * 修改
-     * @param returnGoodsOrder
+     * @param shipmentOrder
      * @return
      */
     @Override
-    public Boolean update(ReturnGoodsOrder returnGoodsOrder) {
-        return returnGoodsOrderMapper.update(returnGoodsOrder);
+    public Boolean update(ShipmentOrder shipmentOrder) {
+        return returnGoodsOrderMapper.update(shipmentOrder);
     }
 
     /**

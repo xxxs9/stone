@@ -285,9 +285,9 @@ layui.config({
     //查看
     function look(id) {
         var index = layui.layer.open({
-            title: "查看订单",
+            title: "查看发货单",
             type: 2,
-            content: "lookMarkerOrder.html?id=" + id,
+            content: "lookReturnGoodsOrder.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

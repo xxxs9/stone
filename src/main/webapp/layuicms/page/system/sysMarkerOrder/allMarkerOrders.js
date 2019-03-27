@@ -51,8 +51,8 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-                  {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'orderId', title: '订单编号'}
+                 {field: 'id', title: 'ID' ,fixed:'left'}
+                , {field: 'orderId', title: '订单编号' }
                 , {field: 'orderTime', title: '订单日期' }
                 , {field: 'productId', title: '产品ID' }
                 , {field: 'customer', title: '购买客户'}
