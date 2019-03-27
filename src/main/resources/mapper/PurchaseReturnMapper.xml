@@ -9,6 +9,7 @@
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
         <result column="PRICE" property="price" jdbcType="VARCHAR"/>
+        <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR"/>
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
         <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
         <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
@@ -41,6 +42,7 @@
             t.GOODS_ID,
             t.GOODS_NUMBER,
             t.PRICE,
+            t.TOTAL_PRICE,
             t.APPLY_USER,
             t.APPLY_TIME,
             t.DEPOT_STATE,
@@ -95,6 +97,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             DEPOT_STATE,
@@ -112,6 +115,7 @@
             #{goodsId},
             #{goodsNumber},
             #{price},
+            #{totalPrice},
             #{applyUser},
             #{applyTime},
             #{depotState},
@@ -140,6 +144,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             DEPOT_STATE,
@@ -166,6 +171,7 @@
             GOODS_ID=#{goodsId},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
+            TOTAL_PRICE=#{totalPrice},
             APPLY_USER=#{applyUser},
             APPLY_TIME=#{applyTime},
             DEPOT_STATE=#{depotState},
@@ -196,7 +202,8 @@
         SELECT
             GOODS_ID,
             GOODS_NUMBER,
-            PRICE
+            PRICE,
+            TOTAL_PRICE
         FROM
             t_purchase_order
         WHERE
