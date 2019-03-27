@@ -48,15 +48,16 @@
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
 
-    {{#  if(d.state =='未提交'){ }}
- <!--   <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
+    {{#  if(d.state =='等待发货'){ }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="goods"><i class="layui-icon">&#xe65c;</i>提交仓库发货</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='等待收货') { }}
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="confirm"><i class="layui-icon">&#xe65c;</i>确认收货</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe640;</i>退货</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='退货') { }}
     <a class="layui-btn layui-btn-danger" ><i class="layui-icon">&#xe640;</i>客户已退货</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>

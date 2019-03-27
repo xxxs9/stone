@@ -66,8 +66,10 @@
         <label class="layui-form-label">产品ID</label>
         <div class="layui-input-block">
             <select id="productId" name="productId" lay-verify="required">
-
             </select>
+            <div class="layui-inline">
+                <a class="layui-btn search_btn" lay-submit="" lay-filter="queryUser">查询</a>
+            </div>
         </div>
     </div>
 
@@ -100,7 +102,7 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">付款金额</label>
+        <label class="layui-form-label">总金额</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="acceptedAmount" placeholder="请输入付款金额">
         </div>
@@ -113,12 +115,12 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="applyUser" placeholder="请输入申请人">
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">申请时间</label>
@@ -127,12 +129,12 @@
         </div>
     </div>-->
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-block">
-            <input type="text"  class="layui-input" name="state"  readonly="readonly" placeholder="未提交" value="未提交">
+            <input type="text"  class="layui-input" name="state"   placeholder="未提交" >
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">订单审核人</label>

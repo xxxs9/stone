@@ -88,6 +88,8 @@ layui.config({
                 confirm(row.id);
             }else if (layEvent === 'look') {//查看
                 look(row.id);
+            }else if (layEvent === 'goods') {//提交仓库发货
+                goods(row.id);
             }
         });
     }
@@ -224,7 +226,30 @@ layui.config({
         layui.layer.full(index);
     }
 
+//提交仓库发货
 
+    function goods(id){
+        layer.confirm('提交仓库发货吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送撤回指令
+            var req = {
+                id: id
+            };
+
+            $api.updateGoods(req,function (data) {
+                layer.msg("提交成功",{time:1000},function(){
+                    //obj.del(); //撤回对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
 
 
 

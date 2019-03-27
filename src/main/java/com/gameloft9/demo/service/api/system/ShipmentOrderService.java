@@ -65,4 +65,11 @@ public interface ShipmentOrderService {
      * @return
      */
     Boolean back(ShipmentOrder shipmentOrder);
+
+    /**
+     * 提交仓库发货
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean goods(ShipmentOrder shipmentOrder);
 }

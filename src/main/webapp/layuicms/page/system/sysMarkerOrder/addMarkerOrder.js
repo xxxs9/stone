@@ -130,34 +130,15 @@ layui.config({
     });
 
 
-    form.on("add(ProductTable)", function (obj) {
-        var value = obj.value //得到修改后的值
-            , data = obj.data //得到所在行所有键值
-            , field = obj.field; //得到字段
-        //判断并验证
-        /* if (field == "deliverNumber") {
-             if (!$.trim(data.plannedNumber)) {
-                 deliverNumber.msg("数量不能为空");
-             }
-             else {
-                 obj.data["unpaidAmount"] = data.deliverNumber*data.plannedNumber; //经测试此处代码可以更新到table对象里的data内，但是也没显示不出来？ 如何解决
-             }
-         }
-         console.log(obj);
-     });*/
+    //计算总金额
+    $("input'name=acceptedAmount]'").bind('input propertychange',function(){
 
-        if (obj.field == "deliverNumber") {
-            var unpaidAmount = obj.data.deliverNumber * obj.data.plannedNumber
-            obj.update({
-                zje: unpaidAmount
-            });
-            //重新加载table表格
-            var oldData = table.cache[Table_Reload];
-            tableIns.reload({
-                data: oldData
-            });
-        }
+        var unitPirce = $('[name=deliverNumber]').val();
+        var number = $('[name=plannedNumber]').val();
+        $('[name=acceptedAmount]').val(unitPirce*number);
     })
+
+
 
 
 

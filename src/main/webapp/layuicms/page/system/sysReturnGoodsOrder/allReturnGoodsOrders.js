@@ -83,13 +83,15 @@ layui.config({
                 //do something
                 editMarkerOrder(row.id);
             }else if (layEvent === 'audit'){//提交
-                audit(row.id);
+                audit(row.id,row.goodsAmount);
             }else if (layEvent === 'depot') {//提交仓库
                 depot(row.id);
             }else if (layEvent === 'look') {//撤回
                 look(row.id);
             }else if (layEvent === 'finance') {//撤回
                 finance(row.id);
+            }else if (layEvent === 'return') {//撤回
+                return(row.id);
             }
         });
     }
@@ -179,12 +181,13 @@ layui.config({
 
     //提交
 
-    function audit(id){
+    function audit(id,goodsAmount){
         layer.confirm('通过审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
-                id: id
+                id: id,
+                goodsAmount:goodsAmount,
             };
 
             $api.updateAudit(req,function (data) {
@@ -229,15 +232,15 @@ layui.config({
     //提交财务
 
     function finance(id){
-        layer.confirm('仓库通过审核吗？', function (confirmIndex) {
+        layer.confirm('财务通过审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
                 id: id
             };
 
-            $api.updateDepot(req,function (data) {
-                layer.msg("仓库审核成功",{time:1000},function(){
+            $api.updateFinance(req,function (data) {
+                layer.msg("财务审核成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
