@@ -72,6 +72,7 @@ layui.config({
             $("[name='goodsId']").val(data.goodsId);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
+            $("[name='totalPrice']").val(data.totalPrice);
             //$("[name='depotState']").val(data.depotState);
             //$("[name='applyUser']").val(data.applyUser);
             //$("[name='applyTime']").val(data.applyTime);
@@ -87,6 +88,7 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
         var applyTime = data.field.applyTime;
         var depotState = data.field.depotState;
@@ -98,6 +100,7 @@ layui.config({
             goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
+            totalPrice:totalPrice,
             applyUser: applyUser,
             applyTime:applyTime,
             depotState:depotState

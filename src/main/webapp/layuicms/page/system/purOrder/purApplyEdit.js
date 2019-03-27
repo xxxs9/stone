@@ -76,6 +76,7 @@ layui.config({
                 $("[name='goodsId']").val(data.goodsId);
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
+                $("[name='totalPrice']").val(data.totalPrice);
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='state']").val(data.state);
@@ -121,6 +122,17 @@ layui.config({
         });
     }
 
+    //计算总金额 数量goodsNumber*价格price
+    $(function(){
+        //总结个totalPrice
+        $('[name=totalPrice]').bind('click',function(){
+
+            var price = $('[name=price]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            $("[name = totalPrice]").val(price * goodsNumber);
+        })
+    });
+
     /**
      * 表单提交
      * */
@@ -130,6 +142,7 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
         var applyTime = data.field.applyTime;
         var state = data.field.state;
@@ -151,6 +164,7 @@ layui.config({
             goodsId:goodsId,
             goodsNumber:goodsNumber,
             price:price,
+            totalPrice:totalPrice,
             applyUser:applyUser,
             applyTime:applyTime,
             state:state,

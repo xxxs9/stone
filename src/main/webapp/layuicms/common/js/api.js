@@ -239,7 +239,8 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },        //修改
+        },
+        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -250,6 +251,10 @@ layui.define(['$tool','jquery'], function (exports) {
         //获取orderNumber下拉框
         selectOrderNumberPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/orderNumber.do',req,config,successCallback,errorCallback);
+        },
+        //根据orderNumber下拉框自动获取信息
+        selectOtherByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/byOrderNumber.do',req,config,successCallback,errorCallback);
         },
         //提交commit
         commitPurchaseReturn:function(req,config,successCallback,errorCallback){
