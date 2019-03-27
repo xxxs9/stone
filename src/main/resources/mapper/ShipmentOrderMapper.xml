@@ -67,7 +67,21 @@
         </where>
     </update>
 
-
+    <!--提交仓库发货-->
+    <update id="goods" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
 
     <!--获取角色ID-->
 

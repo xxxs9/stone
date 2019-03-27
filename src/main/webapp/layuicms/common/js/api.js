@@ -622,6 +622,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交财务
         updateFinance:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'goods/finance',req,successCallback,errorCallback);
+        },//提交仓库发货
+        updateGoods:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
         }
     };
 

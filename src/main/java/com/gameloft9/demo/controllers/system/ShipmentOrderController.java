@@ -113,4 +113,15 @@ public class ShipmentOrderController {
     public IResult back(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(shipmentOrderService.back(shipmentOrder));
     }
+
+    /**
+     * 提交仓库
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/goods",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult goods(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.goods(shipmentOrder));
+    }
 }

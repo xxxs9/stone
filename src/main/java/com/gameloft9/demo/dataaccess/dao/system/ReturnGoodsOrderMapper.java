@@ -70,6 +70,11 @@ public interface ReturnGoodsOrderMapper {
      * @return
      */
     Boolean depot(ShipmentOrder shipmentOrder);
-
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean finance(ShipmentOrder shipmentOrder);
 
 }

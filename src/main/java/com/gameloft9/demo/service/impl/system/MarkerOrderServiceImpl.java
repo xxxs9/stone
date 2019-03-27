@@ -7,13 +7,19 @@ import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 @Service
 @Transactional
 public class MarkerOrderServiceImpl implements MarkerOrderService {
@@ -71,12 +77,17 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     @Override
     public String add(MarkerOrderTest markerOrderTest) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String username = (String) request.getSession().getAttribute("sysUser");
         TimeZone zone = TimeZone.getTimeZone("ETC/GMT-8");
         TimeZone.setDefault(zone);
         markerOrderTest.setId(UUIDUtil.getUUID());
         markerOrderTest.setOrderTime(new Date());
         //设置固定格式生成订单编号
         markerOrderTest.setOrderId("xs"+OrderUtil.createOrderNumber());
+        markerOrderTest.setApplyUser(username);
+        markerOrderTest.setOrderAuditUser("销售主管");
+        markerOrderTest.setState("未提交");
         markerOrderMapper.add(markerOrderTest);
         return markerOrderTest.getId();
     }

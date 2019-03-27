@@ -59,7 +59,7 @@ layui.config({
                 , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
                 , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '付款金额' }
+                , {field: 'acceptedAmount', title: '总金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }

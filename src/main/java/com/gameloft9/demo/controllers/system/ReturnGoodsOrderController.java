@@ -129,4 +129,14 @@ public class ReturnGoodsOrderController {
     public IResult depot(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.depot(shipmentOrder));
     }
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/finance",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult finance(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.finance(shipmentOrder));
+    }
 }
