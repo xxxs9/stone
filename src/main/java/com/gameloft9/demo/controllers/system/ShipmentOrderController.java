@@ -124,4 +124,5 @@ public class ShipmentOrderController {
     public IResult goods(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(shipmentOrderService.goods(shipmentOrder));
     }
+
 }

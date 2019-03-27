@@ -73,6 +73,48 @@ layui.config({
                 }
                 form.render();//重新绘制表单，让修改生效
             });
+        } else if(auditType ==2){
+            $api.getSaleReceiveById(req,function (res) {
+
+                var data = res.data;
+                console.log(data)
+                var auditState = $("[name='auditState']").val(data.auditState);
+                $("[name='auditType']").val(data.auditType);
+                $("[name='purchaseOrderId']").val(data.saleId);
+                $("[name='unitPrice']").val(data.unitPrice);
+                $("[name='goodsNumber']").val(data.productNumber);
+                $("[name='totalPrice']").val(data.totalPrice);
+                $("[name='actualBalance']").val(data.actualBalance);
+                $("[name='documentMaker']").val(data.documentMaker);
+                $("[name='documentMakeTime']").val(data.documentMakeTime);
+                $("[name='auditDescribe']").val(data.auditDescribe);
+
+                if(auditState.val() != 2){
+                    $('#btn').css('display','none');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        } else if(auditType == 4){
+            $api.getSalePayById(req,function (res) {
+
+                var data = res.data;
+                console.log(data)
+                var auditState = $("[name='auditState']").val(data.auditState);
+                $("[name='auditType']").val(data.auditType);
+                $("[name='purchaseOrderId']").val(data.saleRejectedId);
+                $("[name='unitPrice']").val(data.unitPrice);
+                $("[name='goodsNumber']").val(data.rejectedNumber);
+                $("[name='totalPrice']").val(data.totalPrice);
+                $("[name='actualBalance']").val(data.actualBalance);
+                $("[name='documentMaker']").val(data.documentMaker);
+                $("[name='documentMakeTime']").val(data.documentMakeTime);
+                $("[name='auditDescribe']").val(data.auditDescribe);
+
+                if(auditState.val() != 2){
+                    $('#btn').css('display','none');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
         }
 
     }
@@ -111,7 +153,7 @@ layui.config({
             return false;
 
         }else if(auditType == 2){//销售应收
-            var saleId = data.field.saleId;
+            var saleId = data.field.purchaseOrderId;
             var req = {
                 attitude:attitude,
                 saleId:saleId,
@@ -120,7 +162,7 @@ layui.config({
                 auditDescribe:auditDescribe,
             };
 
-            $api.UpdatePay(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {
+            $api.saleOrderReceivePass(req,function (data) {
                 layer.msg("审核完成！",{time:1000},function () {
                     layer.closeAll("iframe");
                     //刷新父页面
@@ -150,7 +192,7 @@ layui.config({
             return false;
 
         }else if(auditType == 4){//销售应付
-            var saleRejectedId = data.field.saleRejectedId;
+            var saleRejectedId = data.field.purchaseOrderId;
             var req = {
                 attitude:attitude,
                 saleRejectedId:saleRejectedId,
@@ -159,7 +201,7 @@ layui.config({
                 auditDescribe:auditDescribe,
             };
 
-            $api.UpdatePay(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {
+            $api.saleOrderPayPass(req,function (data) {
                 layer.msg("审核完成！",{time:1000},function () {
                     layer.closeAll("iframe");
                     //刷新父页面
@@ -169,46 +211,5 @@ layui.config({
             return false;
         }
 
-    })
-
-    /**
-     * 表单提交
-     * */
-    //TODO....修改应付单
-    form.on("submit(unpass)", function (data) {
-        var queryArgs = $tool.getQueryParam();//获取查询参数
-        var menuName = data.field.menuName;
-        var menuUrl = data.field.menuUrl;
-        var requestUrl = data.field.requestUrl;
-        var sort = data.field.sort;
-        var idList = new Array();
-
-        //获取选中的角色列表
-        for(var i=0;i<roleIdList.length;i++){
-            if(data.field[roleIdList[i]] === 'on'){
-                idList.push(roleIdList[i]);
-            }
-        }
-
-        //请求
-        var url = $tool.getContext()+'menu/update.do';
-        var req = {
-            id:queryArgs['id'],
-            menuName:menuName,
-            menuUrl:menuUrl,
-            requestUrl:requestUrl,
-            sort:sort,
-            roleIdList:idList
-        };
-
-        $api.UpdatePay(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {
-            layer.msg("修改成功！",{time:1000},function () {
-                layer.closeAll("iframe");
-                //刷新父页面
-                parent.location.reload();
-            });
-        });
-
-        return false;
     })
 });

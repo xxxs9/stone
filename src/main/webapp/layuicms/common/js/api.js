@@ -182,7 +182,6 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
-
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -240,8 +239,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },
-        //修改
+        },        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -362,6 +360,22 @@ layui.define(['$tool','jquery'], function (exports) {
         /*生成采购应收单*/
         generatePurchaseReceive:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/generatePurchaseReceive.do',req,successCallback,errorCallback);
+        },
+        /*啊发包-锦祥*/
+        generateSaleReceive:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generateSaleReceive',req,successCallback,errorCallback);
+        },
+        /*啊发包-锦祥*/
+        generateSalePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generateSalePay',req,successCallback,errorCallback);
+        },
+        /*销售采购应收*/
+        saleOrderReceivePass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/saleOrderReceivePass',req,successCallback,errorCallback);
+        },
+        /*销售采购应付*/
+        saleOrderPayPass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/saleOrderPayPass',req,successCallback,errorCallback);
         },
         AddProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/add',req,successCallback,errorCallback);
@@ -660,6 +674,14 @@ layui.define(['$tool','jquery'], function (exports) {
         getPurchaseReceiveById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getPurchaseReceiveById.do',req,successCallback,errorCallback);
         },
+        /*根据申请单id查找应收单*/
+        getSaleReceiveById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getSaleReceiveById.do',req,successCallback,errorCallback);
+        },
+        /*根据申请单id查找应收单*/
+        getSalePayById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
+        },
         /*审核采购应付单*/
         purchaseOrderPayPass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/purchaseOrderPayPass.do',req,successCallback,errorCallback);
@@ -764,7 +786,8 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库发货
         updateGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
-        }
+        },
+
     };
 
 
