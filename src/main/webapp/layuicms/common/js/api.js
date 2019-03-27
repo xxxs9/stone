@@ -350,9 +350,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },
 
         /*显示和poduct所有信息F*/
-        AllProductInfo:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'productInfo/list',req,successCallback,errorCallback);
-
+        AllProductInfo:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'productInfo/list', req, successCallback, errorCallback);
+        },
         /*生成采购应付单*/
         generatePurchasePay:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/generatePurchasePay.do',req,successCallback,errorCallback);
@@ -377,10 +377,10 @@ layui.define(['$tool','jquery'], function (exports) {
         saleOrderPayPass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/saleOrderPayPass',req,successCallback,errorCallback);
         },
-        AddProduct:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/add',req,successCallback,errorCallback);
+        AddProduct:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
 
-
+        },
         AddProduct:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
         },
@@ -533,7 +533,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getProduceFormulaDetailById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/get',req,successCallback,errorCallback);
-        }
+        },
 
         GetDepotNumber:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotNumber.do',req,successCallback,errorCallback);
