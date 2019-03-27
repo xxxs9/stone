@@ -116,7 +116,7 @@
 
     <!--获取角色ID-->
 
-    <select id="getById" resultMap="ReturnGoodsOrderResultMap" parameterType="java.lang.String">
+    <select id="getById" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
         select
             ID,
         GOODS_ID,
@@ -131,7 +131,7 @@
         AUDIT_TYPE,
         REMARKS
         from
-          w_return_goods_order
+          w_shipment_order
         where
           ID = #{id,jdbcType=VARCHAR}
     </select>
