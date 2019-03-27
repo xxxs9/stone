@@ -181,6 +181,12 @@ public interface PurchaseOrderMapper {
      * */
     int lookIn(PurchaseOrder record);
 
+    /**
+     * 采购
+     * 根据goodsId获取price
+     * @param goodsId 商品名称
+     * @return PurchaseOrder 返回实体类*/
+    String selectPriceByGoodsId(String materialId);
 
 
 

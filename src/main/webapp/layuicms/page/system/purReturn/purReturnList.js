@@ -72,7 +72,7 @@ layui.config({
                 , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品价格', width:100}
-                , {field: 'applyUser', title: '申请人', width:80}
+                , {field: 'applyUser', title: '申请人', width:100}
                 , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'depotState', title: '审核状态', width:100}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器

@@ -175,9 +175,9 @@
     <!--货品名称goodsId下拉框-->
     <select id="getSelectListGoods" resultType="java.lang.String">
         SELECT DISTINCT
-            GOODS_ID
+            MATERIAL_ID
         FROM
-            t_purchase_order
+            y_material_goods
     </select>
 
     <!--订单状态state下拉框-->
@@ -359,6 +359,15 @@
             ID=#{id}
     </update>
 
+    <!--选取goodsId下拉框内容，自动获取price价格-->
+    <select id="selectPriceByGoodsId" resultType="java.lang.String">
+        SELECT
+            GOODS_PRICE
+        FROM
+            y_material_goods
+        WHERE
+            MATERIAL_ID=#{materialId}
+    </select>
 
 
 

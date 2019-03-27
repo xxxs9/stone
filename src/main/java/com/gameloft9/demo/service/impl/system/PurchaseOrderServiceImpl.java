@@ -61,7 +61,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**修改*/
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        //purchaseOrder.setApplyTime(new Date());
+        purchaseOrder.setApplyTime(new Date());
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -229,5 +229,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         dao.lookIn(purchaseOrder);
         return true;
+    }
+
+    /**根据goodsId自动获取pruce信息*/
+    public String selectPriceByGoodsId(String materialId){
+        return dao.selectPriceByGoodsId(materialId);
     }
 }

@@ -73,7 +73,7 @@ layui.config({
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品价格', width:100}
                 , {field: 'state', title: '审核状态', width:120}
-                , {field: 'applyUser', title: '申请人', width:80}
+                , {field: 'applyUser', title: '申请人', width:100}
                 , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'applyDescribe', title: '申请描述', width:220}
                 , {field: 'orderAuditUser', title: '审核人', width:80}

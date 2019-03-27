@@ -218,6 +218,11 @@ layui.define(['$tool','jquery'], function (exports) {
         lookInPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookIn.do',req,config,successCallback,errorCallback);
         },
+        //采购入库之根据goodsId获取price
+        selectPriceByGoodsId:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/price.do',req,config,successCallback,errorCallback);
+        },
+
         //采购退货管理purchase_return
         //获取所有列表
         listPurchaseReturn:function(req,config,successCallback,errorCallback){

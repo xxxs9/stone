@@ -217,4 +217,13 @@ public class PurchaseOrderController {
         return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
     }
 
+    /**
+     * 根据goodsId获取price
+     * */
+    @RequestMapping(value = "/price.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectPriceByGoodsId(String materialId){
+        return new ResultBean<String>(service.selectPriceByGoodsId(materialId));
+    }
+
 }

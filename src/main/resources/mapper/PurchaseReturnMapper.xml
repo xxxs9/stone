@@ -192,7 +192,7 @@
     </select>
 
     <!--orderNumber下拉框自动获取对应的信息-->
-    <select id="selectOtherByOrderNumber" resultMap="purReturnMap" resultType="java.lang.String">
+    <select id="selectOtherByOrderNumber" resultMap="purReturnMap">
         SELECT
             GOODS_ID,
             GOODS_NUMBER,
