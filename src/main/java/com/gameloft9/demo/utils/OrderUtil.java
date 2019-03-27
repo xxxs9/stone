@@ -53,8 +53,39 @@ public class OrderUtil {
             return new String(c);
         }
         return s.substring(0, length);
+    }
 
+    /**
+     * 生成编号(由编号类型编码+编号创建平台编码+6位日期+时间戳后4位+4位随机数组成)
+     * @return
+     * @throws Exception
+     */
+    public static String createOrderNumber(){
+        //格式化日期为"mmdd"
+        DateFormat format = new SimpleDateFormat("yyMMdd");
+        Date date = new Date();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(format.format(date));
+        //buffer.append((date.getTime() + "").substring(9));
+        buffer.append(getRandNum(4));
+        return buffer.toString();
+    }
 
+    /**
+     * 获取四位随机数
+     * @param leng  随机数长度
+     * @return
+     */
+    public static String getRandNum(int leng){
+        Random random = new Random();
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < leng; i++) {
+            result.append(random.nextInt(10));
+        }
+        if(result.length()>0){
+            return result.toString();
+        }
+        return null;
     }
 
 

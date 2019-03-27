@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 /**
@@ -34,5 +36,11 @@ public class FinanceBillController {
     @ResponseBody
     public IResult getAll(String page,String limit){
         return new PageResultBean<Collection<SysFinanceBill>>(billService.getAll(page,limit),billService.getCount());
+    }
+
+
+    @RequestMapping(value = "/export" ,method = RequestMethod.GET)
+    public void export(HttpServletRequest request, HttpServletResponse response){
+        billService.export(request,response);
     }
 }

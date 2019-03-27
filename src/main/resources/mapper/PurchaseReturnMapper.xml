@@ -10,16 +10,15 @@
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
         <result column="PRICE" property="price" jdbcType="VARCHAR"/>
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
-        <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
-        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
         <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
         <result column="FINANCE_STATE" property="financeState" jdbcType="VARCHAR"/>
         <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
         <result column="DEPOT_USER" property="depotUser" jdbcType="VARCHAR"/>
-        <result column="DEPOT_TIME" property="depotTime" jdbcType="DATE"/>
+        <result column="DEPOT_TIME" property="depotTime" jdbcType="TIMESTAMP"/>
         <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
         <result column="FINANCE_AUDIT_USER" property="financeAuditUser" jdbcType="VARCHAR"/>
-        <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="DATE"/>
+        <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="TIMESTAMP"/>
         <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -67,7 +66,7 @@
                 AND m.MATERIAL_ID = t.GOODS_ID
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
-            ORDER BY t.ID ASC
+            ORDER BY t.ORDER_NUMBER ASC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -129,7 +128,7 @@
     <!--删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         DELETE FROM
-            t_pruchase_return
+            t_purchase_return
         WHERE
             ID = #{id}
     </delete>
@@ -184,14 +183,26 @@
 
     <!--初始化orderNumber下拉框-->
     <select id="selectAllOrderNumber" resultType="java.lang.String">
-        SELECT DISTINCT
+        SELECT
             ORDER_NUMBER
         FROM
             t_purchase_order
         WHERE
             STATE = '审核通过'
     </select>
-    
+
+    <!--orderNumber下拉框自动获取对应的信息-->
+    <select id="selectOtherByOrderNumber" resultMap="purReturnMap" resultType="java.lang.String">
+        SELECT
+            GOODS_ID,
+            GOODS_NUMBER,
+            PRICE
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
     <!--初始化goodsId下拉框-->
     <select id="selectAllGoodsId" resultType="java.lang.String">
         SELECT DISTINCT

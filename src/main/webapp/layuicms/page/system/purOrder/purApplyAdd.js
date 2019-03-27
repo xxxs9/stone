@@ -47,7 +47,7 @@ layui.config({
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var applyUser = data.field.applyUser;
-        //var applyTime = data.field.applyTime;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
 
@@ -64,7 +64,7 @@ layui.config({
             goodsNumber: goodsNumber,
             price: price,
             applyUser: applyUser,
-            //applyTime: applyTime,
+            applyTime: applyTime,
             state:state,
             applyDescribe:applyDescribe
         };
@@ -80,4 +80,14 @@ layui.config({
         return false;
     })
 
+    /*//获取实时时间
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });

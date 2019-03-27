@@ -20,6 +20,7 @@ public class PurchaseOrder {
     private String applyUser;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyTime;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyPayTime;
     private String state;
     private String financeState;

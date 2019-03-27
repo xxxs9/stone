@@ -35,11 +35,43 @@ layui.config({
             var data = res.data;
             console.log(data)
             $("[name='id']").val(data.id);
-            $("[name='depotState']").val(data.depotState);
-            $("[name='depotUser']").val(data.depotUser);
-            $("[name='depotTime']").val(data.depotTime);
-            $("[name='depotDescribe']").val(data.depotDescribe);
+            $("[name='state']").val(data.state);
+            $("[name='orderAuditUser']").val(data.orderAuditUser);
+            $("[name='orderAuditTime']").val(data.orderAuditTime);
+            $("[name='auditDescribe']").val(data.auditDescribe);
+            loadRoleList();
             form.render();//重新绘制表单，让修改生效
+        });
+    }
+
+    /**
+     * 加载申请单列表
+     * */
+    function loadRoleList() {
+        var url = $tool.getContext()+'purchase_order/list.do';
+        var req =  {
+            page:1,
+            limit:10
+        };
+
+        $api.listPurOrder(req,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var depotHtml = "";
+                for(var i = 0;i<data.length;i++){
+                    //是否初始化选中
+                    if($.inArray(data[i].id) != -1){
+                        depotHtml += '<input type="checkbox" checked name="'+data[i].id+'" title="'+data[i].applyUser+'">';
+                    }else{
+                        depotHtml += '<input type="checkbox" name="'+data[i].id+'" title="'+data[i].applyUser+'">';
+                    }
+
+                    depotIdList.push(data[i].id);//保存id列表
+                }
+
+                $('.role-check-list').append($(depotHtml));
+                form.render();//重新绘制表单，让修改生效
+            }
         });
     }
 
@@ -48,10 +80,10 @@ layui.config({
      * */
     form.on("submit(purLook)", function (data) {
         var queryArgs =  $tool.getQueryParam();//获取查询参数
-        var depotState = data.field.depotState;
-        var depotUser = data.field.depotUser;
-        var depotTime = data.field.depotTime;
-        var depotDescribe = data.field.depotDescribe;
+        var state = data.field.state;
+        var orderAuditUser = data.field.orderAuditUser;
+        var orderAuditTime = data.field.orderAuditTime;
+        var auditDescribe = data.field.auditDescribe;
         var idList = new Array();
 
         //获取选中的角色列表
@@ -64,10 +96,10 @@ layui.config({
         //请求
         var req = {
             id:queryArgs['id'],
-            depotState:depotState,
-            depotUser:depotUser,
-            depotTime:depotTime,
-            depotDescribe:depotDescribe,
+            state:state,
+            orderAuditUser:orderAuditUser,
+            orderAuditTime:orderAuditTime,
+            auditDescribe:auditDescribe,
             depotIdList:idList
         };
 

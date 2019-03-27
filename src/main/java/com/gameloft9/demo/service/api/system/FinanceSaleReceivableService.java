@@ -17,23 +17,19 @@ public interface FinanceSaleReceivableService {
      *
      * @param page 当前页
      * @param limit 每条条数
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 审核状态
      * @return
      *      销售应收单集合
      */
-    List<SysFinanceSaleReceivable> getAll(String page, String limit, String auditType, String startTime, String endTime);
+    List<SysFinanceSaleReceivable> getAll(String page, String limit, String auditState);
 
 
     /**
      * 条件查询总条数
      *
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 单子类型
      * @return
      *          条件查询总条数
      */
-    int getCount(String auditType, String startTime, String endTime);
+    int getCount(String auditState);
 }

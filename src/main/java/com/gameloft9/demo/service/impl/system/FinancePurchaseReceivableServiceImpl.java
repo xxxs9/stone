@@ -3,6 +3,7 @@ package com.gameloft9.demo.service.impl.system;
 import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
+import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
 import com.gameloft9.demo.utils.NumberUtil;
@@ -40,29 +41,26 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
      *
      * @param page 当前页
      * @param limit 每条条数
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 审核状态
      * @return
      *      采购应收单集合
      */
-    public List<SysFinancePurchaseReceivable> getAll(String page, String limit, String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(page,limit,auditType,startTime,endTime);
-        return purchaseReceivableMapper.getAll(util.getPageRange().getStart(),util.getPageRange().getEnd(),
-                util.getAuditType(),util.getStartTime(),util.getEndTIme());
+    public List<SysFinancePurchaseReceivable> getAll(String page, String limit, String auditState) {
+        PageRange pageRange = new PageRange(page,limit);
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return purchaseReceivableMapper.getAll(pageRange.getStart(),pageRange.getEnd(),
+                auditState1);
     }
 
     /**
      *
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 审核状态
      * @return
      *      条件查询总条数
      */
-    public int getCount(String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(auditType,startTime,endTime);
-        return purchaseReceivableMapper.getCount(util.getAuditType(),util.getStartTime(),util.getEndTIme());
+    public int getCount(String auditState) {
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return purchaseReceivableMapper.getCount(auditState1);
     }
 
     /**

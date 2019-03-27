@@ -64,7 +64,7 @@ layui.config({
             $("[name='applyDescribe']").val(data.applyDescribe);
             $("[name='state']").val(data.state);
             $("[name='orderAuditUser']").val(data.orderAuditUser);
-            //$("[name='orderAuditTime']").val(data.orderAuditTime);
+            $("[name='orderAuditTime']").val(data.orderAuditTime);
             $("[name='auditDescribe']").val(data.auditDescribe);
             $("[name='financeState']").val(data.financeState);
             //depotIds = data.depotIds;//保存菜单所属角色id列表，初始化选中时用
@@ -118,7 +118,7 @@ layui.config({
         var applyDescribe = data.field.applyDescribe;
         var state = $(this).html();
         var orderAuditUser = data.field.orderAuditUser;
-        //var orderAuditTime = data.field.orderAuditTime;
+        var orderAuditTime = data.field.orderAuditTime;
         var auditDescribe = data.field.auditDescribe;
         var financeState = data.field.financeState;
         var idList = new Array();
@@ -136,7 +136,7 @@ layui.config({
             applyDescribe:applyDescribe,
             state:state,
             orderAuditUser:orderAuditUser,
-            //orderAuditTime:orderAuditTime,
+            orderAuditTime:orderAuditTime,
             auditDescribe:auditDescribe,
             financeState:financeState,
             depotIdList:idList
@@ -152,4 +152,13 @@ layui.config({
         return false;
     })
 
+    /*layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });

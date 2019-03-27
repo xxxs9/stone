@@ -30,16 +30,14 @@ public class FinancePurchaseReceivableController {
      *
      * @param page 当前页
      * @param limit 每页条数
-     * @param auditType 订单类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 申请类型
      * @return jason
      */
     @RequestMapping(value = "/purchaseReceiveList" ,method = RequestMethod.POST)
     @ResponseBody
-    public IResult billPayList(String page, String limit, String auditType, String startTime, String endTime){
+    public IResult billPayList(String page, String limit, String auditState){
 
-        return new PageResultBean<Collection<SysFinancePurchaseReceivable>>(purchaseReceivableService.getAll(page,limit,auditType,startTime,endTime), purchaseReceivableService.getCount(auditType,startTime,endTime));
+        return new PageResultBean<Collection<SysFinancePurchaseReceivable>>(purchaseReceivableService.getAll(page,limit,auditState), purchaseReceivableService.getCount(auditState));
     }
 
     /**
