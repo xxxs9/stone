@@ -10,21 +10,21 @@
     <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
     <result column="PRICE" property="price" jdbcType="VARCHAR"/>
     <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
-    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
-    <result column="APPLY_PAY_TIME" property="applyPayTime" jdbcType="DATE"/>
+    <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+    <result column="APPLY_PAY_TIME" property="applyPayTime" jdbcType="TIMESTAMP"/>
     <result column="STATE" property="state" jdbcType="VARCHAR"/>
     <result column="FINANCE_STATE" property="financeState" jdbcType="VARCHAR"/>
     <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
-    <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="DATE"/>
+    <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="TIMESTAMP"/>
     <result column="APPLY_DESCRIBE" property="applyDescribe" jdbcType="VARCHAR"/>
     <result column="AUDIT_DESCRIBE" property="auditDescribe" jdbcType="VARCHAR"/>
     <result column="FINANCE_AUDIT_USER" property="financeAuditUser" jdbcType="VARCHAR"/>
-    <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="DATE"/>
+    <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="TIMESTAMP"/>
     <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
     <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
     <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
     <result column="DEPOT_USER" property="depotUser" jdbcType="VARCHAR"/>
-    <result column="DEPOT_TIME" property="depotTime" jdbcType="DATE"/>
+    <result column="DEPOT_TIME" property="depotTime" jdbcType="TIMESTAMP"/>
     <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
 </resultMap>
 
@@ -60,7 +60,7 @@
             </if>
             AND m.MATERIAL_ID = t.GOODS_ID
         </where>
-            ORDER BY t.ID ASC
+            ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -175,9 +175,9 @@
     <!--货品名称goodsId下拉框-->
     <select id="getSelectListGoods" resultType="java.lang.String">
         SELECT DISTINCT
-            GOODS_ID
+            MATERIAL_ID
         FROM
-            t_purchase_order
+            y_material_goods
     </select>
 
     <!--订单状态state下拉框-->
@@ -191,6 +191,7 @@
     <!--查看 look-->
     <select id="lookSelect" resultMap="purOrderMap" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
         SELECT
+            ID,
             STATE,
             ORDER_AUDIT_USER,
             ORDER_AUDIT_TIME,
@@ -358,6 +359,15 @@
             ID=#{id}
     </update>
 
+    <!--选取goodsId下拉框内容，自动获取price价格-->
+    <select id="selectPriceByGoodsId" resultType="java.lang.String">
+        SELECT
+            GOODS_PRICE
+        FROM
+            y_material_goods
+        WHERE
+            MATERIAL_ID=#{materialId}
+    </select>
 
 
 

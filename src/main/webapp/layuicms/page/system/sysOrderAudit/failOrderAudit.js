@@ -90,7 +90,8 @@ layui.config({
                 var acceptedAmount = data.field.acceptedAmount;
                 var unpaidAmount = data.field.unpaidAmount;
                 var applyUser = data.field.applyUser;
-                var state = data.field.state;
+                var state = $(this).html();
+                //var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
                 var remarks = data.field.remarks
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
@@ -125,11 +126,14 @@ layui.config({
 
                 $api.updateOrderAudit(req, function (data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                    layer.msg("审核成功！", {time: 1000}, function () {
+                    layer.msg("审核失败！", {time: 1000}, function () {
+
                         layer.closeAll("iframe");
                         //刷新父页面
                         parent.location.reload();
-                    });
+
+                        });
+
                 });
 
                 return false;

@@ -88,7 +88,7 @@ public class MarkerOrderController {
     public IResult add(MarkerOrderTest markerOrderTest, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
         System.out.println(markerOrderTest);
-        return new ResultBean<Integer>(markerOrderService.add(markerOrderTest));
+        return new ResultBean<String>(markerOrderService.add(markerOrderTest));
     }
     /**
      * 获取所有类表信息
@@ -118,14 +118,6 @@ public class MarkerOrderController {
         return new ResultBean<Boolean>(markerOrderService.backUpdate(markerOrderTest));
     }
 
-    /**
-     * 订单编号
-     */
-    @RequestMapping(value = "/ordernumber",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult orderNum(MarkerOrderTest markerOrderTest){
-        return new ResultBean<String>(markerOrderService.orderNum(markerOrderTest));
-    }
 
     /**
      * 获取下拉框值

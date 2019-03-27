@@ -20,24 +20,18 @@
             );-->
     <select id="getAll" resultMap="applyOrderMap">
         select
-        ID,
-        APPLY_ID,
-        APPLY_USER,
-        APPLY_TIME,
-        APPLY_TYPE,
-        APPLY_MONEY,
-        APPLY_STATE
+          *
         from
-        a_apply_order
+          a_apply_order
         <where>
             <if test="applyType != null and applyType != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_TYPE = #{applyType,jdbcType=VARCHAR}
             </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and APPLY_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and APPLY_TIME between (#{startTime,jdbcType=TIMESTAMP}) and (#{endTime,jdbcType=TIMESTAMP})
             </if>
             <if test="applyState != null and applyState != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_STATE = #{applyState,jdbcType=VARCHAR}
             </if>
         </where>
         limit #{start},#{end}
@@ -54,13 +48,13 @@
         a_apply_order
         <where>
             <if test="applyType != null and applyType != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_TYPE = #{applyType,jdbcType=VARCHAR}
             </if>
-            <if test="startTime != null and startTime != '' and endTIme != null and endTime != ''">
-                and APPLY_TIME in (#{startTime,jdbcType=TIMESTAMP},#{endTime,jdbcType=TIMESTAMP})
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and APPLY_TIME between (#{startTime,jdbcType=TIMESTAMP}) and (#{endTime,jdbcType=TIMESTAMP})
             </if>
             <if test="applyState != null and applyState != ''">
-                and APPLY_TYPE = #{auditType,jdbcType=VARCHAR}
+                and APPLY_STATE = #{applyState,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

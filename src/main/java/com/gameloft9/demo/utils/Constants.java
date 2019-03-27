@@ -113,6 +113,12 @@ public class Constants {
         /**审核不通过*/
         public static final Integer APPLY_ORDER_UNPASS=4;
 
+        /**采购部*/
+        public static final String PURCHASE="采购部";
+
+        /**销售部*/
+        public static final String SALE="销售部";
+
     }
 
     /**

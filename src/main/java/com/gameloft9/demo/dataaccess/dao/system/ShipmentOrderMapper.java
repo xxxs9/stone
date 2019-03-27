@@ -1,6 +1,7 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
 
+import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,39 +12,40 @@ import java.util.List;
 public interface ShipmentOrderMapper {
 
     /**
-     * 分页获取所有发货单信息
-     * @param start 开始
-     * @param end 结束
-     *@return
+     * 获取所有退货单信息
+     * @param start
+     * @param end
+     * @param goodsName
+     * @return
      */
     List<ShipmentOrder> findAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("shipmentId") String shipmentId);
+            @Param("goodsName") String goodsName);
 
     /**
-     * 获取所有发货单单个数
-     * @param shipmentId
+     * 获取所有销售订单个数
+     * @param goodsName
      * @return
      */
-    int countGetAll( @Param("shipmentId") String shipmentId);
+    int countGetAll( @Param("goodsName") String goodsName);
 
     /**
-     * 通过ID删除发货单信息
+     * 通过ID删除销售订单信息
      * @param id
      * @return
      */
     int deleteById(String id);
 
     /**
-     * 获取发货单id
+     * 获取销售订单id
      * @param id
      * @return
      */
-    ShipmentOrder  getById(String id);
+    ShipmentOrder getById(String id);
 
     /**
-     * 修改发货单单信息
+     * 修改销售订单信息
      * @param shipmentOrder
      * @return
      */
@@ -51,7 +53,7 @@ public interface ShipmentOrderMapper {
 
 
     /**
-     * 增加发货单信息
+     * 增加销售订单信息
      * @param shipmentOrder
      * @return
      */
@@ -59,7 +61,20 @@ public interface ShipmentOrderMapper {
 
     /**
      * 确认收货
+     * @param shipmentOrder
+     * @return
      */
-    Boolean confirmUpdate(ShipmentOrder shipmentOrder);
-
+    Boolean confirm(ShipmentOrder shipmentOrder);
+    /**
+     * 退货
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean back(ShipmentOrder shipmentOrder);
+    /**
+     * 提交仓库发货
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean goods(ShipmentOrder shipmentOrder);
 }

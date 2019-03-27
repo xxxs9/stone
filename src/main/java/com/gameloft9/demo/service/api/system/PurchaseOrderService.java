@@ -169,6 +169,12 @@ public interface PurchaseOrderService {
      * @return boolean 布尔类型
      */
     boolean lookIn(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购 通过goodsId自动获取price
+     * @param goodsId 商品名称
+     * @return PurchaseOrder 返回实体类型*/
+    String selectPriceByGoodsId(String materialId);
 }
 
 

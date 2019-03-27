@@ -97,4 +97,20 @@ public class DateUtil {
         return time1;
     }
 
+    /**
+     * 时间
+     */
+    public static Date strToDateFinance(String time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        if(time != null && time != ""){
+            try {
+                date = format.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
+
 }

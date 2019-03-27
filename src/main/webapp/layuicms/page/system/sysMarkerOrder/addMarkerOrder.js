@@ -129,6 +129,19 @@ layui.config({
         });
     });
 
+
+    //计算总金额
+    $("input'name=acceptedAmount]'").bind('input propertychange',function(){
+
+        var unitPirce = $('[name=deliverNumber]').val();
+        var number = $('[name=plannedNumber]').val();
+        $('[name=acceptedAmount]').val(unitPirce*number);
+    })
+
+
+
+
+
 });
 
 

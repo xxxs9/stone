@@ -38,10 +38,10 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
      * @param endTime 结束时间
      */
     public void format(String applyType, String applyState, String startTime, String endTime){
-        int applyType1 = NumberUtil.strToInt(applyState);
-        int applyState1 = NumberUtil.strToInt(applyType);
-        Date startTime1 = DateUtil.ifNull(startTime);
-        Date endTime1 = DateUtil.ifNull(endTime);
+        applyType1 = NumberUtil.strToInt(applyType);
+        applyState1 = NumberUtil.strToInt(applyState);
+        startTime1 = DateUtil.strToDateFinance(startTime);
+        endTime1 = DateUtil.strToDateFinance(endTime);
     }
 
     /**

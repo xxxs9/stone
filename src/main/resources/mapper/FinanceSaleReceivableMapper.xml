@@ -15,6 +15,7 @@
         <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
         <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
         <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查找所有的采购应付单   List<SysFinanceSaleBillsPayable> getAll
@@ -29,7 +30,9 @@
         from
         a_sale_receivable
         <where>
-                and AUDIT_TYPE=4
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
         limit #{start},#{end}
     </select>
@@ -40,11 +43,13 @@
     );-->
     <select id="getCount" resultType="int">
         select
-          count(1)
+        count(1)
         from
-          a_sale_receivable
+        a_sale_receivable
         <where>
-            and AUDIT_TYPE=4
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 </mapper>

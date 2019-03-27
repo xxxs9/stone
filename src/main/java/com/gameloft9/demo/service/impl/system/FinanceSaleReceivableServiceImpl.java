@@ -5,7 +5,9 @@ import com.gameloft9.demo.dataaccess.dao.system.FinanceSaleReceivableMapper;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable;
 import com.gameloft9.demo.service.api.system.FinanceSaleReceivableService;
+import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
+import com.gameloft9.demo.utils.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,28 +29,25 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
      *
      * @param page 当前页
      * @param limit 每条条数
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 审核状态
      * @return
      *      销售应付单集合
      */
-    public List<SysFinanceSaleReceivable> getAll(String page, String limit, String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(page,limit,auditType,startTime,endTime);
-        return saleReceivableMapper.getAll(util.getPageRange().getStart(),util.getPageRange().getEnd(),util.getAuditType(),util.getStartTime(), util.getEndTIme());
+    public List<SysFinanceSaleReceivable> getAll(String page, String limit, String auditState) {
+        PageRange pageRange = new PageRange(page,limit);
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return saleReceivableMapper.getAll(pageRange.getStart(),pageRange.getEnd(),auditState1);
 
     }
 
     /**
      *
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 审核状态
      * @return
      *      条件查询总条数
      */
-    public int getCount(String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(auditType,startTime,endTime);
-        return saleReceivableMapper.getCount(util.getAuditType(), util.getStartTime(), util.getEndTIme());
+    public int getCount(String auditState) {
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return saleReceivableMapper.getCount(auditState1);
     }
 }

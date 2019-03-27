@@ -28,20 +28,42 @@
 
     <form class="layui-form">
         <div class="layui-inline">
-            <label class="layui-form-label">订单状态</label>
-            <div class="layui-input-block">
-                <select id="financeState" name="financeState">
+            <label class="layui-form-label">申请状态</label>
+            <div class="layui-input-inline">
+                <select  name="applyState">
                     <option value=""></option>
-                    <option value="1">未审核</option>
-                    <option value="2">已审核</option>
+                    <option value="1">未生成</option>
+                    <option value="2">待审核</option>
+                    <option value="3">已付款</option>
+                    <option value="4">审核不通过</option>
                 </select>
             </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">申请类型</label>
+                <div class="layui-input-inline">
+                    <select  name="applyType">
+                        <option value=""></option>
+                        <option value="1">采购应付单</option>
+                        <option value="3">采购应收单</option>
+                        <option value="2">销售应收单</option>
+                        <option value="4">销售应付单</option>
+                    </select>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input id="applyTime" type="text" class="layui-input" name="applyTime" placeholder="开始 到 结束">
+                    </div>
+                </div>
         </div>
+
 
         <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryState">查询</a>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="query">查询</a>
         </div>
-
+        </div>
     </form>
 
 </blockquote>

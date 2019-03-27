@@ -30,7 +30,9 @@
         from
         a_purchase_receivable
         <where>
-                and AUDIT_TYPE=3
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
         limit #{start},#{end}
     </select>
@@ -41,11 +43,13 @@
     );-->
     <select id="getCount" resultType="int">
         select
-          count(1)
+        count(1)
         from
-          a_purchase_receivable
+        a_purchase_receivable
         <where>
-            and AUDIT_TYPE=3
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 

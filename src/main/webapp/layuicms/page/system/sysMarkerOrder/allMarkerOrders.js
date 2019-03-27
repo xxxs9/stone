@@ -51,7 +51,7 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-               {field: 'id', title: 'ID' ,fixed:'left'}
+                  {field: 'id', title: 'ID' ,fixed:'left'}
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
                 , {field: 'productId', title: '产品ID' }
@@ -59,7 +59,7 @@ layui.config({
                 , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
                 , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '付款金额' }
+                , {field: 'acceptedAmount', title: '总金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }
@@ -117,7 +117,7 @@ layui.config({
         tableIns.reload({
             where:{
                 /*status:status,*/
-                id:id,
+               id:id,
                 orderId:orderId,
                 orderTime:orderTime,
                 productId:productId,

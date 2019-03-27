@@ -41,6 +41,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if (user != null) {//获取用户角色信息
 			List<String> roles = userServiceImpl.getRoleNames(user.getId());
+
 			info.addRoles(roles);
 		} else {
 			SecurityUtils.getSubject().logout();

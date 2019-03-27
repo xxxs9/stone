@@ -7,9 +7,7 @@ import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,10 +40,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     /**增加*/
     public String insert(PurchaseOrder purchaseOrder) {
-        //修改jvm时间
-        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
-        TimeZone.setDefault(tz);
         purchaseOrder.setId(UUIDUtil.getUUID());
+        //根据登录账号的名字自动获取
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String userName = (String) request.getSession().getAttribute("sysUser");
+        purchaseOrder.setApplyUser(userName);
+        //按固定格式生成订单编号
+        purchaseOrder.setOrderNumber("GC" + OrderUtil.createOrderNumber());
         purchaseOrder.setApplyTime(new Date());
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
@@ -60,7 +61,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**修改*/
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        //purchaseOrder.setApplyTime(new Date());
+        purchaseOrder.setApplyTime(new Date());
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -75,7 +76,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String state = purchaseOrder.getState();
         String str="审核未通过";
         if(str.equals(state)){
-            purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         }else{
             purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
@@ -228,5 +229,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         dao.lookIn(purchaseOrder);
         return true;
+    }
+
+    /**根据goodsId自动获取pruce信息*/
+    public String selectPriceByGoodsId(String materialId){
+        return dao.selectPriceByGoodsId(materialId);
     }
 }

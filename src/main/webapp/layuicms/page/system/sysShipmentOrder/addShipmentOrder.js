@@ -28,50 +28,20 @@ layui.config({
 
     init();
 
-    /**
-     * 初始化组织机构树
-     * */
-    /*function initOrgTree() {
-        //获取所有组织机构树
-
-        $api.GetAllOrg(null,function (res) {
-            renderTree('#org-tree', res.data);
-        });
-
-    }*/
 
     /**
-     * 绘制树
-     * @param id dom id
-     * @param nodes 树节点数据
-     * */
-    /*function renderTree(id, nodes) {
-        //绘制前先清空
-        $(id).empty();
+     * 初始化下拉框
+     */
 
-        //绘制
-        layui.tree({
-            elem: id
-            , nodes: nodes
-            , click: function (node) {//显示组织机构数据
-                console.log(node); //node即为当前点击的节点数据
-                orgId = node.id;//保存机构id
-                orgName = node.name;
-            }
-        });
-    }*/
 
-    /**
-     * 加载产品列表
-     * */
- /*   function loadRoleList() {
+    function loadRoleList() {
         var req = {
             page: 1,
             limit: 999
         };
 
 
-        $api.GetRoleList(req,function (res) {
+        $api.GetShipmentOrder(req,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var roleHtml = "";
@@ -84,24 +54,23 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }*/
+    }
 
     /**
      * 表单提交
      * */
     form.on("submit(addShipmentOrder)", function (data) {
         var id = data.field.id;
-        var shipmentId= data.field.shipmentId;
+        var goodsId = data.field.goodsId;
         var goodsName = data.field.goodsName;
         var customer = data.field.customer;
-        var quantityNumber = data.field.quantityNumber;
-        var deliveryTime = data.field.deliveryTime;
-        var receivingAddress = data.field.receivingAddress;
-        var phone = data.field.phone;
-        var consignee = data.field.consignee;
-        var receivingTime= data.field.receivingTime;
-
+        var goodsNumber = data.field.goodsNumber;
+        var goodsAmount = data.field.goodsAmount;
+        var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
+        var auditUser = data.field.auditUser;
+        var auditType = data.field.auditType;
         var remarks = data.field.remarks
       /*  var idList = new Array();
 
@@ -120,16 +89,16 @@ layui.config({
         //请求
         var req = {
             id: id,
-            shipmentId: shipmentId,
+            goodsId: goodsId,
             goodsName: goodsName,
             customer: customer,
-            quantityNumber: quantityNumber,
-            deliveryTime: deliveryTime,
-            receivingAddress: receivingAddress,
-            phone: phone,
-            consignee: consignee,
-            receivingTime: receivingTime,
+            goodsNumber: goodsNumber,
+            goodsAmount: goodsAmount,
+            applyUser: applyUser,
+            applyTime: applyTime,
             state: state,
+            auditUser: auditUser,
+            auditType: auditType,
             remarks: remarks
 
         };
@@ -152,15 +121,6 @@ layui.config({
         //执行一个laydate实例
         laydate.render({
             elem: '#test1' //指定元素
-            ,type: 'datetime'
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#test2' //指定元素
             ,type: 'datetime'
         });
     });

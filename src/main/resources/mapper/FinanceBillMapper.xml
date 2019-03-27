@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinanceBillMapper" >
+
+    <resultMap id="billMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceBill">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="department" column="DEPARTMENT" jdbcType="VARCHAR"/>
+        <result property="balance" column="BALANCE" jdbcType="INTEGER"/>
+        <result property="billTime" column="BILL_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--add-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceBill">
+        insert into a_bill
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="department != null and department != ''">
+                DEPARTMENT,
+            </if>
+            <if test="balance != null and balance != ''">
+                BALANCE,
+            </if>
+            <if test="billTime != null and billTime != ''">
+                BILL_TIME,
+            </if>
+        </trim>
+        <trim prefix=" value(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="department != null and department != ''">
+                #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null and balance != ''">
+                #{balance,jdbcType=INTEGER},
+            </if>
+            <if test="billTime != null and billTime != ''">
+                #{billTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--列表   List<SysFinanceBill> getAll(int start,int end);-->
+    <select id="getAll" resultMap="billMap">
+        select * from a_bill
+        limit #{start},#{end}
+    </select>
+
+    <!--总条数   int getCount();-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1) from a_bill
+    </select>
+
+    <!--查找所有bill   List<SysFinanceBill> getAllBill();-->
+    <select id="getAllBill" resultMap="billMap">
+        select * from a_bill
+    </select>
+
+</mapper>

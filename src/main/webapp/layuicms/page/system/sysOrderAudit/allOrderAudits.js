@@ -42,10 +42,10 @@ layui.config({
                 , {field: 'orderTime', title: '订单日期' }
                 , {field: 'productId', title: '产品ID' }
                 , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '发货数量' }
+                , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
-                , {field: 'plannedNumber', title: '生产计划数量' }
-                , {field: 'acceptedAmount', title: '已收款金额' }
+                , {field: 'plannedNumber', title: '产品单价' }
+                , {field: 'acceptedAmount', title: '总金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }

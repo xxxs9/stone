@@ -68,12 +68,12 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
-                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:100}
+                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
                 , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品价格', width:100}
                 , {field: 'state', title: '审核状态', width:120}
-                , {field: 'applyUser', title: '申请人', width:80}
+                , {field: 'applyUser', title: '申请人', width:100}
                 , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'applyDescribe', title: '申请描述', width:220}
                 , {field: 'orderAuditUser', title: '审核人', width:80}

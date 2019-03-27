@@ -18,12 +18,13 @@ layui.config({
 
     //采购进货应付单
         var option1 = {
+
             elem:'#purchasePay',
-            id:'11',
-            height:500,
+            id:'purchasePay',
+            height:400,
             //height: 'full-100',
             cols:[[
-                {field:'purchaseOrderId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderId'},
+                {fixed:'left',field:'purchaseOrderId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderId'},
                 {field:'unitPrice',width:120,title:'单价'},
                 {field:'auditType',width:120,title:'订单类型',hide : false},
                 {field:'goodsNumber',width:120,title:'采购数量'},
@@ -34,7 +35,7 @@ layui.config({
                 {field:'auditUser',width:120,title:'审核人'},
                 {field:'auditTime',width:180,title:'审核时间'},
                 {field:'auditDescribe',width:120,title:'审核信息'},
-                {field:'auditState',width:120,title:'审核状态'},
+                {field:'auditState',width:120,title:'审核状态',templet:'#applyState'},
                 {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
             ]],
             url:$tool.getContext() + 'finance/purchasePayList.do',
@@ -47,16 +48,17 @@ layui.config({
                 $(".layui-table-box").find("[data-field='auditType']").css("display","none");
             }
         };
-    table.render(option1)
+    tableIns = table.render(option1)
+    form.render();
 
     //采购退货应收单
     var option2 = {
         elem:'#purchaseReceive',
-        //id:'22',
-        height:500,
+        id:'purchaseReceive',
+        height:400,
         //height: 'full-100',
         cols:[[
-            {field:'purchaseOrderRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderRejectedId'},
+            {fixed:'left',field:'purchaseOrderRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#purchaseOrderRejectedId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'rejectedNumber',width:120,title:'退货数量'},
             {field:'auditType',width:120,title:'单价',style:'display:none;'},
@@ -67,7 +69,7 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {field:'auditState',width:120,title:'审核状态'},
+            {field:'auditState',width:120,title:'审核状态',templet:'#applyState'},
             {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/purchaseReceiveList.do',
@@ -76,16 +78,17 @@ layui.config({
         limit:[10,20,30,40],
         limit:10
     };
-    table.render(option2)
+    tableIns = table.render(option2)
+    form.render();
 
     //销售退货应付单
     var option3 = {
         elem:'#salePay',
-        //id:''
-        height:500,
+        id:'salePay',
+        height:400,
         //height: 'full-100',
         cols:[[
-            {field:'saleRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#saleRejectedId'},
+            {fixed:'left',field:'saleRejectedId',width:120,title:'订单编号',event:'show',style:'cursor:pointer',templet:'#saleRejectedId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'rejectedNumber',width:120,title:'退货数量'},
             {field:'auditType',width:120,title:'单价',style:'display:none;'},
@@ -96,7 +99,7 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {field:'auditState',width:120,title:'审核状态'},
+            {field:'auditState',width:120,title:'审核状态',templet:'#applyState'},
             {fixed:'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/salePayList.do',
@@ -105,16 +108,17 @@ layui.config({
         limit:[10,20,30,40],
         limit:10
     };
-    table.render(option3)
+    tableIns = table.render(option3)
+    form.render();
 
     //销售发货应收单
     var option4 = {
         elem:'#saleReceive',
-        //id:''
-        height:500,
+        id:'saleReceive',
+        height:400,
         //height: 'full-100',
         cols:[[
-            {field:'saleId',width:120,title:'订单编号',fixed: 'left',event:'show',style:'cursor:pointer',templet:'#saleId'},
+            {fixed:'left',field:'saleId',width:120,title:'订单编号',fixed: 'left',event:'show',style:'cursor:pointer',templet:'#saleId'},
             {field:'unitPrice',width:120,title:'单价'},
             {field:'productNumber',width:120,title:'发货数量'},
             {field:'auditType',width:120,title:'单价',style:'display:none;'},
@@ -125,7 +129,7 @@ layui.config({
             {field:'auditUser',width:120,title:'审核人'},
             {field:'auditTime',width:180,title:'审核时间'},
             {field:'auditDescribe',width:120,title:'审核信息'},
-            {field:'auditState',width:120,title:'审核状态'},
+            {field:'auditState',width:120,title:'审核状态',templet:'#applyState'},
             {fixed: 'right',title:'操作',toolbar:'#barDemo',width:100},
         ]],
         url:$tool.getContext() + 'finance/saleReceiveList.do',
@@ -134,7 +138,7 @@ layui.config({
         limit:[10,20,30,40],
         limit:10,
     };
-    table.render(option4)
+    tableIns = table.render(option4)
     form.render();
 
     //为toolbar添加事件响应,采购应付
@@ -239,5 +243,41 @@ layui.config({
         });
         layui.layer.full(index);
     }
+
+    //查询
+    form.on("submit(query)", function (data) {
+        var auditState = data.field.applyState;
+        //表格重新加载
+        console.log(data)
+        table.reload('purchasePay',{
+            url: $tool.getContext() + 'finance/purchasePayList.do',
+            where:{
+                auditState:auditState,
+            }
+        });
+
+        table.reload('purchaseReceive',{
+            url:$tool.getContext() + 'finance/purchaseReceiveList.do',
+            where:{
+                auditState:auditState,
+            }
+        });
+
+        table.reload('salePay',{
+            url:$tool.getContext() + 'finance/salePayList.do',
+            where:{
+                auditState:auditState,
+            }
+        });
+
+        table.reload('saleReceive',{
+            url:$tool.getContext() + 'finance/saleReceiveList.do',
+            where:{
+                auditState:auditState,
+            }
+        });
+
+        return false;
+    });
 
 });
