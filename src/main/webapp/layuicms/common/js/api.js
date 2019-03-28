@@ -182,6 +182,7 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
+
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -239,7 +240,8 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },        //修改
+        },
+        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -381,6 +383,10 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
 
         },
+        AddProduct:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
+        },
+
         AddProduct:function(req,config,successCallback,errorCallback){
             doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
         },

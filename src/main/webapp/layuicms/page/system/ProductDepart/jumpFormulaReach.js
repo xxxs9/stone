@@ -215,6 +215,8 @@ layui.config({
 
         };
 
+
+
         $api.addFormulaReach(req, function (data) {
 
             layer.msg("领料单填写成功！等待仓库审核", {time: 1000}, function () {

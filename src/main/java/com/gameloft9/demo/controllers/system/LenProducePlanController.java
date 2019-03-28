@@ -90,7 +90,7 @@ public class LenProducePlanController {
         return  new ResultBean<Boolean>(service.changeState(id));
     }
 
-        /*更改other1字段*/
+    /**更改other1字段*/
     @RequestMapping(value = "/cho",method = RequestMethod.POST)
     @ResponseBody
     public  IResult chgother(String id){

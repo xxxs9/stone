@@ -41,13 +41,16 @@
     <!--mysql版本/分页查询-->
     <select id="selectByPage" resultMap="BaseResultMap">
         select ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3 from l_produce_plan t
-        where 1=1
+        <where>
+
         <if test="productId != null and productId != ''">
             and t.PRODUCT_ID= #{productId,jdbcType=VARCHAR}
         </if>
         <if test="state != null and state != ''">
             and t.STATE = #{state,jdbcType=VARCHAR}
         </if>
+
+        </where>
         order by t.id desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>

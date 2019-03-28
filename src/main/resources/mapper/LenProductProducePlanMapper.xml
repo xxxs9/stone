@@ -53,7 +53,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="Base_Column_List">
-        select * from l_produce_plan p,l_product d where p.PRODUCT_ID=d.ID
+        select * from l_produce_plan p,l_product d where p.PRODUCT_ID=d.ID and p.OTHER1 is null
     </select>
 
     <select id="getById" resultMap="Base_Column_List">
