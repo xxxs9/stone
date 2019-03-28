@@ -68,7 +68,7 @@ public class NumberUtil {
     public static int strToInt(String str){
         int num = 0;
         if(str != null && !"".equals(str)){
-            num = Integer.parseInt(str);
+            num =   Integer.parseInt(str);
         }
         return num;
     }
