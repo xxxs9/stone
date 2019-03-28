@@ -214,26 +214,33 @@ layui.config({
     }
 
     function audi(id){
-
         var index = layui.layer.open({
 
             title: "领料单",
             type: 2,
-            content: "jumpFormulaReach.html?id=" + id,
+            content: "jumpFormulaReach.html?id="+id,
+            async:false,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
+
             }
+
         });
         $(window).resize(function () {
             layui.layer.full(index);
         });
         layui.layer.full(index);
+        req1={id:id}
+        $api.changeOther1(req1,function () {
+
+        })
 
     }
+    
     //跳转生成生产计划单
     function producing(id) {
         var index = layui.layer.open({
