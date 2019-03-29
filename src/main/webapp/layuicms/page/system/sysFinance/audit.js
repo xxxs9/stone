@@ -4,7 +4,7 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'laydate', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['form', 'laydate', 'layedit', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
@@ -12,6 +12,7 @@ layui.config({
         $tool = layui.$tool,
         laydate = layui.laydate,
         table = layui.table,
+        layedit = layui.layedit,
         $api = layui.$api;
 
     var tableIns;//表格实例
@@ -23,6 +24,22 @@ layui.config({
     function init(){
         initPage();
     }
+
+    /**
+     * 文本框校验
+     */
+    form.verify({
+        actualBalance: function(value){
+            if(value<0){
+                return '实际价格要大于0';
+            }
+        },
+        auditDescribe: function(value){
+            if(value.length<=0){
+                return '请输入审核内容';
+            }
+        },
+    })
 
     function initPage(){
         var queryArgs = $tool.getQueryParam();//获取查询参数
