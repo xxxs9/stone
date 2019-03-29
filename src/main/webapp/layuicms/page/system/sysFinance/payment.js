@@ -34,7 +34,7 @@ layui.config({
                 , {field: 'balance', title: '金额', width: 100}
                 , {field: 'documentMaker', title: '制单人', width: 150}
                 , {field: 'documentMakeTime', title: '制单时间', width: 180}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码

@@ -155,8 +155,7 @@ layui.config({
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
             var price = $('[name=price]').val();
-            var goodsNumber = $('[name=auditType]').val();
-            alert(1)
+            var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
                 id1:id1,
                 id:payId,
