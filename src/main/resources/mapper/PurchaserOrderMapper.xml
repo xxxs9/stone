@@ -85,8 +85,13 @@
             FINANCE_STATE
         FROM
             t_purchase_order
-        WHERE
-            STATE != '未提交'
+        <where>
+            <if test="financeState != null and financeState != ''">
+                and FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
+                and STATE != '未提交'
+        </where>
+
     </select>
 
     <!--根据id获取-->
@@ -122,6 +127,7 @@
               APPLY_USER,
               APPLY_TIME,
               STATE,
+              AUDIT_TYPE,
               APPLY_DESCRIBE)
         VALUES
               (#{id},
@@ -133,6 +139,7 @@
               #{applyUser},
               #{applyTime},
               #{state},
+              #{auditType},
               #{applyDescribe})
     </insert>
 
@@ -185,6 +192,9 @@
             <if test="state != null and state != ''">
                 AND t.state = #{state}
             </if>
+            <if test="financeState != null and financeState != ''">
+                AND FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
@@ -200,6 +210,14 @@
     <select id="getSelectListState" resultType="java.lang.String">
         SELECT DISTINCT
             STATE
+        FROM
+            t_purchase_order
+    </select>
+
+    <!--财务审核状态financeState下拉框-->
+    <select id="getSelectListFinance" resultType="java.lang.String">
+        SELECT DISTINCT
+            FINANCE_STATE
         FROM
             t_purchase_order
     </select>
@@ -276,8 +294,7 @@
             STATE=#{state},
             ORDER_AUDIT_USER=#{orderAuditUser},
             ORDER_AUDIT_TIME=#{orderAuditTime},
-            AUDIT_DESCRIBE=#{auditDescribe},
-            FINANCE_STATE=#{financeState}
+            AUDIT_DESCRIBE=#{auditDescribe}
         WHERE
             ID=#{id}
     </update>
