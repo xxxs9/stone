@@ -37,7 +37,9 @@ layui.config({
             var data = res.data;
             $("[name='supplierName']").val(data.supplierName);
             $("[name='supplierDescribe']").val(data.supplierDescribe);
+            $("[name='chargeName']").val(data.chargeName);
             $("[name='phone']").val(data.phone);
+            $("[name='email']").val(data.email);
             form.render();//重新绘制表单，让修改生效
         });
     }
@@ -50,7 +52,9 @@ layui.config({
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var supplierName = data.field.supplierName;
         var supplierDescribe = data.field.supplierDescribe;
+        var chargeName = data.field.chargeName;
         var phone = data.field.phone;
+        var email = data.field.email;
 
         //请求
         var url = $tool.getContext()+'supplier/update.do';
@@ -58,7 +62,9 @@ layui.config({
             id:queryArgs['id'],
             supplierName:supplierName,
             supplierDescribe:supplierDescribe,
-            phone:phone
+            chargeName:chargeName,
+            phone:phone,
+            email:email
         };
 
         $api.UpdateSupplier(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {

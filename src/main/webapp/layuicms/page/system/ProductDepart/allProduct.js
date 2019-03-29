@@ -43,17 +43,19 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
+
             , url: $tool.getContext() + 'product/pageList' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
                   {field: 'productName', title: '产品名称'}
+                  ,{field: 'productNumber', title: '产品数量'}
+                 ,{field: 'supportPrice', title: '成本'}
+                 ,{field: 'canSold', title: '是否可售',templet:'#cd'}
                 , {field: 'productType', title: '产品类型',templet:'#tmp'}
                 , {field: 'state', title: '产品状态',templet:'#tmpe'}
                 , {field: 'productDescribe', title: '产品描述'}
-                , {field: 'wasteId', title: '废料编号'}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -70,9 +72,18 @@ layui.config({
             //区分事件
             if (layEvent === 'del') { //删除
                 delMenu(row.id);
-            } else if (layEvent === 'edit') { //编辑
+            } else if (layEvent === 'edit') {
                 //do something
                 editMenu(row.id);
+
+            }else if (layEvent === 'audi') { //编辑
+                //do something
+                audi(row.id);
+            }else if(layEvent==='stepBack'){
+                stepBack(row.id);
+
+            }else if (layEvent==='plan') {
+                plan(row.id);
             }
         });
     }
@@ -145,7 +156,7 @@ layui.config({
             title: "修改内容",
             type: 2,
             content: "editProduct.html?id="+id,
-            success: function (layero, index) {
+            success: function (layer, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -160,4 +171,64 @@ layui.config({
         });
         layui.layer.full(index);
     }
+
+    //计划
+    function plan(id){
+        var index = layui.layer.open({
+            title: "生产计划",
+            type: 2,
+            content: "addProducePlan.html?id="+id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+
+    function audi(id){
+        layer.confirm('请确认操作', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id
+            };
+
+            $api.changProductState(req,function (data) {
+                layer.msg("操作成功",{time:1000},function(){
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+            return false;
+        });
+    }
+        function stepBack(id) {
+            layer.confirm('确定撤回吗？', function (confirmIndex) {
+                layer.close(confirmIndex);//关闭confirm
+                //向服务端发送删除指令
+                var req = {
+                    id: id
+                };
+
+                $api.stepBack1(req,function (data) {
+                    layer.msg("操作成功",{time:1000},function(){
+                        //重新加载表格
+                        tableIns.reload();
+                    });
+                });
+                return false;
+            });
+
+        }
+
 });

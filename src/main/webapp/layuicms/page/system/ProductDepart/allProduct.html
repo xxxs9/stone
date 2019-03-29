@@ -20,15 +20,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">产品名称</label>
             <div class="layui-input-block">
-                <select id="materialId" name="productName">
-
-                </select>
+                <input type="text" class="layui-input" name="productName" placeholder="输入产品名称">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">产品类型</label>
             <div class="layui-input-block">
-                <select id="supplierId" name="productType">
+                <select  name="state">
                     <option value="">---请选择---</option>
                     <option value="0">1.半成品</option>
                     <option value="1">2.成品</option>
@@ -61,17 +59,24 @@
 
     {{#  if(d.state == '0'){ }}
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe643;</i>下单</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe643;</i>提交</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# } else if(d.state == '1'){ }}
-    <a class="layui-btn layui-btn-sm" lay-event="stepback"><i class="layui-icon">&#xe65c;</i>撤回</a>
+    <a class="layui-btn layui-btn-sm" lay-event="stepBack"><i class="layui-icon">&#xe65c;</i>撤回</a>
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe641;</i>提审</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{#  } else if(d.state == '2'){ }}
-    <a class="layui-btn layui-btn-sm  layui-btn-disabled" ><i class="layui-icon">&#xe65c;</i>撤回</a>
+    <a class="layui-btn layui-btn-sm" lay-event="stepBack"><i class="layui-icon">&#xe65c;</i>撤回</a>
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe655;</i>审核</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-
+    {{#  } else if(d.state == '3'){ }}
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edi"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="plan"><i class="layui-icon">&#xe643;</i>计划</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.state == '4'){ }}
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edi"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe643;</i>等待</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{#  } }}
 </script>
 <script type="text/html" id="tmp">
@@ -86,10 +91,22 @@
     {{#  } }}
 
 </script>
+<script type="text/html" id="cd">
+
+    {{#  if(d.canSold == '0'){ }}
+    <span>可售</span>
+
+    {{#  } else if(d.canSold == '1'){ }}
+    <span>不可售</span>
+
+    {{#  } }}
+
+</script>
+
 <script type="text/html" id="tmpe">
 
     {{#  if(d.state == '0'){ }}
-    <span>未下单</span>
+    <span>未提交</span>
     {{#  } else if(d.state == '1'){ }}
     <span>已提交</span>
     {{#  } else if(d.state == '2'){ }}

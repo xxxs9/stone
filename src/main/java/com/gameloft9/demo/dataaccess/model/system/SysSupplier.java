@@ -1,9 +1,15 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import lombok.Data;
 
 import java.io.Serializable;
+
+/**
+ * 供应商实体类
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 16:50
+ * @Description:
+ **/
 
 @Data
 public class SysSupplier implements Serializable {
@@ -14,6 +20,11 @@ public class SysSupplier implements Serializable {
 
     private String supplierDescribe;
 
-    private String phone;
-}
+    private String chargeName;
 
+    private String phone;
+
+    private String email;
+
+
+}

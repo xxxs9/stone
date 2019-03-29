@@ -1,7 +1,5 @@
 package com.gameloft9.demo.utils;
 
-import lombok.Data;
-
 /**
  * 常量
  * Created by gameloft9 on 2017/12/13.
@@ -130,6 +128,86 @@ public class Constants {
         public static final String APPLY_PASS="审核通过";
         public static final String APPLY_FAIL="审核未通过";
     }
+
+
+    //    TODO(stateCode)
+    /**
+     * lennon_product_STATECODE
+     */
+
+
+    /**
+     * 产品未提交
+     */
+    public static final String UN_TIJIAO = "0";
+    /**
+     * 产品提交
+     */
+    public static final String TIJIAO = "1";
+    /**
+     * 产品未审核
+     */
+    public static final String UN_AUDI = "2";
+    /**
+     * 产品审核
+     */
+    public static final String ADUI = "3";
+    /**
+     * 产品生产中
+     */
+    public static final String PRODUCING = "4";
+    /**
+     * 产品入库
+     */
+    public static final String INTO_DEPOT = "5";
+
+    public static final String PRODUCE_ADMIN="生产部主管";
+
+    public static final String PRODUCE_STADFF="生产部员工";
+
+    /**
+     * 仓库审核
+     */
+    public static final String UN_PASS="2";
+
+    public static final String DEPOT_PASS="1";
+
+    public static final String DEPOT_UN_AUDI="0";
+
+    /**
+     * 领料单状态码
+     */
+    public static  final String JYWTG="-1";
+    /**
+     * 检验未通过
+     */
+
+    /**
+     * 等待审核
+     */
+    public static  final String DDSH="0";
+
+    /**
+     * 开始生产
+     */
+    public static final String KSSC="1";
+    /**
+     * 生产暂停
+     */
+    public static final String SCZT="2";
+
+    /**
+     * 生产完成
+     */
+    public static final String SCWC="3";
+    /**
+     * 继续生产
+     */
+    public static final String JXSC="1-1";
+
+
+    public static final String ZUOFEI="-1";
+
 
     /**
      * 审核状态：财务

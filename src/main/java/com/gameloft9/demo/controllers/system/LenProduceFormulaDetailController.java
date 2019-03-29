@@ -59,4 +59,10 @@ public class LenProduceFormulaDetailController {
     }
 
 
+    @RequestMapping("/get")
+    @ResponseBody
+    public IResult getById(String id){
+        return  new ResultBean<LenProduceFormulaDetail>(service.getByPrimaryKey(id));
+    }
+
 }

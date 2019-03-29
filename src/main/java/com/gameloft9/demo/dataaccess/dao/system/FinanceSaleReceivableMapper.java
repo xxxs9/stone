@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +38,26 @@ public interface FinanceSaleReceivableMapper extends BaseMapper<SysFinanceSaleRe
     int getCount(
             @Param("auditState") int auditState
     );
+
+    /**
+     * 根据purchaseOrderId 和auditType
+     *
+     * @param saleId 采购订单编号
+     * @param auditType 采购订单类型
+     * @return
+     *
+     */
+    SysFinanceSaleReceivable getSaleReceiveBysaleIdAndAuditType(
+            @Param("saleId") String saleId,
+            @Param("auditType") Integer auditType
+    );
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      SysFinanceSaleBillsPayable
+     */
+    SysFinanceSaleReceivable getSaleReceiveById(@Param("id") String id);
 }

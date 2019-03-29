@@ -29,43 +29,80 @@ layui.config({
         };
 
         //沧海的getPurOrder
-        $api.getPurOrder(req,function (res) {
-            var data = res.data;
-            $('#id').val(id);
-            $("[name='goodsId']").val(data.goodsId);
-            $("[name='goodsNumber']").val(data.goodsNumber);
-            $("[name='price']").val(data.price);
-            $("[name='applyUser']").val(data.applyUser);
-            $("[name='applyTime']").val(data.applyTime);
-            $("[name='applyDescribe']").val(data.applyDescribe);
-            //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
-            //加载角色列表
-            //loadRoleList();
+        if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+            $api.getPurOrder(req,function (res) {
+                var data = res.data;
+                $('#id').val(id);
+                $("[name='goodsId']").val(data.goodsId);
+                $("[name='goodsNumber']").val(data.goodsNumber);
+                $("[name='price']").val(data.price);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+                //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
+                //加载角色列表
+                //loadRoleList();
 
 
-            if(queryArgs.applyType == 1 || queryArgs.applyType==3){
-                $('#apply').text('采购订单申请');
-            } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
-                $('#apply').text('销售订单申请');
-            }
-            form.render();//重新绘制表单，让修改生效
-        });
+                if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+                    $('#apply').text('采购订单申请');
+                } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
+                    $('#apply').text('销售订单申请');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        } else if(queryArgs.applyType == 2){
+            $api.GetShipmentOrder(req,function (res) {
+                var data = res.data;
+                var goodsAmount = data.goodsAmount;
+                var goodsNumber = data.goodsNumber;
+                var unitPrice = goodsAmount/goodsNumber;
+                $('#id').val(id);
+                $("[name='goodsId']").val(data.goodsName);
+                $("[name='goodsNumber']").val(data.goodsNumber);
+                $("[name='price']").val(unitPrice);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+                //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
+                //加载角色列表
+                //loadRoleList();
 
-        /*$api.getPurOrder(req,function (res) {
-            //alert($('#id').val())  申请订单id
-            var data = res.data;
-            $("[name='goodsId']").val(data.goodsId);
-            $("[name='goodsNumber']").val(data.goodsNumber);
-            $("[name='price']").val(data.price);
-            $("[name='applyUser']").val(data.applyUser);
-            $("[name='applyTime']").val(data.applyTime);
-            $("[name='applyDescribe']").val(data.applyDescribe);
 
-            //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
-            //加载角色列表
-            //loadRoleList();
-            form.render();//重新绘制表单，让修改生效
-        });*/
+                if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+                    $('#apply').text('采购订单申请');
+                } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
+                    $('#apply').text('销售订单申请');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        }else if(queryArgs.applyType == 4){
+            $api.GetReturnGoodsOrder(req,function (res) {
+                var data = res.data;
+                var goodsAmount = data.goodsAmount;
+                var goodsNumber = data.goodsNumber;
+                var unitPrice = goodsAmount/goodsNumber;
+                $('#id').val(id);
+                $("[name='goodsId']").val(data.goodsName);
+                $("[name='goodsNumber']").val(data.goodsNumber);
+                $("[name='price']").val(unitPrice);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+                //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
+                //加载角色列表
+                //loadRoleList();
+
+
+                if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+                    $('#apply').text('采购订单申请');
+                } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
+                    $('#apply').text('销售订单申请');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        }
+
     }
 
     init();
@@ -93,7 +130,6 @@ layui.config({
         $api.getPurchasePay(req1,function(res){
             var data = res.data;
             if(data != null){
-                alert(1)
                 $('#show').text('查看应付单');
                 $('#addPurchasePay').show()
                 $("[name='purchaseOrderId']").val(data.purchaseOrderId);
@@ -105,7 +141,6 @@ layui.config({
             } else{
                 $api.insertPurchasePay(req,function(data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                    alert(2)
                     $('#addPurchasePay').show()
                     $("[name='purchaseOrderId']").val(data.purchaseOrderId);
                     $("[name='unitPrice']").val(data.unitPrice);

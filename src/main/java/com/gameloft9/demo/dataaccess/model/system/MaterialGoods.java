@@ -2,13 +2,17 @@ package com.gameloft9.demo.dataaccess.model.system;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * MaterialGoods 实体类
- * @author OliverCH
- * @date 2019/03/19
- */
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 16:44
+ * @Description:
+ **/
+
 @Data
-public class MaterialGoods {
+public class MaterialGoods implements Serializable {
+
     private String id;
     private String supplierId;
     private String materialId;

@@ -61,16 +61,16 @@ public class OrderUtil {
      * @throws Exception
      */
     public static String createOrderNumber(){
-        //格式化日期为"yymmdd"
-        DateFormat format = new SimpleDateFormat("MMdd");
+        //格式化日期为"mmdd"
+        DateFormat format = new SimpleDateFormat("yyMMdd");
         Date date = new Date();
         StringBuffer buffer = new StringBuffer();
-
         buffer.append(format.format(date));
-        buffer.append((date.getTime() + "").substring(9));
+        //buffer.append((date.getTime() + "").substring(9));
         buffer.append(getRandNum(4));
         return buffer.toString();
     }
+
     /**
      * 获取四位随机数
      * @param leng  随机数长度
@@ -87,4 +87,5 @@ public class OrderUtil {
         }
         return null;
     }
+
 }

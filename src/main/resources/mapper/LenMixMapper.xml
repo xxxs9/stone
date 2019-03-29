@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenMixMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+            <id column="ID" property="id"/>
+            <result  column="PRODUCT_NAME" property="productName"/>
+            <result column="PRODUCT_TYPE" property="productType"/>
+            <result column="PRODUCT_NUMBER" property="productNumber"/>
+            <result column="STATE" property="state"/>
+            <result column="CAN_SOLD" property="canSold"/>
+            <result column="SUPPORT_PRICE" property="supportPrice"/>
+            <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormula">
+        <id column="ID" property="id"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="FORMULA_TYPE" property="formulaType"/>
+        <result column="FORMULA_NUMBER" property="formulaNumber"/>
+        <result column="CREATE_USER" property="createUser"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
+        <result column="OTHER1" property="other1"/>
+        <result column="OTHER2" property="other2"/>
+        <result column="OTHER3" property="other3"/>
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+        <id column="ID" property="id"/>
+        <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
+        <result column="MATERIAL_ID" property="materialId"/>
+        <result column="MATERIAL_NUMBER" property="materialNumber"/>
+        <result column="DEPOT_ID" property="depotId"/>
+        <result column="OTHER1" property="other1"/>
+        <result column="OTHER2" property="other2"/>
+        <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <resultMap id="mix" type="com.gameloft9.demo.dataaccess.model.system.LenProductInfo">
+        <id column="ID" property="id"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
+
+        <result column="PRODUCT_NAME" property="productName"/>
+        <result column="PRODUCT_TYPE" property="productType"/>
+        <result column="STATE" property="state"/>
+        <result column="SUPPORT_PRICE" property="supportPrice"/>
+
+        <result column="FORMULA_TYPE" property="formulaType"/>
+        <result column="FORMULA_NUMBER" property="formulaNumber"/>
+        <result column="CREATE_USER" property="createUser"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
+
+        <result column="MATERIAL_ID" property="materialId"/>
+        <result column="MATERIAL_NUMBER" property="materialNumber"/>
+        <result column="DEPOT_ID" property="depotId"/>
+
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+     PRODUCT_ID,PRODUCE_FORMULA_ID,PRODUCT_NAME,PRODUCT_TYPE,
+     STATE,SUPPORT_PRICE,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,CREATE_TIME,MATERIAL_ID,
+     MATERIAL_NUMBER,DEPOT_ID
+     </sql>
+
+    <select id="selectAll" resultMap="mix">
+
+       select PRODUCT_ID,PRODUCE_FORMULA_ID,PRODUCT_NAME,PRODUCT_TYPE,
+     STATE,SUPPORT_PRICE,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,CREATE_TIME,MATERIAL_ID,
+     MATERIAL_NUMBER,DEPOT_ID from (l_product p inner join l_produce_formula f on p.ID=f.PRODUCT_ID) inner join l_produce_formula_detail d
+     on d.PRODUCE_FORMULA_ID = f.ID
+    </select>
+
+    <select id="selectById" resultMap="mix">
+
+
+       select PRODUCT_ID,PRODUCE_FORMULA_ID,PRODUCT_NAME,PRODUCT_TYPE,
+     STATE,SUPPORT_PRICE,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,CREATE_TIME,MATERIAL_ID,
+     MATERIAL_NUMBER,DEPOT_ID from (l_product p inner join l_produce_formula f on p.ID=f.PRODUCT_ID) inner join l_produce_formula_detail d
+     on d.PRODUCE_FORMULA_ID = f.ID where p.ID=#{id}
+
+
+    </select>
+   <!-- <select id="getByPrimaryKey" resultMap="BaseResultMap" >
+        select
+        ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+        from l_product
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    &lt;!&ndash;mysql版本/分页查询&ndash;&gt;
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3 from l_product t
+        where 1=1
+        <if test="productName != null and productName != ''">
+            and t.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+        </if>
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    &lt;!&ndash;oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>&ndash;&gt;
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_product t
+        where 1=1
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_product
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+    insert into l_product ( ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3)
+    values (
+    #{id},
+    #{productName},
+    #{productType},
+    #{productNumber},
+    #{state},
+    #{canSold},
+    #{supportPrice},
+    #{productDescribe},
+    #{other1},
+    #{other2},
+    #{other3}
+    )
+  </insert>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        insert into l_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                canSold,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productNumber != null">
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="canSold != null">
+                #{canSold,jdbcType=VARCHAR},
+            </if>
+            <if test="supportPrice != null">
+                #{supportPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="productDescribe != null">
+                #{productDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR}
+            </if>
+        </trim>
+
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        update l_product
+        <set>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                CAN_SOLD,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+    update l_product
+    set
+     PRODUCT_NAME=#{productName},
+     PRODUCT_TYPE= #{productType},
+     PRODUCT_NUMBER=#{productNumber},
+     STATE=#{state},
+     CAN_SOLD=#{canSold},
+     SUPPORT_PRICE=#{supportPrice},
+     PRODUCT_DESCRIBE=#{productDescribe},
+     OTHER1=#{other1},
+     OTHER2=#{other2},
+     OTHER3=#{other3}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <update id="changeState" parameterType="String">
+        update l_product set STATE=#{state} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByState"  resultMap="BaseResultMap">
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+        from l_product where STATE='3';
+    </select>-->
+</mapper>
+
