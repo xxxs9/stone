@@ -164,4 +164,17 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
         shipmentOrderMapper.goods(shipmentOrder);
         return true;
     }
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    @Override
+    public Boolean sub(ShipmentOrder shipmentOrder) {
+        CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
+        shipmentOrder.setState(StateUUtil.APPLY_sub);
+        shipmentOrderMapper.sub(shipmentOrder);
+        return true;
+    }
 }

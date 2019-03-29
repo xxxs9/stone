@@ -630,6 +630,15 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库发货
         updateGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
+        },//提交财务
+        updateSub:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/sub',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateSubmit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/submit',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateWare:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/ware',req,successCallback,errorCallback);
         }
     };
 
