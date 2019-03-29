@@ -54,6 +54,28 @@ layui.config({
         });
     });
 
+    //对价格进行判断，不能为零或负数
+    form.verify({
+       actualBalance:function (value) {
+           if(value<0){
+               return '价格不能为负数!';
+           } else if (value===0){
+               return '价格不能为零!';
+           }
+       }
+    });
+
+    //计算总金额 数量goodsNumber*价格price
+    $(function(){
+        //总结个totalPrice
+        $('[name=totalPrice]').bind('click',function(){
+
+            var price = $('[name=price]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            $("[name = totalPrice]").val(price * goodsNumber);
+        })
+    });
+
     /**
      * 表单提交
      * */
@@ -63,6 +85,7 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
         var applyTime = data.field.applyTime;
         var state = data.field.state;
@@ -80,6 +103,7 @@ layui.config({
             goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
+            totalPrice:totalPrice,
             applyUser: applyUser,
             applyTime: applyTime,
             state:state,
@@ -96,15 +120,4 @@ layui.config({
         });
         return false;
     })
-
-    /*//获取实时时间
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#time' //指定元素
-            ,type: 'datetime'
-        });
-    });*/
 });

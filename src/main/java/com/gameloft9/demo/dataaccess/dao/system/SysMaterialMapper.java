@@ -5,15 +5,23 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 20:06
+ * @Description:
+ **/
 public interface SysMaterialMapper {
 
     /**
      * 获取货物类型列表
-     * */
+     * @return
+     */
     List<String> getGoodsType();
+
     /**
      * 获取货物规格列表
-     * */
+     * @return
+     */
     List<String> getGoodsSpecification();
 
     /**
@@ -28,44 +36,57 @@ public interface SysMaterialMapper {
                              @Param("goodsName") String goodsName,
                              @Param("goodsType") String goodsType,
                              @Param("goodsSpecification") String goodsSpecification);
+
     /**
      * 获取原料个数
-     * @param goodsName             货物名称
-     * @param goodsType             货物类型
+     * @param goodsName  货物名称
+     * @param goodsType     货物类型
      * @param goodsSpecification    货物规格
-     * */
+     * @return
+     */
     int countGetAll(@Param("goodsName") String goodsName,
                     @Param("goodsType") String goodsType,
                     @Param("goodsSpecification") String goodsSpecification);
 
     /**
      * 新增原料种类
-     * */
+     * @param record
+     * @return
+     */
     int insertSelective(SysMaterial record);
+
 
     /**
      * 根据货品名获取原料
-     * @param goodsName 货品名称
+     * @param goodsName
+     * @return
      */
     SysMaterial getByGoodsName(@Param("goodsName") String goodsName);
+
     /**
      * 根据主键获取原料信息
-     * @param id 原料主键
-     * */
+     * @param id
+     * @return
+     */
     SysMaterial getById(@Param("id") String id);
+
     /**
      * 根据更新原料信息
-     * @param record 原料
-     * */
+     * @param record
+     * @return
+     */
     int updateByPrimaryKeySelective(SysMaterial record);
+
     /**
      * 根据主键删除原料信息
-     * @param id 原料id
-     * */
+     * @param id
+     * @return
+     */
     int deleteByPrimaryKey(String id);
 
     /**
      * 获取货物名称列表
-     * */
+     * @return
+     */
     List<String> getGoodsName();
 }

@@ -37,9 +37,11 @@ layui.config({
             , cols: [[ //表头
                 {type:'numbers',title:'序号',fixed: 'left',width: '5%'},
                 {field: 'supplierName', title: '供应商名称', width: '20%'}
-                , {field: 'supplierDescribe', title: '供应商描述', width: '25%'}
-                , {field: 'phone', title: '电话', width: '25%'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo',width: '25%'} //这里的toolbar值是模板元素的选择器
+                , {field: 'supplierDescribe', title: '供应商描述', width: '15%'}
+                , {field: 'chargeName', title: '联系人', width: '15%'}
+                , {field: 'phone', title: '电话', width: '15%'}
+                , {field: 'email', title: '邮箱', width: '15%'}
+                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo',width: '15%'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -78,15 +80,15 @@ layui.config({
         return false;
     });
 
-    //添加原料
+    //添加供应商
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "添加原料",
+            title: "添加供应商",
             type: 2,
             content: "addSupplier.html",
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回供应商列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
@@ -122,12 +124,12 @@ layui.config({
     //编辑
     function editSupplier(id){
         var index = layui.layer.open({
-            title: "编辑原料",
+            title: "编辑供应商",
             type: 2,
             content: "editSupplier.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回原料列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回供应商列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)

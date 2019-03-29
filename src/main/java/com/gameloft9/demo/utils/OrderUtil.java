@@ -59,6 +59,7 @@ public class OrderUtil {
 
 
 
+
     /**
      * 生成编号(由编号类型编码+编号创建平台编码+6位日期+时间戳后4位+4位随机数组成)
      * @param
@@ -76,6 +77,14 @@ public class OrderUtil {
         buffer.append(getRandNum(4));
         return buffer.toString();
     }
+
+
+
+
+
+
+
+
     /**
      * 获取四位随机数
      * @param leng  随机数长度
@@ -92,10 +101,5 @@ public class OrderUtil {
         }
         return null;
     }
-
-
-
-
-
 
 }

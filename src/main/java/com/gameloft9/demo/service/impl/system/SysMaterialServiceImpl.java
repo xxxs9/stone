@@ -11,6 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 20:41
+ * @Description:
+ **/
 @Slf4j
 @Service
 public class SysMaterialServiceImpl implements SysMaterialService {
@@ -44,7 +50,6 @@ public class SysMaterialServiceImpl implements SysMaterialService {
 
     /**
      * 分页获取菜单列表
-     *
      * @param page                  页序
      * @param limit                 分页大小
      * @param goodsName             货物名称
@@ -112,6 +117,7 @@ public class SysMaterialServiceImpl implements SysMaterialService {
      * @param goodsDescribe         货物描述
      * @param goodsSpecification    货物规格
      * */
+    @Override
     public Boolean updateMaterial(String id,String goodsName, String goodsType, String goodsDescribe, String goodsSpecification) {
 
         CheckUtil.notBlank(goodsName, "货物名称为空");
@@ -135,6 +141,7 @@ public class SysMaterialServiceImpl implements SysMaterialService {
      *
      * @param materialId 原料materialId
      */
+    @Override
     public Boolean deleteMaterial(String materialId) {
         CheckUtil.notBlank(materialId, "原料id为空");
         //删除菜单

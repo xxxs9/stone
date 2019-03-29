@@ -9,14 +9,17 @@ import lombok.Data;
  * @description: 生产配方明细
  */
 @Data
-public class LenProduceFormulaDetail extends LenSuperClass {
+public class LenProduceFormulaDetail {
     private String id;
-    private String productFormulaId;
+    private String produceFormulaId;
     private String materialId;
     private String materialNumber;
     /**
      * 仓库编号
      */
     private String depotId;
+    private String other1;
+    private String other2;
+    private String other3;
 
 }

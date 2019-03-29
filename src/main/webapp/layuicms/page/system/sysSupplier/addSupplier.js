@@ -27,13 +27,17 @@ layui.config({
     form.on("submit(addSupplier)", function (data) {
         var supplierName = data.field.supplierName;
         var supplierDescribe = data.field.supplierDescribe;
+        var chargeName = data.field.chargeName;
         var phone = data.field.phone;
+        var email = data.field.email;
 
         //请求
         var req = {
             supplierName:supplierName,
             supplierDescribe: supplierDescribe,
+            chargeName:chargeName,
             phone: phone,
+            email:email
         };
 
         $api.AddSupplier(req,function (data) {

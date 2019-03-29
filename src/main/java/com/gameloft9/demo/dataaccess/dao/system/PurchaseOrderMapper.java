@@ -184,9 +184,31 @@ public interface PurchaseOrderMapper {
     /**
      * 采购
      * 根据goodsId获取price
-     * @param goodsId 商品名称
+     * @param materialId 商品名称
      * @return PurchaseOrder 返回实体类*/
     String selectPriceByGoodsId(String materialId);
+
+    /**
+     * 获取orderNumber下拉框
+     * 根据状态为审核通过
+     * @return List<PurchaseOrder> 返回类型
+     * */
+    List<PurchaseOrder> selectAllByOrderNumber();
+
+    /**
+     * 查看审核通过的订单详情
+     * @param record 记录
+     * @return int
+     * */
+    int selectAllBySearch(PurchaseOrder record);
+
+    /**
+     * orderNumber
+     * @param id id
+     * @return PurchaseOrder
+     * */
+    PurchaseOrder selectByOrderNumber(String orderNumber);
+
 
 
 

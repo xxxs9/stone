@@ -1,6 +1,7 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import org.apache.ibatis.annotations.Param;
@@ -76,5 +77,29 @@ public interface ReturnGoodsOrderMapper {
      * @return
      */
     Boolean finance(ShipmentOrder shipmentOrder);
+
+    /**
+     * 啊发包
+     * 根据id和财务审核类型更新 returnGoodsOrder
+     * @param returnGoodsOrder returnGoodsOrder
+     */
+    void updateByIdAndState(ReturnGoodsOrder returnGoodsOrder);
+
+    /**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    ReturnGoodsOrder findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);
+
+    /**
+     * 啊发包
+     * 更新 returnGoodsOrder 的财务审核状态
+     * @param returnGoodsOrder
+     */
+    void returnGoodsOrderPayPass(ReturnGoodsOrder returnGoodsOrder);
 
 }

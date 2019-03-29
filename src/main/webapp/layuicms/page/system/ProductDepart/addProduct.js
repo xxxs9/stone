@@ -61,9 +61,15 @@ layui.config({
         var productName = data.field.productName;
         var productType = data.field.productType;
         var state = data.field.state;
-        var wasteId = data.field.wasteId;
-        var productDescribe = data.field.productDescribe;
+        var supportPrice = data.field.supportPrice;
+        var canSold = data.field.canSold;
+        var productNumber = data.field.productNumber;
 
+
+        var productDescribe = data.field.productDescribe;
+        var other1 = data.field.other1;
+        var other2 = data.field.other2;
+        var other3 = data.field.other3;
 
         //请求
         var req = {
@@ -71,8 +77,13 @@ layui.config({
             productName: productName,
             productType: productType,
             state:state,
-            wasteId:wasteId,
+            supportPrice:supportPrice,
+            canSold:canSold,
+            productNumber:productNumber,
             productDescribe:productDescribe,
+            other1:other1,
+            other2:other2,
+            other3:other3,
 
         };
 

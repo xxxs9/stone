@@ -21,14 +21,14 @@ layui.config({
     function init() {
 
         //初始化下拉框
-        $api.GetFirstClassMenus(null,function (res) {
+        $api.getAllProduct(null,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
+                    html += '<option value="'+data[i].id+'">'+data[i].id+'---'+data[i].productName+'</option>';
                 }
-                $('#parentMenu').append($(html));
+                $('#productId').append($(html));
                 form.render();
             }
         });
@@ -51,7 +51,9 @@ layui.config({
                   {field: 'productId', title: '产品编号'}
                 , {field: 'formulaType', title: '配方类型'/*,templet:'#tmp'*/}
                 , {field: 'formulaNumber', title: '配方数量'}
-                , {field: 'createUserId', title: '创建者信息'}
+                , {field: 'createUser', title: '创建者'}
+                , {field: 'createTime', title: '创建时间'}
+
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -79,15 +81,15 @@ layui.config({
 
     //查询
     form.on("submit(queryMenu)", function (data) {
-        var productName = data.field.productName;
-        var state = data.field.state;
+        var productId = data.field.productId;
+        var createUser = data.field.createUser;
 
 
         //表格重新加载
         tableIns.reload({
             where:{
-                productName:productName,
-                state:state
+                productId:productId,
+                createUser:createUser
 
             }
         });
@@ -139,7 +141,7 @@ layui.config({
     //编辑
     function editMenu(id){
         var index = layui.layer.open({
-            title: "编辑菜单",
+            title: "编辑",
             type: 2,
             content: "editProduceFormula.html?id="+id,
             success: function (layero, index) {

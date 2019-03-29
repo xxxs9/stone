@@ -22,6 +22,7 @@ layui.config({
     function init() {
         initGoods();  //初始化货品名称
         initState();  //初始化订单状态
+        initFinance();//初始化财务审核状态
     }
 
     init();
@@ -57,6 +58,18 @@ layui.config({
     }
 
     /**
+     * 初始化财务审核状态查询
+     */
+    function initFinance(){
+        var html1 = '<option value="">--请选择--</option>';
+        html1 += '<option value="未通过">审核未通过</option>>';
+        html1 += '<option value="已付款">已付款</option>>';
+
+        $('#financeState').append($(html1));
+        form.render();
+    }
+
+    /**
      * 定义表格
      * */
     function defineTable() {
@@ -71,7 +84,8 @@ layui.config({
                 {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
                 , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
-                , {field: 'price', title: '商品价格', width:100}
+                , {field: 'price', title: '商品单价', width:100}
+                , {field: 'totalPrice', title: '商品总价', width:100}
                 , {field: 'state', title: '审核状态', width:120}
                 , {field: 'applyUser', title: '申请人', width:100}
                 , {field: 'applyTime', title: '申请时间', width:200}
@@ -104,12 +118,14 @@ layui.config({
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
         var goodsId = data.field.goodsId;
+        var financeState = data.field.financeState;
 
         //表格重新加载
         tableIns.reload({
             where:{
                 state:state,
-                goodsId:goodsId
+                goodsId:goodsId,
+                financeState:financeState
             }
         });
         return false;
