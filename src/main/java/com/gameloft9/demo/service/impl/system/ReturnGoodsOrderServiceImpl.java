@@ -110,8 +110,11 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      */
     @Override
     public Boolean audit(ShipmentOrder shipmentOrder) {
+        HttpServletRequest request1 = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String username = (String) request1.getSession().getAttribute("sysUser");
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_pass);
+        shipmentOrder.setApplyUser(username);
         returnGoodsOrderMapper.audit(shipmentOrder);
 
         //阿发包
@@ -138,7 +141,6 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_depot);
         returnGoodsOrderMapper.depot(shipmentOrder);
-
         return true;
     }
 
@@ -151,7 +153,7 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
     public Boolean finance(ShipmentOrder shipmentOrder) {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_finance);
-
+        returnGoodsOrderMapper.finance(shipmentOrder);
         return true;
     }
 }

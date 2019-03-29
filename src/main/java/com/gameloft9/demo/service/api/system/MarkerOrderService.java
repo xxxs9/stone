@@ -79,6 +79,12 @@ public interface MarkerOrderService {
 
     List<MarkerOrderTest> getProductId();
 
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
 
+    Boolean submit(MarkerOrderTest markerOrderTest);
 
 }

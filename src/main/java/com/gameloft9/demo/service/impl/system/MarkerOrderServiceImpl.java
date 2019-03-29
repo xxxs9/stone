@@ -7,6 +7,7 @@ import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.StateUUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -141,6 +142,19 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         List<MarkerOrderTest> list = new ArrayList<MarkerOrderTest>();
         list=markerOrderMapper.getProductId();
         return list;
+    }
+
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
+    @Override
+    public Boolean submit(MarkerOrderTest markerOrderTest) {
+        CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
+        markerOrderTest.setState(StateUUtil.APPLY_submit);
+        markerOrderMapper.submit(markerOrderTest);
+        return true;
     }
 
 

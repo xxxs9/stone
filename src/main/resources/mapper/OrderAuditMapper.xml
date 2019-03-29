@@ -214,4 +214,21 @@
             </if>
         </where>
     </update>
+
+
+    <!--仓库审核-->
+    <update id="ware" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
 </mapper>

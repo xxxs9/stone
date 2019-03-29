@@ -39,15 +39,27 @@
     </sql>
 
 
-    <!--提交-->
 
-    <!--<update id="state" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
-     update w_marker_order set STATE=#{state } where ID=#{id}
-  </update>-->
 
 
 <!--提交audi-->
     <update id="audiUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--提交仓库审核-->
+    <update id="submit" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
         update
         w_marker_order
         <set>
