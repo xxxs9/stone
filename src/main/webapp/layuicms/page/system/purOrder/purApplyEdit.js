@@ -33,7 +33,7 @@ layui.config({
         });
     }
 
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -70,10 +70,11 @@ layui.config({
 
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
-                console.log(data)
+                console.log(data);
                 $("[name='id']").val(data.id);
                 $("[name='orderNumber']").val(data.orderNumber);
                 $("[name='goodsId']").val(data.goodsId);
+                /*initGoodsId(data.goodsId);*/
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
                 $("[name='totalPrice']").val(data.totalPrice);
@@ -95,7 +96,6 @@ layui.config({
      * 加载申请单列表
      * */
     function loadRoleList() {
-        var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
             limit:10
@@ -121,6 +121,17 @@ layui.config({
             }
         });
     }
+
+   /* //对价格进行判断，不能为零或负数
+    form.verify({
+        actualBalance:function (value) {
+            if(value<0){
+                return '价格不能为负数!';
+            } else if (value==0){
+                return '价格不能为零!';
+            }
+        }
+    });*/
 
     //计算总金额 数量goodsNumber*价格price
     $(function(){
@@ -157,7 +168,6 @@ layui.config({
         }
 
         //请求
-        var url = $tool.getContext()+'purchase_order/update.do';
         var req = {
             id:queryArgs['id'],
             orderNumber:orderNumber,
@@ -183,15 +193,6 @@ layui.config({
         return false;
     })
 
-    /*layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#time' //指定元素
-            ,type: 'datetime'
-        });
-    });*/
 });
 
 

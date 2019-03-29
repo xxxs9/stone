@@ -57,8 +57,6 @@ public class OrderUtil {
 
     /**
      * 生成编号(由编号类型编码+编号创建平台编码+6位日期+时间戳后4位+4位随机数组成)
-     * @param numType 编号类型,1位(1-支付订单,2-退款订单)
-     * @param platform 编号生成平台,1位(1-PC平台,2app平台,3移动web平台)
      * @return
      * @throws Exception
      */

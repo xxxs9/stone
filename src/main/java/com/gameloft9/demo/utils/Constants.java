@@ -149,7 +149,7 @@ public class Constants {
         public static final String DEPOT_PASS_SEND="已发货";
         public static final String DEPOT_SURE="确认中";
         public static final String DEPOT_NO_SUNMIT="未提交";
-        public static final String DEPOT_WAITING="入库单审核中";
+        public static final String DEPOT_WAITING_IN="入库单审核中";
         public static final String DEPOT_PASS="审核通过";
         public static final String DEPOT_FAIL="审核未通过";
     }

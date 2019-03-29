@@ -18,6 +18,7 @@ public class PurchaseReturn {
     private String goodsId;
     private String goodsNumber;
     private String price;
+    private String totalPrice;
     private String applyUser;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyTime;

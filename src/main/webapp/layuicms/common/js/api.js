@@ -222,6 +222,18 @@ layui.define(['$tool','jquery'], function (exports) {
         selectPriceByGoodsId:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/price.do',req,config,successCallback,errorCallback);
         },
+        //采购申请 查看审核通过的订单详情  根据orderNumber订单编号查看
+        selectAllByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/orderNumber.do',req,config,successCallback,errorCallback);
+        },
+        //采购申请 查看审核通过的订单详情
+        selectAllBySearch:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/search.do',req,config,successCallback,errorCallback);
+        },
+        //根据orderNumber获取数据
+        getOrderNumberPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/getOrderNumber.do',req,config,successCallback,errorCallback);
+        },
 
         //采购退货管理purchase_return
         //获取所有列表

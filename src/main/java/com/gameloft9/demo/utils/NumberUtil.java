@@ -1,6 +1,8 @@
 package com.gameloft9.demo.utils;
 
 
+import java.math.BigDecimal;
+
 /**
  * 数字工具类
  * Created by gameloft9 on 2017/12/20.
@@ -71,5 +73,18 @@ public class NumberUtil {
             num = Integer.parseInt(str);
         }
         return num;
+    }
+
+    /**
+     * 保留两位小数
+     *
+     * @param money 价格
+     * @return
+     *      string
+     */
+    public static String strToBigdecimal(String money){
+        BigDecimal decimal = new BigDecimal(money);
+        decimal = decimal.setScale(2,BigDecimal.ROUND_HALF_UP);
+        return decimal.toString();
     }
 }

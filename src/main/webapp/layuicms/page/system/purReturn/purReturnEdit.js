@@ -95,7 +95,7 @@ layui.config({
             $("[name='depotState']").val(data.depotState);
             $("[name='applyUser']").val(data.applyUser);
             $("[name='applyTime']").val(data.applyTime);
-            //loadRoleList();
+            loadRoleList();
             form.render();//重新绘制表单，让修改生效
         });
     }

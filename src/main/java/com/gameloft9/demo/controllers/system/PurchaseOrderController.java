@@ -226,4 +226,32 @@ public class PurchaseOrderController {
         return new ResultBean<String>(service.selectPriceByGoodsId(materialId));
     }
 
+    /**
+     * 根据state状态为审核通过
+     * 获取orderNumber下拉框
+     * */
+    @RequestMapping(value = "/orderNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllByOrderNumber(){
+        return new ResultBean<Collection<PurchaseOrder>>(service.selectAllByOrderNumber());
+    }
+
+    /**
+     * 查看审核通过的订单详情
+     */
+    @RequestMapping(value = "/search.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllBySearch(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.selectAllBySearch(purchaseOrder));
+    }
+
+    /**
+     * 根据orderNumber获取内容
+     */
+    @RequestMapping(value = "/getOrderNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectByOrderNumber(String orderNumber){
+        return new ResultBean<PurchaseOrder>(service.selectByOrderNumber(orderNumber));
+    }
+
 }
