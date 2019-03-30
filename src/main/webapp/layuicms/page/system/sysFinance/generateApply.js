@@ -119,7 +119,6 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-
                 if(financeState != null){
                     $('#gnrt').css("display",'none');
                 }
