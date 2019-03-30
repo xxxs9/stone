@@ -22,7 +22,7 @@ public class SysFinanceApplyOrder {
     private String applyUser;
 
     /** 申请时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyTime;
 
     /** 申请类型 */

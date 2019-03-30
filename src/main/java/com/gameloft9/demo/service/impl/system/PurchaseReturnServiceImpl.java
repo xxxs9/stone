@@ -103,10 +103,14 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return true;
     }
 
-    /**采购退回 提交*/
+    /**采购退货 提交*/
     public boolean commitReUpdate(PurchaseReturn purchaseReturn){
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+
+        //生成采购退货申请单
+
+
         dao.updateTools(purchaseReturn);
         return true;
     }
