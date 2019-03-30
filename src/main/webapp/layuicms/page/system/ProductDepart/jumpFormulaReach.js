@@ -200,7 +200,7 @@ layui.config({
 
 
         //请求
-        var url = $tool.getContext() + '/reach/upd';
+        var url = $tool.getContext() + '/reach/add';
         var req = {
             id: queryArgs['id'],
             productId:productId,
@@ -219,7 +219,7 @@ layui.config({
 
         $api.addFormulaReach(req, function (data) {
 
-            layer.msg("领料单填写成功！等待仓库审核", {time: 1000}, function () {
+            layer.msg("领料单填写成功！等待仓库审核", {time: 5000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();

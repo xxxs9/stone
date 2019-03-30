@@ -1,6 +1,5 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
-import com.gameloft9.demo.utils.lennonUtils.LenSuperClass;
 import lombok.Data;
 
 /**
@@ -9,7 +8,7 @@ import lombok.Data;
  * @description: 产品的实体类
  */
 @Data
-public class LenProduct extends LenSuperClass {
+public class LenProduct extends Exception {
     private String id;
     private String productName;
     private String supportPrice;

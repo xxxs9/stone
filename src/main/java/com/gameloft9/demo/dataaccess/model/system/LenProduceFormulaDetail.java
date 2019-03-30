@@ -1,6 +1,5 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
-import com.gameloft9.demo.utils.lennonUtils.LenSuperClass;
 import lombok.Data;
 
 /**

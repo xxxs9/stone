@@ -43,8 +43,10 @@ public class LenProductCheckServiceImpl implements LenProductCheckService {
 
     }
 
+
+
     @Override
-    public boolean insert(String id, String producePlanId, String formulaReachId, String state, String checkUser, String checkTime, String wasteId, String checkRemark) {
+    public boolean insert(String id, String producePlanId, String formulaReachId, String state, String checkUser, String checkTime, String wasteId, String checkRemark, String other1, String other2, String other3) {
         String uuid = UUIDUtil.getUUID();
         LenProductCheck check = new LenProductCheck();
         check.setId(uuid);
@@ -65,7 +67,7 @@ public class LenProductCheckServiceImpl implements LenProductCheckService {
     }
 
     @Override
-    public boolean update(String id, String producePlanId, String formulaReachId, String state, String checkUser, String checkTime, String wasteId, String checkRemark) {
+    public boolean update(String id, String producePlanId, String formulaReachId, String state, String checkUser, String checkTime, String wasteId, String checkRemark, String other1, String other2, String other3) {
         LenProductCheck check = new LenProductCheck();
         check.setId(id);
         check.setProducePlanId(producePlanId);

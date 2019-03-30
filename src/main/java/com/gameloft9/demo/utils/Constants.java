@@ -1,5 +1,7 @@
 package com.gameloft9.demo.utils;
 
+import org.apache.shiro.SecurityUtils;
+
 /**
  * 常量
  * Created by gameloft9 on 2017/12/13.
@@ -235,5 +237,21 @@ public class Constants {
      *仓库人员的机构名
      */
     public static final String DPOT_ORG = "供应部";
+
+
+    /**
+     * 生产部授权情况
+     * @return
+     */
+    public static int lennonPDAudi(){
+        if (SecurityUtils.getSubject().hasRole(PRODUCE_ADMIN)){
+            return 1;
+        }else if (SecurityUtils.getSubject().hasRole(PRODUCE_STADFF)){
+            return 0;
+        }else{
+            return -1;
+        }
+
+    }
 
 }

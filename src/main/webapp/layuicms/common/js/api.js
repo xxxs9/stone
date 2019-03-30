@@ -367,8 +367,8 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
         },
 
-        AddProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
+        AddProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/add',req,successCallback,errorCallback);
         },
         delProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/del',req,successCallback,errorCallback);
@@ -433,6 +433,28 @@ layui.define(['$tool','jquery'], function (exports) {
         getAllProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/list',req,successCallback,errorCallback);
         },
+        getAllProducePlanId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'plan/findId',req,successCallback,errorCallback);
+        },
+        //billCheck
+        addBillCheckNew:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/add',req,successCallback,errorCallback);
+        },
+        getBillCheckById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/get',req,successCallback,errorCallback);
+        },
+        ok1:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/ok',req,successCallback,errorCallback);
+        },
+        notOk:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/notOk',req,successCallback,errorCallback);
+        },
+        billCheckstepBack:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'billCheck/stepBack',req,successCallback,errorCallback);
+                 },
+        billCheckIntoDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/intoDepot',req,successCallback,errorCallback);
+        },
         //连料单api_lennon
         addFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/add',req,successCallback,errorCallback);
@@ -482,6 +504,12 @@ layui.define(['$tool','jquery'], function (exports) {
         useless:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'check/unUse',req,successCallback,errorCallback);
         },
+        getPCR:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'pcr/list',req,successCallback,errorCallback);
+        },
+        getreachList:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
+    },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
@@ -686,6 +714,10 @@ layui.define(['$tool','jquery'], function (exports) {
         updateProduct:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },
+        changeProState:function(req,config,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/intoDepot',req,successCallback,errorCallback);
+            },
+
         delProduceFormula:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
         },

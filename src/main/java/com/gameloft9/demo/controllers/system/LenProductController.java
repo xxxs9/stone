@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.LenProductService;
+import com.gameloft9.demo.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,13 +54,10 @@ public class LenProductController {
     @ResponseBody
     public IResult delete(String id){
         if (service.delete(id)){
-            Boolean flag= true;
-            return new ResultBean(flag);
+            return new ResultBean<Boolean>(true);
+
         }else{
-            ResultBean<?> result = new ResultBean();
-            result.setMsg("权限不足！");
-            result.setCode(ResultBean.SYSTEM_FAIL);
-            return result;
+            throw new RuntimeException(">>>>>操作失败<<<<<<<");
         }
 
     }
@@ -106,7 +104,7 @@ public class LenProductController {
 
 
     /**
-     *
+     * 状态回退
      * @param id
      * @return
      */
@@ -122,6 +120,20 @@ public class LenProductController {
             result.setCode(ResultBean.SYSTEM_FAIL);
             return result;
         }
+    }
+
+    /**
+     * 产品入库的状态
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/intoDepot",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult intoDepot(String id) {
+        if(service.changeProState(Constants.INTO_DEPOT,id)){
+            return new ResultBean<Boolean>(true);
+        }
+        throw new RuntimeException("操作失败");
     }
 
 }

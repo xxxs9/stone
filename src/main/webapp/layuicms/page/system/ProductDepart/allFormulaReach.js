@@ -47,6 +47,9 @@ layui.config({
     }
     init();
 
+    /*function findProductName(res){
+        $api.getProductById(res)
+    }*/
 
     /**
      * 定义表格
@@ -55,29 +58,33 @@ layui.config({
         tableIns = table.render({
             elem: '#menu-data'
 
-            , url: $tool.getContext() + 'reach/pageList' //数据接口
+            /*, url: $tool.getContext() + 'reach/pageList' //数据接口*/
+            , url: $tool.getContext() + 'pcr/reachList' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'productId', title: '产品编号'}
-                  ,{field: 'produceFormulaId', title: '配方编号'}
-                  ,{field: 'produceFormulaDetailId', title: '配方明细编号'}
+                  {type:'numbers',title:'序号',fixed: 'left'}
+                  ,{field: 'productName', title: '产品名称' }
                   ,{field: 'depotAudi', title: '仓库授权',templet:'#depotA'}
-                  ,{field: 'state', title: '产品状态',templet:'#temp'}
+                  ,{field: 'reachState', title: '产品状态',templet:'#temp'}
                   ,{field: 'reachUser', title: '领料人'}
                   ,{field: 'reachTime', title: '领料时间'}
+                  ,{field: 'productId', title: '流水号' }
+                  ,{field: 'produceFormulaId', title: '配方编号'}
+                  ,{field: 'produceFormulaDetailId', title: '配方明细编号'}
                   /*,{field: 'formulaBack', title: '退料'/!*,templet:'#tmp'*!/}*/
                   ,{fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+
             }
         });
 
         //为toolbar添加事件响应
         table.on('tool(menuFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
+
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
@@ -86,11 +93,11 @@ layui.config({
                 delMenu(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editMenu(row.id);
+                editMenu(row.reachId);
 
             }else if (layEvent === 'audi') { //编辑
                /*useless*/
-                audi(row.id);
+                audi(row.reachId);
             }else if( layEvent==='producing'){
                 producing(row.id);
             }else if(layEvent==='yanshou'){
@@ -100,13 +107,18 @@ layui.config({
             }else if (layEvent==='depotAudi') {
                 depotAudi(row.produceFormulaDetailId);
             }else if (layEvent==='goOn'){
-                goOn(row.id);
+                goOn(row.reachId);
             } else if(layEvent==='stop'){
-                stop1(row.id);
+                stop1(row.reachId);
+
             }else if(layEvent==='detail'){
                 detail(row.id);
             }else if (layEvent==='detail2'){
-                detail2(row.id);
+                /*跳转到addBillCheck*/
+                detail2(row.reachId,row.productId);
+                console.log(row.reachId,row.productId,row.productName)
+
+
             }
         });
     }
@@ -284,6 +296,7 @@ layui.config({
     }
     /*继续生产*/
     function goOn(id) {
+
         var req= {
             id:id
             }
@@ -306,12 +319,12 @@ layui.config({
             });
         });
     }
-    function detail2(id) {
+    function detail2(id,productId) {
         /*跳转详情页，并有重新开始生产的按钮*/
         var index = layui.layer.open({
             title: "领料单详情",
             type: 2,
-            content: "formulaReachDetail2.html?id=" + id,
+            content: "addBillCheck.html?id=" + id+"&productId="+productId,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -325,5 +338,5 @@ layui.config({
         });
         layui.layer.full(index);
     }
-
+/*todo()*/
 });

@@ -43,6 +43,7 @@ public class LenFormulaReachController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime){
+
         return new ResultBean<Boolean>(service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime));
     }
 

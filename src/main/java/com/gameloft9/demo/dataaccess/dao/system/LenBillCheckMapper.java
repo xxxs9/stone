@@ -1,26 +1,25 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
 
-import com.gameloft9.demo.dataaccess.model.system.LenProducePlan;
-
+import com.gameloft9.demo.dataaccess.model.system.LenBillCheck;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * @packageName: com.gameloft9.demo.dataaccess.dao.system
- * @author: Lennon_Yuan
- * @time: 2019/3/18 0018 - 下午 3:10
- * @description:
+ * @author : Lennon_Yuan
+ * @time : 2019-03-29 - 16:37
+ * @description :
  */
-public interface LenProducePlanMapper {
+
+public interface LenBillCheckMapper {
     /**
      *查找所有（无条件）
      *
      * @return
      *
      */
-    List<LenProducePlan> selectAll();
+    List<LenBillCheck> selectAll();
 
     /**
      * 按照主键查找所有
@@ -28,39 +27,39 @@ public interface LenProducePlanMapper {
      * @param id
      * @return
      */
-    LenProducePlan getByPrimaryKey(String id);
+    LenBillCheck getByPrimaryKey(@Param("id") String id);
 
     /**
      * 分页查找
      *
      * @param start
      * @param end
-     * @param productId
+     * @param checkUser
      * @param state
      * @return
      */
-    List<LenProducePlan> selectByPage(
+    List<LenBillCheck> selectByPage(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("productId") String productId,
+            @Param("checkUser") String checkUser,
             @Param("state") String state
     );
 
     /**
      *增加
      *
-     * @param
+     * @param lenProduct
      * @return
      */
-    int insert(LenProducePlan lenProducePlan);
+    int insert(LenBillCheck lenProduct);
 
     /**
      * 修改
      *
-     * @param
+     * @param lenProduct
      * @return
      */
-    int update(LenProducePlan lenProducePlan);
+    int update(LenBillCheck lenProduct);
 
     /**
      * 删除
@@ -81,33 +80,32 @@ public interface LenProducePlanMapper {
     /**
      * 更改state状态码
      *
+     * @param state
+     * @param id
      * @return
      */
-    int changeState(String state,String id);
-
-    int changeOther1(@Param("other1") String other1,@Param("id")String id);
+    int changeState(@Param("state")String state,@Param("id")String id);
 
     /**
      * 选择修改
      *
-     * @param
+     * @param lenProduct
      * @return
      */
-    int updateByPrimaryKeySelective(LenProducePlan lenProducePlan);
+    int updateByPrimaryKeySelective(LenBillCheck lenProduct);
 
     /**
      * 选择插入
      *
-     * @param
+     * @param lenProduct
      * @return
      */
-    int insertSelective(LenProducePlan lenProducePlan);
+    int insertSelective(LenBillCheck lenProduct);
 
     /**
-     * 查询id
-     * @param productId
-     * @return
+     * 查找已审核的产品
+     *
+     * @return List
      */
-    LenProducePlan findId(@Param("productId") String productId);
-
+    List<LenBillCheck> selectByState();
 }

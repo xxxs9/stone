@@ -210,6 +210,15 @@ public class LenProductServiceImpl implements LenProductService {
     }
 
     @Override
+    public boolean changeProState(String state, String id) {
+       if (mapper.changeState(state,id)>0){
+           return true;
+       }else {
+          return false;
+       }
+    }
+
+    @Override
     public List<LenProduct> selectByState() {
         return mapper.selectByState();
     }

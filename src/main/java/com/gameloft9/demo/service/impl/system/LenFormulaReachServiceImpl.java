@@ -40,7 +40,7 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
     }
 
     @Override
-    public List<LenFormulaReach> selectByPage(String page,String limit, String productId,String reachUser) {
+    public List<LenFormulaReach> selectByPage(String page, String limit, String productId, String reachUser) {
         /**
          * 1 取出List
          * 2 遍历元素
@@ -51,52 +51,58 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
         List<LenFormulaReach> list = mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), productId, reachUser);
 
-        for (LenFormulaReach reach:list){
+        /*for (LenFormulaReach reach : list) {
 
 
-            /**
+            *//**
              * 如果仓库的状态为 1
              * 则state =1
-             */
-            if (Constants.DEPOT_PASS.equals(reach.getDepotAudi())){
+             *//*
+            if (Constants.DEPOT_PASS.equals(reach.getDepotAudi())) {
                 String id = reach.getId();
                 mapper.changeState(Constants.KSSC, id);
-                /**
+                *//**
                  * 如果仓库审核是未通过
                  * 则state =0 (仓库未审核则状态未提交)
-                 */
-            }/*else if (Constants.DEPOT_UN_AUDI.equals(reach.getDepotAudi())){
+                 *//*
+            }*//*else if (Constants.DEPOT_UN_AUDI.equals(reach.getDepotAudi())){
                 String id = reach.getId();
                 mapper.changeState(Constants.UN_TIJIAO, id);
 
-            }*/
-            else{
+            }*//* else {
                 return list;
             }
         }
         List<LenFormulaReach> list2 = mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), productId, reachUser);
-        return list2;
+        return list2;*/
+        return list;
     }
 
     @Override
     public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime) {
 
-        LenFormulaReach reach = new LenFormulaReach();
-        Date date = DateUtil.str2Date(reachTime, "yyyy-MM-dd");
-        String uuid = UUIDUtil.getUUID();
-        reach.setId(uuid);
-        reach.setReachTime(date);
-        reach.setProductId(productId);
-        reach.setProduceFormulaId(productFormulaId);
-        reach.setProduceFormulaDetailId(produceFormulaDetailId);
-        reach.setDepotAudi(depotAudi);
-        reach.setReachUser(reachUser);
-        reach.setState(state);
-        reach.setFormulaBack(formulaBack);
+        if (Constants.lennonPDAudi() == 1) {
+            LenFormulaReach reach = new LenFormulaReach();
+            Date date = DateUtil.str2Date(reachTime, "yyyy-MM-dd");
+            String uuid = UUIDUtil.getUUID();
+            reach.setId(uuid);
+            reach.setReachTime(date);
+            reach.setProductId(productId);
+            reach.setProduceFormulaId(productFormulaId);
+            reach.setProduceFormulaDetailId(produceFormulaDetailId);
+            reach.setDepotAudi(depotAudi);
+            reach.setReachUser(reachUser);
+            reach.setState(state);
+            reach.setFormulaBack(formulaBack);
 
-        if (mapper.insert(reach)>0){
-            return true;
-        }else{return  false;}
+            if (mapper.insert(reach) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -104,7 +110,7 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
         Date date = DateUtil.str2Date(reachTime, "yyyy-MM-dd");
         LenFormulaReach reach = new LenFormulaReach();
 
-       reach.setId(id);
+        reach.setId(id);
         reach.setReachTime(date);
         reach.setProductId(productId);
         reach.setProduceFormulaId(productFormulaId);
@@ -114,67 +120,67 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
         reach.setState(state);
         reach.setFormulaBack(formulaBack);
 
-        if (mapper.update(reach)>0){
+        if (mapper.update(reach) > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     @Override
     public boolean delete(String id) {
-        if (mapper.delete(id)>0){
+        if (mapper.delete(id) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int dataCount()
-    {
+    public int dataCount() {
         return mapper.dataCount();
     }
 
 
     @Override
     public boolean stopProduct(String id) {
-       if (mapper.changeState(Constants.SCZT,id)>0){
-           return true;
-       }else{
-           return false;
-       }
+        if (mapper.changeState(Constants.SCZT, id) > 0) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
     @Override
-    public boolean goOn( String id) {
-        if (mapper.changeState(Constants.JXSC,id)>0){
+    public boolean goOn(String id) {
+        if (mapper.changeState(Constants.JXSC, id) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
     public boolean complete(String id) {
-        if (mapper.changeState(Constants.SCWC,id)>0){
+        if (mapper.changeState(Constants.SCWC, id) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
      * 更改仓库授权状态
+     *
      * @return
      */
     @Override
-    public boolean changeDepotAudi(String depot,String id) {
+    public boolean changeDepotAudi(String depot, String id) {
         /**
          * 仓库传来参数进行授权
          */
-        if (mapper.changeDepot(depot,id)>0){
+        if (mapper.changeDepot(depot, id) > 0) {
             return true;
         }
 
@@ -183,6 +189,7 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
     /**
      * todo(改变状态)
+     *
      * @param id
      * @return
      */

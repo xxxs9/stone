@@ -113,4 +113,6 @@ public interface LenProductService {
      */
     List<LenProduct> selectByState();
 
+    boolean changeProState(String state,String id);
+
 }
