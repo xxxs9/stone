@@ -51,10 +51,10 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-                  {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'orderId', title: '订单编号'}
+                 {field: 'id', title: 'ID' ,fixed:'left'}
+                , {field: 'orderId', title: '订单编号' }
                 , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品ID' }
+                , {field: 'productId', title: '产品名' }
                 , {field: 'customer', title: '购买客户'}
                 , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
@@ -69,6 +69,7 @@ layui.config({
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+                $("[data-field='id']").css('display','none');
             }
         });
 
@@ -90,6 +91,8 @@ layui.config({
                 back(row.id);
             }else if (layEvent === 'look') {//撤回
                 look(row.id);
+            }else if (layEvent === 'submit') {//提交仓库审核
+                submit(row.id);
             }
         });
     }
@@ -230,7 +233,29 @@ layui.config({
     }
 
 
+    //提交仓库审核
 
+    function submit(id){
+        layer.confirm('提交仓库审核吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送提交指令
+            var req = {
+                id: id
+            };
+
+            $api.updateSubmit(req,function (data) {
+                layer.msg("提交成功",{time:1000},function(){
+                    //obj.del(); //提交对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+    }
 
 
     //编辑

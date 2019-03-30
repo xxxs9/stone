@@ -22,6 +22,7 @@ layui.config({
     function init() {
         initGoods();  //初始化货品名称
         initState();  //初始化订单状态
+        initFinance();//初始化财务审核状态
     }
 
     init();
@@ -54,6 +55,18 @@ layui.config({
                 form.render();
             }
         });
+    }
+
+    /**
+     * 初始化财务审核状态查询
+     */
+    function initFinance(){
+        var html1 = '<option value="">--请选择--</option>';
+        html1 += '<option value="未通过">审核未通过</option>>';
+        html1 += '<option value="已付款">已付款</option>>';
+
+        $('#financeState').append($(html1));
+        form.render();
     }
 
     /**
@@ -105,12 +118,14 @@ layui.config({
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
         var goodsId = data.field.goodsId;
+        var financeState = data.field.financeState;
 
         //表格重新加载
         tableIns.reload({
             where:{
                 state:state,
-                goodsId:goodsId
+                goodsId:goodsId,
+                financeState:financeState
             }
         });
         return false;

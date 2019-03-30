@@ -125,4 +125,15 @@ public class ShipmentOrderController {
         return new ResultBean<Boolean>(shipmentOrderService.goods(shipmentOrder));
     }
 
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/sub",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult sub(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.sub(shipmentOrder));
+    }
+
 }

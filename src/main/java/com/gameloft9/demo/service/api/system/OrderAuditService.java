@@ -54,4 +54,11 @@ public interface OrderAuditService {
      * @return
      */
     Boolean audit(OrderAuditBean orderAuditBean);
+
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    Boolean ware(OrderAuditBean orderAuditBean);
 }

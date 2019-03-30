@@ -182,7 +182,6 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
-
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -252,8 +251,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },
-        //修改
+        },        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -577,8 +575,6 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepotPersonnel:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
         },
-
-
         GetGoodsType:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
         },
@@ -629,8 +625,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
-        },
-        //销售订单删除
+        },//销售订单删除
         DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
             doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
         },//获取销售订单ID
@@ -804,8 +799,16 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库发货
         updateGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
-        },
-
+        },//提交财务
+        updateSub:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/sub',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateSubmit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/submit',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateWare:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/ware',req,successCallback,errorCallback);
+        }
     };
 
 

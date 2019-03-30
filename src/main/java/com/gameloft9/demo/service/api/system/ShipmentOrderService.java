@@ -72,4 +72,11 @@ public interface ShipmentOrderService {
      * @return
      */
     Boolean goods(ShipmentOrder shipmentOrder);
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean sub(ShipmentOrder shipmentOrder);
 }

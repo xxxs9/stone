@@ -9,6 +9,7 @@ import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.OrderAuditService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.StateUUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,6 +122,19 @@ public class OrderAuditServiceImpl implements OrderAuditService {
         }else{orderAuditBean.setState(StateUtil.APPLY_FAIL);
         }
 
+        return true;
+    }
+
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    @Override
+    public Boolean ware(OrderAuditBean orderAuditBean) {
+        CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
+        orderAuditBean.setState(StateUUtil.APPLY_ware);
+        orderAuditMapper.ware(orderAuditBean);
         return true;
     }
 

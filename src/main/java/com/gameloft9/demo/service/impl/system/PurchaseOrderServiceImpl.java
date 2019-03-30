@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * PurchaseOrder service
@@ -51,6 +50,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         //按固定格式生成订单编号
         purchaseOrder.setOrderNumber("GC" + OrderUtil.createOrderNumber());
         purchaseOrder.setApplyTime(new Date());
+        purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);
+        //价格生成两位小数
+        /*String price = purchaseOrder.getPrice();
+        price = NumberUtil.strToBigdecimal(price);
+        purchaseOrder.setPrice(price);*/
+
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
     }
@@ -100,7 +105,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean inspectUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
-        purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
+        /*purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);*/
         String state = purchaseOrder.getState();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         //根据登录账号的名字自动获取
@@ -139,14 +144,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**根据id获取审核所需的状态*/
-    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state){
+    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
         PageRange pageRange = new PageRange(page,limit);
-        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
+        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state,financeState);
     }
 
+
     /**获取分页*/
-    public int countGetAll(String goodsId, String state) {
-        return dao.countGetAll(goodsId,state);
+    public int countGetAll(String goodsId, String state,String financeState) {
+        return dao.countGetAll(goodsId,state,financeState);
     }
 
 
@@ -169,6 +175,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean commitUpdate(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setState(Constants.PurchaseState.APPLY_WAITING);
+        /*purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);*/
         dao.commitUpdate(purchaseOrder);
         return true;
     }

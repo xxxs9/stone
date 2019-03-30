@@ -47,6 +47,10 @@ public class OrderAuditController {
 
     /**
      * 分页查询
+     * @param page
+     * @param limit
+     * @param productId
+     * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
@@ -58,6 +62,8 @@ public class OrderAuditController {
 
     /**
      * 删除
+     * @param id
+     * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
@@ -69,6 +75,8 @@ public class OrderAuditController {
 
     /**
      * 获取订单审核ID
+     * @param id
+     * @return
      */
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @ResponseBody
@@ -79,6 +87,8 @@ public class OrderAuditController {
 
     /**
      * 修改
+     * @param orderAuditBean
+     * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -90,6 +100,8 @@ public class OrderAuditController {
 
     /**
      * 驳回
+     * @param orderAuditBean
+     * @return
      */
     @RequestMapping(value = "/back", method = RequestMethod.POST)
     @ResponseBody
@@ -100,6 +112,8 @@ public class OrderAuditController {
 
     /**
      * 审核成功
+     * @param orderAuditBean
+     * @return
      */
     @RequestMapping(value = "/pass", method = RequestMethod.POST)
     @ResponseBody
@@ -109,10 +123,25 @@ public class OrderAuditController {
 
     /**
      * 审核
+     * @param orderAuditBean
+     * @return
      */
+
     @RequestMapping(value = "/audit", method = RequestMethod.POST)
     @ResponseBody
     public IResult audit(OrderAuditBean orderAuditBean) {
         return new ResultBean<Boolean>(orderAuditService.passUpdate(orderAuditBean));
+    }
+
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+
+    @RequestMapping(value = "/ware", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult ware(OrderAuditBean orderAuditBean) {
+        return new ResultBean<Boolean>(orderAuditService.ware(orderAuditBean));
     }
 }

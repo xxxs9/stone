@@ -80,6 +80,13 @@ public interface ShipmentOrderMapper {
     Boolean goods(ShipmentOrder shipmentOrder);
 
     /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean sub(ShipmentOrder shipmentOrder);
+
+    /**
      * 啊发包
      * 根据id和财务审核类型更新 shipmentOrder
      * @param shipmentOrder shipmentOrder
