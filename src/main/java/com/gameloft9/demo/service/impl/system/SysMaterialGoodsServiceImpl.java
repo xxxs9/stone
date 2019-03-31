@@ -216,4 +216,13 @@ public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
         sysMaterialGoodsMapper.deleteByPrimaryKey(id);
         return true;
     }
+
+
+    /**
+     * 根据获取原料商品id信息
+     * */
+    @Override
+    public List<String> getMaterialGoodsId() {
+        return sysMaterialGoodsMapper.getMaterialGoodsId();
+    }
 }

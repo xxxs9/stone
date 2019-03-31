@@ -106,4 +106,12 @@ public class LenProductServiceImpl implements LenProductService {
             return  false;
         }
     }
+
+    /**
+     * 获取产品id
+     * */
+    @Override
+    public List<String> getProductId() {
+        return mapper.getProductId();
+    }
 }

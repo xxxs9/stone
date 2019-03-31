@@ -140,10 +140,12 @@ public class Constants {
      * 审核状态：仓库管理人员
      */
     public static class DepotState{
-        public static final String DEPOT_PASS_SEND="已发货";
+        public static final String DEPOT_PASS_OUT="已出库";
+        public static final String DEPOT_PASS_IN="已入库";
         public static final String DEPOT_SURE="确认中";
         public static final String DEPOT_NO_SUNMIT="未提交";
-        public static final String DEPOT_WAITING="入库单审核中";
+        public static final String DEPOT_WAITING_IN="入库单审核中";
+        public static final String DEPOT_WAITING_OUT="出库单审核中";
         public static final String DEPOT_PASS="审核通过";
         public static final String DEPOT_FAIL="审核未通过";
     }
@@ -151,5 +153,26 @@ public class Constants {
      *仓库人员的机构名
      */
     public static final String DPOT_ORG = "供应部";
+
+    /**
+     * 仓库单分类
+     */
+    public static class Depot{
+        public static final String ORDER_OUT="出库单";
+        public static final String ORDER_IN="入库单";
+
+    }
+
+    /**
+     * 盘点单状态
+     */
+    public static class DepotInventoryCheck{
+        public static final String CHECK_IN="盘点中";
+        public static final String CHECK_OUT="盘点结束";
+
+    }
+
+    public static final String MATERIAL = "原料";
+    public static final String PRODUCT = "产品";
 
 }

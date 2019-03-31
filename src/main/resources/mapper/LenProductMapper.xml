@@ -197,5 +197,11 @@
     OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+    <select id="getProductId"  resultType="java.lang.String">
+        select DISTINCT
+        t.ID
+        from L_PRODUCT t
+    </select>
+
 </mapper>
 

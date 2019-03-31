@@ -64,5 +64,4 @@ public interface DepotInventoryMapper {
      * @param goodsId               原料/成品ID
      * */
     DepotInventory findOne(@Param("goodsId")String goodsId);
-
 }

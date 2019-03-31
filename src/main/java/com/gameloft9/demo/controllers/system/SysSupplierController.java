@@ -96,4 +96,16 @@ public class SysSupplierController {
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysSupplierServiceImpl.deleleSupplier(id));
     }
+
+    /**
+     * 根据供应商名称获取供应商信息
+     * @param supplierName 供应商名称
+     * */
+    @RequestMapping(value = "/getBySupplierName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getBySupplierName(String supplierName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<SysSupplier>(sysSupplierServiceImpl.getBySupplierName(supplierName));
+    }
+
 }

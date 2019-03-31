@@ -64,4 +64,8 @@ public interface SysMaterialGoodsService {
      * */
     Boolean deleteMaterialGoods(String id);
 
+    /**
+     * 根据获取原料商品id信息
+     * */
+    List<String> getMaterialGoodsId();
 }

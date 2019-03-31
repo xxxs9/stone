@@ -100,4 +100,9 @@ public interface LenProductMapper {
      */
     int insertSelective(LenProduct lenProduct);
 
+
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
 }

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.DepotOrderMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.DepotOrder">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="TIMESTAMP"/>
+        <result column="AUDIT_DESCRIBE" property="auditDescribe" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+       ID, ORDER_TYPE, TYPE, GOODS_ID, GOODS_NUMBER, APPLY_USER, APPLY_TIME, STATE, ORDER_AUDIT_USER, ORDER_AUDIT_TIME, AUDIT_DESCRIBE
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_ORDER t
+        WHERE 1=1
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
+        </if>
+        <if test="applyUser !=null and applyUser != ''">
+            AND (
+            t.APPLY_USER LIKE (concat('%',concat(#{applyUser,jdbcType=VARCHAR},'%')))
+            AND t.APPLY_USER >' '
+            )
+        </if>
+        <if test="orderType !=null and orderType != ''">
+            AND t.ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+        </if>
+        <if test="type !=null and type != ''">
+            AND t.TYPE = #{type,jdbcType=VARCHAR}
+        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM D_DEPOT_ORDER t
+        WHERE 1=1
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
+        </if>
+        <if test="applyUser !=null and applyUser != ''">
+            AND (
+            t.APPLY_USER LIKE (concat('%',concat(#{applyUser,jdbcType=VARCHAR},'%')))
+            AND t.APPLY_USER >' '
+            )
+        </if>
+        <if test="orderType !=null and orderType != ''">
+            AND t.ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+        </if>
+        <if test="type !=null and type != ''">
+            AND t.TYPE = #{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot">
+        INSERT INTO D_DEPOT_ORDER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="orderType != null">
+                ORDER_TYPE,
+            </if>
+            <if test="type != null">
+                TYPE,
+            </if>
+            <if test="goodsId != null">
+                GOODS_ID,
+            </if>
+            <if test="goodsNumber != null">
+                GOODS_NUMBER,
+            </if>
+            <if test="applyUser != null">
+                APPLY_USER,
+            </if>
+            <if test="applyTime != null">
+                APPLY_TIME,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="orderAuditUser != null">
+                ORDER_AUDIT_USER,
+            </if>
+            <if test="orderAuditTime != null">
+                ORDER_AUDIT_TIME,
+            </if>
+            <if test="auditDescribe != null">
+                AUDIT_DESCRIBE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null">
+                #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="applyUser != null">
+                #{applyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAuditUser != null">
+                #{orderAuditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAuditTime != null">
+                #{orderAuditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="auditDescribe != null">
+                #{auditDescribe,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_ORDER t
+        WHERE
+        t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot" >
+        UPDATE D_DEPOT_ORDER
+        <set >
+            <if test="orderType != null" >
+            ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                GOODS_ID = #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null" >
+                GOODS_NUMBER = #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="applyUser != null" >
+                APPLY_USER = #{applyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="applyTime != null" >
+                APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null" >
+                STATE = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAuditUser != null" >
+                ORDER_AUDIT_USER = #{orderAuditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orderAuditTime != null" >
+                ORDER_AUDIT_TIME = #{orderAuditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="auditDescribe != null" >
+                AUDIT_DESCRIBE = #{auditDescribe,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      DELETE FROM
+	    D_DEPOT_ORDER
+      WHERE
+	    ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="delsByIds" parameterType="java.lang.String" >
+        DELETE FROM
+        D_DEPOT_ORDER
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </delete>
+    <select id="getDepotOrderInType" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT DISTINCT
+        t.TYPE
+        FROM
+        D_DEPOT_ORDER t
+        WHERE
+        t.ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+    </select>
+</mapper>

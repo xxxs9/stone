@@ -116,4 +116,13 @@ public class SysSupplierServiceImpl implements SysSupplierService {
         sysSupplierMapper.deleteByPrimaryKey(id);
         return true;
     }
+
+    /**
+     * 根据供应商名称获取供应商信息
+     * @param supplierName 供应商名称
+     * */
+    @Override
+    public SysSupplier getBySupplierName(String supplierName) {
+        return sysSupplierMapper.getBySupplierName(supplierName);
+    }
 }

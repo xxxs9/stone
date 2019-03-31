@@ -102,4 +102,8 @@ public interface LenProductService {
      */
     boolean insertSelective(LenProduct lenProduct);
 
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
 }

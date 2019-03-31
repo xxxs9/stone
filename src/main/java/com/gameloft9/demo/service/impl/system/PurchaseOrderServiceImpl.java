@@ -197,7 +197,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**采购入库之提交*/
     public boolean commitInUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_WAITING);
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_WAITING_IN);
         dao.toolsUpdate(purchaseOrder);
         return true;
     }
