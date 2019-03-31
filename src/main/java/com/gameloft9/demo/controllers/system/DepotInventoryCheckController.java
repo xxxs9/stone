@@ -77,7 +77,7 @@ public class DepotInventoryCheckController {
 
 
     /**
-     * 删除仓库
+     * 删除盘点单
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
@@ -89,7 +89,7 @@ public class DepotInventoryCheckController {
 
 
     /**
-     * 批量删除仓库
+     * 批量删除盘点单
      * */
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody

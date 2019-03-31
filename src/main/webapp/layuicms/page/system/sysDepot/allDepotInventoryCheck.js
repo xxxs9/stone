@@ -81,32 +81,32 @@ layui.config({
 
 
     //查询
-    form.on("submit(queryDepot)", function (data) {
-        var depotNumber = data.field.depotNumber;
-        var depotName = data.field.depotName;
-        var depotType = data.field.depotType;
+    form.on("submit(queryDepotInventoryCheck)", function (data) {
+        var sourceUser = data.field.sourceUser;
+        var checkType = data.field.checkType;
+        var checkState = data.field.checkState;
 
         //表格重新加载
         tableIns.reload({
             where:{
-                depotNumber:depotNumber,
-                depotName:depotName,
-                depotType:depotType
+                sourceUser:sourceUser,
+                checkType:checkType,
+                checkState:checkState
             }
         });
 
         return false;
     });
 
-    //添加仓库
+    //添加盘点单
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "新增仓库",
+            title: "新增盘点单",
             type: 2,
-            content: "addDepot.html",
+            content: "addlDepotInventoryCheck.html",
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回仓库列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回盘点单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
