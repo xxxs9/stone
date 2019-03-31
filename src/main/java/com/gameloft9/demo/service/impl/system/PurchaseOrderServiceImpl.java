@@ -144,27 +144,18 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
     }
 
-    @Override
-    public List<PurchaseOrder> selectAllByInspect(String page, String limit, String goodsId, String state) {
-        return null;
-    }
-
-    @Override
-    public int countGetAll(String goodsId, String state) {
-        return 0;
-    }
 
     /**根据id获取审核所需的状态*/
-    /*public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
+    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
         PageRange pageRange = new PageRange(page,limit);
         return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state,financeState);
-    }*/
+    }
 
 
     /**获取分页*/
-   /* public int countGetAll(String goodsId, String state,String financeState) {
+    public int countGetAll(String goodsId, String state,String financeState) {
         return dao.countGetAll(goodsId,state,financeState);
-    }*/
+    }
 
 
 

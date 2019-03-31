@@ -104,7 +104,7 @@ public class SysSupplierController {
     @BizOperLog(operType = OperType.DELETE,memo = "删除供应商")
     public IResult deleteSupplier(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        return new ResultBean<Boolean>(sysSupplierServiceImpl.deleleSupplier(id));
+        return new ResultBean<Boolean>(sysSupplierServiceImpl.deleteSupplier(id));
     }
 
     /**
