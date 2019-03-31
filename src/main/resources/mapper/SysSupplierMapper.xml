@@ -5,19 +5,22 @@
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR"/>
         <result column="SUPPLIER_DESCRIBE" property="supplierDescribe" jdbcType="VARCHAR"/>
+        <result column="CHARGE_NAME" property="chargeName" jdbcType="VARCHAR"/>
         <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-       ID, SUPPLIER_NAME, SUPPLIER_DESCRIBE, PHONEN
+       ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
     </sql>
 
     <select id="getSupplierName" resultType="java.lang.String">
         select DISTINCT t.SUPPLIER_NAME
-        FROM SYS_SUPPLIER t
+        from sys_supplier t
     </select>
     <select id="getAll" resultMap="BaseResultMap" parameterType="map">
-        select * from SYS_SUPPLIER t
+        select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
+        from sys_supplier t
         where 1=1
         <if test="supplierName !=null and supplierName != ''">
             and (
@@ -39,16 +42,19 @@
         </if>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysSupplier">
-        insert into SYS_SUPPLIER
+        insert into sys_supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 ID,
             </if>
-            <if test="supplierName != null">
+            <if test="supplierName != null and supplierName != '' ">
                 SUPPLIER_NAME,
             </if>
                 SUPPLIER_DESCRIBE,
-            <if test="phone != null">
+            <if test="chargeName != null and chargeName != '' ">
+
+            </if>
+            <if test="phone != null and phone != '' ">
                 PHONE,
             </if>
         </trim>
@@ -66,15 +72,17 @@
         </trim>
     </insert>
     <select id="getBySupplierName" parameterType="map" resultMap="BaseResultMap">
-    select * from SYS_SUPPLIER t where t.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
+    select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
+    from SYS_SUPPLIER t where t.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
     </select>
     <select id="getById" parameterType="map" resultMap="BaseResultMap">
-      select * from SYS_SUPPLIER t
+      select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
+      from sys_supplier t
       where t.id = #{id,jdbcType=VARCHAR}
     </select>
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysSupplier" >
 
-        update SYS_SUPPLIER
+        update sys_supplier
         <set >
             <if test="supplierName != null" >
                 SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR},

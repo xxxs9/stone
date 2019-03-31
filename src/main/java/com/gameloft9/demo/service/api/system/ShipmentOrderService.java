@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 
+import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 
 
@@ -10,52 +11,72 @@ import java.util.List;
 public interface ShipmentOrderService {
 
     /**
-     * 分页获取所有发货单信息
+     * 获取所有销售订单信息
      * @param page
      * @param limit
-     * @param shipmentId
+     * @param goodsName
      * @return
      */
-    List<ShipmentOrder> findAll(String page, String limit, String shipmentId);
+
+    List<ShipmentOrder> findAll(String page, String limit, String goodsName);
 
     /**
-     * 获取所有发货单单个数
-     * @param shipmentId
+     * 获取所有销售订单个数
+     * @param goodsName
      * @return
      */
-    int countGetAll(String shipmentId);
+    int countGetAll(String goodsName);
 
     /**
-     * 通过ID删除发货单信息
+     * 通过ID删除销售订单信息
      * @param id
      * @return
      */
     int deleteById(String id);
 
     /**
-     * 获取发货单id
+     * 获取销售订单id
      * @param id
      * @return
      */
-    ShipmentOrder  getById(String id);
+    ShipmentOrder getById(String id);
 
     /**
-     * 修改发货单单信息
+     * 修改销售订单表信息
      * @param shipmentOrder
      * @return
      */
     Boolean update(ShipmentOrder shipmentOrder);
 
-
     /**
-     * 增加发货单信息
-     * @param shipmentOrder
-     * @return
+     * 增加销售订单表信息
      */
-    int add(ShipmentOrder shipmentOrder);
+    String add(ShipmentOrder shipmentOrder);
 
     /**
      * 确认收货
+     * @param shipmentOrder
+     * @return
      */
-    Boolean confirmUpdate(ShipmentOrder shipmentOrder);
+    Boolean confirm(ShipmentOrder shipmentOrder);
+    /**
+     * 退货
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean back(ShipmentOrder shipmentOrder);
+
+    /**
+     * 提交仓库发货
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean goods(ShipmentOrder shipmentOrder);
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean sub(ShipmentOrder shipmentOrder);
 }

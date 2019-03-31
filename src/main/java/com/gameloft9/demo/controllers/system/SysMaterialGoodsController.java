@@ -9,7 +9,6 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.SysMaterialGoodsService;
 import com.gameloft9.demo.service.beans.system.MaterialGoodsResponse;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -25,6 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author shizhengyu
+ * @Date 2019/3/27 - 09：55
+ * @Description:
+ **/
 @Controller
 @Slf4j
 @RequestMapping("/materialGoods")
@@ -44,7 +48,7 @@ public class SysMaterialGoodsController {
      */
     @RequestMapping(value = "/materialGoodsList.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getMaterialGoodslList(String page, String limit, String supplierName, String goodsName, String goodsType, String goodsSpecification){
+    public IResult getMaterialGoodsList(String page, String limit, String supplierName, String goodsName, String goodsType, String goodsSpecification){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new PageResultBean<Collection<MaterialGoodsResponse>>(sysMaterialGoodsServiceImpl.getAll(page, limit,supplierName,goodsName,goodsType,goodsSpecification),sysMaterialGoodsServiceImpl.countGetAll(supplierName,goodsName,goodsType,goodsSpecification));
     }
@@ -105,11 +109,11 @@ public class SysMaterialGoodsController {
     }
 
     /**
+     * 用户头像上传
      * 图片文件上传
      * @param file
      *
      */
-    // 用户头像上传
     @RequestMapping(value = "/uploadHeadImage.do", method = { RequestMethod.POST })
     @ResponseBody
     public ResultBean uploadHeadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request, InputStream stream, String goodsId){

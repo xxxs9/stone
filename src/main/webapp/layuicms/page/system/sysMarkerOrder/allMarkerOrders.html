@@ -94,15 +94,18 @@
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='等待审核') { }}
-
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='审核失败') { }}
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='审核成功') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="submit"><i class="layui-icon">&#xe65c;</i>提交仓库</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='等待仓库审核') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="wait"><i class="layui-icon">&#xe65c;</i>等待仓库审核</a>
+
+    {{# }else if(d.state =='仓库审核通过') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>审核已通过</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}

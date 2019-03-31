@@ -108,17 +108,16 @@ layui.config({
                     var data = res.data;
                     console.log(data)
                     //$("[name='id']").val(data.id);
-                    $("[name='shipmentId']").val(data.shipmentId);
+                    $("[name='goodsId']").val(data.goodsId);
                     $("[name='goodsName']").val(data.goodsName);
                     $("[name='customer']").val(data.customer);
-                    $("[name='quantityNumber']").val(data.quantityNumber);
-                    $("[name='deliveryTime']").val(data.deliveryTime);
-                    $("[name='receivingAddress']").val(data.receivingAddress);
-                    $("[name='phone']").val(data.phone);
-                    $("[name='consignee']").val(data.consignee);
-                    $("[name='receivingTime']").val(data.receivingTime);
-
+                    $("[name='goodsNumber']").val(data.goodsNumber);
+                    $("[name='goodsAmount']").val(data.goodsAmount);
+                    $("[name='applyUser']").val(data.applyUser);
+                    $("[name='applyTime']").val(data.applyTime);
                     $("[name='state']").val(data.state);
+                    $("[name='auditUser']").val(data.auditUser);
+                    $("[name='auditType']").val(data.auditType);
                     $("[name='remarks']").val(data.remarks)
 
 
@@ -138,21 +137,18 @@ layui.config({
                 var queryArgs = $tool.getQueryParam();//获取查询参数
                 var id = queryArgs['id'];
                 console.log(data)
-                var id = data.field.id;
-                var shipmentId= data.field.shipmentId;
+              //  var id = data.field.id;
+                var goodsId = data.field.goodsId;
                 var goodsName = data.field.goodsName;
                 var customer = data.field.customer;
-                var quantityNumber = data.field.quantityNumber;
-                var deliveryTime = data.field.deliveryTime;
-                var receivingAddress = data.field.receivingAddress;
-                var phone = data.field.phone;
-                var consignee = data.field.consignee;
-                var receivingTime= data.field.receivingTime;
-
+                var goodsNumber = data.field.goodsNumber;
+                var goodsAmount = data.field.goodsAmount;
+                var applyUser = data.field.applyUser;
+                var applyTime = data.field.applyTime;
                 var state = data.field.state;
+                var auditUser = data.field.auditUser;
+                var auditType = data.field.auditType;
                 var remarks = data.field.remarks
-
-
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
@@ -167,17 +163,17 @@ layui.config({
 
                 //请求
                 var req = {
-                    id: id,
-                    shipmentId: shipmentId,
+                    id:id,
+                    goodsId: goodsId,
                     goodsName: goodsName,
                     customer: customer,
-                    quantityNumber: quantityNumber,
-                    deliveryTime: deliveryTime,
-                    receivingAddress: receivingAddress,
-                    phone: phone,
-                    consignee: consignee,
-                    receivingTime: receivingTime,
+                    goodsNumber: goodsNumber,
+                    goodsAmount: goodsAmount,
+                    applyUser: applyUser,
+                    applyTime: applyTime,
                     state: state,
+                    auditUser: auditUser,
+                    auditType: auditType,
                     remarks: remarks
                 };
 
@@ -202,17 +198,7 @@ layui.config({
             ,type: 'datetime'
         });
     });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#test2' //指定元素
-            ,type: 'datetime'
-        });
-    });
-
-
-        });
+});
 
 

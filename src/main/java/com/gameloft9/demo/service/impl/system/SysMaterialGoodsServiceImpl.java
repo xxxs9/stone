@@ -5,7 +5,6 @@ import com.gameloft9.demo.dataaccess.dao.system.SysMaterialMapper;
 import com.gameloft9.demo.dataaccess.dao.system.SysSupplierMapper;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
-import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
 import com.gameloft9.demo.dataaccess.model.system.SysSupplier;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.SysMaterialGoodsService;
@@ -21,6 +20,12 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+
+/**
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 20:41
+ * @Description:
+ **/
 @Slf4j
 @Service
 public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
@@ -43,7 +48,7 @@ public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
     @Override
     public List<MaterialGoodsResponse> getAll(String page, String limit, String supplierName, String goodsName, String goodsType, String goodsSpecification) {
         PageRange pageRange = new PageRange(page, limit);
-        List<SysSupplier> supplierAll = sysSupplierMapper.getAll(0, 9999999, supplierName, null, null);
+        List<SysSupplier> supplierAll = sysSupplierMapper.getAll(0, 9999999, supplierName, null, null,null,null);
         List<SysMaterial> materialAll = sysMaterialMapper.getAll(0, 9999999, goodsName, goodsType, goodsSpecification);
         List<String> supplierIds = new ArrayList<String>();
         List<String> materialIds = new ArrayList<String>();
@@ -95,7 +100,7 @@ public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
      */
     @Override
     public int countGetAll(String supplierName, String goodsName, String goodsType, String goodsSpecification) {
-        List<SysSupplier> supplierAll = sysSupplierMapper.getAll(0, 9999999, supplierName, null, null);
+        List<SysSupplier> supplierAll = sysSupplierMapper.getAll(0, 9999999, supplierName, null, null,null,null);
         List<SysMaterial> materialAll = sysMaterialMapper.getAll(0, 9999999, goodsName, goodsType, goodsSpecification);
         List<String> supplierIds = new ArrayList<String>();
         List<String> materialIds = new ArrayList<String>();

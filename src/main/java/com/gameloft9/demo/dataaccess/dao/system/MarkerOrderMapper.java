@@ -44,10 +44,10 @@ public interface MarkerOrderMapper {
 
     /**
      * 增加销售订单信息
-     * @param markerOrderTest
+     * @param record
      * @return
      */
-    int add(MarkerOrderTest markerOrderTest);
+   int add(MarkerOrderTest record);
 
 
     /**
@@ -79,16 +79,18 @@ public interface MarkerOrderMapper {
     Boolean backUpdate(MarkerOrderTest markerOrderTest);
 
 
-    /**
-     * 自动生成订单编号
-     * @param markerOrderTest
-     * @return
-     */
-    String orderNum(MarkerOrderTest markerOrderTest);
 
     /**
      * 获取下拉框
      * @return
      */
     List<MarkerOrderTest> getProductId();
+
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean submit(MarkerOrderTest markerOrderTest);
 }

@@ -37,6 +37,45 @@ layui.config({
         });
     }
 
+    form.on('select(bhs)', function(data){
+        console.log(data.elem); //得到checkbox原始DOM对象
+        console.log(data.elem.checked); //是否被选中，true或者false
+        console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+        console.log(data.othis); //得到美化后的DOM对象
+        var req = {
+            materialId:data.value
+        };
+
+        $api.selectPriceByGoodsId(req,function (res) {
+            var data = res.data;
+            console.log(res);
+            $("[name='price']").val(data);
+            form.render();//重新绘制表单，让修改生效
+        });
+    });
+
+    //对价格进行判断，不能为零或负数
+    form.verify({
+       actualBalance:function (value) {
+           if(value<0){
+               return '价格不能为负数!';
+           } else if (value===0){
+               return '价格不能为零!';
+           }
+       }
+    });
+
+    //计算总金额 数量goodsNumber*价格price
+    $(function(){
+        //总结个totalPrice
+        $('[name=totalPrice]').bind('click',function(){
+
+            var price = $('[name=price]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            $("[name = totalPrice]").val(price * goodsNumber);
+        })
+    });
+
     /**
      * 表单提交
      * */
@@ -46,8 +85,9 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
-        //var applyTime = data.field.applyTime;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
 
@@ -63,8 +103,9 @@ layui.config({
             goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
+            totalPrice:totalPrice,
             applyUser: applyUser,
-            //applyTime: applyTime,
+            applyTime: applyTime,
             state:state,
             applyDescribe:applyDescribe
         };
@@ -79,5 +120,4 @@ layui.config({
         });
         return false;
     })
-
 });

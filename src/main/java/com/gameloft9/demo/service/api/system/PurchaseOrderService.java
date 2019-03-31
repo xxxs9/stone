@@ -79,7 +79,7 @@ public interface PurchaseOrderService {
      * @param state 订单类型
      * @return List<PurchaseOrder> 返回类型
      * */
-    List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state);
+    List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState);
 
     /**
      * 获取个数
@@ -87,7 +87,7 @@ public interface PurchaseOrderService {
      * @param state 订单类型
      * @return int 返回类型
      */
-    int countGetAll(String goodsId,String state);
+    int countGetAll(String goodsId,String state,String financeState);
 
     /**
      * 获取goodsId下拉框
@@ -169,6 +169,33 @@ public interface PurchaseOrderService {
      * @return boolean 布尔类型
      */
     boolean lookIn(PurchaseOrder purchaseOrder);
+
+    /**
+     * 采购 通过goodsId自动获取price
+     * @param materialId 商品名称
+     * @return PurchaseOrder 返回实体类型*/
+    String selectPriceByGoodsId(String materialId);
+
+    /**
+     * 获取orderNumber下拉框
+     * 根据state为审核通过
+     * @return List<PurchaseOrder> 返回类型
+     * */
+    List<PurchaseOrder> selectAllByOrderNumber();
+
+    /**
+     * 查看审核通过的订单详情
+     * @param purchaseOrder 实体类
+     * @return boolean 布尔类型
+     */
+    boolean selectAllBySearch(PurchaseOrder purchaseOrder);
+
+    /**
+     * 根据id获取
+     * @param id id
+     * @return PurchaseOrder
+     */
+    PurchaseOrder selectByOrderNumber(String orderNumber);
 }
 
 

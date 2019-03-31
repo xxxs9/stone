@@ -68,11 +68,12 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
-                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:100}
+                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
                 , {field: 'goodsId', title: '商品名称', width:120}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
-                , {field: 'price', title: '商品价格', width:100}
-                , {field: 'applyUser', title: '申请人', width:80}
+                , {field: 'price', title: '商品单价', width:100}
+                , {field: 'totalPrice', title: '商品总价', width:140}
+                , {field: 'applyUser', title: '申请人', width:100}
                 , {field: 'applyTime', title: '申请时间', width:200}
                 , {field: 'depotState', title: '审核状态', width:100}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器

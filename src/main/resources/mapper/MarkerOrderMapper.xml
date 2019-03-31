@@ -39,15 +39,27 @@
     </sql>
 
 
-    <!--提交-->
 
-    <!--<update id="state" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
-     update w_marker_order set STATE=#{state } where ID=#{id}
-  </update>-->
 
 
 <!--提交audi-->
     <update id="audiUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--提交仓库审核-->
+    <update id="submit" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
         update
         w_marker_order
         <set>
@@ -123,7 +135,7 @@
             </if>
 
         </where>
-        order by ID asc
+        order by ORDER_TIME desc
           limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -203,40 +215,7 @@
             ID=#{id}
   </update>
 
-    <!--添加-->
-    <insert id="orderNum" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
-        insert into
-           w_marker_order
-          (ID,
-          ORDER_ID,
-          ORDER_TIME,
-          PRODUCT_ID,
-          CUSTOMER,
-          DELIVER_NUMBER,
-          CURRENT_NUMBER,
-          PLANNED_NUMBER,
-          ACCEPTED_AMOUNT,
-          UNPAID_AMOUNT,
-          APPLY_USER,
-          STATE,
-          ORDER_AUDIT_USER,
-          REMARKS)
-        values
-          (#{id},
-          #{orderId},
-          #{orderTime},
-          #{productId},
-          #{customer},
-          #{deliverNumber},
-          #{currentNumber},
-          #{plannedNumber},
-          #{acceptedAmount},
-          #{unpaidAmount},
-          #{applyUser},
-          #{state},
-          #{orderAuditUser},
-          #{remarks})
-    </insert>
+
 
 
 </mapper>

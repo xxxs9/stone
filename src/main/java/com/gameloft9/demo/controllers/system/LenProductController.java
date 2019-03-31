@@ -7,7 +7,6 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,7 +52,16 @@ public class LenProductController {
     @RequestMapping("/del")
     @ResponseBody
     public IResult delete(String id){
-        return  new ResultBean<Boolean>(service.delete(id));
+        if (service.delete(id)){
+            Boolean flag= true;
+            return new ResultBean(flag);
+        }else{
+            ResultBean<?> result = new ResultBean();
+            result.setMsg("权限不足！");
+            result.setCode(ResultBean.SYSTEM_FAIL);
+            return result;
+        }
+
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.POST)
@@ -71,7 +79,58 @@ public class LenProductController {
         return  new ResultBean<List<String>>(service.getProductId());
     }
 
+    @RequestMapping(value = "/chg1",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult changeState1(String id){
+        return  new ResultBean<Boolean>(service.changeState(id));
+    }
+
+    @RequestMapping(value = "/chg",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult changeState(String id){
+
+        if (service.changeState(id)){
+            Boolean flag= true;
+            return new ResultBean(flag);
+        }else{
+//            return new ResultBean(new CheckException("权限不足","权限不足"));
+            ResultBean<?> result = new ResultBean();
+            result.setMsg("权限不足！");
+            result.setCode(ResultBean.SYSTEM_FAIL);
+            return result;
+        }
 
 
+    }
+
+    /**
+     * 通过状态查询（gbs = getByState）
+     * @return
+     */
+    @RequestMapping(value = "/gbs",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult changeState(){
+        return  new ResultBean<List>(service.selectByState());
+    }
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/sb",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult stepBack(String id) {
+        boolean flag=true;
+        if (service.stepBack(id)) {
+            return new ResultBean(flag);
+        } else {
+            ResultBean<?> result = new ResultBean();
+            result.setMsg("操作不被允许");
+            result.setCode(ResultBean.SYSTEM_FAIL);
+            return result;
+        }
+    }
 
 }

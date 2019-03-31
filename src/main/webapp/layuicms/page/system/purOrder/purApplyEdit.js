@@ -33,7 +33,7 @@ layui.config({
         });
     }
 
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -64,22 +64,22 @@ layui.config({
         function initDepotInfo() {
             var queryArgs = $tool.getQueryParam();//获取查询参数
             var id = queryArgs['id'];
-
-            //var url = $tool.getContext()+'purchase_order/get.do';
             var req = {
                 id:id
             };
 
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
-                console.log(data)
+                console.log(data);
                 $("[name='id']").val(data.id);
                 $("[name='orderNumber']").val(data.orderNumber);
                 $("[name='goodsId']").val(data.goodsId);
+                /*initGoodsId(data.goodsId);*/
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
+                $("[name='totalPrice']").val(data.totalPrice);
                 $("[name='applyUser']").val(data.applyUser);
-                //$("[name='applyTime']").val(data.applyTime);
+                $("[name='applyTime']").val(data.applyTime);
                 $("[name='state']").val(data.state);
                 $("[name='applyDescribe']").val(data.applyDescribe);
                 //加载orderType，整型转字符串
@@ -96,7 +96,6 @@ layui.config({
      * 加载申请单列表
      * */
     function loadRoleList() {
-        var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
             limit:10
@@ -123,6 +122,28 @@ layui.config({
         });
     }
 
+    //对价格进行判断，不能为零或负数
+    form.verify({
+        actualBalance:function (value) {
+            if(value<0){
+                return '价格不能为负数!';
+            } else if (value==0){
+                return '价格不能为零!';
+            }
+        }
+    });
+
+    //计算总金额 数量goodsNumber*价格price
+    $(function(){
+        //总结个totalPrice
+        $('[name=totalPrice]').bind('click',function(){
+
+            var price = $('[name=price]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            $("[name = totalPrice]").val(price * goodsNumber);
+        })
+    });
+
     /**
      * 表单提交
      * */
@@ -132,8 +153,9 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
-        //var applyTime = data.field.applyTime;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
         var idList = new Array();
@@ -146,15 +168,15 @@ layui.config({
         }
 
         //请求
-        var url = $tool.getContext()+'purchase_order/update.do';
         var req = {
             id:queryArgs['id'],
             orderNumber:orderNumber,
             goodsId:goodsId,
             goodsNumber:goodsNumber,
             price:price,
+            totalPrice:totalPrice,
             applyUser:applyUser,
-            //applyTime:applyTime,
+            applyTime:applyTime,
             state:state,
             applyDescribe:applyDescribe,
             depotIdList:idList
@@ -170,6 +192,7 @@ layui.config({
 
         return false;
     })
+
 });
 
 

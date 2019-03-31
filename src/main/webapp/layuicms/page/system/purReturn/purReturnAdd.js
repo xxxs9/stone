@@ -16,14 +16,14 @@ layui.config({
      * */
     function init() {
         //初始化供应商名称下拉框
-        initGoodsId();
+        //initGoodsId();
         initOrderNumber();
     }
     init();
 
-    /**
+    /*/!**
      * 初始化供应商名称下拉框
-     * */
+     * *!/
     function initGoodsId() {
         $api.selectGoodsIdPurchaseReturn(null,function (res) {
             var data = res.data;
@@ -36,7 +36,7 @@ layui.config({
                 form.render();
             }
         });
-    }
+    }*/
 
     /**
      * 初始化订单编号下拉框
@@ -55,6 +55,31 @@ layui.config({
         });
     }
 
+    form.on('select(bhs)', function(data){
+        console.log(data.elem); //得到checkbox原始DOM对象
+        console.log(data.elem.checked); //是否被选中，true或者false
+        console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+        console.log(data.othis); //得到美化后的DOM对象
+        var req = {
+            orderNumber:data.value
+        };
+
+        $api.selectOtherByOrderNumber(req,function (res) {
+            var data = res.data;
+            console.log(data);
+            //$("[name='id']").val(data.id);
+            //$("[name='orderNumber']").val(data.orderNumber);
+            $("[name='goodsId']").val(data.goodsId);
+            $("[name='goodsNumber']").val(data.goodsNumber);
+            $("[name='price']").val(data.price);
+            $("[name='totalPrice']").val(data.totalPrice);
+            //$("[name='depotState']").val(data.depotState);
+            //$("[name='applyUser']").val(data.applyUser);
+            //$("[name='applyTime']").val(data.applyTime);
+            form.render();//重新绘制表单，让修改生效
+        });
+    });
+
     /**
      * 表单提交
      * */
@@ -63,7 +88,9 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
         var depotState = data.field.depotState;
 
 
@@ -73,7 +100,9 @@ layui.config({
             goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
+            totalPrice:totalPrice,
             applyUser: applyUser,
+            applyTime:applyTime,
             depotState:depotState
         };
 
@@ -88,4 +117,13 @@ layui.config({
         return false;
     })
 
+    /*layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });

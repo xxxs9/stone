@@ -22,6 +22,7 @@ layui.config({
     function init() {
         initGoods();  //初始化货品名称
         initState();  //初始化订单状态
+        initOrder();  //初始化审核通过的订单
     }
 
     init();
@@ -29,7 +30,7 @@ layui.config({
     /**
      * 初始化状态查询
      */
-    function initState(){
+    function initState() {
         var html1 = '<option value="">--请选择--</option>';
         html1 += '<option value="未提交">未提交</option>>';
         html1 += '<option value="提交审核中">提交审核中</option>>';
@@ -43,7 +44,7 @@ layui.config({
      * 初始化下拉框
      * */
     function initGoods() {
-        $api.getListGoods(null,function (res) {
+        $api.getListGoods(null, function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
@@ -51,6 +52,24 @@ layui.config({
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
                 $('#goodsId').append($(html));
+                form.render();
+            }
+        });
+    }
+
+    /**
+     * 初始化订单编号下拉框
+     * 根据state为审核通过获取内容
+     * */
+    function initOrder() {
+        $api.selectAllByOrderNumber(null, function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                }
+                $('#orderNumber').append($(html));
                 form.render();
             }
         });
@@ -65,17 +84,18 @@ layui.config({
             , url: $tool.getContext() + 'purchase_order/list.do' //数据接口
             , method: 'post'
             , height: 415
-            , page:true //开启分页
+            , page: true //开启分页
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
-                {field: 'orderNumber', title: '订单单号',fixed: 'left',width:100}
-                , {field: 'goodsId', title: '商品名称', width:120}
-                , {field: 'goodsNumber', title: '商品数量', width:100}
-                , {field: 'price', title: '商品价格', width:100}
-                , {field: 'applyUser', title: '申请人', width:80}
-                , {field: 'applyTime', title: '申请时间', width:200}
-                , {field: 'state', title: '订单状态', width:100}
-                , {field: 'applyDescribe', title: '申请描述', width:220}
+                {field: 'orderNumber', title: '订单单号', fixed: 'left', width: 180}
+                , {field: 'goodsId', title: '商品名称', width: 120}
+                , {field: 'goodsNumber', title: '商品数量', width: 100}
+                , {field: 'price', title: '商品单价', width: 100}
+                , {field: 'totalPrice', title: '商品总价', width: 140}
+                , {field: 'applyUser', title: '申请人', width: 100}
+                , {field: 'applyTime', title: '申请时间', width: 200}
+                , {field: 'state', title: '订单状态', width: 100}
+                , {field: 'applyDescribe', title: '申请描述', width: 220}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -92,18 +112,18 @@ layui.config({
             if (layEvent === 'del') { //删除
                 delPur(row.id);
             } else if (layEvent === 'edit') { //编辑
-                //do something
                 editPur(row.id);
-            } else if(layEvent === 'commit') { //提交
+            } else if (layEvent === 'commit') { //提交
                 //var a = $(this).html("<i class=\"layui-icon\">&#xe605;</i>提交")
                 commitPut(row.id);
-            } else if(layEvent === 'back') { //撤回
+            } else if (layEvent === 'back') { //撤回
                 recallPur(row.id);
-            } else if(layEvent === 'look') { //查看
+            } else if (layEvent === 'look') { //审核未通过时查看原因
                 lookPur(row.id);
             }
         });
     }
+
     defineTable();
 
     //查询
@@ -113,9 +133,9 @@ layui.config({
 
         //表格重新加载
         tableIns.reload({
-            where:{
-                state:state,
-                goodsId:goodsId
+            where: {
+                state: state,
+                goodsId: goodsId
             }
         });
         return false;
@@ -144,7 +164,7 @@ layui.config({
     });
 
     //删除
-    function delPur(id){
+    function delPur(id) {
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -152,8 +172,8 @@ layui.config({
                 id: id
             };
 
-            $api.deletePurOrder(req,function (data) {
-                layer.msg("删除成功",{time:1000},function(){
+            $api.deletePurOrder(req, function (data) {
+                layer.msg("删除成功", {time: 1000}, function () {
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -163,19 +183,19 @@ layui.config({
     }
 
     //修改
-        function editPur(id){
-            var index = layui.layer.open({
-                title: "修改",
-                type: 2,
-                content: "purApplyEdit.html?id="+id,
-                success: function (layero, index) {
-                    setTimeout(function () {
-                        layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    }, 500)
-                }
-            });
+    function editPur(id) {
+        var index = layui.layer.open({
+            title: "修改",
+            type: 2,
+            content: "purApplyEdit.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
 
 
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -186,7 +206,7 @@ layui.config({
     }
 
     //提交
-    function commitPut(id){
+    function commitPut(id) {
         layer.confirm('确认提交吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -194,8 +214,8 @@ layui.config({
                 id: id
             };
 
-            $api.commitPurOrder(req,function (data) {
-                layer.msg("提交成功",{time:1000},function(){
+            $api.commitPurOrder(req, function (data) {
+                layer.msg("提交成功", {time: 1000}, function () {
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -206,7 +226,7 @@ layui.config({
     }
 
     //撤回
-    function recallPur(id){
+    function recallPur(id) {
         layer.confirm('确认撤回吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -214,8 +234,8 @@ layui.config({
                 id: id
             };
 
-            $api.recallPurOrder(req,function (data) {
-                layer.msg("撤回成功",{time:1000},function(){
+            $api.recallPurOrder(req, function (data) {
+                layer.msg("撤回成功", {time: 1000}, function () {
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -225,12 +245,12 @@ layui.config({
         });
     }
 
-    //查看
-    function lookPur(id){
+    //查看 审核未通过时查看原因
+    function lookPur(id) {
         var index = layui.layer.open({
             title: "查看审核未通过原因",
             type: 2,
-            content: "purInLook.html?id="+id,
+            content: "purInLook.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回采购列表', '.layui-layer-setwin .layui-layer-close', {
@@ -247,5 +267,29 @@ layui.config({
         });
         layui.layer.full(index);
     }
+
+    //查看 审核通过时查看详情
+    $('#search').click(function () {
+        var id = $('#orderNumber').val();
+        var index = layui.layer.open({
+            title: "查看订单详情",
+            type: 2,
+            content: "purApplySearch.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回采购列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+    });
+
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    });
 
 });

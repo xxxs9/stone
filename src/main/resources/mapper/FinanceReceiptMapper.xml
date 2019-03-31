@@ -12,12 +12,23 @@
     </resultMap>
 
     <!--TODO...优化-->
-    <!--获取所有  getAll-->
+    <!--获取所有  getAll
+    List<SysFinanceReceipt> getAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("receiveType") int receiveType
+    );-->
     <select id="getAll" resultMap="receiptMap">
       select
         *
       from
         a_recepit
+        <where>
+            <if test="receiveType != null and receiveType != ''">
+                RECEIVE_TYPE=#{receiveType,jdbcType=INTEGER}
+            </if>
+        </where>
+        limit #{start},#{end}
     </select>
 
 
@@ -27,6 +38,11 @@
         select count(1)
         from
         a_recepit
+        <where>
+            <if test="receiveType != null and receiveType != ''">
+                RECEIVE_TYPE=#{receiveType,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 
     <!--添加 add()-->

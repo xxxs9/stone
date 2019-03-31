@@ -4,12 +4,17 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @Author shizhengyu
+ * @Date 2019/3/26 - 20:41
+ * @Description:
+ **/
 @Data
 public class SysMaterialGoods implements Serializable {
 
-    private String  id;
+    private String id;
 
-    private String  supplierId;
+    private String supplierId;
 
     private String materialId;
 

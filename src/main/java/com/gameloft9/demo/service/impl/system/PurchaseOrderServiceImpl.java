@@ -4,22 +4,22 @@ import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * PurchaseOrder service
@@ -42,11 +42,21 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     /**增加*/
     public String insert(PurchaseOrder purchaseOrder) {
-        //修改jvm时间
-        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
-        TimeZone.setDefault(tz);
         purchaseOrder.setId(UUIDUtil.getUUID());
+        //根据登录账号的名字自动获取
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String userName = (String) request.getSession().getAttribute("sysUser");
+        //申请人名称
+        purchaseOrder.setApplyUser(userName);
+        //按固定格式生成订单编号
+        purchaseOrder.setOrderNumber("GC" + OrderUtil.createOrderNumber());
         purchaseOrder.setApplyTime(new Date());
+        purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);
+        //价格生成两位小数
+        /*String price = purchaseOrder.getPrice();
+        price = NumberUtil.strToBigdecimal(price);
+        purchaseOrder.setPrice(price);*/
+
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
     }
@@ -60,7 +70,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**修改*/
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-        //purchaseOrder.setApplyTime(new Date());
+        purchaseOrder.setApplyTime(new Date());
+        String str = purchaseOrder.getPrice();
+        //对单价进行判断，价格不能为零或负数，字符串类型需要用长度来判断(length)
+        if("".equals(str) || str == null){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
+        }else if(Integer.parseInt(str) < 0){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为负数！");
+        }else if(Integer.parseInt(str) == 0){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为零！");
+        }
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -75,7 +94,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String state = purchaseOrder.getState();
         String str="审核未通过";
         if(str.equals(state)){
-            purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
+            purchaseOrder.setState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         }else{
             purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
@@ -83,13 +102,18 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
-    /**审核*/
+    /**采购部门经理审核*/
     public boolean inspectUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
-        purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);
+        /*purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);*/
         String state = purchaseOrder.getState();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        //根据登录账号的名字自动获取
+        String userName = (String) request.getSession().getAttribute("sysUser");
+        //审核人名称
+        purchaseOrder.setOrderAuditUser(userName);
+        //按固定格式生成订单编号
         String str="审核通过";
         if(str.equals(state)){
             purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
@@ -120,15 +144,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
     }
 
+
     /**根据id获取审核所需的状态*/
-    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state){
+    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
         PageRange pageRange = new PageRange(page,limit);
-        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
+        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state,financeState);
     }
 
+
     /**获取分页*/
-    public int countGetAll(String goodsId, String state) {
-        return dao.countGetAll(goodsId,state);
+    public int countGetAll(String goodsId, String state,String financeState) {
+        return dao.countGetAll(goodsId,state,financeState);
     }
 
 
@@ -151,6 +177,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean commitUpdate(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setState(Constants.PurchaseState.APPLY_WAITING);
+        /*purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);*/
         dao.commitUpdate(purchaseOrder);
         return true;
     }
@@ -228,5 +255,29 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         dao.lookIn(purchaseOrder);
         return true;
+    }
+
+    /**根据goodsId自动获取pruce信息*/
+    public String selectPriceByGoodsId(String materialId){
+        return dao.selectPriceByGoodsId(materialId);
+    }
+
+    /**根据state状态为审核通过，获取下拉框orderNumber内容*/
+    public List<PurchaseOrder> selectAllByOrderNumber() {
+        List<PurchaseOrder> list = new ArrayList<PurchaseOrder>();
+        list = dao.selectAllByOrderNumber();
+        return list;
+    }
+
+    /**查看审核通过的订单详情*/
+    public boolean selectAllBySearch(PurchaseOrder purchaseOrder) {
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        dao.selectAllBySearch(purchaseOrder);
+        return true;
+    }
+
+    /**根据id获取*/
+    public PurchaseOrder selectByOrderNumber(String orderNumber) {
+        return dao.selectByOrderNumber(orderNumber);
     }
 }

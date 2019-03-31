@@ -40,12 +40,12 @@ layui.config({
 
                 , {field: 'orderId', title: '订单编号'}
                 , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品ID' }
+                , {field: 'productId', title: '产品名' }
                 , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '发货数量' }
+                , {field: 'deliverNumber', title: '销售数量' }
                 , {field: 'currentNumber', title: '当前库存' }
-                , {field: 'plannedNumber', title: '生产计划数量' }
-                , {field: 'acceptedAmount', title: '已收款金额' }
+                , {field: 'plannedNumber', title: '产品单价' }
+                , {field: 'acceptedAmount', title: '总金额' }
                 , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }
@@ -57,6 +57,7 @@ layui.config({
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+                $("[data-field='id']").css('display','none');
             }
         });
 
@@ -80,6 +81,8 @@ layui.config({
                 pass(row.id);
             }else if (layEvent === 'look') {//审核通过
                 look(row.id);
+            }else if (layEvent === 'ware') {//审核通过
+                ware(row.id);
             }
         });
     }
@@ -253,6 +256,31 @@ layui.config({
             layui.layer.full(index);
         });
         layui.layer.full(index);
+    }
+
+
+    //仓库审核
+
+    function ware(id){
+        layer.confirm('确认通过吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送提交指令
+            var req = {
+                id: id
+            };
+
+            $api.updateWare(req,function (data) {
+                layer.msg("审核成功",{time:1000},function(){
+                    //obj.del(); //提交对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
     }
 
     //查看

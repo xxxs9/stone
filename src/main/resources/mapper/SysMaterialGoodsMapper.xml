@@ -15,7 +15,8 @@
     </sql>
 
     <select id="getByIds" resultMap="BaseResultMap" >
-        SELECT * FROM SYS_MATERIAL_GOODS t
+        SELECT ID,SUPPLIER_ID,MATERIAL_ID,GOODS_PRICE,GOODS_ORIGIN_PLACE,IMAGE_URL
+        FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -24,7 +25,7 @@
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="getBySupplierIds" resultType="java.lang.String" >
-        SELECT t.ID FROM SYS_MATERIAL_GOODS t
+        SELECT t.ID FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.SUPPLIER_ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -32,7 +33,7 @@
         </where>
     </select>
     <select id="getByMaterialIds" resultType="java.lang.String" >
-        SELECT t.ID FROM SYS_MATERIAL_GOODS t
+        SELECT t.ID FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.MATERIAL_ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -40,24 +41,24 @@
         </where>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods">
-        insert into SYS_MATERIAL_GOODS
+        insert into sys_material_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
+            <if test="id != null and id != '' ">
                 ID,
             </if>
-            <if test="supplierId != null">
+            <if test="supplierId != null and supplierId != '' ">
                 SUPPLIER_ID,
             </if>
-            <if test="materialId != null">
+            <if test="materialId != null and materialId != '' ">
                 MATERIAL_ID,
             </if>
-            <if test="goodsPrice != null">
+            <if test="goodsPrice != null and goodsPrice != '' ">
                 GOODS_PRICE,
             </if>
-            <if test="goodsOriginPlace != null">
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' ">
                 GOODS_ORIGIN_PLACE,
             </if>
-            <if test="imageUrl != null">
+            <if test="imageUrl != null and imageUrl != '' ">
                 IMAGE_URL,
             </if>
         </trim>
@@ -65,40 +66,40 @@
             <if test="id != null">
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="supplierId != null">
+            <if test="supplierId != null and supplierId != '' ">
                 #{supplierId,jdbcType=VARCHAR},
             </if>
-            <if test="materialId != null">
+            <if test="materialId != null and materialId != '' ">
                 #{materialId,jdbcType=VARCHAR},
             </if>
-            <if test="goodsPrice != null">
+            <if test="goodsPrice != null and goodsPrice != '' ">
                 #{goodsPrice,jdbcType=VARCHAR},
             </if>
-            <if test="goodsOriginPlace != null">
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' ">
                 #{goodsOriginPlace,jdbcType=VARCHAR},
             </if>
-            <if test="imageUrl != null">
+            <if test="imageUrl != null and imageUrl != '' ">
                 #{imageUrl,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods" >
 
-        update SYS_MATERIAL_GOODS
+        update sys_material_goods
         <set >
-            <if test="supplierId != null" >
+            <if test="supplierId != null and supplierId != '' " >
                 SUPPLIER_ID = #{supplierId,jdbcType=VARCHAR},
             </if>
-            <if test="materialId != null" >
+            <if test="materialId != null and materialId != '' " >
                 MATERIAL_ID = #{materialId,jdbcType=VARCHAR},
             </if>
-            <if test="goodsPrice != null" >
+            <if test="goodsPrice != null and goodsPrice != '' " >
                 GOODS_PRICE = #{goodsPrice,jdbcType=VARCHAR},
             </if>
-            <if test="goodsOriginPlace != null" >
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' " >
                 GOODS_ORIGIN_PLACE = #{goodsOriginPlace,jdbcType=VARCHAR},
             </if>
-            <if test="imageUrl != null">
+            <if test="imageUrl != null and imageUrl != '' ">
                 IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
             </if>
         </set>
@@ -108,7 +109,7 @@
         delete from SYS_MATERIAL_GOODS
         where ID = #{id,jdbcType=VARCHAR}
     </delete>
-    <select id="selectByMateralId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByMaterialId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_material_goods t

@@ -59,12 +59,13 @@ layui.config({
             initGoods(data.goodsId);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
+            $("[name='totalPrice']").val(data.totalPrice);
             $("[name='applyUser']").val(data.applyUser);
             //$("[name='applyTime']").val(data.applyTime);
             $("[name='applyDescribe']").val(data.applyDescribe);
             $("[name='state']").val(data.state);
             $("[name='orderAuditUser']").val(data.orderAuditUser);
-            //$("[name='orderAuditTime']").val(data.orderAuditTime);
+            $("[name='orderAuditTime']").val(data.orderAuditTime);
             $("[name='auditDescribe']").val(data.auditDescribe);
             $("[name='financeState']").val(data.financeState);
             //depotIds = data.depotIds;//保存菜单所属角色id列表，初始化选中时用
@@ -113,12 +114,13 @@ layui.config({
         var goodsId = data.field.goodsId;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
         var applyUser = data.field.applyUser;
         //var applyTime = data.field.applyTime;
         var applyDescribe = data.field.applyDescribe;
         var state = $(this).html();
         var orderAuditUser = data.field.orderAuditUser;
-        //var orderAuditTime = data.field.orderAuditTime;
+        var orderAuditTime = data.field.orderAuditTime;
         var auditDescribe = data.field.auditDescribe;
         var financeState = data.field.financeState;
         var idList = new Array();
@@ -131,12 +133,13 @@ layui.config({
             goodsId:goodsId,
             goodsNumber:goodsNumber,
             price:price,
+            totalPrice:totalPrice,
             applyUser:applyUser,
             //applyTime:applyTime,
             applyDescribe:applyDescribe,
             state:state,
             orderAuditUser:orderAuditUser,
-            //orderAuditTime:orderAuditTime,
+            orderAuditTime:orderAuditTime,
             auditDescribe:auditDescribe,
             financeState:financeState,
             depotIdList:idList
@@ -152,4 +155,13 @@ layui.config({
         return false;
     })
 
+    /*layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type: 'datetime'
+        });
+    });*/
 });

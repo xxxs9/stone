@@ -33,40 +33,46 @@
             <input type="text" class="layui-input" name="id" lay-verify="required" placeholder="请输入采购编号">
         </div>
     </div>-->
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="orderNumber" lay-verify="required" placeholder="请输入订单编号">
         </div>
-    </div>
+    </div>-->
     <div class="layui-form-item">
         <label class="layui-form-label">商品名称</label>
         <div class="layui-input-block">
-            <select id="goodsId" name="goodsId"></select>
+            <select id="goodsId" name="goodsId"  lay-filter="bhs"></select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="goodsNumber" lay-verify="required" placeholder="请输入商品数量">
+            <input type="text" class="layui-input" name="goodsNumber" lay-verify="actualBalance" placeholder="请输入商品数量">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">商品价格</label>
+        <label class="layui-form-label">商品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="price" lay-verify="required" placeholder="请输入商品价格">
+            <input type="text" class="layui-input" name="price" id="price" readonly="readonly" lay-verify="prices" placeholder="请输入商品价格">
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">商品总价</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="totalPrice" readonly="readonly" lay-verify="required" placeholder="点击计算总价">
+        </div>
+    </div>
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="applyUser" lay-verify="required" placeholder="请输入申请人名字">
         </div>
-    </div>
+    </div>-->
     <!--<div class="layui-form-item">
         <label class="layui-form-label">申请时间</label>
         <div class="layui-input-block">
-            <input type="date" class="layui-input" name="applyTime" lay-verify="required">
+            <input type="text" id="time" class="layui-input" name="applyTime" lay-verify="required">
         </div>
     </div>-->
     <div class="layui-form-item">

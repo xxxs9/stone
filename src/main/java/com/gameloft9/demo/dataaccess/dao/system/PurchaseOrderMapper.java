@@ -102,7 +102,8 @@ public interface PurchaseOrderMapper {
             @Param("start") int start,
             @Param("end") int end,
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 分页获取个数
@@ -112,7 +113,8 @@ public interface PurchaseOrderMapper {
      * */
     int countGetAll(
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 获取goodsId下拉框
@@ -180,6 +182,34 @@ public interface PurchaseOrderMapper {
      * @return int 返回值
      * */
     int lookIn(PurchaseOrder record);
+
+    /**
+     * 采购
+     * 根据goodsId获取price
+     * @param materialId 商品名称
+     * @return PurchaseOrder 返回实体类*/
+    String selectPriceByGoodsId(String materialId);
+
+    /**
+     * 获取orderNumber下拉框
+     * 根据状态为审核通过
+     * @return List<PurchaseOrder> 返回类型
+     * */
+    List<PurchaseOrder> selectAllByOrderNumber();
+
+    /**
+     * 查看审核通过的订单详情
+     * @param record 记录
+     * @return int
+     * */
+    int selectAllBySearch(PurchaseOrder record);
+
+    /**
+     * orderNumber
+     * @param id id
+     * @return PurchaseOrder
+     * */
+    PurchaseOrder selectByOrderNumber(String orderNumber);
 
 
 

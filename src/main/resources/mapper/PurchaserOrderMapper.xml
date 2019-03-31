@@ -9,22 +9,23 @@
     <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
     <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
     <result column="PRICE" property="price" jdbcType="VARCHAR"/>
+    <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR"/>
     <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
-    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE"/>
-    <result column="APPLY_PAY_TIME" property="applyPayTime" jdbcType="DATE"/>
+    <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+    <result column="APPLY_PAY_TIME" property="applyPayTime" jdbcType="TIMESTAMP"/>
     <result column="STATE" property="state" jdbcType="VARCHAR"/>
     <result column="FINANCE_STATE" property="financeState" jdbcType="VARCHAR"/>
     <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
-    <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="DATE"/>
+    <result column="ORDER_AUDIT_TIME" property="orderAuditTime" jdbcType="TIMESTAMP"/>
     <result column="APPLY_DESCRIBE" property="applyDescribe" jdbcType="VARCHAR"/>
     <result column="AUDIT_DESCRIBE" property="auditDescribe" jdbcType="VARCHAR"/>
     <result column="FINANCE_AUDIT_USER" property="financeAuditUser" jdbcType="VARCHAR"/>
-    <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="DATE"/>
+    <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="TIMESTAMP"/>
     <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
     <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
     <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
     <result column="DEPOT_USER" property="depotUser" jdbcType="VARCHAR"/>
-    <result column="DEPOT_TIME" property="depotTime" jdbcType="DATE"/>
+    <result column="DEPOT_TIME" property="depotTime" jdbcType="TIMESTAMP"/>
     <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
 </resultMap>
 
@@ -44,6 +45,7 @@
             t.GOODS_ID,
             t.GOODS_NUMBER,
             t.PRICE,
+            t.TOTAL_PRICE,
             t.APPLY_USER,
             t.APPLY_TIME,
             t.STATE,
@@ -60,7 +62,7 @@
             </if>
             AND m.MATERIAL_ID = t.GOODS_ID
         </where>
-            ORDER BY t.ID ASC
+            ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -72,6 +74,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             APPLY_DESCRIBE,
@@ -82,8 +85,13 @@
             FINANCE_STATE
         FROM
             t_purchase_order
-        WHERE
-            STATE != '未提交'
+        <where>
+            <if test="financeState != null and financeState != ''">
+                and FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
+                and STATE != '未提交'
+        </where>
+
     </select>
 
     <!--根据id获取-->
@@ -96,6 +104,16 @@
             ID=#{id}
     </select>
 
+    <!--根据orderNumber获取-->
+    <select id="selectByOrderNumber" resultMap="purOrderMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
     <!--增加-->
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
         INSERT INTO
@@ -105,9 +123,11 @@
               GOODS_ID,
               GOODS_NUMBER,
               PRICE,
+              TOTAL_PRICE,
               APPLY_USER,
               APPLY_TIME,
               STATE,
+              AUDIT_TYPE,
               APPLY_DESCRIBE)
         VALUES
               (#{id},
@@ -115,9 +135,11 @@
               #{goodsId},
               #{goodsNumber},
               #{price},
+              #{totalPrice},
               #{applyUser},
               #{applyTime},
               #{state},
+              #{auditType},
               #{applyDescribe})
     </insert>
 
@@ -138,6 +160,7 @@
             GOODS_ID=#{goodsId},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
+            TOTAL_PRICE=#{totalPrice},
             APPLY_USER=#{applyUser},
             APPLY_TIME=#{applyTime},
             APPLY_PAY_TIME=#{applyPayTime},
@@ -169,15 +192,18 @@
             <if test="state != null and state != ''">
                 AND t.state = #{state}
             </if>
+            <if test="financeState != null and financeState != ''">
+                AND FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
     <!--货品名称goodsId下拉框-->
     <select id="getSelectListGoods" resultType="java.lang.String">
         SELECT DISTINCT
-            GOODS_ID
+            MATERIAL_ID
         FROM
-            t_purchase_order
+            y_material_goods
     </select>
 
     <!--订单状态state下拉框-->
@@ -188,9 +214,18 @@
             t_purchase_order
     </select>
 
+    <!--财务审核状态financeState下拉框-->
+    <select id="getSelectListFinance" resultType="java.lang.String">
+        SELECT DISTINCT
+            FINANCE_STATE
+        FROM
+            t_purchase_order
+    </select>
+
     <!--查看 look-->
     <select id="lookSelect" resultMap="purOrderMap" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
         SELECT
+            ID,
             STATE,
             ORDER_AUDIT_USER,
             ORDER_AUDIT_TIME,
@@ -259,8 +294,7 @@
             STATE=#{state},
             ORDER_AUDIT_USER=#{orderAuditUser},
             ORDER_AUDIT_TIME=#{orderAuditTime},
-            AUDIT_DESCRIBE=#{auditDescribe},
-            FINANCE_STATE=#{financeState}
+            AUDIT_DESCRIBE=#{auditDescribe}
         WHERE
             ID=#{id}
     </update>
@@ -283,6 +317,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             APPLY_PAY_TIME,
@@ -340,6 +375,7 @@
             GOODS_ID=#{goodsId},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
+            TOTAL_PRICE=#{totalPrice},
             APPLY_USER=#{applyUser}
         WHERE
             ID=#{id}
@@ -358,8 +394,45 @@
             ID=#{id}
     </update>
 
+    <!--选取goodsId下拉框内容，自动获取price价格-->
+    <select id="selectPriceByGoodsId" resultType="java.lang.String">
+        SELECT
+            GOODS_PRICE
+        FROM
+            y_material_goods
+        WHERE
+            MATERIAL_ID=#{materialId}
+    </select>
 
+    <!--获取orderNumber下拉框 根据state=审核通过-->
+    <select id="selectAllByOrderNumber" resultType="java.lang.String">
+        SELECT
+            ORDER_NUMBER
+        FROM
+            t_purchase_order
+        WHERE
+            STATE='审核通过'
+    </select>
 
+    <!--订单详情 所有数据-->
+    <update id="selectAllBySearch" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+        UPDATE
+            t_purchase_order
+        SET
+            GOODS_ID=#{goodsId},
+            GOODS_NUMBER=#{goodsNumber},
+            PRICE=#{price},
+            TOTAL_PRICE=#{totalPrice},
+            APPLY_USER=#{applyUser},
+            APPLY_TIME=#{applyTime},
+            APPLY_DESCRIBE=#{applyDescribe},
+            ORDER_AUDIT_USER=#{orderAuditUser},
+            ORDER_AUDIT_TIME=#{orderAuditTime},
+            AUDIT_DESCRIBE=#{auditDescribe}
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </update>
+    
 
 
     <!--阿发包  财务管理人员  根据财务审核状态来获取内容,分页-->
@@ -374,6 +447,7 @@
             APPLY_TIME,
             APPLY_PAY_TIME,
             STATE,
+            TOTAL_PRICE,
             FINANCE_STATE,
             ORDER_AUDIT_USER,
             ORDER_AUDIT_TIME,
@@ -402,6 +476,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             APPLY_PAY_TIME,
@@ -434,6 +509,7 @@
             GOODS_ID,
             GOODS_NUMBER,
             PRICE,
+            TOTAL_PRICE,
             APPLY_USER,
             APPLY_TIME,
             APPLY_PAY_TIME,

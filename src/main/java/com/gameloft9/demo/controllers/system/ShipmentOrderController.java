@@ -1,6 +1,7 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -28,6 +30,7 @@ public class ShipmentOrderController {
 
     @Autowired
     ShipmentOrderService shipmentOrderService;
+
 
     /**
      * 处理时间
@@ -43,23 +46,16 @@ public class ShipmentOrderController {
     }
 
     /**
-     * 分页模糊查找
-     * @param page
-     * @param limit
-     * @param shipmentId
-     * @return
+     * 获取所有发货单信息
      */
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page, String limit, String shipmentId){
-        List<ShipmentOrder> list = shipmentOrderService.findAll(page, limit, shipmentId);
-        return new PageResultBean<Collection<ShipmentOrder>>(list,shipmentOrderService.countGetAll(shipmentId));
+    public IResult findAll(String page, String limit, String goodsName){
+        List<ShipmentOrder> list = shipmentOrderService.findAll(page, limit, goodsName);
+        return new PageResultBean<Collection<ShipmentOrder>>(list,shipmentOrderService.countGetAll(goodsName));
     }
-
     /**
      * 删除
-     * @param id
-     * @return
      */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
@@ -68,20 +64,7 @@ public class ShipmentOrderController {
     }
 
     /**
-     * 获取id
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult getById(String id){
-        return new ResultBean<ShipmentOrder>(shipmentOrderService.getById(id));
-    }
-
-    /**
      * 修改
-     * @param shipmentOrder
-     * @return
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
@@ -90,22 +73,67 @@ public class ShipmentOrderController {
     }
 
     /**
+     * 获取发货单ID
+     */
+    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getById(String id){
+        return new ResultBean<ShipmentOrder>(shipmentOrderService.getById(id));
+    }
+
+    /**
      * 增加
-     * @param shipmentOrder
-     * @return
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(ShipmentOrder shipmentOrder){
-        return new ResultBean<Integer>(shipmentOrderService.add(shipmentOrder));
+    public IResult add(ShipmentOrder shipmentOrder, HttpServletRequest request){
+        request.getSession().getAttribute("sysUser");
+        System.out.println(shipmentOrder);
+        return new ResultBean<String>(shipmentOrderService.add(shipmentOrder));
     }
 
     /**
      * 确认收货
+     * @param shipmentOrder
+     * @return
      */
     @RequestMapping(value = "/confirm",method = RequestMethod.POST)
     @ResponseBody
-    public IResult confirmUpdate(ShipmentOrder shipmentOrder){
-        return new ResultBean<Boolean>(shipmentOrderService.confirmUpdate(shipmentOrder));
+    public IResult confirm(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.confirm(shipmentOrder));
     }
+
+    /**
+     * 退货
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/back",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult back(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.back(shipmentOrder));
+    }
+
+    /**
+     * 提交仓库
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/goods",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult goods(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.goods(shipmentOrder));
+    }
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/sub",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult sub(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(shipmentOrderService.sub(shipmentOrder));
+    }
+
 }

@@ -27,7 +27,7 @@ public interface LenProductMapper {
      * @param id
      * @return
      */
-    LenProduct getByPrimaryKey(String id);
+    LenProduct getByPrimaryKey(@Param("id") String id);
 
     /**
      * 分页查找
@@ -75,14 +75,14 @@ public interface LenProductMapper {
      * @param state
      * @return
      */
-    int dataCount(String state);
+    int dataCount(@Param("state") String state);
 
     /**
      * 更改state状态码
      *
      * @return
      */
-    int changeState();
+    int changeState(@Param("state")String state,@Param("id")String id);
 
     /**
      * 选择修改
@@ -105,4 +105,11 @@ public interface LenProductMapper {
      * 获取产品id
      * */
     List<String> getProductId();
+    /**
+     * 查找已审核的产品
+     *
+     * @return List
+     */
+    List<LenProduct> selectByState();
+
 }

@@ -17,9 +17,11 @@ public class PurchaseOrder {
     private String goodsId;
     private String goodsNumber;
     private String price;
+    private String totalPrice;
     private String applyUser;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyTime;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyPayTime;
     private String state;
     private String financeState;

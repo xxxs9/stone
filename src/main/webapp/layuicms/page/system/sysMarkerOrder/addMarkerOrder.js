@@ -129,6 +129,40 @@ layui.config({
         });
     });
 
+
+
+
+    //计算总金额
+
+    $(function() {
+
+        $('[name= acceptedAmount]').bind('click', function () {
+            var unitPirce = $('[name=deliverNumber]').val();
+            var number = $('[name=plannedNumber]').val();
+            $("[name = acceptedAmount]").html($(this).val(unitPirce * number)
+            )
+        })
+
+    })
+
+
+
+   /* $(function(){
+
+        $('[name= acceptedAmount]').bind('input propertychange', function() {
+            alert(1);
+            var a = $('#deliverNumber').val();
+            var b = $('#plannedNumber').val();
+            var sum= a * b;
+            alert(2);
+            $('#acceptedAmount').html($(this).val(sum)
+        )
+        });
+
+    })*/
+
+
+
 });
 
 

@@ -4,17 +4,34 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['laydate','form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
         laypage = layui.laypage,
         $tool = layui.$tool,
         table = layui.table,
-        $api = layui.$api;
+        $api = layui.$api,
+        laydate = layui.laydate;
 
     var tableIns;//表格实例
 
+    function init() {
+        initDate();//初始化日期选择框
+    }
+
+    init();
+    /**
+     * 初始化日期选择
+     * */
+    function initDate() {
+        laydate.render({
+            elem: '#applyTime'
+            , type: 'datetime'
+            , range: '&'
+            , format: 'yyyy-MM-dd HH:mm:ss'
+        });
+    }
 
     /**
      * 定义表格
@@ -49,15 +66,6 @@ layui.config({
             //区分事件
             if (layEvent === 'generateApply') { //生成应付或应收单
                 checkPurchaseOrder1(row.id,row.applyId,row.applyType);
-                /*if(row.applyType == 1){
-                    checkPurchaseOrder1(row.applyId,row.applyType);
-                }else if(row.applyType == 2){
-                    //checkPurchaseReceive(row.applyId,row.applyType);
-                }else if(row.applyType == 3){
-                    checkPurchaseReceive(row.applyId,row.applyType);
-                }else if(row.applyType == 4){
-                    //checkPurchaseReceive(row.applyId,row.applyType);
-                }*/
 
             } else if (layEvent === 'show') { //点击行出发事件
                 //do something
@@ -71,14 +79,20 @@ layui.config({
 
 
     //查询
-    form.on("submit(queryState)", function (data) {
+    form.on("submit(query)", function (data) {
 
-        var financeState = data.field.financeState;
-
+        var applyState = data.field.applyState;
+        var applyType = data.field.applyType;
+        var applyTime = data.field.applyTime;
+        var startTime = applyTime.split("&")[0];
+        var endTime = applyTime.split("&")[1];
         //表格重新加载
         tableIns.reload({
             where:{
-                financeState:financeState,
+                applyState:applyState,
+                applyType:applyType,
+                startTime:startTime,
+                endTime:endTime,
             }
         });
 

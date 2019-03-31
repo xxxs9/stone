@@ -111,9 +111,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAll(String page,String limit,String goodsId,String state){
+    public IResult selectAll(String page,String limit,String goodsId,String state,String financeState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsId,
-                state),service.countGetAll(goodsId,state));
+                state),service.countGetAll(goodsId,state,financeState));
     }
 
     /**
@@ -121,9 +121,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listInspect.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByInspect(String page,String limit,String goodsId,String state){
+    public IResult selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInspect(page,
-                limit,goodsId,state),service.countGetAll(goodsId,state));
+                limit,goodsId,state,financeState),service.countGetAll(goodsId,state,financeState));
     }
 
     /**
@@ -214,7 +214,44 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/lookIn.do")
     @ResponseBody
     public IResult lookInUpdate(PurchaseOrder purchaseOrder){
-        return new ResultBean<Boolean>(service.lookIn(purchaseOrder));
+        return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
+    }
+
+    /**
+     * 根据goodsId获取price
+     * */
+    @RequestMapping(value = "/price.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectPriceByGoodsId(String materialId){
+        return new ResultBean<String>(service.selectPriceByGoodsId(materialId));
+    }
+
+    /**
+     * 根据state状态为审核通过
+     * 获取orderNumber下拉框
+     * */
+    @RequestMapping(value = "/orderNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllByOrderNumber(){
+        return new ResultBean<Collection<PurchaseOrder>>(service.selectAllByOrderNumber());
+    }
+
+    /**
+     * 查看审核通过的订单详情
+     */
+    @RequestMapping(value = "/search.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAllBySearch(PurchaseOrder purchaseOrder){
+        return new ResultBean<Boolean>(service.selectAllBySearch(purchaseOrder));
+    }
+
+    /**
+     * 根据orderNumber获取内容
+     */
+    @RequestMapping(value = "/getOrderNumber.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectByOrderNumber(String orderNumber){
+        return new ResultBean<PurchaseOrder>(service.selectByOrderNumber(orderNumber));
     }
 
 }

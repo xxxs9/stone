@@ -18,19 +18,20 @@
         <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
+    <!--List<SysFinancePurchaseBillsPayable> getAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("auditType") int auditType,
-            @Param("documentMakeTime") Date documentMakeTime
-            );-->
+            @Param("auditState") int auditState
+    );-->
     <select id="getAll" resultMap="purchaseBillsPayableMap">
         select
         *
         from
         a_purchase_bills_payable
         <where>
-                and AUDIT_TYPE = 1
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
         limit #{start},#{end}
     </select>
@@ -43,9 +44,11 @@
         select
           count(1)
         from
-          a_purchase_bills_payable p
+          a_purchase_bills_payable
         <where>
-            and AUDIT_TYPE = 1
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 

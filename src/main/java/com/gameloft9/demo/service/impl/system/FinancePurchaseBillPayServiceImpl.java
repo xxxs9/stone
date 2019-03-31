@@ -1,18 +1,17 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinancePaymentMapper;
-import com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper;
-import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
-import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePayment;
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
+import com.gameloft9.demo.dataaccess.dao.system.*;
+import com.gameloft9.demo.dataaccess.model.system.*;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
+import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
+import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FinanceServiceUtil;
 import com.gameloft9.demo.utils.NumberUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * @author: 啊发包
  * @Date: 2019/03/19 2019-03-19
  */
-
+@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPayService {
@@ -40,34 +40,33 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
     PurchaseOrderMapper purchaseOrderMapper;
     @Autowired
     FinancePaymentMapper paymentMapper;
+    @Autowired
+    FinanceBillMapper billMapper;
 
     /**
      *
      * @param page 当前页
      * @param limit 每条条数
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 申请类型
      * @return
      *      采购应付单集合
      */
-    public List<SysFinancePurchaseBillsPayable> getAll(String page, String limit, String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(page,limit,auditType,startTime,endTime);
-        return purchaseBillsPayableMapper.getAll(util.getPageRange().getStart(),util.getPageRange().getEnd(),
-                util.getAuditType(),util.getStartTime(),util.getEndTIme());
+    public List<SysFinancePurchaseBillsPayable> getAll(String page, String limit, String auditState) {
+        PageRange pageRange = new PageRange(page,limit);
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return purchaseBillsPayableMapper.getAll(pageRange.getStart(),pageRange.getEnd(),
+                auditState1);
     }
 
     /**
      *
-     * @param auditType 单子类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param auditState 单子类型
      * @return
      *      条件查询总条数
      */
-    public int getCount(String auditType, String startTime, String endTime) {
-        FinanceServiceUtil util = new FinanceServiceUtil(auditType,startTime,endTime);
-        return purchaseBillsPayableMapper.getCount(util.getAuditType(), util.getStartTime(), util.getEndTIme());
+    public int getCount(String auditState) {
+        Integer auditState1 = NumberUtil.strToInt(auditState);
+        return purchaseBillsPayableMapper.getCount(auditState1);
     }
 
     /**
@@ -145,6 +144,12 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
      * @return a
      */
     public Boolean purchaseOrderPayPass(String attitude ,String id, String auditType,String actualPrice,String auditDescribe) {
+        if(actualPrice == null || "".equals(actualPrice)){
+            throw new BizException(AbstractResult.BIZ_FAIL,"实际价格为空");
+        }
+        if(auditDescribe == null || "".equals(auditDescribe)){
+            throw new BizException(AbstractResult.BIZ_FAIL,"审核内容为空");
+        }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
@@ -186,6 +191,17 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
             payment.setPayType(financePurchaseBillsPayable.getAuditType());
             //添加付款单
             paymentMapper.add(payment);
+
+            //生成账单
+            SysFinanceBill financeBill = new SysFinanceBill();
+            financeBill.setId(UUIDUtil.getUUID());
+            Integer balance = Integer.parseInt(financePurchaseBillsPayable.getActualBalance());
+            financeBill.setBalance(balance*(-1));
+            financeBill.setBillTime(financePurchaseBillsPayable.getAuditTime());
+            financeBill.setDepartment(Constants.Finance.PURCHASE);
+            //添加账单
+            billMapper.add(financeBill);
+
         }
         //更新applyOrder
         applyOrderMapper.updateApplyState(applyOrder);

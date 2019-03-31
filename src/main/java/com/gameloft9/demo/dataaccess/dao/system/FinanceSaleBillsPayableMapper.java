@@ -19,31 +19,45 @@ public interface FinanceSaleBillsPayableMapper extends BaseMapper<SysFinanceSale
      *
      * @param start 开始
      * @param end 结束
-     * @param auditType 单子类型
-     * @param startTime 制单时间
-     * @param endTime 制单时间
+     * @param auditState 单子类型
      * @return
      *      销售应付单集合
      */
     List<SysFinanceSaleBillsPayable> getAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("auditType") int auditType,
-            @Param("startTime") Date startTime,
-            @Param("endTime") Date endTime
+            @Param("auditState") int auditState
     );
 
     /**
      * 条件查询总条数
      *
-     * @param auditType 单子类型
-     * @param startTime 制单时间
-     * @param endTime 制单时间
+     * @param auditState 单子类型
      * @return 条件查询总条数
      */
     int getCount(
-            @Param("auditType") int auditType,
-            @Param("startTime") Date startTime,
-            @Param("endTime") Date endTime
+            @Param("auditState") int auditState
     );
+
+    /**
+     * 根据purchaseOrderId 和auditType
+     *
+     * @param saleRejectedId 采购订单编号
+     * @param auditType 采购订单类型
+     * @return
+     *
+     */
+    SysFinanceSaleBillsPayable getSalePayBysaleRejectedIdAndAuditType(
+            @Param("saleRejectedId") String saleRejectedId,
+            @Param("auditType") Integer auditType
+    );
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      SysFinanceSaleBillsPayable
+     */
+    SysFinanceSaleBillsPayable getSalePayById(@Param("id") String id);
 }

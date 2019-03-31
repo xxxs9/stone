@@ -19,36 +19,29 @@
     </style>
 </head>
 <body class="childrenBody">
+
+    <blockquote class="layui-elem-quote news_search">
+
+        <form class="layui-form">
+            <div class="layui-inline">
+                <label class="layui-form-label">申请状态</label>
+                <div class="layui-input-inline">
+                    <select  name="applyState">
+                        <option value=""></option>
+                        <option value="2">待审核</option>
+                        <option value="3">审核通过</option>
+                        <option value="4">审核不通过</option>
+                    </select>
+                </div>
+
+                <div class="layui-inline">
+                    <a class="layui-btn search_btn" lay-submit="" lay-filter="query">查询</a>
+                </div>
+            </div>
+        </form>
+
+    </blockquote>
     <!--选项卡区-->
-       <!-- <div class="layui-tab">
-            <ul class="layui-tab-title">
-                <li class="layui-this">采购申请应付单</li>
-                <li>采购退货应付单</li>
-                &lt;!&ndash;<li>销售发货应收单</li>
-                <li>采购退货应付单</li>&ndash;&gt;
-            </ul>
-        </div>
-    <div class="layui-tab-content">
-        <div class="layui-tab-item">
-            &lt;!&ndash;通过lay-filter区分toolbar事件容器  采购应付单列表&ndash;&gt;
-            <table id="purchasePay">
-            </table>
-        </div>
-        <div class="layui-tab-item">
-            &lt;!&ndash;通过lay-filter区分toolbar事件容器  采购应收单列表&ndash;&gt;
-            <table id="purchaseReceive">
-            </table>
-        </div>-->
-        <!--<div class="layui-tab-item">
-            &lt;!&ndash;通过lay-filter区分toolbar事件容器  销售应付单列表&ndash;&gt;
-            <table id="salePay" lay-filter="menuFilter" class="layui-table">
-            </table>
-        </div>
-        <div class="layui-tab-item">
-            &lt;!&ndash;通过lay-filter区分toolbar事件容器  销售应收单列表&ndash;&gt;
-            <table id="saleReceive" lay-filter="menuFilter" class="layui-table">
-            </table>
-        </div>-->
     <div class="layui-tab" lay-filter="test">
         <ul class="layui-tab-title">
             <li class="layui-this" lay-id="11">采购申请应付单</li>
@@ -58,7 +51,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item  layui-show">
-                <table id="purchasePay" lay-filter="purchasePay">
+                <table id="purchasePay" lay-filter="purchasePay" llay-data="{id: 'idTest'}">
                 </table>
             </div>
             <div class="layui-tab-item">
@@ -110,7 +103,15 @@
 <script type="text/html" id="saleId">
     <span style="color: #F581B1;">{{ d.saleId }}</span>
 </script>
-
+<script type="text/html" id="applyState">
+    {{#  if(d.auditState == '2'){ }}
+    <span>待审核</span>
+    {{#  } else if(d.auditState == '3'){ }}
+    <span>审核通过</span>
+    {{#  } else if(d.auditState == '4'){ }}
+    <span>审核未通过</span>
+    {{#  } }}
+</script>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
