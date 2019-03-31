@@ -47,7 +47,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @return
      */
     @Override
-    public int countGetAll(String productId) {
+    public int countGetAll(String productId ) {
         return markerOrderMapper.countGetAll(productId);
     }
 
@@ -88,6 +88,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         markerOrderTest.setOrderId("xs"+OrderUtil.createOrderNumber());
         markerOrderTest.setApplyUser(username);
         markerOrderTest.setOrderAuditUser("销售主管");
+        markerOrderTest.setOrderAuditDepot("仓库主管");
         markerOrderTest.setState("未提交");
         markerOrderMapper.add(markerOrderTest);
         return markerOrderTest.getId();
@@ -153,6 +154,19 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
     public Boolean submit(MarkerOrderTest markerOrderTest) {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUUtil.APPLY_submit);
+        markerOrderMapper.submit(markerOrderTest);
+        return true;
+    }
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+    @Override
+    public Boolean fina(MarkerOrderTest markerOrderTest) {
+        CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
+        markerOrderTest.setState(StateUUtil.APPLY_fina);
         markerOrderMapper.submit(markerOrderTest);
         return true;
     }
