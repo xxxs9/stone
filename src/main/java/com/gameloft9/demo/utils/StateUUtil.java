@@ -10,4 +10,7 @@ public class StateUUtil {
     public static final String APPLY_sub ="提交财务成功";
     public static final String APPLY_submit ="等待仓库审核";
     public static final String APPLY_ware ="仓库审核通过";
+    public static final String APPLY_pas ="仓库审核通过";
+    public static final String APPLY_fai ="仓库审核失败";
+    public static final String APPLY_fina ="财务收到货款";
 }

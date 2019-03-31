@@ -808,6 +808,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库审核
         updateWare:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'audit/ware',req,successCallback,errorCallback);
+        },//销售订单提交财务
+        updateFina:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         }
     };
 

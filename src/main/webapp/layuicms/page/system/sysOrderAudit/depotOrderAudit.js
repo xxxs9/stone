@@ -4,13 +4,14 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer','$api', 'tree', 'jquery', 'ajaxExtention', '$tool'], function () {
+}).use(['form', 'layer','layedit','$api', 'tree', 'jquery', 'ajaxExtention', '$tool'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery,
         $tool = layui.$tool,
-        $api = layui.$api;
+        $api = layui.$api,
+        layedit = layui.layedit;
 
     var orgId;
     var orgName;
@@ -29,7 +30,17 @@ layui.config({
 
     init();
 
+    form.verify({
+        remarks: function(value){
+            if(value.length <=0){
+                return '请输入审核内容';
+            }
+        }
+    })
 
+    /**
+     * 初始化组织机构树
+     * */
 
             /**
              * 初始化用户信息
@@ -43,7 +54,7 @@ layui.config({
                     id: id
                 };
 
-                $api.GetMarkerOrder(req, function (res) {
+                $api.GetOrderAudit(req, function (res) {
                     var data = res.data;
                     console.log(data)
                     //$("[name='id']").val(data.id);
@@ -60,7 +71,6 @@ layui.config({
                     $("[name='orderAuditDepot']").val(data.orderAuditDepot);
                     $("[name='remarks']").val(data.remarks)
 
-
                     /*orgId = data.orgId;
                     orgName = data.orgName;*/
                    // user_roleIds = data.roleIdList;//保存用户所属角色id列表，初始化选中时用
@@ -73,7 +83,7 @@ layui.config({
             /**
              * 表单提交
              * */
-            form.on("submit(editMarkerOrder)", function (data) {
+            form.on("submit(editOrderAudit)", function (data) {
                 var queryArgs = $tool.getQueryParam();//获取查询参数
                 var id = queryArgs['id'];
                 console.log(data)
@@ -86,9 +96,11 @@ layui.config({
                 var plannedNumber = data.field.plannedNumber;
                 var acceptedAmount = data.field.acceptedAmount;
                 var applyUser = data.field.applyUser;
+                var state = $(this).html();
+                //var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
                 var orderAuditDepot = data.field.orderAuditDepot;
-                var remarks = data.field.remarks
+                var remarks = data.field.remarks;
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
@@ -112,18 +124,22 @@ layui.config({
                     plannedNumber: plannedNumber,
                     acceptedAmount: acceptedAmount,
                     applyUser: applyUser,
+                    state: state,
                     orderAuditUser: orderAuditUser,
                     orderAuditDepot: orderAuditDepot,
                     remarks: remarks
                 };
 
-                $api.updateMarkerOrder(req, function (data) {
+                $api.updateOrderAudit(req, function (data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                    layer.msg("用户更新成功！", {time: 1000}, function () {
+                    layer.msg("提交成功！", {time: 1000}, function () {
+
                         layer.closeAll("iframe");
                         //刷新父页面
                         parent.location.reload();
-                    });
+
+                        });
+
                 });
 
                 return false;

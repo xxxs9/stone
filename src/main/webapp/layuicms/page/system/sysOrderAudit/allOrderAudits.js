@@ -43,17 +43,16 @@ layui.config({
                 , {field: 'productId', title: '产品名' }
                 , {field: 'customer', title: '购买客户'}
                 , {field: 'deliverNumber', title: '销售数量' }
-                , {field: 'currentNumber', title: '当前库存' }
                 , {field: 'plannedNumber', title: '产品单价' }
                 , {field: 'acceptedAmount', title: '总金额' }
-                , {field: 'unpaidAmount', title: '未付款金额' }
                 , {field: 'applyUser', title: '申请人' }
                 , {field: 'state', title: '订单状态' }
                 , {field: 'orderAuditUser', title: '订单审核人' }
+                , {field: 'orderAuditDepot', title: '仓库审核人' }
                 , {field: 'remarks', title: '备注' }
 
 
-                , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -83,6 +82,8 @@ layui.config({
                 look(row.id);
             }else if (layEvent === 'ware') {//审核通过
                 ware(row.id);
+            }else if (layEvent === 'depot') {//仓库审核
+                depot(row.id);
             }
         });
     }
@@ -100,13 +101,14 @@ layui.config({
         var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
-        var currentNumber = data.field.currentNumber;
+
         var plannedNumber = data.field.plannedNumber;
         var acceptedAmount = data.field.acceptedAmount;
-        var unpaidAmount = data.field.unpaidAmount;
+
         var applyUser = data.field.applyUser;
         var state = data.field.state;
         var orderAuditUser = data.field.orderAuditUser;
+        var orderAuditDepot = data.field.orderAuditDepot;
         var remarks = data.field.remarks;
 
 
@@ -123,13 +125,14 @@ layui.config({
                 productId:productId,
                 customer:customer,
                 deliverNumber:deliverNumber,
-                currentNumber:currentNumber,
+
                 plannedNumber:plannedNumber,
                 acceptedAmount:acceptedAmount,
-                unpaidAmount:unpaidAmount,
+
                 applyUser:applyUser,
                 state:state,
                 orderAuditUser:orderAuditUser,
+                orderAuditDepot:orderAuditDepot,
                 remarks:remarks,
 
                
@@ -259,7 +262,7 @@ layui.config({
     }
 
 
-    //仓库审核
+    //
 
     function ware(id){
         layer.confirm('确认通过吗？', function (confirmIndex) {
@@ -289,6 +292,30 @@ layui.config({
             title: "查看订单",
             type: 2,
             content: "lookOrderAudit.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+
+    }
+
+    //仓库审核
+    function depot(id) {
+        var index = layui.layer.open({
+            title: "仓库审核",
+            type: 2,
+            content: "depotOrderAudit.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
