@@ -107,7 +107,7 @@ public class DepotOrderController {
      * @param goodsNumber           货品数量
      * @param applyUser             申请入
      * */
-    @RequestMapping(value = "/addPurorder.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/addMarket.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
     public IResult addPurorderDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
