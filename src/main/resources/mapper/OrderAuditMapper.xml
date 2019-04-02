@@ -23,6 +23,7 @@
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_DEPOT" property="orderAuditDepot" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+        <result column="DEPOT_REMARKS" property="depotRemarks" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--新bean映射-->
@@ -41,6 +42,7 @@
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_DEPOT" property="orderAuditDepot" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+        <result column="DEPOT_REMARKS" property="depotRemarks" jdbcType="VARCHAR"/>
     </resultMap>
 
 
@@ -73,7 +75,7 @@
                 and APPLY_USER = #{applyUser,jdbcType=VARCHAR}
             </if>
             and
-            STATE != "未提交" and w_marker_order.STATE != "财务收到货款"
+            STATE != "未提交" and w_marker_order.STATE != "财务收到货款" and w_marker_order.STATE != "已撤回"
         </where>
 
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -149,7 +151,8 @@
         STATE,
         ORDER_AUDIT_USER,
         ORDER_AUDIT_DEPOT,
-        REMARKS
+        REMARKS,
+        DEPOT_REMARKS
         from
         w_marker_order
         <!--  w_marker_order  left join w_order_audit  ON w_marker_order.ID=w_order_audit.ID-->
@@ -171,7 +174,8 @@
      STATE=#{state},
      ORDER_AUDIT_USER=#{orderAuditUser},
      ORDER_AUDIT_DEPOT=#{orderAuditDepot},
-     REMARKS=#{remarks}
+     REMARKS=#{remarks},
+     DEPOT_REMARKS=#{depotRemarks}
      where ID=#{id}
 
   </update>
@@ -214,15 +218,22 @@
         update
         w_marker_order
         <set>
-            <if test="state != null and state != ''">
+            <if test="state !=null and state != ''">
                 STATE = #{state,jdbcType=VARCHAR}
             </if>
         </set>
         <where>
+            <if test="state !=null  and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
             <if test="id != null and id != ''">
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
+
+
         </where>
+
+
     </update>
 
    <!--depot-->

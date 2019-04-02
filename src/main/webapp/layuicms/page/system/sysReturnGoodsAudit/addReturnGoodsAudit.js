@@ -4,14 +4,14 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'layedit','tree','$api', 'jquery', 'ajaxExtention', '$tool'], function () {
+}).use(['form', 'layer', 'tree','$api', 'jquery', 'ajaxExtention', '$tool'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery,
         $tool = layui.$tool,
-        $api = layui.$api,
-        layedit = layui.layedit;
+        $api = layui.$api;
+
     //var orgId;
    // var orgName;
     //var roleIdList = new Array();//所有的角色id列表
@@ -28,21 +28,6 @@ layui.config({
 
     init();
 
-    /**
-     * 计算校验
-     */
-
-    form.verify({
-        remarks: function(value){
-            if(value.integrity !==0){
-                return '不能填写0';
-            }
-            if(value.integrity <0){
-                return '不能为负数'
-            }
-        }
-    })
-
 
     /**
      * 初始化下拉框
@@ -56,7 +41,7 @@ layui.config({
         };
 
 
-        $api.getProductId(req,function (res) {
+        $api.GetShipmentOrder(req,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var roleHtml = "";
@@ -74,19 +59,18 @@ layui.config({
     /**
      * 表单提交
      * */
-    form.on("submit(addMarkerOrder)", function (data) {
+    form.on("submit(addShipmentOrder)", function (data) {
         var id = data.field.id;
-        var orderId = data.field.orderId;
-        var orderTime = data.field.orderTime;
-        var productId = data.field.productId;
+        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
         var customer = data.field.customer;
-        var deliverNumber = data.field.deliverNumber;
-        var plannedNumber = data.field.plannedNumber;
-        var acceptedAmount = data.field.acceptedAmount;
+        var goodsNumber = data.field.goodsNumber;
+        var goodsAmount = data.field.goodsAmount;
         var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
-        var orderAuditUser = data.field.orderAuditUser;
-        var orderAuditDepot = data.field.orderAuditDepot;
+        var auditUser = data.field.auditUser;
+        var auditType = data.field.auditType;
         var remarks = data.field.remarks
       /*  var idList = new Array();
 
@@ -105,22 +89,21 @@ layui.config({
         //请求
         var req = {
             id: id,
-            orderId: orderId,
-            orderTime: orderTime,
-            productId: productId,
+            goodsId: goodsId,
+            goodsName: goodsName,
             customer: customer,
-            deliverNumber: deliverNumber,
-            plannedNumber: plannedNumber,
-            acceptedAmount: acceptedAmount,
+            goodsNumber: goodsNumber,
+            goodsAmount: goodsAmount,
             applyUser: applyUser,
+            applyTime: applyTime,
             state: state,
-            orderAuditUser: orderAuditUser,
-            orderAuditDepot:orderAuditDepot,
+            auditUser: auditUser,
+            auditType: auditType,
             remarks: remarks
 
         };
 
-        $api.AddMarkerOrder(req,function (data) {
+        $api.AddShipmentOrder(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("用户添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
@@ -141,26 +124,6 @@ layui.config({
             ,type: 'datetime'
         });
     });
-
-
-
-
-    //计算总金额
-
-
-      $(function() {
-
-            $('[name= acceptedAmount]').bind('click', function () {
-                var unitPirce = $('[name=deliverNumber]').val();
-                var number = $('[name=plannedNumber]').val();
-                $("[name = acceptedAmount]").html($(this).val(unitPirce * number)
-                )
-            })
-
-        })
-
-
-
 
 });
 
