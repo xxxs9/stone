@@ -8,7 +8,6 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.DepotInventoryCheckService;
-import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,22 +60,6 @@ public class DepotInventoryCheckController {
     @BizOperLog(operType = OperType.ADD,memo = "新增盘点单")
     public IResult addDepotInventoryCheck(String checkType, String recordNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        String sourceUser = (String) request.getSession().getAttribute("sysUser");
-        return new ResultBean<String>(depotInventoryCheckServiceImlp.addDepotInventoryCheck(checkType,sourceUser,recordNumber));
-    }
-
-
-    /**
-     * 添加采购入库单
-     * @param recordNumber        记录数量
-     * @param request             请求
-     * */
-    @RequestMapping(value = "/add.do",method = RequestMethod.POST)
-    @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增盘点单")
-    public IResult addDepotInventoryCheck(String recordNumber, HttpServletRequest request){
-        //返回json至前端的均返回ResultBean或者PageResultBean
-        String checkType = "采购入库";
         String sourceUser = (String) request.getSession().getAttribute("sysUser");
         return new ResultBean<String>(depotInventoryCheckServiceImlp.addDepotInventoryCheck(checkType,sourceUser,recordNumber));
     }

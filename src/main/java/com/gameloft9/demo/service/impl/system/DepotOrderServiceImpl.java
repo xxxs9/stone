@@ -110,6 +110,45 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     }
 
     /**
+     * 添加仓库单
+     * @param id                    仓库单编号
+     * @param orderType             仓库单类型
+     * @param type                  出入库类型
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请人
+     * */
+    @Override
+    public String addSysDepotOrder(String id,String orderType, String type, String goodsId, String goodsNumber, String applyUser) {
+
+        CheckUtil.notBlank(id, "仓库单编号为空");
+        CheckUtil.notBlank(orderType, "仓库单类型为空");
+        CheckUtil.notBlank(type, "出入库类型为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(id);
+        depotOrder.setOrderType(orderType);
+        depotOrder.setType(type);
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        if(orderType.equals(Constants.Depot.ORDER_IN)){
+            depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+        }
+        if(orderType.equals(Constants.Depot.ORDER_OUT)){
+            depotOrder.setState(Constants.DepotState.DEPOT_WAITING_OUT);
+        }
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
+    /**
      * 根据主键获取仓库单信息
      * @param id 仓库单主键
      * */

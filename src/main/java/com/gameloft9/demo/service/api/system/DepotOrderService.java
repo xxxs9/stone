@@ -38,6 +38,17 @@ public interface DepotOrderService {
     String addDepotOrder(String orderType,String type,String goodsId,String goodsNumber,String applyUser);
 
     /**
+     * 添加仓库单
+     * @param id                    仓库单编号
+     * @param orderType             仓库单类型
+     * @param type                  出入库类型
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请人
+     * */
+    String addSysDepotOrder(String id,String orderType,String type,String goodsId,String goodsNumber,String applyUser);
+
+    /**
      * 根据主键获取仓库单信息
      * @param id 仓库单主键
      * */
