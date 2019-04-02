@@ -240,5 +240,13 @@
         select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
         from l_product where PRODUCT_STATE='3';
     </select>
+
+    <!--华锋写获取所有的ProuductId-->
+    <select id="getProductId"  resultType="java.lang.String">
+        SELECT DISTINCT
+        t.ID
+        FROM
+        L_PRODUCT t
+    </select>
 </mapper>
 

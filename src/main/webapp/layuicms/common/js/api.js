@@ -816,13 +816,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
-        getProductById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
-        },
         GetProductId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/getId.do',req,successCallback,errorCallback);
         },
-        updateProduct:function(req,config,successCallback,errorCallback){
         updateProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },

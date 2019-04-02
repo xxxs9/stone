@@ -1,5 +1,7 @@
 package com.gameloft9.demo.utils;
 
+import org.apache.shiro.SecurityUtils;
+
 /**
  * 常量
  * Created by gameloft9 on 2017/12/13.

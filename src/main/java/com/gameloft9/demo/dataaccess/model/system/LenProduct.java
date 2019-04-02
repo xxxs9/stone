@@ -20,6 +20,4 @@ public class LenProduct {
     private String other1;
     private String other2;
     private String other3;
-
-
 }
