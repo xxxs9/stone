@@ -1,0 +1,30 @@
+
+`squid:S2095-"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(°ıÆâ
+~squid:S1488Ù"aImmediately return this expression instead of assigning it to the temporary variable "savedPath".(üª§şÿÿÿÿ
+_squid:S00112©"FDefine and throw a dedicated exception instead of using a generic one.(Şø€
+^squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ƒÒĞû
+fsquid:S3027u"JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(‰Öüÿÿÿÿÿ
+¢%squid:RedundantThrowsDeclarationCheckR"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÊÑÒôøÿÿÿÿ
+csquid:S00112R"FDefine and throw a dedicated exception instead of using a generic one.(ÊÑÒôøÿÿÿÿ
+bsquid:S1858'"K"filePath" is already a string, there's no need to call "toString()" on it.(¶
+^
+squid:S899°"BDo something with the "boolean" value returned by "createNewFile".(—¯ÅÜşÿÿÿÿ
+%squid:RedundantThrowsDeclarationCheck"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ƒÒĞû
+csquid:S00112$"FDefine and throw a dedicated exception instead of using a generic one.(áÀØôÿÿÿÿÿ
+csquid:S00112<"FDefine and throw a dedicated exception instead of using a generic one.(èİÎÑşÿÿÿÿ
+]
+squid:S899C"BDo something with the "boolean" value returned by "createNewFile".(³ü‰‹şÿÿÿÿ
+_squid:S00112º"FDefine and throw a dedicated exception instead of using a generic one.(¦‰­¼
+_squid:S00112Ä"FDefine and throw a dedicated exception instead of using a generic one.(Ò¥Ìô
+Usquid:S1163Ä"=Refactor this code to not throw exceptions in finally blocks.(Ò¥Ìô
+`squid:S2095F"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(°ıÆâ
+dsquid:S00112˜"FDefine and throw a dedicated exception instead of using a generic one.(áı©¼ÿÿÿÿÿ
+gsquid:S3027Ö"JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(‰Öüÿÿÿÿÿ
+[squid:UnusedPrivateMethodĞ"0Remove this unused private "getSavePath" method.(•Õİšşÿÿÿÿ
+{squid:S1488"_Immediately return this expression instead of assigning it to the temporary variable "httpUrl".(«ˆº«ıÿÿÿÿ
+_squid:S00112½"FDefine and throw a dedicated exception instead of using a generic one.(à Œ
+V
+squid:S899U";Do something with the "boolean" value returned by "delete".(†ëèÉøÿÿÿÿ
+]
+squid:S899*"BDo something with the "boolean" value returned by "createNewFile".(³ü‰‹şÿÿÿÿ
+Lsquid:S1143Ä"4Remove this throw statement from this finally block.(Ò¥Ìô

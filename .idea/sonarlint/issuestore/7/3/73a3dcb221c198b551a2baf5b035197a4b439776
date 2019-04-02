@@ -1,0 +1,10 @@
+
+T
+squid:S106U"9Replace this use of System.out or System.err by a logger.(ûÖô–ıÿÿÿÿ
+T
+squid:S106T"9Replace this use of System.out or System.err by a logger.(©¢¼Åùÿÿÿÿ
+Ysquid:UselessImportCheck"5Remove this unused import 'java.text.ParseException'.(ñ®ï•
+^squid:S001127"FDefine and throw a dedicated exception instead of using a generic one.(éşÁü
+T
+squid:S106S"9Replace this use of System.out or System.err by a logger.(çÃİµÿÿÿÿÿ
+esquid:S00112H"FDefine and throw a dedicated exception instead of using a generic one.(éşÁü8‚²–›-

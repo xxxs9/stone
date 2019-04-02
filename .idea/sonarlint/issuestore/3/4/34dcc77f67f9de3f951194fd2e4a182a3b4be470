@@ -1,0 +1,9 @@
+
+_squid:UselessImportCheck"/Remove this unused import 'java.util.TimeZone'.(à‡Õùÿÿÿÿ8‹ÈŠ¥›-
+rsquid:UselessImportCheck	"HRemove this unused import 'com.gameloft9.demo.utils.DocumentNumberUtil'.(£ÕÆR8ôê‡¥›-
+Vsquid:S1854X"8Remove this useless assignment to local variable "list".(şÇîü8Øˆ¥›-
+rsquid:S1192C"ODefine a constant instead of duplicating this literal "è®¢å•idä¸ºç©º" 4 times.( ¢Êµøÿÿÿÿ8Øˆ¥›-
+Vsquid:S1854Q"8Remove this useless assignment to local variable "list".(şÇîü8Øˆ¥›-
+osquid:UselessImportCheck
+"?Remove this unused import 'com.gameloft9.demo.utils.OrderUtil'.(‰ãàŸıÿÿÿÿ8ôê‡¥›-
+hsquid:CommentedOutCodeLineJ"<This block of commented-out lines of code should be removed.(•‰Ş+8¤²Î›-
