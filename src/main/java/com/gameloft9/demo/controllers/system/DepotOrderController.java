@@ -85,18 +85,19 @@ public class DepotOrderController {
 
     /**
      * 添加采购入库单
+     * @param orderNumber           编号
      * @param goodsId               原料/成品ID
      * @param goodsNumber           货品数量
-     * @param request               请求
+     * @param applyUser             申请入
      * */
     @RequestMapping(value = "/addIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增采购入库单")
-    public IResult addPurorderDepotOrderIn(String goodsId, String goodsNumber,String applyUser){
+    public IResult addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String type = "采购入库";
         String orderType = Constants.Depot.ORDER_IN;
-        return new ResultBean<String>(depotOrderServiceImpl.addDepotOrder(orderType,type,goodsId,goodsNumber,applyUser));
+        return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
     }
 
     /**

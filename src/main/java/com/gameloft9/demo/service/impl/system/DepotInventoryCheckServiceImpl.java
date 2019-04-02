@@ -69,7 +69,6 @@ public class DepotInventoryCheckServiceImpl implements DepotInventoryCheckServic
         CheckUtil.notBlank(checkType, "盘点类型为空");
         CheckUtil.notBlank(sourceUser, "发起人为空");
         CheckUtil.notBlank(recordNumber, "记录数量为空");
-
         DepotInventoryCheck depotInventoryCheck = new DepotInventoryCheck();
         depotInventoryCheck.setId(UUIDUtil.getUUID());
         depotInventoryCheck.setCheckType(checkType);
