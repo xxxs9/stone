@@ -30,10 +30,14 @@
 </resultMap>
 
 <!--原料商品List 需要ID来获取原料名称-->
-<resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.MaterialGoods">
+<resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
     <id column="ID" property="id" jdbcType="VARCHAR"/>
-    <result column="SUPPLIER_ID" property="supplierId" jdbcType="VARCHAR"/>
-    <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+</resultMap>
+
+<!--原料商品 价格-->
+<resultMap id="materMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods">
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
     <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR"/>
 </resultMap>
 
@@ -52,7 +56,7 @@
             t.APPLY_DESCRIBE
         FROM
             t_purchase_order t,
-            y_material_goods m
+            sys_material m
         <where>
             <if test="goodsId != null and goodsId != ''">
                 AND GOODS_ID = #{goodsId}
@@ -60,7 +64,7 @@
             <if test="state != null and state != ''">
                 AND STATE = #{state}
             </if>
-            AND m.MATERIAL_ID = t.GOODS_ID
+            AND m.GOODS_NAME = t.GOODS_ID
         </where>
             ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -201,9 +205,9 @@
     <!--货品名称goodsId下拉框-->
     <select id="getSelectListGoods" resultType="java.lang.String">
         SELECT DISTINCT
-            MATERIAL_ID
+            GOODS_NAME
         FROM
-            y_material_goods
+            sys_material
     </select>
 
     <!--订单状态state下拉框-->
@@ -252,7 +256,6 @@
         WHERE
             ID=#{id}
     </update>
-
 
     <!--提交 commit-->
     <update id="commitUpdate" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
@@ -397,11 +400,14 @@
     <!--选取goodsId下拉框内容，自动获取price价格-->
     <select id="selectPriceByGoodsId" resultType="java.lang.String">
         SELECT
-            GOODS_PRICE
+            d.GOODS_PRICE
         FROM
-            y_material_goods
+            sys_material_goods d,
+            sys_material m
         WHERE
-            MATERIAL_ID=#{materialId}
+            m.GOODS_NAME=#{goodsName}
+        AND
+            m.ID = d.MATERIAL_ID
     </select>
 
     <!--获取orderNumber下拉框 根据state=审核通过-->

@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="layui-inline" style="margin-left:25px">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryDepot"><i class="layui-icon">&#xe615;</i>查询</a>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryDepotInventoryCheck"><i class="layui-icon">&#xe615;</i>查询</a>
             <a class="layui-btn layui-btn-small"
                style="line-height:1.6em;margin-left:25px;float:right"
                href="javascript:location.replace(location.href);" title="刷新">
@@ -72,8 +72,21 @@
 <!--toolbar 模板-->
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  if(d.checkState == '盘点中'){ }}
+    <a class="layui-btn layui-btn-sm" lay-event="check"><i class="layui-icon">&#xe615;</i>盘点</a>
+    {{#  } }}
+    {{#  if(d.checkState == '盘点结束'){ }}
+    {{#  if(d.state=="盘点单审核中"){ }}
+    <a class="layui-btn layui-btn-sm" style="width: 75px" lay-event="audit">审核</a>
+    {{#  } }}
+    {{#  if(d.state=="审核通过"){ }}
+    <p class="layui-btn layui-btn-disabled layui-btn-sm" style="width: 75px" >已审核</p>
+    {{#  } }}
+    {{#  if(d.state=="审核未通过"){ }}
+    <p class="layui-btn layui-btn-disabled layui-btn-sm" style="width: 75px" >已驳回</p>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" style="width: 75px" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } }}
+    {{#  } }}
 </script>
 
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->

@@ -63,17 +63,17 @@ layui.config({
         });
 
         //为toolbar添加事件响应
-        table.on('tool(depotFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(depotInventoryCheckFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             //区分事件
-            if (layEvent === 'del') { //删除
-                delDepot(row.id);
-            } else if (layEvent === 'edit') { //编辑
+            if (layEvent === 'check') { //盘点
+                checkDepotInventory(row.id);
+            } else if (layEvent === 'audit') { //审核
                 //do something
-                editDepot(row.id);
+                auditDepotInventoryCheck(row.id);
             }
         });
     }
@@ -81,32 +81,32 @@ layui.config({
 
 
     //查询
-    form.on("submit(queryDepot)", function (data) {
-        var depotNumber = data.field.depotNumber;
-        var depotName = data.field.depotName;
-        var depotType = data.field.depotType;
+    form.on("submit(queryDepotInventoryCheck)", function (data) {
+        var sourceUser = data.field.sourceUser;
+        var checkType = data.field.checkType;
+        var checkState = data.field.checkState;
 
         //表格重新加载
         tableIns.reload({
             where:{
-                depotNumber:depotNumber,
-                depotName:depotName,
-                depotType:depotType
+                sourceUser:sourceUser,
+                checkType:checkType,
+                checkState:checkState
             }
         });
 
         return false;
     });
 
-    //添加仓库
+    //添加盘点单
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "新增仓库",
+            title: "新增盘点单",
             type: 2,
-            content: "addDepot.html",
+            content: "addlDepotInventoryCheck.html",
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回仓库列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回盘点单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
@@ -154,34 +154,37 @@ layui.config({
         }
     });
 
-    //删除
-    function delDepot(id){
-        layer.confirm('确认删除吗？', function (confirmIndex) {
-            layer.close(confirmIndex);//关闭confirm
-            //向服务端发送删除指令
-            var req = {
-                id: id
-            };
-
-            $api.DeleteDepot(req,function (data) {
-                layer.msg("删除成功",{time:1000},function(){
-                    //obj.del(); //删除对应行（tr）的DOM结构
-                    //重新加载表格
-                    tableIns.reload();
-                });
-            });
-        });
-    }
-
-    //编辑
-    function editDepot(id){
+    //审核
+    function auditDepotInventoryCheck(id){
         var index = layui.layer.open({
-            title: "编辑仓库",
+            title: "审核盘点单",
             type: 2,
-            content: "editDepot.html?id="+id,
+            content: "auditDepotInventoryCheck.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回原料列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回盘点单列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+    //盘点
+    function checkDepotInventory(id){
+        var index = layui.layer.open({
+            title: "盘点库存",
+            type: 2,
+            content: "checkDepotInventory.html?id="+id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回盘点单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)

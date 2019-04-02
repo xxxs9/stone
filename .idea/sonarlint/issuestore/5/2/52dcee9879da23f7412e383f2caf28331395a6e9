@@ -1,0 +1,7 @@
+
+_squid:UselessImportCheck"/Remove this unused import 'java.util.TimeZone'.(à‡Õùÿÿÿÿ8Èô‰¥›-
+\squid:S1854‹"8Remove this useless assignment to local variable "list".(àÈÍŒøÿÿÿÿ8Èô‰¥›-
+ssquid:S1192%"PDefine a constant instead of duplicating this literal "è®¢å•idä¸ºç©º" 10 times.( ¢Êµøÿÿÿÿ8Èô‰¥›-
+‚squid:S4144Ï"^Update this method so that its implementation is not identical to "bringInUpdate" on line 183.(äê›­ıÿÿÿÿ8Èô‰¥›-
+\squid:S1854’"8Remove this useless assignment to local variable "list".(àÈÍŒøÿÿÿÿ8Èô‰¥›-
+nsquid:CommentedOutCodeLine@"<This block of commented-out lines of code should be removed.(ûõ’ñÿÿÿÿÿ8Èô‰¥›-

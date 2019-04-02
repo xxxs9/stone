@@ -52,4 +52,27 @@ public interface DepotInventoryCheckService {
      * */
     Boolean delsDepotInventoryCheck(String ids);
 
+
+    /**
+     * 结束盘点单
+     * @param id                  盘点单id
+     * */
+    Boolean endDepotInventoryCheck(String id);
+
+    /**
+     * 审核通过,更新出库单
+     * @param id                  盘点单id
+     * @param state               盘点单状态
+     * */
+    Boolean audit(String id, String state);
+
+
+    /**
+     * 审核驳回,更新出库单
+     * @param id                    仓库单id
+     * @param state                 仓库单状态
+     * @param auditDescribe         审核描述
+     * @param orderAuditUser        审核人
+     * */
+    Boolean auditReject(String id, String state);
 }

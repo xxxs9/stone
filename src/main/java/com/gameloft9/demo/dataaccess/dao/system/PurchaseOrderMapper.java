@@ -206,7 +206,7 @@ public interface PurchaseOrderMapper {
 
     /**
      * orderNumber
-     * @param id id
+     * @param orderNumber orderNumber
      * @return PurchaseOrder
      * */
     PurchaseOrder selectByOrderNumber(String orderNumber);

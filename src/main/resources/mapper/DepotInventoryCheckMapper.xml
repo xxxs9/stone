@@ -107,7 +107,7 @@
         WHERE
         t.ID = #{id,jdbcType=VARCHAR}
     </select>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck" >
         UPDATE D_DEPOT_INVENTORY_CHECK
         <set >
             <if test="checkType != null" >

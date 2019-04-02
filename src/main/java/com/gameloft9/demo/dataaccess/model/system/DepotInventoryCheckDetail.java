@@ -3,6 +3,7 @@ package com.gameloft9.demo.dataaccess.model.system;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author: Sxiu
@@ -22,5 +23,10 @@ public class DepotInventoryCheckDetail implements Serializable {
 
     private String goodsNumber;
 
-    private String auditUser;
+    private String checkUser;
+
+    private Date checkTime;
+
+    private String checkNumber;
+
 }

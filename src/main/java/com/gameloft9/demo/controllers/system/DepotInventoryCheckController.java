@@ -77,7 +77,7 @@ public class DepotInventoryCheckController {
 
 
     /**
-     * 删除仓库
+     * 删除盘点单
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
@@ -89,7 +89,7 @@ public class DepotInventoryCheckController {
 
 
     /**
-     * 批量删除仓库
+     * 批量删除盘点单
      * */
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody
@@ -98,5 +98,50 @@ public class DepotInventoryCheckController {
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.delsDepotInventoryCheck(ids));
     }
+
+    /**
+     * 结束盘点单
+     * @param id                  盘点单id
+     * */
+    @RequestMapping(value = "/end.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.UPDATE,memo = "盘点结束")
+    public IResult endDepotInventoryCheck(String id,String checkNumber, HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String checkUser = (String) request.getSession().getAttribute("sysUser");
+        return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.endDepotInventoryCheck(id));
+    }
+
+    /**
+     * 审核通过,更新出库单
+     * @param id                  盘点单id
+     * @param state               盘点单状态
+     * */
+    @RequestMapping(value = "/audit.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.UPDATE,memo = "盘点单审核通过")
+    public IResult auditDepotInventoryCheck(String id,String state,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
+        return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.audit(id,state));
+    }
+
+
+    /**
+     * 审核驳回,更新盘点单
+     * @param id                    仓库单id
+     * @param state                 仓库单状态
+     * @param auditDescribe         审核描述
+     * */
+    @RequestMapping(value = "/auditReject.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.UPDATE,memo = "驳回盘点单")
+    public IResult auditRejectDepotInventoryCheck(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
+        return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.auditReject(id,state));
+    }
+
+
 
 }

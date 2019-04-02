@@ -182,6 +182,7 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
+
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -251,7 +252,8 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },        //修改
+        },
+        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -347,6 +349,24 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetDepotInventoryByGoodsId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventory/getByGoodsId.do',req,successCallback,errorCallback);
+        },
+        AddDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/add.do',req,successCallback,errorCallback);
+        },
+        EndDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/end.do',req,successCallback,errorCallback);
+        },
+        AuditDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/audit.do',req,successCallback,errorCallback);
+        },
+        AddsDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/adds.do',req,successCallback,errorCallback);
+        },
+        UpdateDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/update.do',req,successCallback,errorCallback);
+        },
+        AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
         },
 
 
@@ -616,6 +636,8 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepotPersonnel:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
         },
+
+
         GetGoodsType:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
         },
@@ -672,7 +694,8 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
-        },//销售订单删除
+        },
+        //销售订单删除
         DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
             doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
         },//获取销售订单ID
@@ -862,6 +885,7 @@ layui.define(['$tool','jquery'], function (exports) {
         updateFina:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         }
+
     };
 
 

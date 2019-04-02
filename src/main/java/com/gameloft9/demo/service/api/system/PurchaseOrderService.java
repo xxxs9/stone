@@ -192,10 +192,12 @@ public interface PurchaseOrderService {
 
     /**
      * 根据id获取
-     * @param id id
+     * @param orderNumber orderNumber
      * @return PurchaseOrder
      */
     PurchaseOrder selectByOrderNumber(String orderNumber);
+
+
 }
 
 

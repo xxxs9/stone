@@ -24,8 +24,8 @@
     </resultMap>
 
     <!--原料商品List 需要ID来获取原料名称-->
-    <resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.MaterialGoods">
-        <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+    <resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--采购申请的列表 List-->
@@ -56,7 +56,7 @@
             t.FINANCE_AUDIT_DESCRIBE
         FROM
             t_purchase_return t,
-            y_material_goods m,
+            sys_material m,
             t_purchase_order s
         <where>
             <if test="goodsId != null and goodsId != ''">
@@ -65,7 +65,7 @@
             <if test="depotState != null and depotState != ''">
                 AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
             </if>
-                AND m.MATERIAL_ID = t.GOODS_ID
+                AND m.GOODS_NAME = t.GOODS_ID
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
             ORDER BY t.ORDER_NUMBER ASC
