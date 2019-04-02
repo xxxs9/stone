@@ -136,7 +136,41 @@ public class DepotInventoryCheckDetailServiceImpl implements DepotInventoryCheck
         for (String s : split) {
             depotInventoryCheckDetailIds.add(s);
         }
+
         depotInventoryCheckDetailMapper.delsByIds(depotInventoryCheckDetailIds);
+        return true;
+    }
+
+    /**
+     * 批量添加盘点单明细
+     * @param checkId           盘点单ID
+     * @param types             多个货品（原料/成品）
+     * @param goodsIds          多个原料/成品ID
+     * @param goodsNumbers      多个货品数量
+     * */
+    @Override
+    public Boolean adds(String checkId, String types, String goodsIds, String goodsNumbers) {
+
+        CheckUtil.notBlank(checkId, "盘点单ID为空");
+        CheckUtil.notBlank(types, "货物类型为空");
+        CheckUtil.notBlank(goodsIds, "货物编号为空");
+        CheckUtil.notBlank(goodsNumbers, "货品数量为空");
+
+        int len = goodsIds.split(",").length;
+
+        String[] type = types.split(",");
+        String[] goodsId = goodsIds.split(",");
+        String[] goodsNumber = goodsNumbers.split(",");
+
+        for (int i = 0; i < len; i++) {
+            DepotInventoryCheckDetail depotInventoryCheckDetail = new DepotInventoryCheckDetail();
+            depotInventoryCheckDetail.setId(UUIDUtil.getUUID());
+            depotInventoryCheckDetail.setCheckId(checkId);
+            depotInventoryCheckDetail.setType(type[i]);
+            depotInventoryCheckDetail.setGoodsId(goodsId[i]);
+            depotInventoryCheckDetail.setGoodsNumber(goodsNumber[i]);
+            depotInventoryCheckDetailMapper.insertSelective(depotInventoryCheckDetail);
+        }
         return true;
     }
 }

@@ -54,10 +54,26 @@ public class DepotInventoryCheckDetailController {
     @RequestMapping(value = "/add.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增盘点单明细")
-    public IResult addDepotInventoryCheck(String checkId, String type, String goodsId,String goodsNumber){
+    public IResult addDepotInventoryCheckDetail(String checkId, String type, String goodsId,String goodsNumber){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<String>(depotInventoryCheckDetailServiceImpl.addDepotInventoryCheckDetail(checkId,type,goodsId,goodsNumber));
     }
+
+    /**
+     * 批量添加盘点单明细
+     * @param checkId           盘点单ID
+     * @param types             多个货品（原料/成品）
+     * @param goodsIds          多个原料/成品ID
+     * @param goodsNumbers      多个货品数量
+     * */
+    @RequestMapping(value = "/adds.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.ADD,memo = "批量添加盘点单明细")
+    public IResult addsDepotInventoryCheckDetail(String checkId,String types,String goodsIds,String goodsNumbers){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotInventoryCheckDetailServiceImpl.adds(checkId,types,goodsIds,goodsNumbers));
+    }
+
 
     /**
      * 根据主键获取盘点单明细信息

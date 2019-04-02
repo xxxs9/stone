@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.DepotInventoryCheckMapper;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
+import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysDepot;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.DepotInventoryCheckService;
@@ -113,6 +114,72 @@ public class DepotInventoryCheckServiceImpl implements DepotInventoryCheckServic
             depotInventoryCheckIds.add(s);
         }
         depotInventoryCheckMapper.delsByIds(depotInventoryCheckIds);
+        return true;
+    }
+
+
+    /**
+     * 结束盘点单
+     * @param id                  盘点单id
+     * */
+    @Override
+    public Boolean endDepotInventoryCheck(String id) {
+        CheckUtil.notBlank(id, "盘点单id为空");
+
+        DepotInventoryCheck depotInventoryCheck = new DepotInventoryCheck();
+        depotInventoryCheck.setId(id);
+        depotInventoryCheck.setCheckState(Constants.DepotInventoryCheck.CHECK_OUT);
+        depotInventoryCheck.setState(Constants.DepotInventoryCheck.CHECK_AUIDT_IN);
+
+        depotInventoryCheckMapper.updateByPrimaryKeySelective(depotInventoryCheck);
+
+        return true;
+    }
+
+    /**
+     * 审核通过,更新盘点单
+     * @param id                  盘点单id
+     * @param state               盘点单状态
+     * */
+    @Override
+    public Boolean audit(String id, String state) {
+
+        CheckUtil.notBlank(id, "盘点单id");
+
+        DepotInventoryCheck depotInventoryCheck = new DepotInventoryCheck();
+        depotInventoryCheck.setId(id);
+        if(depotInventoryCheckMapper.getById(id).getState().equals(Constants.DepotInventoryCheck.CHECK_AUIDT_IN)){
+            if(state.equals(Constants.DepotInventoryCheck.CHECK_PASS)){
+                depotInventoryCheck.setState(Constants.DepotInventoryCheck.CHECK_PASS);
+            }else{
+                CheckUtil.notBlank(null, "未传入正确的状态信息");
+            }
+        }else {
+            CheckUtil.notBlank(null, "已审核通过或已驳回");
+        }
+
+        depotInventoryCheckMapper.updateByPrimaryKeySelective(depotInventoryCheck);
+        return true;
+    }
+
+    @Override
+    public Boolean auditReject(String id, String state) {
+
+        CheckUtil.notBlank(id, "盘点单id");
+
+        DepotInventoryCheck depotInventoryCheck = new DepotInventoryCheck();
+        depotInventoryCheck.setId(id);
+        if(depotInventoryCheckMapper.getById(id).getState().equals(Constants.DepotInventoryCheck.CHECK_AUIDT_IN)){
+            if(state.equals(Constants.DepotInventoryCheck.CHECK_FAIL)){
+                depotInventoryCheck.setState(Constants.DepotInventoryCheck.CHECK_FAIL);
+            }else{
+                CheckUtil.notBlank(null, "未传入正确的状态信息");
+            }
+        }else {
+            CheckUtil.notBlank(null, "已审核通过或已驳回");
+        }
+
+        depotInventoryCheckMapper.updateByPrimaryKeySelective(depotInventoryCheck);
         return true;
     }
 }

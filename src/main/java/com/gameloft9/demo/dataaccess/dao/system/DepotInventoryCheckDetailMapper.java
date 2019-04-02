@@ -1,6 +1,5 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
-import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheckDetail;
 import org.apache.ibatis.annotations.Param;
 

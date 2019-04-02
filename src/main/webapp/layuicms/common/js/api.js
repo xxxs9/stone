@@ -348,6 +348,24 @@ layui.define(['$tool','jquery'], function (exports) {
         GetDepotInventoryByGoodsId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventory/getByGoodsId.do',req,successCallback,errorCallback);
         },
+        AddDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/add.do',req,successCallback,errorCallback);
+        },
+        EndDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/end.do',req,successCallback,errorCallback);
+        },
+        AuditDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/audit.do',req,successCallback,errorCallback);
+        },
+        AddsDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/adds.do',req,successCallback,errorCallback);
+        },
+        UpdateDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/update.do',req,successCallback,errorCallback);
+        },
+        AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
+        },
 
 
 

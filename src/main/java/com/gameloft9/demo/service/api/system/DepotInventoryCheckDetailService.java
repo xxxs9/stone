@@ -55,4 +55,13 @@ public interface DepotInventoryCheckDetailService {
      * @param ids 盘点单明细ids
      * */
     Boolean delsDepotInventoryCheckDetail(String ids);
+
+    /**
+     * 批量添加盘点单明细
+     * @param checkId           盘点单ID
+     * @param types             多个货品（原料/成品）
+     * @param goodsIds          多个原料/成品ID
+     * @param goodsNumbers      多个货品数量
+     * */
+    Boolean adds(String checkId, String types, String goodsIds, String goodsNumbers);
 }

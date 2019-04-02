@@ -255,6 +255,9 @@ public class Constants {
     public static class DepotInventoryCheck{
         public static final String CHECK_IN="盘点中";
         public static final String CHECK_OUT="盘点结束";
+        public static final String CHECK_AUIDT_IN="盘点单审核中";
+        public static final String CHECK_PASS="审核通过";
+        public static final String CHECK_FAIL="审核未通过";
 
     }
 

@@ -61,4 +61,5 @@ public interface DepotInventoryCheckMapper {
      * @param ids 盘点单ids
      * */
     int delsByIds(@Param("ids") List<String> ids);
+
 }
