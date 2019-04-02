@@ -92,10 +92,9 @@ public class DepotOrderController {
     @RequestMapping(value = "/addIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增采购入库单")
-    public IResult addPurorderDepotOrderIn(String goodsId, String goodsNumber, HttpServletRequest request){
+    public IResult addPurorderDepotOrderIn(String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String type = "采购入库";
-        String applyUser = (String) request.getSession().getAttribute("sysUser");
         String orderType = Constants.Depot.ORDER_IN;
         return new ResultBean<String>(depotOrderServiceImpl.addDepotOrder(orderType,type,goodsId,goodsNumber,applyUser));
     }
