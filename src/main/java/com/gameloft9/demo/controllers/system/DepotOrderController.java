@@ -101,6 +101,24 @@ public class DepotOrderController {
     }
 
     /**
+     * 添加销售出库单
+     * @param orderNumber           编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @RequestMapping(value = "/addPurorder.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
+    public IResult addPurorderDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String type = "销售出库";
+        String orderType = Constants.Depot.ORDER_OUT;
+        return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
+    }
+
+
+    /**
      * 添加出库单
      * @param type                  出库类型
      * @param goodsId               原料/成品ID

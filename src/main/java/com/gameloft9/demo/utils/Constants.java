@@ -232,7 +232,6 @@ public class Constants {
         public static final String DEPOT_NO_SUNMIT="未提交";
         public static final String DEPOT_WAITING_IN="入库单审核中";
         public static final String DEPOT_WAITING_OUT="出库单审核中";
-        public static final String DEPOT_WAITING_IN="提交审核中";
         public static final String DEPOT_PASS="审核通过";
         public static final String DEPOT_FAIL="审核未通过";
     }
