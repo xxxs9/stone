@@ -31,6 +31,7 @@ public class DepotInventoryCheckServiceImpl implements DepotInventoryCheckServic
 
     @Autowired
     private DepotInventoryCheckMapper depotInventoryCheckMapper;
+
     /**
      * 获取盘点单列表
      * @param page                  页序
