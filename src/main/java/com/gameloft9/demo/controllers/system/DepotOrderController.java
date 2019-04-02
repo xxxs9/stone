@@ -110,7 +110,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/addMarket.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
-    public IResult addPurorderDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+    public IResult addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String type = "销售出库";
         String orderType = Constants.Depot.ORDER_OUT;
