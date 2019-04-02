@@ -21,6 +21,7 @@ public class LenProductCheck {
     private String checkUser;
     private String wasteId;
     private String checkRemark;
+    /**生产数量*/
     private String other1;
     private String other2;
     private String other3;

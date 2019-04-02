@@ -253,5 +253,9 @@
     <update id="changeOther1" parameterType="String">
         update l_produce_plan set OTHER1=#{other1} where ID = #{id,jdbcType=VARCHAR}
     </update>
+    <select id="findId" resultMap="BaseResultMap">
+        select * from l_produce_plan p
+        where p.PRODUCT_ID=#{productId}
+    </select>
 </mapper>
 

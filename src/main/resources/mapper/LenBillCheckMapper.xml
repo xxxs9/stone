@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenBillCheckMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenBillCheck">
+            <id column="ID" property="id"/>
+            <result  column="STATE" property="state"/>
+            <result  column="CHECK_NUMBER" property="checkNumber"/>
+            <result  column="CHECK_DATE" property="checkDate" jdbcType="DATE"/>
+            <result  column="CHECK_USER" property="checkUser"/>
+            <result  column="CHECK_REMARK" property="checkRemark"/>
+            <result  column="REACH_ID" property="reachId"/>
+            <result  column="PRODUCT_ID" property="productId"/>
+            <result  column="PLAN_ID" property="planId"/>
+            <result  column="PRODUCT_NAME" property="productName"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID
+     </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select  ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID from l_bill_check
+    </select>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" >
+        select
+         ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID
+        from l_bill_check
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--mysql版本/分页查询-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select  ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID from l_bill_check t
+        where 1=1
+        <if test="checkUser != null and checkUser != ''">
+            and t.CHECK_USER = #{checkUser,jdbcType=VARCHAR}
+        </if>
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>-->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_bill_check t
+        where 1=1
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_bill_check
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenBillCheck">
+    insert into l_bill_check ( ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID)
+    values (
+    #{id},
+    #{productName},
+    #{state},
+    #{checkNumber},
+    #{checkDate},
+    #{checkUser},
+    #{checkRemark},
+    #{reachId},
+    #{productId},
+    #{planId}
+    )
+  </insert>
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenBillCheck">
+    update l_bill_check
+    set
+    ID= #{id},
+    STATE=#{state},
+    PRODUCT_NAME=#{productName},
+    CHECK_NUMBER =#{checkNumber},
+    CHECK_DATE=#{checkDate},
+    CHECK_USER =#{checkUser},
+    CHECK_REMARK=#{checkRemark},
+    REACH_ID =#{reachId},
+    PRODUCT_ID =#{productId},
+    PLAN_ID=#{planId}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <update id="changeState" parameterType="String">
+        update l_bill_check set STATE=#{state} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByState"  resultMap="BaseResultMap">
+        select ID ,PRODUCT_NAME,STATE ,CHECK_NUMBER ,CHECK_DATE ,CHECK_USER,CHECK_REMARK,REACH_ID,PRODUCT_ID,PLAN_ID
+        from l_bill_check where STATE='3';
+        /*todo(选择billCheck的状态)*/
+    </select>
+
+    <select id="selectByProductId" resultMap="BaseResultMap">
+        select * from l_bill_check bc where bc.PRODUCT_ID=#{productId}
+    </select>
+</mapper>
+

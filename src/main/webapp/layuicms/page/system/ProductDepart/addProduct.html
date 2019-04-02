@@ -27,59 +27,57 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
-
+    </br></br>
+    <h2>产品加工单</h2>
     </br>
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品数量</label>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">订单数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入产品数量">
+            <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入订单数量">
         </div>
     </div>
-    <div class="layui-form-item">
+
+    </br>
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">产品成本</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
         </div>
-    </div>
-    <div class="layui-form-item ">
-        <label class="layui-form-label">是否可售</label>
+    </div>-->
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">订单来源</label>
         <div class="layui-input-block ">
-            <select name="canSold" lay-verify="required" id="canSold">
-                <option value="" >--请选择--</option>
-                <option value="0" >1.可售</option>
-                <option value="1">2.不可售</option>
-            </select>
+
+            <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
+
         </div>
     </div>
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item "style="display:none">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
-            <select name="state" lay-verify="required" id="state">
-                <option value="0" selected >1.未下单</option>
-                <!--<option value="1">2.已提交</option>
-                <option value="2">3.待审核</option>
-                <option value="3">4.生产中</option>
-                <option value="4">5.已入库</option>-->
-
+            <select name="productState" lay-verify="required" id="productState">
+                <option value="1" selected >1.未提交</option>
             </select>
         </div>
     </div>
 
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品类型</label>
         <div class="layui-input-block">
             <select name="productType" lay-verify="required" id="productType" >
-                <option value="">--请选择--</option>
-                <option value="0" >1.半成品</option>
-                <option value="1" >2.成品</option>
+                <option value="">>>请选择<<</option>
+                <option value="1" >1.半成品不可售</option>
+                <option value="2" >2.半成品可售</option>
+                <option value="3" >3.成品不可售</option>
+                <option value="4" >4.成品可售</option>
 
 
             </select>

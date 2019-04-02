@@ -63,7 +63,6 @@ public interface LenProductService {
 
     /**
      * 删除
-     *
      * @param id
      * @return
      */
@@ -71,21 +70,20 @@ public interface LenProductService {
 
     /**
      * 统计条数
-     *
+     * @param state
      * @return
      */
     int dataCount(String state);
 
     /**
-     * 更改state状态码
-     *
+     * 更改状态
+     * @param id
      * @return
      */
     boolean changeState(String id);
 
     /**
-     * 撤回操作
-     *
+     * 撤回
      * @param id
      * @return
      */
@@ -114,6 +112,15 @@ public interface LenProductService {
      */
     List<LenProduct> selectByState();
 
+    /**
+     * 更改状态
+     * @param state
+     * @param id
+     * @return
+     */
+    boolean changeProState(String state,String id);
+
+    boolean changeBehindState(String state,String id);
     /**
      * 获取产品id
      * */

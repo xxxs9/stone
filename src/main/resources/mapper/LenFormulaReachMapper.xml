@@ -87,7 +87,7 @@
 
 
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenFormulaReach">
-    insert into l_formula_reach ( ID,PRODUCT_ID,PRODUCE_FORMULA_ID,PRODUCE_FORMULA_DETAIL_ID,DEPOT_AUDI,STATE,FORMULA_BACK,REACH_USER,REACH_TIME,OTHER1,OTHER2,OTHER3)
+    insert into l_formula_reach ( ID,PRODUCT_ID,PRODUCE_FORMULA_ID,PRODUCE_FORMULA_DETAIL_ID,STATE,FORMULA_BACK,DEPOT_AUDI,REACH_USER,REACH_TIME,OTHER1,OTHER2,OTHER3)
     values (
     #{id},
     #{productId},
@@ -245,5 +245,8 @@
     <update id="changeDepot" parameterType="String">
         update l_formula_reach set DEPOT_AUDI=#{depot} where ID = #{id,jdbcType=VARCHAR}
     </update>
+    <select id="getByProductId" resultMap="BaseResultMap">
+        select * from stone.l_formula_reach fr where fr.PRODUCT_ID=#{productId}
+    </select>
 </mapper>
 

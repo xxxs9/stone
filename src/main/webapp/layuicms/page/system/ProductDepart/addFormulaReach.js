@@ -55,7 +55,7 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].id + '</option>>';
+                    html += '<option value="' + data[i].formulaBack + '">' + data[i].formulaBack + '</option>>';
                 }
                 $('#formulaBack').append($(html));
                 form.render();
