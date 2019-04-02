@@ -66,6 +66,7 @@ layui.config({
                 , {field: 'orderAuditUser', title: '订单审核人' }
                 , {field: 'orderAuditDepot', title: '仓库审核人' }
                 , {field: 'remarks', title: '备注' }
+                , {field: 'depotRemarks', title: '仓库审核人备注' }
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -75,6 +76,7 @@ layui.config({
                 $("[data-field='applyUser']").css('display','none');
                 $("[data-field='orderAuditDepot']").css('display','none');
                 $("[data-field='remarks']").css('display','none');
+                $("[data-field='depotRemarks']").css('display','none');
             }
         });
 
@@ -106,6 +108,23 @@ layui.config({
     defineTable();
 
 
+    /**
+     * 改颜色
+     */
+
+   /* table.render({
+        cols: [[
+            {field:'state', title: '审核失败'
+                ,templet: function(d){
+                    return 'STATE：'+ d.state +'，审核失败：<span style="color: #c00;">'+ d.state +'</span>'
+                }
+            }
+            ,{field:'state', title:'STATE'}
+        ]]
+    });*/
+
+
+
     //查询
     form.on("submit(queryUser)", function (data) {
         /*var status = data.field.status;*/
@@ -122,6 +141,7 @@ layui.config({
         var orderAuditUser = data.field.orderAuditUser;
         var orderAuditDepot = data.field.orderAuditDepot;
         var remarks = data.field.remarks;
+        var depotRemarks = data.field.depotRemarks;
         //表格重新加载
         tableIns.reload({
             where:{
@@ -138,7 +158,8 @@ layui.config({
                 state:state,
                 orderAuditUser:orderAuditUser,
                 orderAuditDepot:orderAuditDepot,
-                remarks:remarks
+                remarks:remarks,
+                depotRemarks:depotRemarks
             }
         });
 

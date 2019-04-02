@@ -32,7 +32,66 @@ layui.config({
     /**
      * 初始化组织机构树
      * */
+   /* function initOrgTree() {
+        //获取所有组织机构树
 
+          $api.GetAllOrg(null,function (res) {
+              renderTree('#org-tree', res.data);
+          });
+
+      }
+
+        /!**
+         * 绘制树
+         * @param id dom id
+         * @param nodes 树节点数据
+         * *!/
+        function renderTree(id, nodes) {
+            //绘制前先清空
+            $(id).empty();
+
+            //绘制
+             layui.tree({
+                 elem: id
+                 , nodes: nodes
+                 , click: function (node) {//显示组织机构数据
+                     console.log(node); //node即为当前点击的节点数据
+                     orgId = node.id;//保存机构id
+                     orgName = node.name;
+
+                     $('[name="orgName"]').val(orgName);//显示机构名称
+                 }
+             });
+         }
+            /!**
+             * 加载产品列表
+             * *!/
+            function loadRoleList() {
+                var req = {
+                    page: 1,
+                    limit: 999
+                };
+
+                $api.GetProduct(req, function (res) {
+                    var data = res.data;
+                    if (data.length > 0) {
+                        var roleHtml = "";
+                        for (var i = 0; i < data.length; i++) {
+                            //是否初始化选中
+                            if ($.inArray(data[i].id, user_roleIds) != -1) {
+                                roleHtml += '<input type="checkbox" checked name="' + data[i].id + '" title="' + data[i].roleName + '">';
+                            } else {
+                                roleHtml += '<input type="checkbox" name="' + data[i].id + '" title="' + data[i].roleName + '">';
+                            }
+                            roleIdList.push(data[i].id);//保存id列表
+                        }
+
+                        $('.role-check-list').append($(roleHtml));
+                        form.render();//重新绘制表单，让修改生效
+                    }
+                });
+            }
+*/
             /**
              * 初始化用户信息
              * */
@@ -45,23 +104,23 @@ layui.config({
                     id: id
                 };
 
-                $api.GetOrderAudit(req, function (res) {
+                $api.GetShipmentOrder(req, function (res) {
                     var data = res.data;
                     console.log(data)
                     //$("[name='id']").val(data.id);
-                    $("[name='orderId']").val(data.orderId);
-                    $("[name='orderTime']").val(data.orderTime);
-                    $("[name='productId']").val(data.productId);
+                    $("[name='goodsId']").val(data.goodsId);
+                    $("[name='goodsName']").val(data.goodsName);
                     $("[name='customer']").val(data.customer);
-                    $("[name='deliverNumber']").val(data.deliverNumber);
-                    $("[name='plannedNumber']").val(data.plannedNumber);
-                    $("[name='acceptedAmount']").val(data.acceptedAmount);
+                    $("[name='goodsNumber']").val(data.goodsNumber);
+                    $("[name='goodsAmount']").val(data.goodsAmount);
                     $("[name='applyUser']").val(data.applyUser);
+                    $("[name='applyTime']").val(data.applyTime);
                     $("[name='state']").val(data.state);
-                    $("[name='orderAuditUser']").val(data.orderAuditUser);
-                    $("[name='orderAuditDepot']").val(data.orderAuditDepot);
-                    $("[name='remarks']").val(data.remarks);
-                    $("[name='depotRemarks']").val(data.depotRemarks);
+                    $("[name='auditUser']").val(data.auditUser);
+                    $("[name='auditType']").val(data.auditType);
+                    $("[name='remarks']").val(data.remarks)
+
+
                     /*orgId = data.orgId;
                     orgName = data.orgName;*/
                    // user_roleIds = data.roleIdList;//保存用户所属角色id列表，初始化选中时用
@@ -74,26 +133,22 @@ layui.config({
             /**
              * 表单提交
              * */
-            form.on("submit(editOrderAudit)", function (data) {
+            form.on("submit(editMarkerOrder)", function (data) {
                 var queryArgs = $tool.getQueryParam();//获取查询参数
                 var id = queryArgs['id'];
                 console.log(data)
               //  var id = data.field.id;
-                var orderId = data.field.orderId;
-                var orderTime = data.field.orderTime;
-                var productId = data.field.productId;
+                var goodsId = data.field.goodsId;
+                var goodsName = data.field.goodsName;
                 var customer = data.field.customer;
-                var deliverNumber = data.field.deliverNumber;
-
-                var plannedNumber = data.field.plannedNumber;
-                var acceptedAmount = data.field.acceptedAmount;
-
+                var goodsNumber = data.field.goodsNumber;
+                var goodsAmount = data.field.goodsAmount;
                 var applyUser = data.field.applyUser;
+                var applyTime = data.field.applyTime;
                 var state = data.field.state;
-                var orderAuditUser = data.field.orderAuditUser;
-                var orderAuditDepot = data.field.orderAuditDepot;
+                var auditUser = data.field.auditUser;
+                var auditType = data.field.auditType;
                 var remarks = data.field.remarks
-                var depotRemarks = data.field.depotRemarks
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
@@ -109,24 +164,22 @@ layui.config({
                 //请求
                 var req = {
                     id:id,
-                    orderId: orderId,
-                    orderTime: orderTime,
-                    productId: productId,
+                    goodsId: goodsId,
+                    goodsName: goodsName,
                     customer: customer,
-                    deliverNumber: deliverNumber,
-                    plannedNumber: plannedNumber,
-                    acceptedAmount: acceptedAmount,
+                    goodsNumber: goodsNumber,
+                    goodsAmount: goodsAmount,
                     applyUser: applyUser,
+                    applyTime: applyTime,
                     state: state,
-                    orderAuditUser: orderAuditUser,
-                    orderAuditDepot: orderAuditDepot,
-                    remarks: remarks,
-                    depotRemarks: depotRemarks
+                    auditUser: auditUser,
+                    auditType: auditType,
+                    remarks: remarks
                 };
 
-                $api.updateOrderAudit(req, function (data) {
+                $api.updateShipmentOrder(req, function (data) {
                     //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-                   // layer.msg("审核成功！", {time: 1000}, function () {
+                   // layer.msg("用户更新成功！", {time: 1000}, function () {
                         layer.closeAll("iframe");
                         //刷新父页面
                         parent.location.reload();
@@ -146,6 +199,6 @@ layui.config({
         });
     });
 
-        });
+});
 
 

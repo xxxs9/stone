@@ -94,7 +94,6 @@ public class OrderAuditController {
     @ResponseBody
 
     public IResult update(OrderAuditBean orderAuditBean) {
-
         return new ResultBean<Boolean>(orderAuditService.update(orderAuditBean));
     }
 

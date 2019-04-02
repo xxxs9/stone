@@ -23,6 +23,7 @@ public class OrderAuditBean {
     private String orderAuditUser;
     private String orderAuditDepot;
     private String remarks;
+    private String depotRemarks;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
 

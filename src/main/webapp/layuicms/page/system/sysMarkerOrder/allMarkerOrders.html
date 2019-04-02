@@ -95,6 +95,11 @@
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='等待审核') { }}
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
+    {{# }else if(d.state =='已撤回' ) { }}
+    <!--<span style="color: #FF0000;">{{ d.state }}</span>-->
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='审核失败' ) { }}
     <!--<span style="color: #FF0000;">{{ d.state }}</span>-->
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
@@ -128,9 +133,10 @@
 
 </script>
 <!--用户状态模板-->
-<script type="text/html" id="timp1">
-    {{#  if(d.state == '未提交'){ }}
-    <span>审核失败</span>
+<script type="text/html" id="titleTpl">
+    {{#  if(d.state == '审核失败'){ }}
+    !--<span style="color: #FF0000;">{{ d.state }}</span>-->
+    <a href="/detail/{{d.state}}" class="layui-table-link">{{d.state}}</a>
     {{#  } else if(d.state == '审核失败'){ }}
     <span>等待审核</span>
     {{#  } else if(d.state == '审核成功'){ }}

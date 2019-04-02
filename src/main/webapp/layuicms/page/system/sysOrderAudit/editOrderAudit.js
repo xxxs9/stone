@@ -71,7 +71,8 @@ layui.config({
                     $("[name='state']").val(data.state);
                     $("[name='orderAuditUser']").val(data.orderAuditUser);
                     $("[name='orderAuditDepot']").val(data.orderAuditDepot);
-                    $("[name='remarks']").val(data.remarks)
+                    $("[name='remarks']").val(data.remarks);
+                    $("[name='depotRemarks']").val(data.depotRemarks);
 
                     /*orgId = data.orgId;
                     orgName = data.orgName;*/
@@ -102,7 +103,8 @@ layui.config({
                 //var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
                 var orderAuditDepot = data.field.orderAuditDepot;
-                var remarks = data.field.remarks
+                var remarks = data.field.remarks;
+                var depotRemarks = data.field.depotRemarks;
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
@@ -129,7 +131,8 @@ layui.config({
                     state: state,
                     orderAuditUser: orderAuditUser,
                     orderAuditDepot: orderAuditDepot,
-                    remarks: remarks
+                    remarks: remarks,
+                    depotRemarks: depotRemarks
                 };
 
                 $api.updateOrderAudit(req, function (data) {

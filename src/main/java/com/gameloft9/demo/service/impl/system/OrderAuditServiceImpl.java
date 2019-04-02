@@ -3,7 +3,9 @@ package com.gameloft9.demo.service.impl.system;
 import com.gameloft9.demo.dataaccess.dao.system.OrderAuditMapper;
 import com.gameloft9.demo.dataaccess.model.system.OrderAudit;
 import com.gameloft9.demo.dataaccess.model.system.OrderAuditBean;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.OrderAuditService;
@@ -86,7 +88,7 @@ public class OrderAuditServiceImpl implements OrderAuditService {
     @Override
     public Boolean backUpdate(OrderAuditBean orderAuditBean) {
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
-        orderAuditBean.setState(StateUtil.APPLY_FAIL);
+        orderAuditBean.setState(StateUUtil.APPLY_back);
         orderAuditMapper.backUpdate(orderAuditBean);
         return true;
     }
@@ -111,16 +113,25 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      */
     @Override
     public Boolean audit(OrderAuditBean orderAuditBean) {
+
+
+        String st=orderAuditBean.getState();
+        String sc="等待审核";
+        if (sc!=st){
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单已撤回，无法审核");
+        }
         CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
-        orderAuditBean.setState(StateUtil.APPLY_PASS);
-        orderAuditMapper.audit(orderAuditBean);
-        String state=orderAuditBean.getState();
+       // orderAuditBean.setState(StateUtil.APPLY_PASS);
+
+        /*String state=orderAuditBean.getState();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String str="通过审核";
+        String str="等待审核";
         if (str.equals(state)){
             orderAuditBean.setState(StateUtil.APPLY_PASS);
         }else{orderAuditBean.setState(StateUtil.APPLY_FAIL);
-        }
+        }*/
+
+        orderAuditMapper.audit(orderAuditBean);
         return true;
     }
 
