@@ -213,4 +213,12 @@ public class LenProductServiceImpl implements LenProductService {
     public List<LenProduct> selectByState() {
         return mapper.selectByState();
     }
+
+    /**
+     * 获取产品id
+     * */
+    @Override
+    public List<String> getProductId() {
+        return mapper.getProductId();
+    }
 }

@@ -180,6 +180,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
     }
 
+
     /**根据id获取审核所需的状态*/
     public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
         PageRange pageRange = new PageRange(page,limit);

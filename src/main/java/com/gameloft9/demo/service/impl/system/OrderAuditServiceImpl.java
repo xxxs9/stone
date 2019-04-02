@@ -9,6 +9,7 @@ import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.OrderAuditService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.StateUUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +34,10 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      */
 
     @Override
-    public List<OrderAudit> findAll(String page, String limit, String productId) {
+    public List<OrderAudit> findAll(String page, String limit, String productId ,String orderId,String applyUser) {
         PageRange pageRange = new PageRange(page, limit);
 
-        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
+        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId,orderId,applyUser);
     }
 
     /**
@@ -120,9 +121,41 @@ public class OrderAuditServiceImpl implements OrderAuditService {
             orderAuditBean.setState(StateUtil.APPLY_PASS);
         }else{orderAuditBean.setState(StateUtil.APPLY_FAIL);
         }
-
         return true;
     }
 
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    @Override
+    public Boolean ware(OrderAuditBean orderAuditBean) {
+        CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
+        orderAuditBean.setState(StateUUtil.APPLY_ware);
+        orderAuditMapper.ware(orderAuditBean);
+        return true;
+    }
+    /**
+     * 11仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    @Override
+    public Boolean depot(OrderAuditBean orderAuditBean) {
+        CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
+        orderAuditBean.setState(StateUUtil.APPLY_pas);
+        orderAuditMapper.audit(orderAuditBean);
+        String state=orderAuditBean.getState();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String str="仓库通过审核";
+        if (str.equals(state)){
+            orderAuditBean.setState(StateUUtil.APPLY_pas);
+        }else{orderAuditBean.setState(StateUUtil.APPLY_fai);
+        }
+        return true;
+    }
+    }
 
-}
+
+

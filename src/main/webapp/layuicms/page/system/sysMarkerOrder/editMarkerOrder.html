@@ -28,12 +28,12 @@
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
 
-    <!--<div class="layui-form-item parent-menu">
+    <div class="layui-form-item parent-menu">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" lay-verify="required" name="orderId" placeholder="请输入订单编号">
+            <input type="text" class="layui-input" readonly="readonly" lay-verify="required" name="orderId" placeholder="请输入订单编号">
         </div>
-    </div>-->
+    </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">订单日期</label>
@@ -45,7 +45,7 @@
 
 
     <div class="layui-form-item">
-        <label class="layui-form-label">产品ID</label>
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
             <select id="productId" name="productId" lay-verify="required">
 
@@ -67,12 +67,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">当前库存</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="currentNumber" placeholder="请输入当前库存">
-        </div>
-    </div>
+
 
     <div class="layui-form-item">
         <label class="layui-form-label">产品单价</label>
@@ -88,12 +83,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">未付款金额</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="unpaidAmount" placeholder="请输入未付款金额">
-        </div>
-    </div>
+
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
@@ -104,12 +94,12 @@
 
 
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="state"  readonly="readonly" placeholder="未提交" value="未提交">
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">订单审核人</label>
@@ -118,13 +108,19 @@
         </div>
     </div>-->
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">仓库审核人</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="orderAuditDepot" placeholder="请输入仓库审核人">
+        </div>
+    </div>-->
+
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="remarks" placeholder="备注">
         </div>
-    </div>
-
+    </div>-->
 
 
     <div class="layui-form-item">

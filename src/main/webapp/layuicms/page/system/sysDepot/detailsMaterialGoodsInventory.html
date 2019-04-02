@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>库存详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../common/css/user.css" media="all" />
+    <link rel="stylesheet" href="../css/common.css" media="all" />
+    <link rel="stylesheet" href="../css/product.css" media="all" />
+    <script type="text/javascript" src="https://unpkg.com/qiniu-js@2.5.4/dist/qiniu.min.js"></script>
+    <script type="text/javascript" src="../../../lib/layui/layui.all.js"></script>
+
+</head>
+<body class="childrenBody" style="margin-top: 15px">
+    </div style="margin-bottom: 15px;margin-top: 15px;">
+    <div class="container productContent">
+        <div class="span18 last">
+            <div class="productImage" style="margin-bottom: -50px;">
+                <a title="" style="outline-style: none; text-decoration: none;" id="zoom" href="http://image/r___________renleipic_01/bigPic1ea8f1c9-8b8e-4262-8ca9-690912434692.jpg" rel="gallery">
+                    <div class="zoomPad"><img id="imageUrl" style="opacity: 1;" title="" class="medium" ><div style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;" class="zoomPup"></div><div style="position: absolute; z-index: 5001; left: 312px; top: 0px; display: block;" class="zoomWindow"><div style="width: 368px;" class="zoomWrapper"><div style="width: 100%; position: absolute; display: none;" class="zoomWrapperTitle"></div><div style="width: 0%; height: 0px;" class="zoomWrapperImage"><img src="%E5%B0%9A%E9%83%BD%E6%AF%94%E6%8B%89%E5%A5%B3%E8%A3%852013%E5%A4%8F%E8%A3%85%E6%96%B0%E6%AC%BE%E8%95%BE%E4%B8%9D%E8%BF%9E%E8%A1%A3%E8%A3%99%20%E9%9F%A9%E7%89%88%E4%BF%AE%E8%BA%AB%E9%9B%AA%E7%BA%BA%E6%89%93%E5%BA%95%E8%A3%99%E5%AD%90%20%E6%98%A5%E6%AC%BE%20-%20Powered%20By%20Mango%20Team_files/6d53c211-2325-41ed-8696-d8fbceb1c199-large.jpg" style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;"></div></div></div><div style="visibility: hidden; top: 129.5px; left: 106px; position: absolute;" class="zoomPreload">Loading zoom</div></div>
+                </a>
+
+            </div>
+            <div class="name"><p id="goodsName"></p></div>
+            <div class="sn">
+                <div id="goodId"></div>
+            </div>
+            <div class="info">
+                <dl>
+                    <dt>实 际 价:</dt>
+                    <dd>
+                        <strong id="goodsPrice"></strong>
+                        参 考 价：
+                        <del>￥元</del>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>类 型:</dt>
+                    <dd>
+                        <span id="goodsType"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>规 格:</dt>
+                    <dd>
+                        <span id="goodsSpecification"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>原 产 地:</dt>
+                    <dd>
+                        <span id="goodsOriginPlace"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>供 应 商:</dt>
+                    <dd>
+                        <span id="supplierName"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>简 介:</dt>
+                    <dd>
+                        <span id="supplierDescribe"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>移动电话:</dt>
+                    <dd>
+                        <span id="phone"></span>
+                    </dd>
+                </dl>
+            </div>
+            <div id="bar" class="bar">
+                <ul>
+                    <li id="introductionTab">
+                        <a href="#">商品介绍</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div id="introduction" name="introduction" class="introduction">
+                <div class="title">
+                    <strong id="goodsDescribe"></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript" src="../../../lib/layui/layui.js"></script>
+<script type="text/javascript" src="../../../common/js/config.js"></script>
+<script type="text/javascript" src="detailsMaterialGoodsInventory.js"></script>
+</body>
+</html>

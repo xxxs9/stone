@@ -66,13 +66,12 @@ layui.config({
         var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
-        var currentNumber = data.field.currentNumber;
         var plannedNumber = data.field.plannedNumber;
         var acceptedAmount = data.field.acceptedAmount;
-        var unpaidAmount = data.field.unpaidAmount;
         var applyUser = data.field.applyUser;
         var state = data.field.state;
         var orderAuditUser = data.field.orderAuditUser;
+        var orderAuditDepot = data.field.orderAuditDepot;
         var remarks = data.field.remarks
       /*  var idList = new Array();
 
@@ -96,13 +95,12 @@ layui.config({
             productId: productId,
             customer: customer,
             deliverNumber: deliverNumber,
-            currentNumber: currentNumber,
             plannedNumber: plannedNumber,
             acceptedAmount: acceptedAmount,
-            unpaidAmount: unpaidAmount,
             applyUser: applyUser,
             state: state,
             orderAuditUser: orderAuditUser,
+            orderAuditDepot:orderAuditDepot,
             remarks: remarks
 
         };
@@ -130,15 +128,36 @@ layui.config({
     });
 
 
-    //计算总金额
-    $("input'name=acceptedAmount]'").bind('input propertychange',function(){
 
-        var unitPirce = $('[name=deliverNumber]').val();
-        var number = $('[name=plannedNumber]').val();
-        $('[name=acceptedAmount]').val(unitPirce*number);
+
+    //计算总金额
+
+    $(function() {
+
+        $('[name= acceptedAmount]').bind('click', function () {
+            var unitPirce = $('[name=deliverNumber]').val();
+            var number = $('[name=plannedNumber]').val();
+            $("[name = acceptedAmount]").html($(this).val(unitPirce * number)
+            )
+        })
+
     })
 
 
+
+   /* $(function(){
+
+        $('[name= acceptedAmount]').bind('input propertychange', function() {
+            alert(1);
+            var a = $('#deliverNumber').val();
+            var b = $('#plannedNumber').val();
+            var sum= a * b;
+            alert(2);
+            $('#acceptedAmount').html($(this).val(sum)
+        )
+        });
+
+    })*/
 
 
 

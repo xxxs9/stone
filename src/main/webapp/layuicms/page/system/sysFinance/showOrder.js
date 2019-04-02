@@ -33,12 +33,18 @@ layui.config({
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
                 $('#id').val(id);
-                $("[name='goodsId']").val(data.goodsId);
+                /*$("[name='goodsId']").val(data.goodsId);
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
-                $("[name='applyDescribe']").val(data.applyDescribe);
+                $("[name='applyDescribe']").val(data.applyDescribe);*/
+                $("[name='goodsId']").html(data.goodsId);
+                $("[name='goodsNumber']").html(data.goodsNumber);
+                $("[name='price']").html(data.price);
+                $("[name='applyUser']").html(data.applyUser);
+                $("[name='applyTime']").html(data.applyTime);
+                $("[name='applyDescribe']").html(data.applyDescribe);
                 //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
                 //加载角色列表
                 //loadRoleList();

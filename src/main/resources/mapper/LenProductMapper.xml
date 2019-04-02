@@ -7,11 +7,9 @@
             <id column="ID" property="id"/>
             <result  column="PRODUCT_NAME" property="productName"/>
             <result column="PRODUCT_TYPE" property="productType"/>
-            <result column="PRODUCT_NUMBER" property="productNumber"/>
             <result column="STATE" property="state"/>
-            <result column="CAN_SOLD" property="canSold"/>
-            <result column="SUPPORT_PRICE" property="supportPrice"/>
             <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+            <result column="WASTE_ID" property="wasteId"/>
             <result column="OTHER1" property="other1"/>
             <result column="OTHER2" property="other2"/>
             <result column="OTHER3" property="other3"/>

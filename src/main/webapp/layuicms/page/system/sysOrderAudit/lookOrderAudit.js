@@ -54,13 +54,12 @@ layui.config({
                     $("[name='productId']").val(data.productId);
                     $("[name='customer']").val(data.customer);
                     $("[name='deliverNumber']").val(data.deliverNumber);
-                    $("[name='currentNumber']").val(data.currentNumber);
                     $("[name='plannedNumber']").val(data.plannedNumber);
                     $("[name='acceptedAmount']").val(data.acceptedAmount);
-                    $("[name='unpaidAmount']").val(data.unpaidAmount);
                     $("[name='applyUser']").val(data.applyUser);
                     $("[name='state']").val(data.state);
                     $("[name='orderAuditUser']").val(data.orderAuditUser);
+                    $("[name='orderAuditDepot']").val(data.orderAuditDepot);
                     $("[name='remarks']").val(data.remarks)
 
                     /*orgId = data.orgId;
@@ -85,13 +84,14 @@ layui.config({
                 var productId = data.field.productId;
                 var customer = data.field.customer;
                 var deliverNumber = data.field.deliverNumber;
-                var currentNumber = data.field.currentNumber;
+
                 var plannedNumber = data.field.plannedNumber;
                 var acceptedAmount = data.field.acceptedAmount;
-                var unpaidAmount = data.field.unpaidAmount;
+
                 var applyUser = data.field.applyUser;
                 var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
+                var orderAuditDepot = data.field.orderAuditDepot;
                 var remarks = data.field.remarks
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
@@ -113,13 +113,12 @@ layui.config({
                     productId: productId,
                     customer: customer,
                     deliverNumber: deliverNumber,
-                    currentNumber: currentNumber,
                     plannedNumber: plannedNumber,
                     acceptedAmount: acceptedAmount,
-                    unpaidAmount: unpaidAmount,
                     applyUser: applyUser,
                     state: state,
                     orderAuditUser: orderAuditUser,
+                    orderAuditDepot: orderAuditDepot,
                     remarks: remarks
                 };
 

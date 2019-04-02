@@ -87,4 +87,5 @@ public class NumberUtil {
         decimal = decimal.setScale(2,BigDecimal.ROUND_HALF_UP);
         return decimal.toString();
     }
+
 }

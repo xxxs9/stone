@@ -77,10 +77,14 @@ public interface SysMaterialGoodsMapper {
 
     /**
      * 根据主键获取原料商品信息
-     * @param materialId
-     * @param supplierId
-     * @return
-     */
-    SysMaterialGoods getByOtherId(@Param("materialId") String materialId,
-                                  @Param("supplierId") String supplierId);
+     * @param materialId 原料主键
+     * @param supplierId 供应商主键
+     * */
+    SysMaterialGoods getByOtherId(@Param("materialId") String materialId, @Param("supplierId") String supplierId);
+
+
+    /**
+     * 根据获取原料商品id信息
+     * */
+    List<String> getMaterialGoodsId();
 }

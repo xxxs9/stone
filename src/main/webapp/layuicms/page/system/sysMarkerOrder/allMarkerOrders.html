@@ -28,9 +28,9 @@
             </div>
         </div>-->
         <div class="layui-inline">
-            <label class="layui-form-label">产品ID</label>
+            <label class="layui-form-label">产品名</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="productId" placeholder="请输入产品ID">
+                <input type="text" class="layui-input" name="productId" placeholder="请输入产品名">
             </div>
         </div>
        <!-- <div class="layui-inline">
@@ -95,14 +95,32 @@
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# }else if(d.state =='等待审核') { }}
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    {{# }else if(d.state =='审核失败') { }}
+    {{# }else if(d.state =='审核失败' ) { }}
+    <!--<span style="color: #FF0000;">{{ d.state }}</span>-->
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>重新提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# }else if(d.state =='审核成功') { }}
-    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>审核已通过</a>
+    {{# }else if(d.state =='审核成功' ) { }}
+    <!--<span style="color: #FF0000;">{{ d.state }}</span>-->
+    <a class="layui-btn  layui-btn-danger  layui-btn-sm" lay-event="submit"><i class="layui-icon">&#xe65c;</i>提交仓库</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='等待仓库审核') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="wait"><i class="layui-icon">&#xe65c;</i>等待仓库审核</a>
+    {{# }else if(d.state =='仓库审核通过') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="fina"><i class="layui-icon">&#xe65c;</i>提交财务</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='仓库审核失败') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="submit"><i class="layui-icon">&#xe65c;</i>重新提交仓库</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='财务收到货款') { }}
+    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>订单审核完成</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}
+
+
+    <!--if(d.scopeofbusiness === '不推荐食品'){ }}
+    <span style="color: #FF0000;">{{ d.scopeofbusiness }}</span>
+    {{#  }else-->
 
     <!--<a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe642;</i>提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
@@ -110,10 +128,10 @@
 
 </script>
 <!--用户状态模板-->
-<script type="text/html" id="tmp">
+<script type="text/html" id="timp1">
     {{#  if(d.state == '未提交'){ }}
-    <span>等待审核</span>
-    {{#  } else if(d.state == '等待审核'){ }}
+    <span>审核失败</span>
+    {{#  } else if(d.state == '审核失败'){ }}
     <span>等待审核</span>
     {{#  } else if(d.state == '审核成功'){ }}
     <span>审核成功</span>

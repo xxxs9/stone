@@ -27,15 +27,7 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
- <!--   <div class="layui-form-item">
-        <label class="layui-form-label">所属机构</label>
-        <div class="layui-input-block">
-            &lt;!&ndash;机构树&ndash;&gt;
-            <div class="org-tree">
-                <ul id="org-tree" class="layui-box layui-tree"></ul>
-            </div>
-        </div>
-    </div>-->
+
 
 
     <!--<div class="layui-form-item parent-menu">
@@ -61,14 +53,13 @@
 
 
 
-
     <div class="layui-form-item">
-        <label class="layui-form-label">产品ID</label>
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
             <select id="productId" name="productId" lay-verify="required">
             </select>
             <div class="layui-inline">
-                <a class="layui-btn search_btn" lay-submit="" lay-filter="queryUser">查询</a>
+                <a class="layui-btn search_btn"  lay-submit="" lay-filter="queryUser">查询</a>
             </div>
         </div>
     </div>
@@ -83,37 +74,37 @@
     <div class="layui-form-item">
         <label class="layui-form-label">销售数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input"  name="deliverNumber"  placeholder="请输入销售数量">
+            <input type="text" class="layui-input" id="deliverNumber" name="deliverNumber"  placeholder="请输入销售数量">
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">当前库存</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="currentNumber" placeholder="请输入当前库存">
         </div>
     </div>
-
+-->
     <div class="layui-form-item">
         <label class="layui-form-label">产品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="plannedNumber" placeholder="请输入产品单价">
+            <input type="text" class="layui-input" id="plannedNumber" name="plannedNumber" placeholder="请输入产品单价">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">总金额</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="acceptedAmount" placeholder="请输入付款金额">
+            <input type="text" class="layui-input" id="acceptedAmount" name="acceptedAmount" placeholder="请输入付款金额">
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">未付款金额</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="unpaidAmount" placeholder="请输入未付款金额">
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">申请人</label>
@@ -142,6 +133,12 @@
             <input type="text" class="layui-input" name="orderAuditUser" placeholder="请输入订单审核人">
         </div>
     </div>-->
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">仓库审核人</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="orderAuditDepot" placeholder="请输入仓库审核人">
+        </div>
+    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">备注</label>
@@ -151,17 +148,12 @@
     </div>
 
 
-    <<!--div class="layui-form-item">
-        <label class="layui-form-label">权限配置</label>
-        <div class="layui-input-block role-check-list">
-            &lt;!&ndash;动态生成角色列表&ndash;&gt;
-        </div>
-    </div>-->
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit="" lay-filter="addMarkerOrder">新增</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+
         </div>
     </div>
 </form>

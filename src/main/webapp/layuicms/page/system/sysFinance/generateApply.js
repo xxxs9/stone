@@ -119,7 +119,6 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-
                 if(financeState != null){
                     $('#gnrt').css("display",'none');
                 }
@@ -155,8 +154,7 @@ layui.config({
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
             var price = $('[name=price]').val();
-            var goodsNumber = $('[name=auditType]').val();
-            alert(1)
+            var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
                 id1:id1,
                 id:payId,

@@ -64,6 +64,7 @@ public interface LenProductService {
     /**
      * 删除
      *
+     * @param id
      * @return
      */
     boolean delete(String id);
@@ -113,4 +114,8 @@ public interface LenProductService {
      */
     List<LenProduct> selectByState();
 
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
 }

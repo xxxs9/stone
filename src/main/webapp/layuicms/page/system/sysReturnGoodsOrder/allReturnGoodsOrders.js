@@ -67,6 +67,7 @@ layui.config({
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+                $("[data-field='id']").css('display','none');
             }
         });
 
@@ -285,9 +286,9 @@ layui.config({
     //查看
     function look(id) {
         var index = layui.layer.open({
-            title: "查看订单",
+            title: "查看发货单",
             type: 2,
-            content: "lookMarkerOrder.html?id=" + id,
+            content: "lookReturnGoodsOrder.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

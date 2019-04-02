@@ -70,6 +70,15 @@ public class LenProductController {
         return  new ResultBean<LenProduct>(service.getByPrimaryKey(id));
     }
 
+    /**
+     * 获取产品id
+     * */
+    @RequestMapping(value = "/getId",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult getProductId(){
+        return  new ResultBean<List<String>>(service.getProductId());
+    }
+
     @RequestMapping(value = "/chg1",method = RequestMethod.POST)
     @ResponseBody
     public  IResult changeState1(String id){

@@ -72,7 +72,7 @@ public interface LenProductMapper {
     /**
      * 统计条数
      *
-     * @param
+     * @param state
      * @return
      */
     int dataCount(@Param("state") String state);
@@ -80,8 +80,6 @@ public interface LenProductMapper {
     /**
      * 更改state状态码
      *
-     * @param state
-     * @param id
      * @return
      */
     int changeState(@Param("state")String state,@Param("id")String id);
@@ -102,6 +100,11 @@ public interface LenProductMapper {
      */
     int insertSelective(LenProduct lenProduct);
 
+
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
     /**
      * 查找已审核的产品
      *

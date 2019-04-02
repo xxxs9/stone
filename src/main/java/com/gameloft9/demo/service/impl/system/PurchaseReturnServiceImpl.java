@@ -131,6 +131,11 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
             purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_FAIL);
         }*/
 
+        purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+
+        //生成采购退货申请单
+
+
         dao.updateTools(purchaseReturn);
         return true;
     }
