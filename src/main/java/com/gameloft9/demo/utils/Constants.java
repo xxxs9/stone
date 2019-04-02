@@ -259,6 +259,14 @@ public class Constants {
         public static final String CHECK_PASS="审核通过";
         public static final String CHECK_FAIL="审核未通过";
 
+
+
+
+        /**kdsfjsldjflkdsjfldsf**/
+
+
+
+
     }
 
     public static final String MATERIAL = "原料";
