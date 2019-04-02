@@ -26,7 +26,10 @@ layui.config({
     /**
      * 页面初始化
      * */
-
+    var pn;
+    var rn
+    var reachId1;
+    var planId1;
     function init() {
         //初始化下拉框
 
@@ -37,10 +40,10 @@ layui.config({
         var req = {
             id:id
         }
-        $api.getBillCheckById(req,function (res) {
+        $api.getProductById(req,function (res) {
             var data = res.data;
             console.log(data);
-            $("[name='productId']").val(data.productId);
+            $("[name='productId']").val(id);
             $("[name='productName']").val(data.productName);
             /*实际产量*/
             $("[name='checkNumber']").val(data.checkNumber);
@@ -48,19 +51,24 @@ layui.config({
             var planId = data.planId;
             console.log(planId);
             var req={
-                id:planId
+                productId:id
             }
-            $api.getProducePlanById(req,function (res) {
+            $api.getAllProducePlanId(req,function (res) {
                 var data2= res.data;
                 console.log(data2)
                 /*计划产量*/
                 $("[name='planNumber']").val(data2.planNumber);
+                pn= data2.planNumber;
                 console.log(data2.planNumber);
-            })
-
-
-
-
+            });
+            $api.getReachByProductId(req,function (res) {
+                var data2 = res.data;
+                reachId1=data2.id;
+            });
+            $api.getAllProducePlanId(req,function (res) {
+                var data3 = res.data;
+                planId1 = data3.id;
+            });
 
 
             form.render();
@@ -109,37 +117,56 @@ layui.config({
             return false;
         })
     }
+    function changeProductState(id){
+           var req ={
+               id:id
+           }
+        //检查合格则到未入库的状态
+           if ($("#state").val()==='合格'){
+
+               $api.unIntodepot(req,function (res) {
+
+               })
+           }
+
+           if ($("#state").val()==='不合格'){
+               $api.continueProduce1(req,function (res) {
+
+               })
+           }
+
+    }
 
     /**
      * 表单提交
      * */
-    /*form.on("submit(addMenu)", function (data) {
-        /!*var id = data.field.id;*!/
-        var planId = data.field.planId;
-        var reachId = data.field.reachId;
+    form.on("submit(addMenu)", function (data) {
+        /*var id = data.field.id;*/
+        var planId = planId1;
+        var reachId = reachId1;
         var productId = data.field.productId;
         var checkNumber = data.field.checkNumber;
         var checkRemark = data.field.checkRemark;
         var checkUser = data.field.checkUser;
         var productName = data.field.productName;
+        var state= data.field.state;
 
 
         //请求
         var req = {
-            /!*id:id,*!/
+            /*id:id,*/
             checkUser:checkUser,
             planId:planId,
             reachId:reachId,
             productName:productName,
             productId:productId,
             checkNumber:checkNumber,
-            checkRemark:checkRemark
-
-
-
+            checkRemark:checkRemark,
+            state:state
         };
 
         $api.addBillCheckNew(req,function (data) {
+            changeProductState(productId);
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("检验单提交成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
@@ -149,7 +176,7 @@ layui.config({
         });
 
         return false;
-    })*/
+    })
 
 });
 

@@ -50,12 +50,12 @@
             <input type="text" class="layui-input" name="planNumber" lay-verify="number" placeholder="请输入计划产量数量">
         </div>
     </div>
-    <div class="layui-form-item">
+   <!-- <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">实际产量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="realNumber" lay-verify="number" placeholder="请输入实际产量数量">
         </div>
-    </div>
+    </div>-->
     <!--todo(等待仓库获取)-->
     <div class="layui-form-item">
         <label class="layui-form-label">现有库存</label>
@@ -91,14 +91,12 @@
 
 
     <div class="layui-form-item ">
-        <label class="layui-form-label">生产状态</label>
+        <label class="layui-form-label">生产方式</label>
         <div class="layui-input-block">
             <select name="state" lay-verify="required" >
                 <option value=" ">--请选择--</option>
                 <option value="1">1.正常</option>
-               <!-- <option value="1">2.完成</option>-->
                 <option value="2">2.外包</option>
-                <option value="3">3.暂停</option>
             </select>
         </div>
     </div>

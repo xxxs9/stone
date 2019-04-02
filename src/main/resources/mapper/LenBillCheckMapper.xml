@@ -125,5 +125,9 @@
         from l_bill_check where STATE='3';
         /*todo(选择billCheck的状态)*/
     </select>
+
+    <select id="selectByProductId" resultMap="BaseResultMap">
+        select * from l_bill_check bc where bc.PRODUCT_ID=#{productId}
+    </select>
 </mapper>
 

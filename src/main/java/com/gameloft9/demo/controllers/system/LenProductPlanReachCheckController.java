@@ -3,8 +3,8 @@ package com.gameloft9.demo.controllers.system;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
-import com.gameloft9.demo.service.impl.system.LenFormulaReachServiceImpl;
-import com.gameloft9.demo.service.impl.system.LenProductPlanReachCheckServiceImpl;
+import com.gameloft9.demo.service.api.system.LenFormulaReachService;
+import com.gameloft9.demo.service.api.system.LenProductPlanReachCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +22,9 @@ import java.util.List;
 @RequestMapping("/pcr")
 public class LenProductPlanReachCheckController {
     @Autowired
-    LenProductPlanReachCheckServiceImpl service;
+    LenProductPlanReachCheckService service;
     @Autowired
-    LenFormulaReachServiceImpl frService;
+    LenFormulaReachService frService;
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectAll(){

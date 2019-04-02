@@ -367,30 +367,47 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
         },
 
-        AddProduct:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/add',req,successCallback,errorCallback);
-        },
         delProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/del',req,successCallback,errorCallback);
         },
-        getAllProduct:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
-        },
+
         getProductById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
         },
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
+        //领料reach.do
+        productReachDo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
+        },
+        startProduce:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/startProduce',req,successCallback,errorCallback);
+             },
+        stopProduce:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/stopProduce',req,successCallback,errorCallback);
+        },
+        continueProduce1:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/continueProduce',req,successCallback,errorCallback);
+        },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
         },
+        managerAudi:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/managerAudi',req,successCallback,errorCallback);
+        },
+        jumpAudi:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/jumpAudi',req,successCallback,errorCallback);
+        },
         stepBack1:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/sb',req,successCallback,errorCallback);
         },
-        updateProduct:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
+        completeProduce1:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/completeProduce',req,successCallback,errorCallback);
+    },
+        unIntodepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
         delProduceFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/del',req,successCallback,errorCallback);
@@ -451,18 +468,22 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         billCheckstepBack:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'billCheck/stepBack',req,successCallback,errorCallback);
-                 },
+        },
+        selectByProductId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/selectByProductId',req,successCallback,errorCallback);
+        },
         billCheckIntoDepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'billCheck/intoDepot',req,successCallback,errorCallback);
         },
-        //连料单api_lennon
         addFormulaReach:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'reach/add',req,successCallback,errorCallback);
+            doPost($tool.getContext() + '/reach/add',req,successCallback,errorCallback);
         },
         updFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/upd',req,successCallback,errorCallback);
         },
-
+        getReachByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
+         },
         delFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/del',req,successCallback,errorCallback);
         },
@@ -697,21 +718,13 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
 
-
-
-        AddProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
-        },
-        delProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/del',req,config,successCallback,errorCallback);
-        },
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
         getProductById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
         },
-        updateProduct:function(req,config,successCallback,errorCallback){
+        updateProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },
         changeProState:function(req,config,successCallback,errorCallback){

@@ -55,13 +55,24 @@ layui.config({
     }
 
     init();
-
+    function changeProductState(id) {
+        var req ={
+            id:id
+        }
+        $api.productReachDo(req,function (res) {
+            //var data = res.data;
+            console.log(data)
+        })
+    }
     /**
      * 初始化下拉框
      * */
+    var id2;
     function initParentMenu() {
         var queryArgs = $tool.getQueryParam();
         var id= queryArgs['id'];
+        id2=id;
+
         var req={
             id:id
         }
@@ -128,10 +139,15 @@ layui.config({
         };
 
         $api.addProducePlan(req,function (data) {
+            var data2 = data.data;
+            console.log(data2)
+            changeProductState(id2);
+            console.log(changeProductState(id2))
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("生产计划添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
+
                 parent.location.reload();
             });
         });

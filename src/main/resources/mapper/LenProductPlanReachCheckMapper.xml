@@ -94,7 +94,7 @@
     </select>
     <select id="selectReach" resultMap="allResult">
         select
-        p.ID,p.PRODUCT_NAME,p.PRODUCT_TYPE,p.PRODUCT_NUMBER,p.STATE,p.CAN_SOLD,p.SUPPORT_PRICE,p.PRODUCT_DESCRIBE,
+        p.ID,p.PRODUCT_NAME,p.PRODUCT_TYPE,p.PRODUCT_NUMBER,p.PRODUCT_STATE,p.CAN_SOLD,p.SUPPORT_PRICE,p.PRODUCT_DESCRIBE,
         fr.ID FR_ID,fr.PRODUCT_ID,fr.PRODUCE_FORMULA_ID,fr.PRODUCE_FORMULA_DETAIL_ID,fr.DEPOT_AUDI,fr.STATE FR_STATE,
         fr.REACH_USER,fr.REACH_TIME,fr.FORMULA_BACK,fr.OTHER1
          from l_formula_reach fr,l_product p  where

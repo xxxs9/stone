@@ -108,4 +108,11 @@ public interface LenBillCheckMapper {
      * @return List
      */
     List<LenBillCheck> selectByState();
+
+    /**
+     * 通过product主键查找billCheck实体
+     * @param productId
+     * @return
+     */
+    LenBillCheck selectByProductId(@Param("productId")String productId);
 }

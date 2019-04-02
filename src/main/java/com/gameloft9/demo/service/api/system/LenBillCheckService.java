@@ -66,6 +66,17 @@ public interface LenBillCheckService {
                     String productId,
                     String planId
     );
+    boolean finalInsert( String id,
+                    String productName ,
+                    String state,
+                    String checkNumber,
+                    String checkDate,
+                    String checkUser,
+                    String checkRemark,
+                    String reachId,
+                    String productId,
+                    String planId
+    );
 
     /**
      *
@@ -117,6 +128,16 @@ public interface LenBillCheckService {
      */
     boolean changeState(String state, String id);
 
-
+    /**
+     * 状态筛选
+     * @return
+     */
     List<LenBillCheck> selectByState();
+
+    /**
+     * 主键筛选
+     * @param productId
+     * @return
+     */
+    LenBillCheck selectByProductId(String productId);
 }

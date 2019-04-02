@@ -67,21 +67,20 @@ layui.config({
     function selectProduct() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
-        alert(id)
         var req={
             id:id
         }
 
-
+        $('#productId').val(id)
         $api.getProducePlanById(req, function (res) {
 
             var data2 = res.data;
-            console.log(data2)
+            //console.log(data2)
             wid=data2.productId;
             //alert( wid);
 
 
-            $('#productId').val(data2.productId)
+
             // $('#produceFormulaId1').val(hh);
             $("[name='reachUser']").val(window.sessionStorage.getItem('sysUser'));
 
@@ -134,15 +133,16 @@ layui.config({
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
 
-        var url = $tool.getContext() + 'ProductInfoById/get';
+        var url = $tool.getContext() + 'product/get';
         var req = {
             id: id
         };
 
-        $api.getProducePlanById(req, function (res) {
+        $api.getProductById(req, function (res) {
             var data = res.data;
-
-            $("[name='state']").val(data.state);
+                console.log(data);
+            $("[name='state']").val(data.productState);
+            $("[name='productName']").val(data.productName);
 
             //todo(选项的值)
 
@@ -189,9 +189,11 @@ layui.config({
     /**
      * 表单提交
      * */
+    var id2 ;
     form.on("submit(addMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id =queryArgs['id'];
+
         var productId = data.field.productId;
         var produceFormulaId = data.field.produceFormulaId;
         var produceFormulaDetailId = data.field.produceFormulaDetailId;
@@ -218,11 +220,12 @@ layui.config({
 
         };
 
-
+        id2= productId;
 
         $api.addFormulaReach(req, function (data) {
+            startProduce(id2);
+            layer.msg(">>>>>>>领料单生产成功,开始生产<<<<<<<", {time: 1500}, function () {
 
-            layer.msg("领料单填写成功！等待仓库审核", {time: 3000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
@@ -230,11 +233,20 @@ layui.config({
 
         });
 
+
         return false;
 
     })
 
+    function startProduce(id) {
 
+        var req = {
+            id:id
+        }
+        $api.startProduce(req,function (res) {
+
+        })
+    }
 });
 
 

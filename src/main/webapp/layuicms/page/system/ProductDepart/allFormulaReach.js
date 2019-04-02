@@ -64,14 +64,15 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
+                  ,{field: 'other1', title: '流水号' }
                   ,{field: 'productName', title: '产品名称' }
-                  ,{field: 'depotAudi', title: '仓库授权',templet:'#depotA'}
-                  ,{field: 'reachState', title: '产品状态',templet:'#temp'}
-                  ,{field: 'reachUser', title: '领料人'}
-                  ,{field: 'reachTime', title: '领料时间'}
-                  ,{field: 'productId', title: '流水号' }
-                  ,{field: 'produceFormulaId', title: '配方编号'}
-                  ,{field: 'produceFormulaDetailId', title: '配方明细编号'}
+                 /* ,{field: 'depotAudi', title: '仓库授权',templet:'#depotA'}*/
+                  ,{field: 'productState', title: '产品状态',templet:'#temp'}
+                  /*,{field: 'reachUser', title: '领料人'}
+                  ,{field: 'reachTime', title: '领料时间'}*/
+
+                  /*,{field: 'produceFormulaId', title: '配方编号'}
+                  ,{field: 'produceFormulaDetailId', title: '配方明细编号'}*/
                   /*,{field: 'formulaBack', title: '退料'/!*,templet:'#tmp'*!/}*/
                   ,{fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
@@ -124,6 +125,27 @@ layui.config({
     }
     defineTable();
 
+    //添加
+    $(".productAdd_btn").click(function () {
+        var index = layui.layer.open({
+            title: "添加新工单",
+            type: 2,
+            content: "addProduct.html",
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    });
 
     //查询
     form.on("submit(queryMenu)", function (data) {

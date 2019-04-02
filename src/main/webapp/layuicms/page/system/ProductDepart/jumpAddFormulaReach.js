@@ -38,8 +38,9 @@ layui.config({
     /**
      * 初始化下拉框
      * */
+    var id2;
    function initParentMenu() {
-        $api.getProductByState(null,function (res) {
+        /*$api.getProductByState(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
@@ -49,7 +50,23 @@ layui.config({
                 $('#productId').append($(html));
                 form.render();
             }
-        });
+        });*/
+
+        var qureyArgs = $tool.getQueryParam();
+        var id = qureyArgs['id'];
+        var req={
+            id:id
+        }
+        id2=req;
+        $('#productId').val(id);
+        $api.getAllProduct(req,function (res) {
+            var data = res.data;
+
+            $('#state').val(data[0].productState);
+            $('#productName').val(data[0].productName);
+
+            form.render();
+        })
         $api.getAllFormula(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
@@ -124,10 +141,19 @@ layui.config({
 
         $api.addFormulaReach(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-            layer.msg("领料单新增成功！", {time: 1000}, function () {
+            layer.msg("加工单分配完成，等待仓库领料！", {time: 1000}, function () {
+
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
+                function aa(id2){
+                    $api.changProductState(id2,function (res) {
+
+                    });
+                }
+
+                aa(id2);
+
             });
         });
 

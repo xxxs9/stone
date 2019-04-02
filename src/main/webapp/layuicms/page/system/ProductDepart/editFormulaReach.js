@@ -242,6 +242,7 @@ layui.config({
         var url = $tool.getContext() + 'reach/upd';
         var req = {
             id: queryArgs['id'],
+            productName:productName,
             productId:productId,
             depotAudi:depotAudi,
             state: state,

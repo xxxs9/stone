@@ -5,7 +5,7 @@ import com.gameloft9.demo.dataaccess.model.system.LenFormulaReach;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
-import com.gameloft9.demo.service.impl.system.LenFormulaReachServiceImpl;
+import com.gameloft9.demo.service.api.system.LenFormulaReachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class LenFormulaReachController {
 
 
     @Autowired
-    LenFormulaReachServiceImpl service;
+    LenFormulaReachService service;
 
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
@@ -43,8 +43,12 @@ public class LenFormulaReachController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime){
+        if (service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime)){
+            return new ResultBean<Boolean>(true);
+        }else {
+            throw new RuntimeException(">>>>>>>权限不足<<<<<<<");
+        }
 
-        return new ResultBean<Boolean>(service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime));
     }
 
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
@@ -104,5 +108,11 @@ public class LenFormulaReachController {
             new RuntimeException("操作失败");
         }
         return new ResultBean<Boolean>(flag);
+    }
+
+    @RequestMapping(value = "/getByProductId",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult getProductId(String productId) {
+       return new ResultBean<LenFormulaReach>(service.getByProductId(productId));
     }
 }

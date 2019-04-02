@@ -78,33 +78,37 @@ layui.config({
 
         $api.getProductById(req, function (res) {
             var data = res.data;
-
-
             $("[name='productName']").val(data.productName);
             $("[name='productNumber']").val(data.productNumber);
-            $("[name='supportPrice']").val(data.supportPrice);
             $('#canSold').val(data.canSold);
-
             select2(data.productType);
-            select(data.state);
-
-
-
+            select(data.productState);
             $("[name='productDescribe']").val(data.productDescribe);
-
-
-
-
             form.render();//重新绘制表单，让修改生效
         });
 
 
     }
-
+    var queryArgs = $tool.getQueryParam();//获取查询参数
+    var wid = queryArgs['id'];
+    var req={
+        id:wid
+    }
+    $('#audiOk').click(function () {
+        $api.managerAudi(req,function (res) {
+            layer.msg(">>>>>>>审核完成<<<<<<<", {time: 1000}, function () {
+                layer.closeAll("iframe");
+                //刷新父页面
+                parent.location.reload();
+            });
+            return false;
+        });
+    });
 
     /**
      * 表单提交
      * */
+/*
     form.on("submit(editMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         console.log(queryArgs)
@@ -114,6 +118,7 @@ layui.config({
         var productNumber = data.field.productNumber;
         var supportPrice = data.field.supportPrice;
         var canSold = data.field.canSold;
+        var other2 = window.sessionStorage.getItem('sysUser');
         var productDescribe = data.field.productDescribe;
 
 
@@ -128,7 +133,7 @@ layui.config({
             supportPrice:supportPrice,
             productNumber:productNumber,
             productDescribe: productDescribe,
-
+            other2:other2
 
         };
 
@@ -143,6 +148,7 @@ layui.config({
         return false;
 
     })
+*/
 
 
 });

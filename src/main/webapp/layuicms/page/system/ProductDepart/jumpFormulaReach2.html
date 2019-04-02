@@ -46,7 +46,7 @@
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">领料人</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="reachUser"  readonly>
+            <input type="text" class="layui-input" name="reachUser" >
         </div>
     </div>
     </br>
@@ -56,7 +56,7 @@
             <input type="text" class="layui-input" name="reachTime"  placeholder="请选择领料时间" id="reachTime">
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">仓库审核</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="depotAudi"  id="depotAudi">
@@ -84,10 +84,10 @@
     </br>
 
 
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <select name="state" lay-verify="required" id="state">
+            <select name="state" id="state">
                 <option value="0" selected >---等待审核---</option>
                 <!-- <option value="1" >未通过</option>
                  <option value="2" >已通过</option>
@@ -119,6 +119,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="jumpFormulaReach.js"></script>
+<script type="text/javascript" src="jumpFormulaReach2.js"></script>
 </body>
 </html>

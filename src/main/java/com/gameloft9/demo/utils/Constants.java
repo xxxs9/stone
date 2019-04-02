@@ -253,5 +253,25 @@ public class Constants {
         }
 
     }
+    public static class productState{
+        public static String UN_TIJIAO="1";
+        public static String TIJIAO_UNAUDI="2";
+        public static String AUDI_UNREACH="3";
+        public static String REACH_UNFENPEI="4";
+        public static String FENPEI_START_PRODUCE="5";
+        public static String STOP_PRODUCE="6";
+        public static String CONTINUE_PRODUCE="7";
+        public static String COMPLETE_PRODUCE="8";
+        public static String CHECK_GOOD="9";
+        public static String CHECK_BAD="10";
+        public static String UN_INTO_DEPOT="11";
+        public static String INTO_DEPOT="12";
 
+    }
+    public static class productType{
+        public static String BANCHENGPING_UNSOLD="1";
+        public static String BANCHENGPING_SOLD="2";
+        public static String CHENGPING_UNSOLD="3";
+        public static String CHENGPING_SOLD="4";
+    }
 }

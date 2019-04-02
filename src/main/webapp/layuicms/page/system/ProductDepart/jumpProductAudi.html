@@ -29,38 +29,38 @@
 <form class="layui-form" style="width:80%;">
 
     </br>
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品数量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入产品数量">
         </div>
     </div>
-
-    <div class="layui-form-item ">
+</br>
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">订单来源</label>
         <div class="layui-input-block ">
             <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
         </div>
     </div>
-
-    <div class="layui-form-item ">
+</br>
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
-            <select name="productState" lay-verify="required" id="productState" readonly="">
-                <option value="1" selected>1.未提交</option>
-
+            <select name="productState" lay-verify="required" id="productState" readonly>
+                <option value="1" >1.未提交</option>
+                <option value="2" >2.已提交，待审核</option>
             </select>
         </div>
     </div>
 
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品类型</label>
         <div class="layui-input-block">
             <select name="productType" lay-verify="required" id="productType" >
@@ -75,7 +75,7 @@
         </div>
     </div>
 
-
+</br>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">产品描述</label>
         <div class="layui-input-block">
@@ -85,7 +85,8 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="editMenu">确认更改</button>
+            <button class="layui-btn" lay-submit="" lay-filter="editMenu" id="audiOk">审核通过</button>
+            <button class="layui-btn" lay-submit="" lay-filter="uneditMenu" id="audiNot">审核不通过</button>
             <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
         </div>
     </div>
@@ -106,6 +107,6 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="editProduct.js"></script>
+<script type="text/javascript" src="jumpProductAudi.js"></script>
 </body>
 </html>

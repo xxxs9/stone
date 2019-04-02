@@ -10,6 +10,7 @@ import com.gameloft9.demo.utils.DateUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
     @Autowired
@@ -168,6 +170,11 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public LenFormulaReach getByProductId(String productId) {
+        return mapper.getByProductId(productId);
     }
 
     /**
