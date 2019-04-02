@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.AllRoleMapper">
+    <!--通知部门-->
+    <resultMap id="notifyMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="notifyId" jdbcType="VARCHAR"/>
+        <result column="NOTIFY_INFO_ID" property="notifyInfoId" jdbcType="VARCHAR"/>
+        <result column="RECEIVER_ID" property="receiverId" jdbcType="VARCHAR"/>
+        <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="notifyInfoMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="notifyInfoId" jdbcType="VARCHAR"/>
+        <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--供应商部门-->
+    <resultMap id="materialGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <result column="ID" property="supplierId" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR"/>
+        <result column="MATERIAL_GOODS_ID" property="materialGoodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR"/>
+        <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--销售部门-->
+    <resultMap id="saleMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="saleId" jdbcType="VARCHAR"/>
+        <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--采购部门-->
+    <resultMap id="proOrderMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="proOrderId" jdbcType="VARCHAR"/>
+        <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--仓库部门-->
+    <resultMap id="depotMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="depotId" jdbcType="VARCHAR"/>
+        <result column="DEPOT_TYPE" property="depotType" jdbcType="VARCHAR"/>
+        <result column="DEPOT_NAME" property="depotName" jdbcType="VARCHAR"/>
+        <result column="DEPOT_NUMBER" property="depotNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="depotOrderMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="depotOrderId" jdbcType="VARCHAR"/>
+        <result column="OUT_IN_TIME" property="outInTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--生产部门-->
+    <resultMap id="productPlanMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <id column="ID" property="productPlanId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NUMBER" property="productNumber" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_STATE" property="productState" jdbcType="VARCHAR"/>
+        <result column="CAN_SOLD" property="canSold" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!--财务部门-->
+    <resultMap id="financeMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
+        <result column="APPLY_USER" property="financeApplyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="financeApplyTime" jdbcType="TIMESTAMP"/>
+        <result column="APPLY_MONEY" property="applyMoney" jdbcType="VARCHAR"/>
+        <result column="APPLY_STATE" property="financeApplyState" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--通知部门-->
+     <select id="selectNotify" resultMap="notifyMap">
+         SELECT
+            n.RECEIVER_ID,
+            n.SEND_TIME,
+            ni.CONTENT
+         FROM
+            notify n,
+            notify_info ni
+         WHERE
+            n.NOTIFY_INFO_ID = ni.ID
+         ORDER BY
+            n.SEND_TIME ASC
+            limit 0,5
+     </select>
+
+    <!--供应商部门-->
+    <select id="selectSupplier" resultMap="materialGoodsMap">
+        SELECT
+            s.SUPPLIER_NAME,
+            mg.GOODS_PRICE,
+            m.GOODS_NAME,
+            s.PHONE,
+            s.EMAIL
+        FROM
+            sys_material m,
+            sys_material_goods mg,
+            sys_supplier s
+        WHERE
+            s.ID = mg.SUPPLIER_ID
+        AND
+            m.ID = mg.MATERIAL_ID
+            limit 0,5
+    </select>
+
+    <!--销售部门-->
+    <select id="selectSale" resultMap="saleMap">
+        SELECT
+            ORDER_ID,
+            APPLY_USER,
+            CUSTOMER,
+            PRODUCT_ID,
+            ORDER_TIME
+        FROM
+            w_marker_order
+        ORDER BY
+            ORDER_TIME ASC
+            limit 0,5
+    </select>
+
+    <!--采购部门-->
+    <select id="selectProOrder" resultMap="proOrderMap">
+        SELECT
+            ORDER_NUMBER,
+            ORDER_AUDIT_USER,
+            GOODS_ID,
+            GOODS_NUMBER,
+            APPLY_TIME
+        FROM
+            t_purchase_order
+        ORDER BY
+            APPLY_TIME ASC
+            limit 0,5
+    </select>
+
+    <!--仓库部门-->
+    <!--<select id="selectDepot" resultMap="depotMap">
+        SELECT
+            sd.DEPOT_TYPE,
+            sd.DEPOT_NAME,
+            sd.DEPOT_NUMBER,
+            do.OUT_IN_TIME
+        FROM
+            d_sys_depot sd,
+            d_depot_order do
+        ORDER BY
+            OUT_IN_TIME ASC
+            limit 0,5
+    </select>-->
+
+    <!--生产部门-->
+    <!--<select id="selectProduct" resultMap="productPlanMap">
+        SELECT
+            PRODUCT_NAME,
+            PRODUCT_NUMBER,
+            PRODUCT_STATE,
+            CAN_SOLD
+        FROM
+            l_product
+            limit 0,5
+    </select>-->
+
+    <!--财务部门-->
+    <select id="selectFinance" resultMap="financeMap">
+        SELECT
+            APPLY_USER,
+            APPLY_TIME,
+            APPLY_MONEY,
+            APPLY_STATE
+        FROM
+            a_apply_order
+        ORDER BY
+            APPLY_TIME ASC
+            limit 0,5
+    </select>
+</mapper>

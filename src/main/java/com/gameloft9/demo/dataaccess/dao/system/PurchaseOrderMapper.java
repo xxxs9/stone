@@ -102,7 +102,8 @@ public interface PurchaseOrderMapper {
             @Param("start") int start,
             @Param("end") int end,
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 分页获取个数
@@ -112,7 +113,8 @@ public interface PurchaseOrderMapper {
      * */
     int countGetAll(
             @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 获取goodsId下拉框
@@ -204,7 +206,7 @@ public interface PurchaseOrderMapper {
 
     /**
      * orderNumber
-     * @param id id
+     * @param orderNumber orderNumber
      * @return PurchaseOrder
      * */
     PurchaseOrder selectByOrderNumber(String orderNumber);

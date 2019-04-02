@@ -54,13 +54,13 @@ layui.config({
         });
     });
 
-    //对价格进行判断，不能为零或负数
+    //对数量进行判断，不能为零或负数
     form.verify({
        actualBalance:function (value) {
            if(value<0){
-               return '价格不能为负数!';
-           } else if (value===0){
-               return '价格不能为零!';
+               return '数量不能为负数!';
+           } else if (value==0){
+               return '请输入数量!';
            }
        }
     });

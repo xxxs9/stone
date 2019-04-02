@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,13 +49,18 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         //申请人名称
         purchaseOrder.setApplyUser(userName);
         //按固定格式生成订单编号
-        purchaseOrder.setOrderNumber("GC" + OrderUtil.createOrderNumber());
+        purchaseOrder.setOrderNumber("CG" + OrderUtil.createOrderNumber());
         purchaseOrder.setApplyTime(new Date());
         purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);
-        //价格生成两位小数
-        /*String price = purchaseOrder.getPrice();
-        price = NumberUtil.strToBigdecimal(price);
-        purchaseOrder.setPrice(price);*/
+
+        //BigDecimal计算总价格，保留两位小数,Scale保留几位小数
+        String price = purchaseOrder.getPrice();
+        String goodsNumber = purchaseOrder.getGoodsNumber();
+        BigDecimal aBD = new BigDecimal(price).setScale(2);
+        BigDecimal bBD = new BigDecimal(goodsNumber).setScale(2);
+        BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
+                java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setTotalPrice(resultBD.toString());
 
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
@@ -70,15 +76,30 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean updateByPrimaryKey(PurchaseOrder purchaseOrder) {
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setApplyTime(new Date());
-        String str = purchaseOrder.getPrice();
+        //BigDecimal计算总价格，保留两位小数,Scale保留几位小数
+        String price = purchaseOrder.getPrice();
+        String goodsNumber = purchaseOrder.getGoodsNumber();
+        BigDecimal aBD = new BigDecimal(price).setScale(2);
+        BigDecimal bBD = new BigDecimal(goodsNumber).setScale(2);
+        BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
+                java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setTotalPrice(resultBD.toString());
         //对单价进行判断，价格不能为零或负数，字符串类型需要用长度来判断(length)
-        if("".equals(str) || str == null){
+        int r = resultBD.compareTo(BigDecimal.ZERO);
+        if(r == 0){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能零！");
+        }else if(r == -1){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为负数！");
+        }else if(resultBD.toString() == null){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
+        }
+        /*if("".equals(str) || str == null){
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
         }else if(Integer.parseInt(str) < 0){
-            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为负数！");
+
         }else if(Integer.parseInt(str) == 0){
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为零！");
-        }
+        }*/
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -103,6 +124,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     /**采购部门经理审核*/
     public boolean inspectUpdate(PurchaseOrder purchaseOrder){
+        //审核前判断state是否为提交审核中（避免撤回后还能审核）
+        String st = purchaseOrder.getState();
+        String s = "提交审核中";
+        if(st != s) {
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单被撤回，无法审核");
+        }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
         /*purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);*/
@@ -120,10 +147,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
             financeApplyOrder.setId(UUIDUtil.getUUID());
             financeApplyOrder.setApplyId(purchaseOrder.getId());
-            int price = NumberUtil.strToInt(purchaseOrder.getPrice());
-            int goodsNumber = NumberUtil.strToInt(purchaseOrder.getGoodsNumber());
-            int applyMoney = price * goodsNumber;
-            financeApplyOrder.setApplyMoney(applyMoney+"");
+            BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
+            decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
+            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getGoodsNumber());
+            decimal2.setScale(0);
+            BigDecimal applyMoney = decimal1.multiply(decimal2);
+            financeApplyOrder.setApplyMoney(applyMoney.toString());
             financeApplyOrder.setApplyType(1);
             financeApplyOrder.setApplyState(1);
             financeApplyOrder.setApplyTime(new Date());
@@ -133,6 +162,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }else{
             purchaseOrder.setState(Constants.PurchaseState.APPLY_FAIL);
         }
+        //BigDecimal计算总价格，保留两位小数,Scale保留几位小数
+        String price01 = purchaseOrder.getPrice();
+        String goodsNumber01 = purchaseOrder.getGoodsNumber();
+        BigDecimal aBD = new BigDecimal(price01).setScale(2);
+        BigDecimal bBD = new BigDecimal(goodsNumber01).setScale(2);
+        BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
+                java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setTotalPrice(resultBD.toString());
         dao.inspectUpdate(purchaseOrder);
         return true;
     }

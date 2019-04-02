@@ -95,7 +95,7 @@ layui.config({
                 //do something
                 editPur(row.id);
             } else if(layEvent === 'commit') { //提交
-                commitPut(row.id);
+                commitPut(row.id,row.depotState);
             } else if(layEvent === 'back') { //撤回
                 recallPur(row.id);
             }
@@ -183,12 +183,12 @@ layui.config({
     }
 
     //提交
-    function commitPut(id){
+    function commitPut(id,depotState){
         layer.confirm('确认提交吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
-            //向服务端发送删除指令
             var req = {
-                id: id
+                id: id,
+                depotState:depotState
             };
 
             $api.commitPurchaseReturn(req,function (data) {

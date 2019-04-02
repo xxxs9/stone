@@ -804,7 +804,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库发货
         updateGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
-        },
+        }
 
     };
 
