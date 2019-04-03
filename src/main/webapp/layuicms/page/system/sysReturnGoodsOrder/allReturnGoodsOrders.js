@@ -180,10 +180,10 @@ layui.config({
 
 
 
-    //提交
+    //提交主管审核
 
     function audit(id,goodsAmount){
-        layer.confirm('通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交主管审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
@@ -192,7 +192,7 @@ layui.config({
             };
 
             $api.updateAudit(req,function (data) {
-                layer.msg("审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //提交对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -208,7 +208,7 @@ layui.config({
     //提交仓库
 
     function depot(id){
-        layer.confirm('仓库通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交仓库审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
@@ -216,7 +216,7 @@ layui.config({
             };
 
             $api.updateDepot(req,function (data) {
-                layer.msg("仓库审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -233,7 +233,7 @@ layui.config({
     //提交财务
 
     function finance(id){
-        layer.confirm('财务通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交财务确认吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
@@ -241,7 +241,7 @@ layui.config({
             };
 
             $api.updateFinance(req,function (data) {
-                layer.msg("财务审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();

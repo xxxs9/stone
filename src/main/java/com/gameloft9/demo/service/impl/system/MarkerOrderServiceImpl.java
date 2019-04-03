@@ -1,6 +1,9 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.controllers.system.DepotInventoryCheckController;
+import com.gameloft9.demo.controllers.system.DepotOrderController;
 import com.gameloft9.demo.dataaccess.dao.system.MarkerOrderMapper;
+import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
@@ -16,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +31,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
 
     @Autowired
     MarkerOrderMapper markerOrderMapper;
-
+    @Autowired
+    DepotOrderController depotOrder;
     /**
      * 获取所有订单信息
      * @param page
@@ -78,18 +83,33 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     @Override
     public String add(MarkerOrderTest markerOrderTest) {
+        //根据登入账号自动获取名字
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String username = (String) request.getSession().getAttribute("sysUser");
+        //自动生成时间
         TimeZone zone = TimeZone.getTimeZone("ETC/GMT-8");
         TimeZone.setDefault(zone);
         markerOrderTest.setId(UUIDUtil.getUUID());
         markerOrderTest.setOrderTime(new Date());
         //设置固定格式生成订单编号
         markerOrderTest.setOrderId("xs"+OrderUtil.createOrderNumber());
+        //根据登入账号名获取申请人名字
         markerOrderTest.setApplyUser(username);
+        //设置审核人名字
         markerOrderTest.setOrderAuditUser("销售主管");
         markerOrderTest.setOrderAuditDepot("仓库主管");
+        //设置状态
         markerOrderTest.setState("未提交");
+
+        //BigDecimal计算总价格，保留小数，Scale()保留几位小数
+        String deliverNumber = markerOrderTest.getDeliverNumber();
+        String plannedNumber = markerOrderTest.getPlannedNumber();
+        String acceptedAmount = markerOrderTest.getAcceptedAmount();
+        BigDecimal aig = new BigDecimal(deliverNumber).setScale(2);
+        BigDecimal big = new BigDecimal(plannedNumber).setScale(2);
+        BigDecimal scale = aig.multiply(big).setScale(2,java.math.BigDecimal.ROUND_HALF_UP);
+        markerOrderTest.setAcceptedAmount(scale.toString());
+
         markerOrderMapper.add(markerOrderTest);
         return markerOrderTest.getId();
     }
@@ -111,7 +131,6 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     @Override
     public Boolean audiUpdate(MarkerOrderTest markerOrderTest) {
-
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUtil.APPLY_WAITING);
         markerOrderMapper.audiUpdate(markerOrderTest);
@@ -126,7 +145,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
     @Override
     public Boolean backUpdate(MarkerOrderTest markerOrderTest) {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
-        markerOrderTest.setState(StateUtil.APPLY_NO_AUDI);
+        markerOrderTest.setState(StateUUtil.APPLY_back);
         markerOrderMapper.backUpdate(markerOrderTest);
         return true;
     }
@@ -155,6 +174,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUUtil.APPLY_submit);
         markerOrderMapper.submit(markerOrderTest);
+        MarkerOrderTest markerOrder = markerOrderMapper.getMaker(markerOrderTest.getId());
+        depotOrder.addMarketDepotOrderOut(markerOrder.getOrderId(),markerOrder.getProductId(),markerOrder.getDeliverNumber(),markerOrder.getApplyUser());
         return true;
     }
 

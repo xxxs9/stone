@@ -20,6 +20,21 @@ layui.config({
      * 页面初始化
      * */
     function init() {
+
+        //初始化下拉框
+      /*  $api. GetFirstProductFormula(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '<option value="">--请选择--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
+                }
+                $('#parentMenu').append($(html));
+                form.render();
+            }
+        });*/
+
+
     }
     init();
 
@@ -31,33 +46,29 @@ layui.config({
         tableIns = table.render({
             elem: '#user-data'
 
-            , url: $tool.getContext() + 'audit/list' //数据接口
+            , url: $tool.getContext() + 'returnGoods/list' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
-                {field: 'id', title: 'ID' ,fixed:'left'}
-
-                , {field: 'orderId', title: '订单编号'}
-                , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品名' }
-                , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '销售数量' }
-                , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '总金额' }
+               {field: 'id', title: 'ID' ,fixed:'left'}
+                , {field: 'goodsId', title: '发货单号'}
+                , {field: 'goodsName', title: '货品名称' }
+                , {field: 'customer', title: '购买客户' }
+                , {field: 'goodsNumber', title: '发货数量'}
+                , {field: 'goodsAmount', title: '货品金额' }
                 , {field: 'applyUser', title: '申请人' }
-                , {field: 'state', title: '订单状态' }
-                , {field: 'orderAuditUser', title: '订单审核人' }
-                , {field: 'orderAuditDepot', title: '仓库审核人' }
-                , {field: 'remarks', title: '销售审核人备注' }
-                , {field: 'depotRemarks', title: '仓库审核人备注' }
-
-
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'applyTime', title: '申请时间' }
+                , {field: 'state', title: '发货状态 '}
+                , {field: 'auditUser', title: '审核人' }
+                , {field: 'auditType', title: '订单类型' }
+                , {field: 'remarks', title: '备注' }
+                , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
                 $("[data-field='id']").css('display','none');
+
             }
         });
 
@@ -69,22 +80,20 @@ layui.config({
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delOrderAudit(row.id);
+                delReturnGoodsOrder(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editOrderAudit(row.id);
-            }else if (layEvent === 'audi'){//提交
-                audi(row.id);
-            }else if (layEvent === 'back') {//撤回
+                editMarkerOrder(row.id);
+            }else if (layEvent === 'back'){//提交
                 back(row.id);
-            }else if (layEvent === 'pass') {//审核通过
-                pass(row.id);
-            }else if (layEvent === 'look') {//审核通过
+            }else if (layEvent === 'confirm') {//提交财务
+                confirm(row.id);
+            }else if (layEvent === 'look') {//查看
                 look(row.id);
-            }else if (layEvent === 'ware') {//审核通过
-                ware(row.id);
-            }else if (layEvent === 'depot') {//仓库审核
+            }else if (layEvent === 'depot') {//提交仓库发货
                 depot(row.id);
+            }else if (layEvent === 'accept') {//提交仓库发货
+                accept(row.id);
             }
         });
     }
@@ -95,46 +104,33 @@ layui.config({
     form.on("submit(queryUser)", function (data) {
         /*var status = data.field.status;*/
         var id=data.field.id;
-
-
-        var orderId = data.field.orderId;
-        var orderTime = data.field.orderTime;
-        var productId = data.field.productId;
+        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
         var customer = data.field.customer;
-        var deliverNumber = data.field.deliverNumber;
-        var plannedNumber = data.field.plannedNumber;
-        var acceptedAmount = data.field.acceptedAmount;
+        var goodsNumber = data.field.goodsNumber;
+        var goodsAmount = data.field.goodsAmount;
         var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
         var state = data.field.state;
-        var orderAuditUser = data.field.orderAuditUser;
-        var orderAuditDepot = data.field.orderAuditDepot;
+        var auditUser = data.field.auditUser;
+        var auditType = data.field.auditType;
         var remarks = data.field.remarks;
-        var depotRemarks = data.field.depotRemarks;
-
-
-
         //表格重新加载
         tableIns.reload({
             where:{
                 /*status:status,*/
                 id:id,
-
-                orderId:orderId,
-                orderTime:orderTime,
-                productId:productId,
+                goodsId:goodsId,
+                goodsName:goodsName,
                 customer:customer,
-                deliverNumber:deliverNumber,
-                plannedNumber:plannedNumber,
-                acceptedAmount:acceptedAmount,
+                goodsNumber:goodsNumber,
+                goodsAmount:goodsAmount,
                 applyUser:applyUser,
-                state:state,
-                orderAuditUser:orderAuditUser,
-                orderAuditDepot:orderAuditDepot,
-                remarks:remarks,
-                depotRemarks:depotRemarks
-               
-
-
+                applyTime:applyTime,
+                state :state ,
+                auditUser:auditUser,
+                auditType:auditType,
+                remarks:remarks
             }
         });
 
@@ -146,7 +142,7 @@ layui.config({
         var index = layui.layer.open({
             title: "添加订单",
             type: 2,
-            content: "addMarkerOrder.html",
+            content: "addShipmentOrder.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -164,7 +160,7 @@ layui.config({
     });
 
     //删除
-    function delOrderAudit(id){
+    function delReturnGoodsOrder(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -172,7 +168,7 @@ layui.config({
                 id: id
             };
 
-            $api.DeleteOrderAudit(req,function (data) {
+            $api.DeleteShipmentOrder(req,function (data) {
                 layer.msg("删除成功",{time:1000},function(){
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -184,18 +180,18 @@ layui.config({
 
 
 
-    //提交
+    //提交主管审核
 
-    function audi(id){
-        layer.confirm('确认提交吗？', function (confirmIndex) {
+    function back(id){
+        layer.confirm('客户要退货吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
                 id: id
             };
 
-            $api.audiUpdate(req,function (data) {
-                layer.msg("提交成功",{time:1000},function(){
+            $api.updateBack(req,function (data) {
+                layer.msg("退货成功",{time:1000},function(){
                     //obj.del(); //提交对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -208,18 +204,18 @@ layui.config({
         });
     }
 
-    //驳回
+    //确认收货
 
-    function back(id){
-        layer.confirm('确认驳回吗？', function (confirmIndex) {
+    function confirm(id){
+        layer.confirm('确认收货吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
                 id: id
             };
 
-            $api.backUpdate(req,function (data) {
-                layer.msg("驳回成功",{time:1000},function(){
+            $api.updateConfirm(req,function (data) {
+                layer.msg("收货成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -233,18 +229,43 @@ layui.config({
         layui.layer.full(index);
     }
 
-    //审核通过
+//仓库审核
 
-    function pass(id){
-        layer.confirm('确认通过吗？', function (confirmIndex) {
+    function depot(id) {
+        var index = layui.layer.open({
+            title: "编辑退货单",
+            type: 2,
+            content: "depotReturnGoodsAudit.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+
+    }
+
+    //财务查收
+
+    function accept(id){
+        layer.confirm('确认查收吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
-            //向服务端发送成功指令
+            //向服务端发送撤回指令
             var req = {
                 id: id
             };
 
-            $api.passUpdate(req,function (data) {
-                layer.msg("审核成功",{time:1000},function(){
+            $api.updateAccept(req,function (data) {
+                layer.msg("查收成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -259,36 +280,38 @@ layui.config({
     }
 
 
-    //
-
-    function ware(id){
-        layer.confirm('确认通过吗？', function (confirmIndex) {
-            layer.close(confirmIndex);//关闭confirm
-            //向服务端发送提交指令
-            var req = {
-                id: id
-            };
-
-            $api.updateWare(req,function (data) {
-                layer.msg("审核成功",{time:1000},function(){
-                    //obj.del(); //提交对应行（tr）的DOM结构
-                    //重新加载表格
-                    tableIns.reload();
-                });
-            });
+    //编辑
+    function editMarkerOrder(id) {
+        var index = layui.layer.open({
+            title: "编辑退货单",
+            type: 2,
+            content: "editReturnGoodsAudit.html?id=" + id,
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
         });
+
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
         $(window).resize(function () {
             layui.layer.full(index);
         });
+        layui.layer.full(index);
+
+
     }
+
+
 
     //查看
     function look(id) {
         var index = layui.layer.open({
-            title: "查看订单",
+            title: "查看退货单",
             type: 2,
-            content: "lookOrderAudit.html?id=" + id,
+            content: "lookReturnGoodsAudit.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -303,55 +326,17 @@ layui.config({
             layui.layer.full(index);
         });
         layui.layer.full(index);
-
-
     }
 
-    //仓库审核
-    function depot(id) {
-        var index = layui.layer.open({
-            title: "仓库审核",
-            type: 2,
-            content: "depotOrderAudit.html?id=" + id,
-            success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500)
-            }
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'datetime'
         });
+    });
 
-        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        $(window).resize(function () {
-            layui.layer.full(index);
-        });
-        layui.layer.full(index);
-
-
-    }
-
-    //编辑
-    function editOrderAudit(id) {
-        var index = layui.layer.open({
-            title: "编辑订单",
-            type: 2,
-            content: "editOrderAudit.html?id=" + id,
-            success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500)
-            }
-        });
-
-        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        $(window).resize(function () {
-            layui.layer.full(index);
-        });
-        layui.layer.full(index);
-
-
-    }
 });
