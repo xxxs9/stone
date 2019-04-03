@@ -232,4 +232,14 @@
         </foreach>
         and is_deleted = '0'
     </select>
+
+    <!--根据ID获取roleName角色部门-->
+    <select id="selectRoleNameById" resultType="java.lang.String">
+        SELECT
+            ROLE_NAME
+        FROM
+            sys_role_test r
+        WHERE
+            ID = #{id}
+    </select>
 </mapper>

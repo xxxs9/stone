@@ -48,18 +48,18 @@ public class AllRoleController {
     }
 
     /**仓库部门*/
-    /*@RequestMapping(value = "/depot.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/depot.do",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectDepot(String limit){
         return new ResultBean<Collection<AllRole>>(service.selectDepot(limit));
-    }*/
+    }
 
     /**生产部门*/
-    /*@RequestMapping(value = "/product.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/product.do",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectProduct(String limit){
         return new ResultBean<Collection<AllRole>>(service.selectProduct(limit));
-    }*/
+    }
 
     /**财务部门*/
     @RequestMapping(value = "/finance.do",method = RequestMethod.POST)

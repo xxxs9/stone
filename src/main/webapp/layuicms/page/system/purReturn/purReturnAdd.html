@@ -27,6 +27,7 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
+    <input name="goodsId" type="hidden">
     <div class="layui-form-item">
         <label class="layui-form-label">订单编号</label>
         <div class="layui-input-block">
@@ -36,7 +37,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品名称</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly="readonly" name="goodsId" lay-verify="required" placeholder="请输入商品数量">
+            <input type="text" class="layui-input" readonly="readonly" name="goodsName" lay-verify="required" placeholder="请输入商品数量">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly="readonly" name="supplierName" lay-verify="required" placeholder="请输入供应商名字">
         </div>
     </div>
     <div class="layui-form-item">

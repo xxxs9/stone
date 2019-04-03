@@ -39,14 +39,14 @@ public interface AllRoleMapper {
     /**仓库部门
      * @param limit 限制
      * @return List<AllRoleMapper> 返回值类型*/
-    /*List<AllRole> AllRole(
-            @Param("limit") String limit);*/
+    List<AllRole> selectDepot(
+            @Param("limit") String limit);
 
     /**生产部门
      * @param limit 限制
      * @return List<AllRole> 返回值类型*/
-    /*List<AllRole> selectProduct(
-            @Param("limit") String limit);*/
+    List<AllRole> selectProduct(
+            @Param("limit") String limit);
 
     /**财务部门
      * @param limit 限制

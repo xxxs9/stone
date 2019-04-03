@@ -15,7 +15,9 @@ import java.util.Date;
 public class PurchaseReturn {
     private String id;
     private String orderNumber;
+    private String goodsName;
     private String goodsId;
+    private String supplierName;
     private String goodsNumber;
     private String price;
     private String totalPrice;

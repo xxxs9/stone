@@ -48,6 +48,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private OrderAuditService orderAuditServiceImpl;
     @Autowired
     private OrderAuditMapper orderAuditMapper;
+    @Autowired
+    private PurchaseOrderService purchaseOrderServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -144,6 +146,34 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         return depotOrder.getId();
     }
 
+    /**
+     * 添加采购退货单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.UPDATE,memo = "新增采购退货单")
+    public String addPurorderDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= depotOrderMapper.getById(orderNumber);
+        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setType("采购退货");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+
+        depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
+
+        return depotOrder.getId();
+    }
 
     /**
      * 添加销售出库单
@@ -412,6 +442,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrder.setId(id);
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
+        //采购入库,更新沧海采购单状态
+        purchaseOrderServiceImpl.depotState(id);
+
         //入库单
         DepotOrder current = depotOrderMapper.getById(id);
         //货物类型
@@ -436,6 +469,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotInventory.setGoodsNumber(String.valueOf(Integer.parseInt(current.getGoodsNumber())+Integer.parseInt(depotInventory.getGoodsNumber())));
         depotInventory.setSaleableNumber(String.valueOf(Integer.parseInt(current.getGoodsNumber())+Integer.parseInt(depotInventory.getSaleableNumber())));
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),type,goodsId,depotInventory.getGoodsNumber(),null,depotInventory.getSaleableNumber());
+
+
+
         return true;
     }
 

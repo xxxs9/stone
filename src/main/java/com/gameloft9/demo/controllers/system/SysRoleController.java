@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 系统角色controller
@@ -82,5 +84,15 @@ public class SysRoleController {
     public IResult getRole(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<SysRoleTest>(sysRoleServiceImpl.getRole(id));
+    }
+
+    /**
+     * 返回session
+     * */
+    @RequestMapping(value = "/role.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getSession(HttpServletRequest request){
+        List<String> roles = (List<String>) request.getSession().getAttribute("roles");
+        return new ResultBean<Collection<String>>(roles);
     }
 }

@@ -78,6 +78,11 @@ layui.define(['$tool','jquery'], function (exports) {
 
     // API列表,工程庞大臃肿后可以将API拆分到单独的模块中
     var API = {
+        //获取roles
+        selectRole:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'role/role.do',req,successCallback,errorCallback);
+        },
+
         Login: function(req,successCallback,errorCallback){ // 登录
             doPost($tool.getContext() + "login",req,successCallback,errorCallback);
         },
