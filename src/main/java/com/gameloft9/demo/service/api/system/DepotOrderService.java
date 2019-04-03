@@ -51,6 +51,15 @@ public interface DepotOrderService {
     String addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber, String applyUser);
 
     /**
+     * 添加采购退货单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addPurorderDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser);
+
+    /**
      * 添加销售出库单
      * @param orderNumber           订单编号
      * @param goodsId               原料/成品ID
