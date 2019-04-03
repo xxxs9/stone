@@ -197,7 +197,10 @@ public interface PurchaseOrderService {
      */
     PurchaseOrder selectByOrderNumber(String orderNumber);
 
-
+    /**
+     * 提供接口 华锋 改变depotState
+     * */
+    boolean depotState(String orderNumber);
 }
 
 
