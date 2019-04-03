@@ -39,6 +39,21 @@ layui.define(['$tool','jquery'], function (exports) {
         });
     }
 
+    function treeNode(url,req,successCallback,errorCallback) {
+        $.ajax({
+            url:url,
+            data:req,
+            method:"post",
+            async:false,
+            success:function (data) {
+                successCallback(data);
+            },
+            error:function (error) {
+                errorCallback(error);
+            }
+        });
+    }
+
     /**
      * 封装一个get
      * */
@@ -949,6 +964,11 @@ layui.define(['$tool','jquery'], function (exports) {
         },//销售订单提交财务
         updateFina:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
+        },
+
+        //权限树
+        initTreeNode:function(req,successCallback,errorCallback){
+            treeNode($tool.getContext() + 'node/initTreeNode',req,successCallback,errorCallback);
         }
     };
 
