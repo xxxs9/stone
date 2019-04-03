@@ -223,9 +223,12 @@
             </if>
         </set>
         <where>
+
             <if test="id != null and id != ''">
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
+
+
         </where>
 
 
