@@ -498,10 +498,27 @@ layui.define(['$tool','jquery'], function (exports) {
         },
 
 
+        /*啊发包-锦祥*/
+        generateSaleReceive:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generateSaleReceive',req,successCallback,errorCallback);
+        },
+        /*啊发包-锦祥*/
+        generateSalePay:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/generateSalePay',req,successCallback,errorCallback);
+        },
+        /*销售采购应收*/
+        saleOrderReceivePass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/saleOrderReceivePass',req,successCallback,errorCallback);
+        },
+        /*销售采购应付*/
+        saleOrderPayPass:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/saleOrderPayPass',req,successCallback,errorCallback);
+        },
         AddProduct:function(req,successCallback,errorCallback) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
-
         },
+
+
         delProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/del',req,successCallback,errorCallback);
         },
@@ -527,6 +544,10 @@ layui.define(['$tool','jquery'], function (exports) {
         continueProduce1:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/continueProduce',req,successCallback,errorCallback);
         },
+        //检验时增加价格
+        insertSupportPrice:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/insertSupportPrice',req,successCallback,errorCallback);
+    },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
@@ -706,6 +727,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getProduceFormulaDetailById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/get',req,successCallback,errorCallback);
         },
+        getProduceFormulaDetailByFormulaId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'detail/getDetailByFormulaId',req,successCallback,errorCallback);
+        },
 
         GetDepotNumber:function(req,successCallback,errorCallback){
             doPost($tool.getContext()+'depotSet/getDepotNumber.do',req,successCallback,errorCallback);
@@ -864,9 +888,13 @@ layui.define(['$tool','jquery'], function (exports) {
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
+        getProductId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/getId',req,successCallback,errorCallback);
+        },
         GetProductId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/getId.do',req,successCallback,errorCallback);
         },
+
         updateProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },
@@ -952,6 +980,18 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库发货
         updateGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/goods',req,successCallback,errorCallback);
+        },//财务查收
+        updateAccept:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'returnGoods/accept',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateSubmit:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/submit',req,successCallback,errorCallback);
+        },//提交仓库审核
+        updateWare:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'audit/ware',req,successCallback,errorCallback);
+        },//销售订单提交财务
+        updateFina:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         },//提交财务
         updateSub:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'shipment/sub',req,successCallback,errorCallback);

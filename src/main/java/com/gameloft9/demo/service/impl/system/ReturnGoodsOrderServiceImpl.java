@@ -104,7 +104,7 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         return returnGoodsOrder.getId();
     }
     /**
-     * 提交
+     * 提交主管审核
      * @param shipmentOrder
      * @return
      */
@@ -113,7 +113,7 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         HttpServletRequest request1 = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String username = (String) request1.getSession().getAttribute("sysUser");
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_pass);
+        shipmentOrder.setState(StateUUtil.APPLY_director);
         shipmentOrder.setApplyUser(username);
         returnGoodsOrderMapper.audit(shipmentOrder);
 

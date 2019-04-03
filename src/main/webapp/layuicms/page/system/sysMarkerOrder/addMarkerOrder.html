@@ -51,16 +51,14 @@
         </div>
     </div>-->
 
-
+    <input type="hidden" id="test1" name="orderTime"/>
 
     <div class="layui-form-item">
         <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
             <select id="productId" name="productId" lay-verify="required">
             </select>
-            <div class="layui-inline">
-                <a class="layui-btn search_btn"  lay-submit="" lay-filter="queryUser">查询</a>
-            </div>
+
         </div>
     </div>
 
@@ -74,7 +72,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">销售数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" id="deliverNumber" name="deliverNumber"  placeholder="请输入销售数量">
+            <input type="text" lay-verify="deliverNumber" class="layui-input" id="deliverNumber" name="deliverNumber"  placeholder="请输入销售数量">
         </div>
     </div>
 
@@ -88,7 +86,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">产品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" id="plannedNumber" name="plannedNumber" placeholder="请输入产品单价">
+            <input type="text" class="layui-input" lay-verify="plannedNumber" id="plannedNumber" name="plannedNumber" placeholder="请输入产品单价">
         </div>
     </div>
 
@@ -147,7 +145,12 @@
         </div>
     </div>
 
-
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">仓库审核人备注</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="depotRemarks" placeholder="仓库审核人备注">
+        </div>
+    </div>-->
 
     <div class="layui-form-item">
         <div class="layui-input-block">

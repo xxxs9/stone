@@ -186,8 +186,16 @@ public class LenProductServiceImpl implements LenProductService {
 
 
         }
+         @Override
+         public boolean insertSupportPrice(String supportPrice, String id) {
+            if (mapper.insertSupportPrice(supportPrice,id)>0){
+                return true;
+            }else {
+                return false;
+            }
+    }
 
-        /*当前状态为 0*/
+    /*当前状态为 0*/
         /*if (Constants.UN_TIJIAO.equals(state)) {
 
             if (mapper.changeState(Constants.TIJIAO, id) > 0) {

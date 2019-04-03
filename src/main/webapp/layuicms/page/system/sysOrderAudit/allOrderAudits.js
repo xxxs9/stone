@@ -49,7 +49,8 @@ layui.config({
                 , {field: 'state', title: '订单状态' }
                 , {field: 'orderAuditUser', title: '订单审核人' }
                 , {field: 'orderAuditDepot', title: '仓库审核人' }
-                , {field: 'remarks', title: '备注' }
+                , {field: 'remarks', title: '销售审核人备注' }
+                , {field: 'depotRemarks', title: '仓库审核人备注' }
 
 
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
@@ -101,16 +102,14 @@ layui.config({
         var productId = data.field.productId;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
-
         var plannedNumber = data.field.plannedNumber;
         var acceptedAmount = data.field.acceptedAmount;
-
         var applyUser = data.field.applyUser;
         var state = data.field.state;
         var orderAuditUser = data.field.orderAuditUser;
         var orderAuditDepot = data.field.orderAuditDepot;
         var remarks = data.field.remarks;
-
+        var depotRemarks = data.field.depotRemarks;
 
 
 
@@ -125,16 +124,14 @@ layui.config({
                 productId:productId,
                 customer:customer,
                 deliverNumber:deliverNumber,
-
                 plannedNumber:plannedNumber,
                 acceptedAmount:acceptedAmount,
-
                 applyUser:applyUser,
                 state:state,
                 orderAuditUser:orderAuditUser,
                 orderAuditDepot:orderAuditDepot,
                 remarks:remarks,
-
+                depotRemarks:depotRemarks
                
 
 

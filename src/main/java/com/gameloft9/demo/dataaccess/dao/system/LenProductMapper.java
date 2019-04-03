@@ -114,4 +114,6 @@ public interface LenProductMapper {
      */
     List<LenProduct> selectByState();
 
+    int insertSupportPrice(@Param("supportPrice")String supportPrice,@Param("id")String id);
+
 }

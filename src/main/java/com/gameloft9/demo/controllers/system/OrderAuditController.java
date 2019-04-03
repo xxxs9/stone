@@ -30,6 +30,7 @@ public class OrderAuditController {
     @Autowired
     OrderAuditService orderAuditService;
 
+
     /**
      * 处理时间
      *
@@ -94,7 +95,6 @@ public class OrderAuditController {
     @ResponseBody
 
     public IResult update(OrderAuditBean orderAuditBean) {
-
         return new ResultBean<Boolean>(orderAuditService.update(orderAuditBean));
     }
 

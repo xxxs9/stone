@@ -24,6 +24,7 @@ public class MarkerOrderTest {
     private String orderAuditUser;
     private String orderAuditDepot;
     private String remarks;
+    private String depotRemarks;
 
 
 }

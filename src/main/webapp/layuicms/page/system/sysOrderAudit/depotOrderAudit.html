@@ -47,23 +47,30 @@
         </div>
     </div>
 
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">订单日期 :</label>
+        <div class="layui-input-block">
+            <input type="hidden" style="border:none" style="border:none" id="test1" class="layui-input" readonly="readonly" name="orderTime" placeholder="请输入订单日期">
+        </div>
+    </div>-->
+
+
     <div class="layui-form-item">
         <label class="layui-form-label">订单日期 :</label>
         <div class="layui-input-block">
-            <input type="text" style="border:none" style="border:none" id="test1" class="layui-input" readonly unselectable="on" name="orderTime" placeholder="请输入订单日期">
+            <input type="text" style="border:none" id="test1" class="layui-input" readonly="readonly" name="orderTime" placeholder="请输入订单日期">
         </div>
     </div>
 
-
-
     <div class="layui-form-item">
-        <label class="layui-form-label">产品名 :</label>
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
-            <select id="productId" style="outline: none" name="productId" readonly="readonly" lay-verify="required">
-
+            <select id="productId" style="border:none" readonly="readonly" name="productId" lay-verify="required">
             </select>
         </div>
     </div>
+
+    <!--<input type="hidden" name="orderAuditDepot"/>-->
 
    <!-- <div class="layui-form-item">
         <label class="layui-form-label">购买客户 :</label>
@@ -119,9 +126,10 @@
     <!--<div class="layui-form-item">
         <label class="layui-form-label">订单审核人</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly="readonly" name="orderAuditUser" placeholder="请输入订单审核人">
+            <input type="text" class="layui-input" style="border:none" readonly="readonly" name="orderAuditUser" placeholder="请输入订单审核人">
         </div>
     </div>-->
+    <input type="hidden" name="orderAuditUser"/>
 
     <div class="layui-form-item">
         <label class="layui-form-label">仓库审核人 :</label>
@@ -129,11 +137,20 @@
             <input type="text" style="border:none" class="layui-input" readonly="readonly"  name="orderAuditDepot" placeholder="请输入仓库审核人" value="仓库主管">
         </div>
     </div>
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
 
-        <label class="layui-form-label">备注</label>
+        <label class="layui-form-label">销售审核人备注</label>
         <div class="layui-input-block">
             <input type="text" lay-verify="remarks" class="layui-input" name="remarks" placeholder="备注">
+        </div>
+    </div>-->
+    <input type="hidden" name="remarks"/>
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">仓库审核人备注</label>
+        <div class="layui-input-block">
+            <input type="text" lay-verify="depotRemarks" class="layui-input" name="depotRemarks" placeholder="备注">
         </div>
     </div>
 

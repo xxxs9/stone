@@ -18,6 +18,11 @@
     ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
      </sql>
 
+    <select id="getByFormulaId"  resultMap="BaseResultMap">
+        select * from l_produce_formula_detail where
+        PRODUCE_FORMULA_ID=#{formulaId}
+    </select>
+
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>

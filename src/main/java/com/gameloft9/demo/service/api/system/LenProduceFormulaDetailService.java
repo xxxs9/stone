@@ -90,4 +90,11 @@ public interface LenProduceFormulaDetailService {
      * @return
      */
     boolean updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
+
+    /**
+     * 通过formulaId查找实体列表
+     * @param formulaId
+     * @return
+     */
+    List<LenProduceFormulaDetail> getByFormulaId(String formulaId);
 }
