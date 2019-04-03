@@ -78,4 +78,9 @@ public interface PurchaseReturnService {
      * @return boolean 布尔类型*/
     boolean backReUpdate(PurchaseReturn purchaseReturn);
 
+    /**
+     * 华锋对接 改变DepotState
+     * */
+    boolean depotState(String orderNumber);
+
 }
