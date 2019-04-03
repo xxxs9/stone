@@ -77,13 +77,13 @@ layui.config({
         };
 
         $api.getProductById(req, function (res) {
-            var data = res.data;
-            $("[name='productName']").val(data.productName);
-            $("[name='productNumber']").val(data.productNumber);
-            $('#canSold').val(data.canSold);
-            select2(data.productType);
-            select(data.productState);
-            $("[name='productDescribe']").val(data.productDescribe);
+            var data6 = res.data;
+            $("[name='productName']").val(data6.productName);
+            $("[name='productNumber']").val(data6.productNumber);
+            $('#canSold').val(data6.canSold);
+            select2(data6.productType);
+            select(data6.productState);
+            $("[name='productDescribe']").val(data6.productDescribe);
             form.render();//重新绘制表单，让修改生效
         });
 
@@ -96,6 +96,14 @@ layui.config({
     }
     $('#audiOk').click(function () {
         $api.managerAudi(req,function (res) {
+        alert(res)
+           alert(1)
+            alert(res.data)
+            if(res.code==='401'){
+                window.location.href = $tool.getResUrl()+"layuicms/page/system/401.html";
+
+            }
+
             layer.msg(">>>>>>>审核完成<<<<<<<", {time: 1000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面

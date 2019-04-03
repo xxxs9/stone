@@ -68,10 +68,10 @@ public class LenProductController {
                 return new ResultBean<Boolean>(true);
 
             }else{
-                throw new RuntimeException(">>>>>>>操作失败<<<<<<<");
+                return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
             }
         }else{
-            throw new RuntimeException(">>>>>>>无权删除其他人的工单<<<<<<<");
+            return new ResultBean<String>("401",">>>>>>>权限不足<<<<<<<");
         }
 
     }
@@ -115,16 +115,11 @@ public class LenProductController {
             if (service.changeState(id)){
                 return new ResultBean(true);
             }else{
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
              }
               }else{
-                  ResultBean<?> result = new ResultBean();
-                  result.setMsg(">>>>>>>权限不足<<<<<<<");
-                     result.setCode(ResultBean.SYSTEM_FAIL);
-                     return result;
+
+                return new ResultBean<String>("0000",">>>>>>>权限不足<<<<<<<");
         }
 
 
@@ -155,16 +150,10 @@ public class LenProductController {
             if (service.changeProState(Constants.productState.TIJIAO_UNAUDI, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg("操作不被允许");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
             }
         } else {
-            ResultBean<?> result = new ResultBean();
-            result.setMsg("操作不被允许");
-            result.setCode(ResultBean.SYSTEM_FAIL);
-            return result;
+            return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
         }
     }
 
@@ -180,7 +169,7 @@ public class LenProductController {
         if(service.changeProState(Constants.INTO_DEPOT,id)){
             return new ResultBean<Boolean>(true);
         }
-        throw new RuntimeException("操作失败");
+        return new ResultBean<String>("401","操作失败");
     }
 
     /**
@@ -196,10 +185,10 @@ public class LenProductController {
             if (service.changeProState(Constants.productState.REACH_UNFENPEI, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
-                throw new RuntimeException("操作失败");
+                return new ResultBean<String>("401","操作失败");
             }
         } else {
-            throw new RuntimeException("操作失败");
+            return new ResultBean<String>("401","操作失败");
         }
     }
 
@@ -391,6 +380,12 @@ public class LenProductController {
         result.setMsg(">>>>>>>操作无法完成<<<<<<<");
         result.setCode(ResultBean.SYSTEM_FAIL);
         return result;
+    }
+
+    @RequestMapping("/insertSupportPrice")
+    @ResponseBody
+    public IResult insertSupportPrice(String supportPrice,String id){
+        return new ResultBean<Boolean>(service.insertSupportPrice(supportPrice, id));
     }
 
 

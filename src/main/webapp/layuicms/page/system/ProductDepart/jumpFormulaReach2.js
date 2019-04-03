@@ -31,7 +31,8 @@ layui.config({
         initMenuInfo()
         selectProduct();
         select4();
-        select5();
+        //select5();
+        select6();
         // selectFormula()
 
     }
@@ -151,6 +152,7 @@ layui.config({
 
 
     }
+    var formulaId;
     function select4() {
         $api.getAllFormula(null, function (res) {
             var data = res.data;
@@ -158,7 +160,7 @@ layui.config({
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i].id + '">'+data[i].id+'</option>';
-
+                    formulaId= data[i].id;
                 }
                 $('#produceFormulaId').append($(html));
                // $('#state').val(hh);
@@ -183,8 +185,25 @@ layui.config({
 
         });
 
-    }
 
+    }
+    function select6(formulaId) {
+       var  req={
+            formulaId:formulaId
+        }
+        $api.getProduceFormulaDetailByFormulaId(req,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">'+data[i].id+'</option>';
+                }
+                $('#produceFormulaDetailId').append($(html));
+                // $('#state').val(hh);
+                form.render();
+            }
+        });
+    }
 
     /**
      * 表单提交
