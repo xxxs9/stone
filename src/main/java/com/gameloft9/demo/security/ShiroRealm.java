@@ -32,6 +32,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	 * */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
+
 			PrincipalCollection principals) {
 		if (principals == null) {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");

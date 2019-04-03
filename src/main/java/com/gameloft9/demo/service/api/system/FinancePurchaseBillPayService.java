@@ -85,4 +85,10 @@ public interface FinancePurchaseBillPayService {
      *  boolean
      */
     Boolean purchaseOrderPayPass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+
+    /**
+     * 获取采购支出图表数据
+     * @return
+     */
+    List<String> getPurchasePayChart();
 }

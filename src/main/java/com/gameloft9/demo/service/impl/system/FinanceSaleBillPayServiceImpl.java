@@ -174,4 +174,9 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
     public SysFinanceSaleBillsPayable getSalePayById(String id) {
         return saleBillsPayableMapper.getSalePayById(id);
     }
+
+    @Override
+    public List<String> getSalePayChart() {
+        return saleBillsPayableMapper.getSalePayChart();
+    }
 }
