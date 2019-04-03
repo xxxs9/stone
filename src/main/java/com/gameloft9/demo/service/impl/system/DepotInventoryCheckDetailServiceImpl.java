@@ -38,20 +38,25 @@ public class DepotInventoryCheckDetailServiceImpl implements DepotInventoryCheck
      * @param page                  页序
      * @param limit                 分页大小
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      */
     @Override
-    public List<DepotInventoryCheckDetail> getAll(String page, String limit, String checkId) {
+    public List<DepotInventoryCheckDetail> getAll(String page, String limit, String checkId,String type,String goodsId) {
         PageRange pageRange = new PageRange(page, limit);
-        return depotInventoryCheckDetailMapper.getAll(pageRange.getStart(),pageRange.getEnd(),checkId);
+        return depotInventoryCheckDetailMapper.getAll(pageRange.getStart(),pageRange.getEnd(),checkId,type,goodsId);
     }
+
 
     /**
      * 获取盘点单明细记录数据条数
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      * */
     @Override
-    public int countGetAll(String checkId) {
-        return depotInventoryCheckDetailMapper.countGetAll(checkId);
+    public int countGetAll(String checkId,String type,String goodsId) {
+        return depotInventoryCheckDetailMapper.countGetAll(checkId,type,goodsId);
     }
 
     /**

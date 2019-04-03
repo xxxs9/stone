@@ -8,7 +8,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinanceSaleReceivableService;
-import org.apache.poi.ss.formula.functions.Irr;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +77,13 @@ public class FinanceSaleReceivableController {
     public IResult getSaleReceiveById(String id){
         return new ResultBean<SysFinanceSaleReceivable>(financeSaleReceivableService.getSaleReceiveById(id));
     }
+
+    @RequestMapping(value = "/getSaleReceiveChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getSaleReceiveChart(){
+        return new ResultBean<Collection<String>>(financeSaleReceivableService.getSaleReceiveChart());
+    }
+
 
 
 }

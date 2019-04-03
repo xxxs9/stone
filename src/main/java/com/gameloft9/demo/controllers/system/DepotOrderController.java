@@ -13,6 +13,7 @@ import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ import java.util.List;
 
 
 @Slf4j
-@Service
+@Controller
 @RequestMapping("/depotOrder")
 public class DepotOrderController {
     @Autowired
@@ -99,6 +100,24 @@ public class DepotOrderController {
         String orderType = Constants.Depot.ORDER_IN;
         return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
     }
+
+    /**
+     * 添加销售出库单
+     * @param orderNumber           编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @RequestMapping(value = "/addMarket.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
+    public IResult addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String type = "销售出库";
+        String orderType = Constants.Depot.ORDER_OUT;
+        return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
+    }
+
 
     /**
      * 添加出库单

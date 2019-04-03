@@ -10,15 +10,14 @@
         <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
-
         <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
         <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
-
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_DEPOT" property="orderAuditDepot" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+        <result column="DEPOT_REMARKS" property="depotRemarks" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -34,7 +33,8 @@
         STATE,
         ORDER_AUDIT_USER,
         ORDER_AUDIT_DEPOT,
-        REMARKS
+        REMARKS,
+        DEPOT_REMARKS
     </sql>
 
 
@@ -55,6 +55,8 @@
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
         </where>
+
+
     </update>
 
     <!--提交仓库审核-->
@@ -130,7 +132,8 @@
            STATE,
            ORDER_AUDIT_USER,
            ORDER_AUDIT_DEPOT,
-           REMARKS
+           REMARKS,
+           DEPOT_REMARKS
         from
           w_marker_order
         where
@@ -190,7 +193,8 @@
           STATE,
           ORDER_AUDIT_USER,
           ORDER_AUDIT_DEPOT,
-          REMARKS)
+          REMARKS,
+          DEPOT_REMARKS)
         values
           (#{id},
           #{orderId},
@@ -204,7 +208,9 @@
           #{state},
           #{orderAuditUser},
           #{orderAuditDepot},
-          #{remarks})
+          #{remarks},
+          #{depotRemarks})
+
     </insert>
     <!--修改-->
     <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest">
@@ -221,7 +227,8 @@
             APPLY_USER=#{applyUser},
             ORDER_AUDIT_USER=#{orderAuditUser},
             ORDER_AUDIT_DEPOT=#{orderAuditDepot},
-            REMARKS=#{remarks}
+            REMARKS=#{remarks},
+            DEPOT_REMARKS=#{depotRemarks}
         where
             ID=#{id}
   </update>

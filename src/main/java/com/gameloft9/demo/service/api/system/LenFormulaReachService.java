@@ -123,4 +123,11 @@ public interface LenFormulaReachService {
     boolean goOn(String id);
 
     boolean complete(String id);
+
+    /**
+     * 通过productID查询
+     * @param productId
+     * @return
+     */
+    LenFormulaReach getByProductId (String productId);
 }

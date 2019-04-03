@@ -12,6 +12,7 @@ import com.gameloft9.demo.service.api.system.DepotInventoryService;
 import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +27,7 @@ import java.util.Collection;
  */
 
 @Slf4j
-@Service
+@Controller
 @RequestMapping("/depotInventory")
 public class DepotInventoryController {
 

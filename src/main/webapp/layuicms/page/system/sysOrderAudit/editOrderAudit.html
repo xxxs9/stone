@@ -54,10 +54,11 @@
         </div>
     </div>
 
-    <div class="layui-form-item parent-menu">
-        <label class="layui-form-label">产品名 :</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
-            <input type="text" style="border:none" class="layui-input" readonly="readonly" lay-verify="required" name="productId" placeholder="产品名">
+            <select id="productId" name="productId" lay-verify="required">
+            </select>
         </div>
     </div>
 
@@ -135,7 +136,7 @@
 
     <div class="layui-form-item">
 
-        <label class="layui-form-label">备注</label>
+        <label class="layui-form-label">销售审核人备注</label>
         <div class="layui-input-block">
             <input type="text" lay-verify="remarks" class="layui-input" name="remarks" placeholder="备注">
         </div>

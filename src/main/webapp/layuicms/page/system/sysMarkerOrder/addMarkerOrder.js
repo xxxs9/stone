@@ -4,14 +4,14 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'tree','$api', 'jquery', 'ajaxExtention', '$tool'], function () {
+}).use(['form', 'layer', 'layedit','tree','$api', 'jquery', 'ajaxExtention', '$tool'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery,
         $tool = layui.$tool,
-        $api = layui.$api;
-
+        $api = layui.$api,
+        layedit = layui.layedit;
     //var orgId;
    // var orgName;
     //var roleIdList = new Array();//所有的角色id列表
@@ -23,10 +23,25 @@ layui.config({
         //初始化机构树
         //initOrgTree();
         //加载角色列表
-       //loadRoleList();
+        loadProductIdList();
     }
 
     init();
+
+    /**
+     * 计算校验
+     */
+
+    form.verify({
+        remarks: function(value){
+            if(value.integrity !==0){
+                return '不能填写0';
+            }
+            if(value.integrity <0){
+                return '不能为负数'
+            }
+        }
+    })
 
 
     /**
@@ -34,24 +49,17 @@ layui.config({
      */
 
 
-    function loadRoleList() {
-        var req = {
-            page: 1,
-            limit: 999
-        };
+    function loadProductIdList() {
 
-
-        $api.getProductId(req,function (res) {
+        $api.GetProductId(null,function (res) {
             var data = res.data;
-            if (data.length > 0) {
-                var roleHtml = "";
-                for (var i = 0; i < data.length; i++) {
-                    roleHtml += '<input type="checkbox" name="' + data[i].id + '" title="' + data[i].roleName + '">';
-                    roleIdList.push(data[i].id);//保存id列表
+            if(data.length > 0){
+                var html = '<option value="">--请填写--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]+'">'+data[i]+'</option>>';
                 }
-
-                $('.role-check-list').append($(roleHtml));
-                form.render();//重新绘制表单，让修改生效
+                $('#productId').append($(html));
+                form.render();
             }
         });
     }
@@ -132,32 +140,18 @@ layui.config({
 
     //计算总金额
 
-    $(function() {
 
-        $('[name= acceptedAmount]').bind('click', function () {
-            var unitPirce = $('[name=deliverNumber]').val();
-            var number = $('[name=plannedNumber]').val();
-            $("[name = acceptedAmount]").html($(this).val(unitPirce * number)
-            )
+      $(function() {
+
+            $('[name= acceptedAmount]').bind('click', function () {
+                var unitPirce = $('[name=deliverNumber]').val();
+                var number = $('[name=plannedNumber]').val();
+                $("[name = acceptedAmount]").html($(this).val(unitPirce * number)
+                )
+            })
+
         })
 
-    })
-
-
-
-   /* $(function(){
-
-        $('[name= acceptedAmount]').bind('input propertychange', function() {
-            alert(1);
-            var a = $('#deliverNumber').val();
-            var b = $('#plannedNumber').val();
-            var sum= a * b;
-            alert(2);
-            $('#acceptedAmount').html($(this).val(sum)
-        )
-        });
-
-    })*/
 
 
 

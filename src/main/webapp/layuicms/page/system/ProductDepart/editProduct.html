@@ -41,32 +41,19 @@
             <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入产品数量">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品成本</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
-        </div>
-    </div>
-    <div class="layui-form-item ">
-        <label class="layui-form-label">是否可售</label>
-        <div class="layui-input-block ">
-            <select name="canSold" lay-verify="required" id="canSold">
 
-                <option value="0">1.可售</option>
-                <option value="1">2.不可售</option>
-            </select>
+    <div class="layui-form-item ">
+        <label class="layui-form-label">订单来源</label>
+        <div class="layui-input-block ">
+            <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
         </div>
     </div>
 
     <div class="layui-form-item ">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
-            <select name="state" lay-verify="required" id="state">
-                <option value="0">1.未下单</option>
-                <option value="1">2.已提交</option>
-                <option value="2">3.待审核</option>
-                <option value="3">4.生产中</option>
-                <option value="4">5.已入库</option>
+            <select name="productState" lay-verify="required" id="productState" readonly="">
+                <option value="1" selected>1.未提交</option>
 
             </select>
         </div>
@@ -77,8 +64,11 @@
         <label class="layui-form-label">产品类型</label>
         <div class="layui-input-block">
             <select name="productType" lay-verify="required" id="productType" >
-                <option value="0">1.半成品</option>
-                <option value="1">2.成品</option>
+                <option value="">>>请选择<<</option>
+                <option value="1" >1.半成品不可售</option>
+                <option value="2" >2.半成品可售</option>
+                <option value="3" >3.成品不可售</option>
+                <option value="4" >4.成品可售</option>
 
 
             </select>
@@ -95,8 +85,8 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="editMenu">确认修改</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button class="layui-btn" lay-submit="" lay-filter="editMenu">确认更改</button>
+            <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
         </div>
     </div>
 </form>

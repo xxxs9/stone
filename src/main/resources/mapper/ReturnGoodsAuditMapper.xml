@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.ReturnGoodsAuditMapper">
+    <!--结果集映射-->
+    <resultMap id="ReturnGoodsResultMap" type="com.gameloft9.demo.dataaccess.model.system.ReturnGoodsAudit">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <resultMap id="ShipmentOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,
+        GOODS_ID,
+        GOODS_NAME,
+        CUSTOMER,
+        GOODS_NUMBER,
+        GOODS_AMOUNT,
+        APPLY_USER,
+        APPLY_TIME,
+        STATE,
+        AUDIT_USER,
+        AUDIT_TYPE,
+        REMARKS
+    </sql>
+
+
+
+    <!--退货-->
+  <!--  <update id="back" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>-->
+
+    <!--收货-->
+   <!-- <update id="confirm" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>-->
+
+    <!--提交仓库发货-->
+    <update id="goods" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--财务查收-->
+    <update id="accept" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--获取角色ID-->
+
+    <select id="getById" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
+        select
+            ID,
+        GOODS_ID,
+        GOODS_NAME,
+        CUSTOMER,
+        GOODS_NUMBER,
+        GOODS_AMOUNT,
+        APPLY_USER,
+        APPLY_TIME,
+        STATE,
+        AUDIT_USER,
+        AUDIT_TYPE,
+        REMARKS
+        from
+          w_shipment_order
+        where
+          ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <!--查找所有分页模糊查询-->
+  <!--  <select id="findAll"  parameterType="map" resultMap="ShipmentOrderResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        w_shipment_order
+        <where>
+            <if test="goodsName != null and goodsName!= ''">
+                and GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+        order by APPLY_TIME desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>-->
+
+    <select id="findAll" resultMap="ShipmentOrderResultMap">
+
+        select
+        *
+        from
+        w_shipment_order  left join w_return_goods_audit ON w_shipment_order.ID=w_return_goods_audit.ID
+
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                and GOODS_NAME = #{goodsName,jdbcType=DATE}
+            </if>
+            w_shipment_order.STATE != "收货成功" and w_shipment_order.STATE != "等待收货" and w_shipment_order.STATE != "等待发货"
+            and w_shipment_order.STATE != "提交财务成功" and w_shipment_order.STATE != "退货"
+        </where>
+
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--查找条数-->
+    <select id="countGetAll" resultType="int" parameterType="map">
+
+        select
+        count(1)
+        from w_return_goods_audit t
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                and t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </select>
+
+
+    <!--通过ID删除-->
+    <delete id="deleteById" parameterType="java.lang.String">
+    delete from w_shipment_order
+    where ID = #{id}
+  </delete>
+    <!--添加-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        insert into
+           w_shipment_order
+          ( ID,
+        GOODS_ID,
+        GOODS_NAME,
+        CUSTOMER,
+        GOODS_NUMBER,
+        GOODS_AMOUNT,
+        APPLY_USER,
+        APPLY_TIME,
+        STATE,
+        AUDIT_USER,
+        AUDIT_TYPE,
+        REMARKS)
+        values
+          (#{id},
+          #{goodsId},
+          #{goodsName},
+          #{customer},
+          #{goodsNumber},
+          #{goodsAmount},
+          #{applyUser},
+          #{applyTime},
+          #{state},
+          #{auditUser},
+          #{auditType},
+          #{remarks})
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+            w_shipment_order
+        set
+            GOODS_ID=#{goodsId},
+           GOODS_NAME=#{goodsName},
+            CUSTOMER=#{customer},
+            GOODS_NUMBER=#{goodsNumber},
+            GOODS_AMOUNT=#{goodsAmount},
+            APPLY_USER=#{applyUser},
+            APPLY_TIME=#{applyTime},
+            STATE=#{state},
+            AUDIT_USER=#{auditUser},
+            AUDIT_TYPE=#{auditType},
+            REMARKS=#{remarks}
+        where
+            ID=#{id}
+  </update>
+
+
+
+
+
+
+
+
+
+
+</mapper>

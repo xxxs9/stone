@@ -82,5 +82,11 @@ public class FinancePurchaseReceivableController {
         return new ResultBean<Boolean>(purchaseReceivableService.purchaseOrderReceivePass(attitude,purchaseOrderRejectedId,auditType,actualPrice,auditDescribe));
     }
 
+    @RequestMapping(value = "/getPurchaseReceiveChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getPurchaseReceiveChart(){
+        return new ResultBean<Collection<String>>(purchaseReceivableService.getPurchasePayChart());
+    }
+
 
 }

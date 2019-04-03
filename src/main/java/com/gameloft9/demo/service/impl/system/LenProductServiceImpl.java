@@ -5,11 +5,13 @@ import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.DocumentNumberUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
  * @description:
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class LenProductServiceImpl implements LenProductService {
 
     @Autowired
@@ -45,6 +48,7 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean insert(LenProduct lenProduct) {
+        String number = DocumentNumberUtil.getDocumentNumber("P");
         String uuid = UUIDUtil.getUUID();
         LenProduct product = new LenProduct();
         product.setId(uuid);
@@ -54,11 +58,8 @@ public class LenProductServiceImpl implements LenProductService {
         product.setSupportPrice(lenProduct.getSupportPrice());
         product.setProductType(lenProduct.getProductType());
         product.setProductDescribe(lenProduct.getProductDescribe());
-        product.setState(lenProduct.getState());
-
-        product.setOther1(lenProduct.getOther1());
-        product.setOther2(lenProduct.getOther2());
-        product.setOther3(lenProduct.getOther3());
+        product.setProductState(Constants.productState.UN_TIJIAO);
+        product.setOther1(number);
         if (mapper.insert(product) > 0) {
             return true;
         } else {
@@ -68,24 +69,30 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean update(LenProduct lenProduct) {
+        String sysUser = (String) SecurityUtils.getSubject().getSession().getAttribute("sysUser");
+        if(lenProduct.getCanSold().equals(sysUser)){
+        lenProduct.setProductState(Constants.productState.UN_TIJIAO);
         if (mapper.update(lenProduct) > 0) {
             return true;
         } else {
-            return false;
+            throw new RuntimeException(">>>>>>>数据库操作失败<<<<<<<");
+        }
+
+        }else{
+            throw new RuntimeException(">>>>>>>用户信息不匹配，不能操作<<<<<<<");
         }
     }
 
     @Override
     public boolean delete(String id) {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.hasRole(Constants.PRODUCE_ADMIN)) {
-            if (mapper.delete(id) > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }else{return false;
+        if(Constants.lennonPDAudi()==1){
+           if (mapper.delete(id)>0){
+               return true;
+           }
+        }else {
+            return false;
         }
+        return false;
     }
 
     @Override
@@ -101,7 +108,7 @@ public class LenProductServiceImpl implements LenProductService {
          */
 
         LenProduct len = mapper.getByPrimaryKey(id);
-        String state = len.getState();
+        String state = len.getProductState();
         if (Constants.TIJIAO.equals(state)){
             if (mapper.changeState(Constants.UN_TIJIAO,id)>0) {
                 return true;
@@ -130,11 +137,66 @@ public class LenProductServiceImpl implements LenProductService {
     @Override
     public boolean changeState(String id) {
         LenProduct product = mapper.getByPrimaryKey(id);
-        String state = product.getState();
-        /*获取shiro权限*/
+        String state = product.getProductState();
         Subject subject = SecurityUtils.getSubject();
-        /*当前状态为 0*/
-        if (Constants.UN_TIJIAO.equals(state)) {
+        //未提交————提交 1-2
+        if (state.equals(Constants.productState.UN_TIJIAO)){
+            mapper.changeState(Constants.productState.TIJIAO_UNAUDI,id);
+            return true;
+        }
+        //领料未分配--分配生产 4-5
+        if (state.equals(Constants.productState.REACH_UNFENPEI)){
+            if (subject.hasRole(Constants.PRODUCE_ADMIN)){
+            mapper.changeState(Constants.productState.FENPEI_START_PRODUCE,id);
+            return true;}else{
+                return false;
+            }
+        }
+                //审核未领料---领料待分配 3-4（华峰授权步骤）
+            if (product.getProductState().equals(Constants.productState.AUDI_UNREACH)) {
+                if (subject.hasRole(Constants.PRODUCE_ADMIN)) {
+                    mapper.changeState(Constants.productState.REACH_UNFENPEI, id);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            //提交审核 2-3
+            if (product.getProductState().equals(Constants.productState.TIJIAO_UNAUDI)){
+                if (subject.hasRole(Constants.PRODUCE_ADMIN)) {
+                     mapper.changeState(Constants.productState.AUDI_UNREACH, id);
+                     return true;
+                } else {
+                    return false;
+                     }
+
+                }
+
+        return false;
+        }
+
+
+        @Override
+        public boolean changeBehindState(String state, String id){
+           if (mapper.changeState(state,id)>0){
+               return true;
+           }else {
+               return false;
+           }
+
+
+        }
+         @Override
+         public boolean insertSupportPrice(String supportPrice, String id) {
+            if (mapper.insertSupportPrice(supportPrice,id)>0){
+                return true;
+            }else {
+                return false;
+            }
+    }
+
+    /*当前状态为 0*/
+        /*if (Constants.UN_TIJIAO.equals(state)) {
 
             if (mapper.changeState(Constants.TIJIAO, id) > 0) {
                 return true;
@@ -142,7 +204,7 @@ public class LenProductServiceImpl implements LenProductService {
 
                 return false;
             }
-            /*当前状态 state：1*/
+            *//*当前状态 state：1*//*
         } else if (Constants.TIJIAO.equals(state) ) {
 
             if (mapper.changeState(Constants.UN_AUDI, id) > 0) {
@@ -151,7 +213,7 @@ public class LenProductServiceImpl implements LenProductService {
                 return false;
             }
 
-            /*state:2*/
+            *//*state:2*//*
         } else if (Constants.UN_AUDI.equals(state)) {
             if (subject.hasRole(Constants.PRODUCE_ADMIN)) {
                 if (mapper.changeState(Constants.ADUI, id) > 0) {
@@ -185,9 +247,10 @@ public class LenProductServiceImpl implements LenProductService {
 
 
 
-            return false;
+            return false;*/
 
-                }
+
+
 
 
 
@@ -207,6 +270,15 @@ public class LenProductServiceImpl implements LenProductService {
         }else {
             return  false;
         }
+    }
+
+    @Override
+    public boolean changeProState(String state, String id) {
+       if (mapper.changeState(state,id)>0){
+           return true;
+       }else {
+          return false;
+       }
     }
 
     @Override

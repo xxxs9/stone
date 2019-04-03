@@ -66,4 +66,10 @@ public interface FinanceSaleReceivableService {
      *      SysFinanceSaleBillsPayable
      */
     SysFinanceSaleReceivable getSaleReceiveById(String id);
+
+    /**
+     * 获取销售收入图表数据
+     * @return
+     */
+    List<String> getSaleReceiveChart();
 }

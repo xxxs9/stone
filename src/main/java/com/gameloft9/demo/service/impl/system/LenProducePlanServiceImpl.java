@@ -131,6 +131,11 @@ public class LenProducePlanServiceImpl implements LenProducePlanService {
     }
 
     @Override
+    public LenProducePlan findId(String productId) {
+        return mapper.findId(productId);
+    }
+
+    @Override
     public boolean changeOther(String id) {
         mapper.changeOther1(Constants.TIJIAO,id);
         return false;

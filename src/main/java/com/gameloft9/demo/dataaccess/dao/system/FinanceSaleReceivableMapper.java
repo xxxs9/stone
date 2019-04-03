@@ -60,4 +60,10 @@ public interface FinanceSaleReceivableMapper extends BaseMapper<SysFinanceSaleRe
      *      SysFinanceSaleBillsPayable
      */
     SysFinanceSaleReceivable getSaleReceiveById(@Param("id") String id);
+
+    /**
+     * 获取销售收入图表数据
+     * @return
+     */
+    List<String> getSaleReceiveChart();
 }

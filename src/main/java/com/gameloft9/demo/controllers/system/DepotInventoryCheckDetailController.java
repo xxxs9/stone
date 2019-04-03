@@ -10,6 +10,7 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.DepotInventoryCheckDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
- * @author: Sxiu
+ * @author: Sxiu子
  * @create: 2019/3/31 14:49
  * @description:
  */
 @Slf4j
-@Service
+@Controller
 @RequestMapping("/depotInventoryCheckDetail")
 public class DepotInventoryCheckDetailController {
     @Autowired
@@ -36,12 +37,14 @@ public class DepotInventoryCheckDetailController {
      * @param page                  页序
      * @param limit                 分页大小
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      */
     @RequestMapping(value = "/depotInventoryCheckDetailList.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getDepotInventoryCheckDetailList(String page, String limit,String checkId){
+    public IResult getDepotInventoryCheckDetailList(String page, String limit,String checkId,String type,String goodsId){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        return new PageResultBean<Collection<DepotInventoryCheckDetail>>(depotInventoryCheckDetailServiceImpl.getAll(page,limit,checkId),depotInventoryCheckDetailServiceImpl.countGetAll(checkId));
+        return new PageResultBean<Collection<DepotInventoryCheckDetail>>(depotInventoryCheckDetailServiceImpl.getAll(page,limit,checkId,type,goodsId),depotInventoryCheckDetailServiceImpl.countGetAll(checkId,type,goodsId));
     }
 
     /**

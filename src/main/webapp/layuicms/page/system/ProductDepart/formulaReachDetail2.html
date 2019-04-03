@@ -31,7 +31,7 @@
     </br>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">产品编号</label>
+        <label class="layui-form-label" style="display: none">产品编号</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productId" id="productId">
         </div>
@@ -43,7 +43,12 @@
         </div>
     </div>
 
-
+    <div class="layui-form-item">
+        <label class="layui-form-label">生产数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="other1"  placeholder="请输入生产数量" id="other1">
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">配方详情</label>
         <div class="layui-input-block">
@@ -112,10 +117,16 @@
         </div>
     </div>
 
+
     <!----------------------------------------------------------------->
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit="" lay-filter="addMenu" id="completeProduce">生产完成</button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="produceReport" id="produceReport">生成生产报告</button>
         </div>
     </div>
 </form>

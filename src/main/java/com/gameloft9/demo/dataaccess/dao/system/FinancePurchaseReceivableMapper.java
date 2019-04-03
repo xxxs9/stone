@@ -58,5 +58,11 @@ public interface FinancePurchaseReceivableMapper extends BaseMapper<SysFinancePu
             @Param("purchaseOrderRejectedId") String purchaseOrderRejectedId,
             @Param("auditType") Integer auditType);
 
+    /**
+     * 获取采购收如图表数据
+     * @return
+     */
+    List<String> getPurchaseReceiveChart();
+
 
 }
