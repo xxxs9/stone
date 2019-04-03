@@ -33,7 +33,7 @@ layui.config({
                 form.render();
             }
         });*/
-
+alert(1)
 
     }
     init();
@@ -84,13 +84,14 @@ layui.config({
                 //do something
                 editMarkerOrder(row.id);
             }else if (layEvent === 'audit'){//提交
+                alert(row.goodsAmount)
                 audit(row.id,row.goodsAmount);
             }else if (layEvent === 'depot') {//提交仓库
                 depot(row.id);
             }else if (layEvent === 'look') {//撤回
                 look(row.id);
             }else if (layEvent === 'finance') {//撤回
-                finance(row.id);
+                finance(row.id,row.goodsAmount);
             }else if (layEvent === 'return') {//撤回
                 return(row.id);
             }
@@ -232,14 +233,14 @@ layui.config({
 
     //提交财务
 
-    function finance(id){
+    function finance(id,goodsAmount){
         layer.confirm('提交财务确认吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
-                id: id
+                id: id,
+                goodsAmount:goodsAmount
             };
-
             $api.updateFinance(req,function (data) {
                 layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
