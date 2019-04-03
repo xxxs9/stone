@@ -1,19 +1,18 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.controllers.system.DepotInventoryCheckController;
-import com.gameloft9.demo.controllers.system.DepotOrderController;
 import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
-import com.gameloft9.demo.dataaccess.dao.system.SysSupplierMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysSupplier;
 import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.*;
+import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +39,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
     @Autowired
-    DepotOrderController depotOrder;
+    DepotOrderService  depotOrderServiceImpl ;
 
     /**根据id获取*/
     public PurchaseOrder selectByPrimaryKey(String id) {
@@ -273,7 +272,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String p2 = dao.selectByPrimaryKey(purchaseOrder.getId()).getGoodsId();
         String p3 = dao.selectByPrimaryKey(purchaseOrder.getId()).getGoodsNumber();
         String p4 = dao.selectByPrimaryKey(purchaseOrder.getId()).getApplyUser();
-        depotOrder.addPurorderDepotOrderIn(p1,p2,p3,p4);
+        depotOrderServiceImpl.addPurorderDepotOrderIn(p1,p2,p3,p4);
         dao.toolsUpdate(purchaseOrder);
         return true;
     }
