@@ -7,6 +7,7 @@ import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.PurchaseReturnService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.*;
@@ -35,6 +36,8 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     FinanceApplyOrderMapper applyOrderMapper;
     @Autowired
     PurchaseOrderMapper purOrder;
+    @Autowired
+    DepotOrderService depotOrderServiceImpl ;
 
 
     /**查询所有*/
@@ -113,31 +116,13 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     public boolean commitReUpdate(PurchaseReturn purchaseReturn){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
-        purchaseReturn.setDepotState(Constants.DepotState.DEPOT_WAITING_IN);
-        /*String state = purchaseReturn.getDepotState();
-        //按固定格式生成订单编号
-        String str="审核通过";
-        if(str.equals(state)){
-            purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_PASS);
-            //插入订单
-            SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
-            financeApplyOrder.setId(UUIDUtil.getUUID());
-            financeApplyOrder.setApplyId(purchaseReturn.getId());
-            int price = NumberUtil.strToInt(purchaseReturn.getPrice());
-            int goodsNumber = NumberUtil.strToInt(purchaseReturn.getGoodsNumber());
-            int applyMoney = price * goodsNumber;
-            financeApplyOrder.setApplyMoney(applyMoney+"");
-            financeApplyOrder.setApplyType(1);
-            financeApplyOrder.setApplyState(1);
-            financeApplyOrder.setApplyTime(new Date());
-            String applyUser = (String) request.getSession().getAttribute("sysUser");
-            financeApplyOrder.setApplyUser(applyUser);
-            applyOrderMapper.add(financeApplyOrder);
-        }else{
-            purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_FAIL);
-        }*/
-
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+        dao.updateTools(purchaseReturn);
+        String p1 = dao.selectByPrimaryKey(purchaseReturn.getId()).getOrderNumber();
+        String p2 = dao.selectByPrimaryKey(purchaseReturn.getId()).getGoodsId();
+        String p3 = dao.selectByPrimaryKey(purchaseReturn.getId()).getGoodsNumber();
+        String p4 = dao.selectByPrimaryKey(purchaseReturn.getId()).getApplyUser();
+        depotOrderServiceImpl.addPurorderDepotOrderOut(p1,p2,p3,p4);
         return true;
     }
 
