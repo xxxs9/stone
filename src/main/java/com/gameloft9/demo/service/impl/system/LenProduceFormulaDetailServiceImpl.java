@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @packageName: com.gameloft9.demo.service.impl.system
@@ -29,6 +28,10 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      */
     public List<LenProduceFormulaDetail> selectAll() {
         return mapper.selectAll();
+    }
+
+    public List<LenProduceFormulaDetail> getByFormulaId(String formulaId) {
+        return mapper.getByFormulaId(formulaId);
     }
 
     /**

@@ -248,5 +248,8 @@
         FROM
         L_PRODUCT t
     </select>
+    <update id="insertSupportPrice" >
+        update l_product set SUPPORT_PRICE=#{supportPrice} where ID=#{id}
+    </update>
 </mapper>
 
