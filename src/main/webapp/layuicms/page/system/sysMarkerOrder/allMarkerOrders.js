@@ -120,8 +120,8 @@ layui.config({
                 look(row.id);
             }else if (layEvent === 'submit') {//提交仓库审核
                 submit(row.id);
-            }else if (layEvent === 'fina') {//提交仓库审核
-                fina(row.id);
+            }else if (layEvent === 'fina') {//提交财务审核
+                fina(row.id,row.acceptedAmount);
             }
         });
     }
@@ -256,12 +256,13 @@ layui.config({
 
     //提交财务
 
-    function fina(id){
+    function fina(id,acceptedAmount){
         layer.confirm('确认提交吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
-                id: id
+                id: id,
+                acceptedAmount:acceptedAmount
             };
 
             $api.updateFina(req,function (data) {
