@@ -218,4 +218,14 @@
             </if>
         </where>
     </update>
+
+    <!--List<String> getSaleReceiveChart();-->
+    <select id="getSaleReceiveChart" resultType="java.lang.String">
+        SELECT
+        SUM(ACTUAL_BALANCE)
+        FROM a_sale_receivable
+        WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
+        GROUP BY ACTUAL_BALANCE
+        ORDER BY AUDIT_TIME
+    </select>
 </mapper>

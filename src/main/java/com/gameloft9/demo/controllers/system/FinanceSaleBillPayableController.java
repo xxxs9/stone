@@ -83,4 +83,11 @@ public class FinanceSaleBillPayableController {
     public IResult getSalePayById(String id){
         return new ResultBean<SysFinanceSaleBillsPayable>(saleBillPayService.getSalePayById(id));
     }
+
+    @RequestMapping(value = "/getSalePayChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getSalePayChart(){
+        return new ResultBean<Collection<String>>(saleBillPayService.getSalePayChart());
+    }
+
 }

@@ -66,4 +66,10 @@ public interface FinancePurchaseReceivableService {
      *  boolean
      */
     Boolean purchaseOrderReceivePass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+
+    /**
+     * 获取采购收入图表数据
+     * @return
+     */
+    List<String> getPurchasePayChart();
 }

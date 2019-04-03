@@ -24,6 +24,21 @@ layui.define(['$tool','jquery'], function (exports) {
         });
     }
 
+    function chart(url,req,successCallback,errorCallback) {
+        $.ajax({
+            url:url,
+            data:req,
+            method:"post",
+            async:false,
+            success:function (data) {
+                successCallback(data);
+            },
+            error:function (error) {
+                errorCallback(error);
+            }
+        });
+    }
+
     /**
      * 封装一个get
      * */
@@ -389,6 +404,24 @@ layui.define(['$tool','jquery'], function (exports) {
         saleOrderPayPass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/saleOrderPayPass',req,successCallback,errorCallback);
         },
+        /*采购支出图表数据*/
+        getPurchasePayChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'finance/getPurchasePayChart',req,successCallback,errorCallback);
+        },
+        /*采购收入图表数据*/
+        getPurchaseReceiveChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'finance/getPurchaseReceiveChart',req,successCallback,errorCallback);
+        },
+        /*销售收入图表数据*/
+        getSaleReceiveChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'finance/getSaleReceiveChart',req,successCallback,errorCallback);
+        },
+        /*销售支出图表数据*/
+        getSalePayChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'finance/getSalePayChart',req,successCallback,errorCallback);
+        },
+
+
         AddProduct:function(req,successCallback,errorCallback) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
 
