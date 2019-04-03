@@ -204,7 +204,7 @@
         FROM
             t_purchase_order
         WHERE
-            STATE = '审核通过'
+            DEPOT_STATE = '审核通过'
     </select>
 
     <!--orderNumber下拉框自动获取对应的信息-->
