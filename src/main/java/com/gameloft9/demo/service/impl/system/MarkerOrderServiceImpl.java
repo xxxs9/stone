@@ -2,14 +2,17 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.controllers.system.DepotInventoryCheckController;
 import com.gameloft9.demo.controllers.system.DepotOrderController;
+import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.MarkerOrderMapper;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.StateUUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
@@ -34,6 +37,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
     MarkerOrderMapper markerOrderMapper;
     @Autowired
     DepotOrderService depotOrderServiceImpl;
+    @Autowired
+    FinanceApplyOrderMapper applyOrderMapper;
 
     /**
      * 获取所有订单信息
@@ -189,9 +194,24 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     @Override
     public Boolean fina(MarkerOrderTest markerOrderTest) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
-        markerOrderTest.setState(StateUUtil.APPLY_fina);
+        markerOrderTest.setState(StateUUtil.APPLY_finacc);
         markerOrderMapper.submit(markerOrderTest);
+        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
+        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setApplyTime(new Date());
+        String auditUser = (String) request.getSession().getAttribute("sysUser");
+        applyOrder.setApplyUser(auditUser);
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
+        applyOrder.setApplyType(Constants.Finance.SALE_RECEIVABLE);
+        //订单id
+        applyOrder.setApplyId(markerOrderTest.getId());
+        //订单总价
+        applyOrder.setApplyMoney(markerOrderTest.getAcceptedAmount());
+        //插入申请单
+        applyOrderMapper.add(applyOrder);
         return true;
     }
 
