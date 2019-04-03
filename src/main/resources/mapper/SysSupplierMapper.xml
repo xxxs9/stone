@@ -15,39 +15,36 @@
     </sql>
 
     <select id="getSupplierName" resultType="java.lang.String">
-        select distinct t.SUPPLIER_NAME
+        select DISTINCT t.SUPPLIER_NAME
         from sys_supplier t
     </select>
     <select id="getAll" resultMap="BaseResultMap" parameterType="map">
-        select
-        <include refid="Base_Column_List"/>
+        select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
         from sys_supplier t
         where 1=1
-        <if test="supplierName != null and supplierName != '' ">
+        <if test="supplierName !=null and supplierName != ''">
             and (
-            t.SUPPLIER_NAME like (concat('%',concat(#{supplierName,jdbcType=VARCHAR},'%')))
-            and t.SUPPLIER_NAME >' '
+            t.SUPPLIER_NAME LIKE (concat('%',concat(#{supplierName,jdbcType=VARCHAR},'%')))
+            AND t.SUPPLIER_NAME >' '
             )
         </if>
-        <if test="start != null and end != null">
-            limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
-        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="countGetAll" resultType="Integer" parameterType="map">
         select count(1)
-        from sys_supplier t
+        from SYS_SUPPLIER t
         where 1=1
-        <if test="supplierName != null and supplierName != '' ">
+        <if test="supplierName !=null and supplierName != ''">
             and (
-            t.SUPPLIER_NAME like (concat('%',concat(#{supplierName,jdbcType=VARCHAR},'%')))
-            and t.SUPPLIER_NAME >' '
+            t.SUPPLIER_NAME LIKE (concat('%',concat(#{supplierName,jdbcType=VARCHAR},'%')))
+            AND t.SUPPLIER_NAME >' '
             )
         </if>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysSupplier">
         insert into sys_supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != '' ">
+            <if test="id != null">
                 ID,
             </if>
             <if test="supplierName != null and supplierName != '' ">
@@ -55,67 +52,50 @@
             </if>
                 SUPPLIER_DESCRIBE,
             <if test="chargeName != null and chargeName != '' ">
-                CHARGE_NAME,
+
             </if>
             <if test="phone != null and phone != '' ">
                 PHONE,
             </if>
-            <if test="email != null and email != '' ">
-                EMAIL,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null and id != '' ">
+            <if test="id != null">
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="supplierName != null and supplierName != '' ">
+            <if test="supplierName != null">
                 #{supplierName,jdbcType=VARCHAR},
             </if>
                 #{supplierDescribe,jdbcType=VARCHAR},
-            <if test="chargeName !=null and chargeName != '' ">
-                #{chargeName,jdbcType=VARCHAR},
-            </if>
-            <if test="phone != null and phone != '' ">
+            <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null and email != '' ">
-                #{email,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
     <select id="getBySupplierName" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from sys_supplier t
-    where t.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
+    select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
+    from SYS_SUPPLIER t where t.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
     </select>
     <select id="getById" parameterType="map" resultMap="BaseResultMap">
-      select
-      <include refid="Base_Column_List"/>
+      select ID,SUPPLIER_NAME,SUPPLIER_DESCRIBE,CHARGE_NAME,PHONE,EMAIL
       from sys_supplier t
-      where t.ID = #{id,jdbcType=VARCHAR}
+      where t.id = #{id,jdbcType=VARCHAR}
     </select>
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysSupplier" >
+
         update sys_supplier
-        <set>
-            <if test="supplierName != null and supplierName != '' " >
+        <set >
+            <if test="supplierName != null" >
                 SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR},
             </if>
                 SUPPLIER_DESCRIBE = #{supplierDescribe,jdbcType=VARCHAR},
-            <if test="chargeName != null and chargeName != '' ">
-                CHARGE_NAME = #{chargeName,jdbcType=VARCHAR},
-            </if>
-            <if test="phone != null and phone != '' " >
+            <if test="phone != null" >
                 PHONE = #{phone,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null and email != '' ">
-                EMAIL = #{email,jdbcType=VARCHAR},
             </if>
         </set>
         where ID = #{id,jdbcType=VARCHAR}
     </update>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from sys_supplier
+        delete from SYS_SUPPLIER
         where ID = #{id,jdbcType=VARCHAR}
     </delete>
 </mapper>

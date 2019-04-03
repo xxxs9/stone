@@ -65,7 +65,14 @@
                 tpwidget("show");</script>
             </div>
             <!-- 顶部右侧菜单 -->
+            <script>
+
+            </script>
             <ul class="layui-nav top_menu">
+                <li class="layui-nav-item">
+                    <a href="">消息提示<span class="layui-badge" id="unreadMessage"></span></a>
+                </li>
+
                 <li class="layui-nav-item showNotice" id="showNotice" pc>
                     <a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>最新公告</cite></a>
                 </li>
@@ -76,7 +83,7 @@
                 <li class="layui-nav-item" mobile>
                     <a href="page/system/login/login.html" class="signOut"><i class="iconfont icon-loginout"></i> 退出</a>
                 </li>
-                <li class="layui-nav-item" pc>
+                <li class="layui-nav-item" pc id="shownewmessageinfo">
                     <a href="javascript:;">
                         <!--头像展示-->
                         <img src="common/images/face.jpg" class="layui-circle" width="35" height="35">
@@ -84,12 +91,15 @@
                         <cite class="cite-user-name"></cite>
                     </a>
                     <dl class="layui-nav-child">
+
                         <dd><a href="javascript:;" data-url="page/system/personCenter/userInfo.html"><i
                                 class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
                         <dd><a href="javascript:;" data-url="page/system/personCenter/changePwd.html"><i
                                 class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
                         <dd><a href="javascript:;" class="changeSkin"><i
                                 class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="page/system/message/allMessage.html"><i
+                                class="iconfont icon-new1" data-icon="icon-zhanghu"></i><cite>消息提示</cite></a></dd>
                         <dd><a href="login.html" class="signOut"><i
                                 class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
                     </dl>
@@ -97,15 +107,20 @@
             </ul>
         </div>
     </div>
+
+
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
             <a class="img" title="我的头像"><img src="common/images/face.jpg"></a>
             <p>你好！<span class="userName"></span>, 欢迎登录</p>
         </div>
+
         <div class="navBar layui-side-scroll"></div>
     </div>
-    <!-- 右侧内容 -->
+
+<input id="val_sg_num" type="hidden" />
+
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
@@ -139,6 +154,12 @@
         </p>
     </div>
 </div>
+
+
+
+
+
+
 
 <!-- 移动导航 -->
 <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>

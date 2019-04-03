@@ -26,11 +26,14 @@
   <!--shiro filter 必须放在其他filter前面-->
   <filter>
     <filter-name>myShiroFilter</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy
+    </filter-class>
+    <async-supported>true</async-supported>
     <init-param>
       <param-name>targetFilterLifecycle</param-name>
       <param-value>true</param-value>
     </init-param>
+
   </filter>
   <filter-mapping>
     <filter-name>myShiroFilter</filter-name>
@@ -40,6 +43,7 @@
   <filter>
     <filter-name>userinfofilter</filter-name>
     <filter-class>com.gameloft9.demo.mgrframework.filters.UserFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
   <filter-mapping>
     <filter-name>userinfofilter</filter-name>
@@ -48,6 +52,7 @@
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -56,6 +61,7 @@
       <param-name>forceEncoding</param-name>
       <param-value>true</param-value>
     </init-param>
+
   </filter>
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
@@ -70,6 +76,7 @@
       <param-value>classpath:applicationContext-springmvc.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
   </servlet>
   <servlet-mapping>
     <servlet-name>DispatcherServlet</servlet-name>
@@ -80,5 +87,7 @@
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
+
+  <absolute-ordering/>
 
 </web-app>

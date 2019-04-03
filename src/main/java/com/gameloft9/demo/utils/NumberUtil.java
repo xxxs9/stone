@@ -7,6 +7,20 @@ package com.gameloft9.demo.utils;
  */
 public class NumberUtil {
 
+
+    /**
+     * 字符串不为空转int
+     *
+     * @param str 需要转换的字符串
+     * @return int
+     */
+    public static int strToInt(String str){
+        int num = 0;
+        if(str != null && !"".equals(str)){
+            num =   Integer.parseInt(str);
+        }
+        return num;
+    }
     /**
      * 将N位数补零
      * @param number 数字
@@ -57,19 +71,5 @@ public class NumberUtil {
         System.out.println(paddingNumber(111,2));
         System.out.println(paddingNumber(1,3));
         System.out.println(paddingNumber(0,1));
-    }
-
-    /**
-     * 字符串不为空转int
-     *
-     * @param str 需要转换的字符串
-     * @return int
-     */
-    public static int strToInt(String str){
-        int num = 0;
-        if(str != null && !"".equals(str)){
-            num = Integer.parseInt(str);
-        }
-        return num;
     }
 }

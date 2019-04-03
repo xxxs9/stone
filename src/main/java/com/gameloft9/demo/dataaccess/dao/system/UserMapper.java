@@ -41,6 +41,9 @@ public interface UserMapper {
     /**
      * 分页获取用户列表
      */
+
+    List<UserTest>findall();
+
     List<UserTest> getAll(
             @Param("start") int start,
             @Param("end") int end,

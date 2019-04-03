@@ -45,7 +45,29 @@ layui.config({
            window.sessionStorage.setItem("userId",data.data.userId);
            //登录成功跳转到首页,code !== '0000'的已经在ajaxExtention中统一处理了
            window.location.href = $tool.getResUrl()+"layuicms/index.html";
+
+
+
        });
+
+    /*    function Push() {*/
+/*   每次登录触发一次查询未读消息的方法 来获取未读消息条数 */
+            $api.getNewMessage(null, function (res) {
+                var uMessage =res.data
+
+           /*     if(uMessage>0){
+                    layer.tips('你收到了' + uMessage + '新信息！请在信箱查看', '#shownewmessageinfo', {
+                        tips: [1, '#3595CC'],
+                        time: 5000
+
+                    });
+                }*/
+               /* document.getElementById("unreadMessage").innerHTML=uMessage*/
+               /* $("#unreadMessage").html(uMessage)*/
+
+            });
+
+      /*  }*/
 
         return false;
     });
@@ -72,6 +94,9 @@ layui.config({
     function isLogin() {
         var userId = window.sessionStorage.getItem("userId");
         return !$tool.isBlank(userId);
+        var websocket = null;
+        //判断当前浏览器是否支持WebSocket
+
     }
 
 });

@@ -12,6 +12,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static com.gameloft9.demo.mgrframework.utils.CheckUtil.*;
 
@@ -73,7 +75,12 @@ public class LoginServiceImpl implements LoginService{
         if(currentUser.isAuthenticated()){
             log.info("验证成功！");
             //还可以把用户信息放入session中
+
             request.getSession().setAttribute("sysUser",loginName);
+           ; //连接websocket
+            System.out.println("连接websocket---------------");
+            request.getSession().setMaxInactiveInterval(30*60);//session超时30min
+
 
             //拼接返回信息
             UserTest userTest = userMapper.getByLoginName(loginName);

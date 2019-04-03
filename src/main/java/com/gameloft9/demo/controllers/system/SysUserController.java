@@ -47,6 +47,15 @@ public class SysUserController {
         return new PageResultBean<Collection<UserTest>>(sysUserServiceImpl.getAll(page,limit,loginName,realName,status),sysUserServiceImpl.countGetAll(loginName,realName,status));
     }
 
+    @RequestMapping(value = "/findAll.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findAll(){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Collection<UserTest>>(sysUserServiceImpl.findAll());
+    }
+
+
+
 
     /**
      * 添加用户
