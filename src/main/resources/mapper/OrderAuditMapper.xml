@@ -287,7 +287,7 @@
         DEPOT_REMARKS
         from
         w_marker_order
-        <!--  w_marker_order  left join w_order_audit  ON w_marker_order.ID=w_order_audit.ID-->
+
         where ORDER_ID = #{orderId,jdbcType=VARCHAR}
     </select>
 </mapper>
