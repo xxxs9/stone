@@ -162,13 +162,13 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         CheckUtil.notBlank(applyUser, "申请人为空");
 
         DepotOrder depotOrder= depotOrderMapper.getById(orderNumber);
-        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
         depotOrder.setType("采购退货");
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
         depotOrder.setApplyTime(new Date());
-        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_OUT);
 
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
