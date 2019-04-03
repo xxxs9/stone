@@ -7,6 +7,7 @@ import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.OrderUtil;
@@ -32,7 +33,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
     @Autowired
     MarkerOrderMapper markerOrderMapper;
     @Autowired
-    DepotOrderController depotOrder;
+    DepotOrderService depotOrderServiceImpl;
+
     /**
      * 获取所有订单信息
      * @param page
@@ -131,6 +133,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      */
     @Override
     public Boolean audiUpdate(MarkerOrderTest markerOrderTest) {
+
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUtil.APPLY_WAITING);
         markerOrderMapper.audiUpdate(markerOrderTest);
@@ -175,7 +178,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         markerOrderTest.setState(StateUUtil.APPLY_submit);
         markerOrderMapper.submit(markerOrderTest);
         MarkerOrderTest markerOrder = markerOrderMapper.getMaker(markerOrderTest.getId());
-        depotOrder.addMarketDepotOrderOut(markerOrder.getOrderId(),markerOrder.getProductId(),markerOrder.getDeliverNumber(),markerOrder.getApplyUser());
+        depotOrderServiceImpl.addMarketDepotOrderOut(markerOrder.getOrderId(),markerOrder.getProductId(),markerOrder.getDeliverNumber(),markerOrder.getApplyUser());
         return true;
     }
 

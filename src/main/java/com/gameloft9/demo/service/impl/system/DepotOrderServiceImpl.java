@@ -8,11 +8,12 @@ import com.gameloft9.demo.dataaccess.dao.system.SysMaterialGoodsMapper;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
 import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysDepot;
+import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
+import com.gameloft9.demo.mgrframework.beans.constant.OperType;
+import com.gameloft9.demo.mgrframework.beans.response.IResult;
+import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
-import com.gameloft9.demo.service.api.system.DepotInventoryService;
-import com.gameloft9.demo.service.api.system.DepotOrderService;
-import com.gameloft9.demo.service.api.system.LenProductService;
-import com.gameloft9.demo.service.api.system.SysMaterialGoodsService;
+import com.gameloft9.demo.service.api.system.*;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.UUIDUtil;
@@ -21,6 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -112,6 +116,69 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         return depotOrder.getId();
     }
 
+
+    /**
+     * 添加采购入库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.ADD,memo = "新增销售入库单")
+    public String addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber, String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(UUIDUtil.getUUID());
+        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setType("采购入库");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
+
+    /**
+     * 添加销售出库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
+    public String addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(UUIDUtil.getUUID());
+        depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
+        depotOrder.setType("销售出库");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_OUT);
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
+
     /**
      * 添加仓库单
      * @param id                    仓库单编号
@@ -183,6 +250,11 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
+
+        if(depotOrderMapper.getById(id).getOrderType().equals("销售出库")){
+        }
+
+
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
         //库存中的数量

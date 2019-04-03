@@ -2,6 +2,8 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysDepot;
+import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
+import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 
 import java.util.List;
 
@@ -36,6 +38,26 @@ public interface DepotOrderService {
      * @param applyUser             申请人
      * */
     String addDepotOrder(String orderType,String type,String goodsId,String goodsNumber,String applyUser);
+
+
+
+    /**
+     * 添加采购入库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber, String applyUser);
+
+    /**
+     * 添加销售出库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser);
 
     /**
      * 添加仓库单
