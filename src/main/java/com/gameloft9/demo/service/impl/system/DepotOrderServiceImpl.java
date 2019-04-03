@@ -50,6 +50,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private OrderAuditMapper orderAuditMapper;
     @Autowired
     private PurchaseOrderService purchaseOrderServiceImpl;
+    @Autowired
+    private PurchaseReturnService purchaseReturnServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -162,13 +164,13 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         CheckUtil.notBlank(applyUser, "申请人为空");
 
         DepotOrder depotOrder= depotOrderMapper.getById(orderNumber);
-        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
         depotOrder.setType("采购退货");
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
         depotOrder.setApplyTime(new Date());
-        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_OUT);
 
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
@@ -276,6 +278,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
             }
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
+        }
+        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+            purchaseReturnServiceImpl.depotState(id);
         }
 
         if(depotOrderMapper.getById(id).getType().equals("销售出库")){

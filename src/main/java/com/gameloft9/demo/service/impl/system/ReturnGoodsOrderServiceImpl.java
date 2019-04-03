@@ -151,9 +151,24 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      */
     @Override
     public Boolean finance(ShipmentOrder shipmentOrder) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_finance);
         returnGoodsOrderMapper.finance(shipmentOrder);
+        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
+        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setApplyTime(new Date());
+        String auditUser = (String) request.getSession().getAttribute("sysUser");
+        applyOrder.setApplyUser(auditUser);
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
+        applyOrder.setApplyType(Constants.Finance.SALE_PAYABLE);
+        //订单id
+        applyOrder.setApplyId(shipmentOrder.getId());
+        //订单总价
+        applyOrder.setApplyMoney(shipmentOrder.getGoodsAmount());
+        //插入申请单
+        applyOrderMapper.add(applyOrder);
         return true;
     }
 }
