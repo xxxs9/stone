@@ -78,5 +78,12 @@ public class FinanceSaleReceivableController {
         return new ResultBean<SysFinanceSaleReceivable>(financeSaleReceivableService.getSaleReceiveById(id));
     }
 
+    @RequestMapping(value = "/getSaleReceiveChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getSaleReceiveChart(){
+        return new ResultBean<Collection<String>>(financeSaleReceivableService.getSaleReceiveChart());
+    }
+
+
 
 }
