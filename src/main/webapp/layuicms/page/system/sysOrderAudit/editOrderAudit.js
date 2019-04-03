@@ -4,13 +4,14 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer','$api', 'tree', 'jquery', 'ajaxExtention', '$tool'], function () {
+}).use(['form', 'layer','$api', 'layedit','tree', 'jquery', 'ajaxExtention', '$tool'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery,
         $tool = layui.$tool,
-        $api = layui.$api;
+        $api = layui.$api,
+        layedit = layui.layedit;
 
     var orgId;
     var orgName;
@@ -24,14 +25,46 @@ layui.config({
         //初始化机构树
       //  initOrgTree();
         //初始化用户信息
-
+        loadProductIdList();
     }
 
     init();
 
+    init();
+
     /**
-     * 初始化组织机构树
-     * */
+     * 填写审核原因
+     */
+
+    form.verify({
+        remarks: function(value){
+            if(value.length <=0){
+                return '请输入审核内容';
+            }
+        }
+    })
+
+
+
+    /**
+     * 初始化下拉框
+     */
+
+
+    function loadProductIdList() {
+
+        $api.GetProductId(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '<option value="">--请填写--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]+'">'+data[i]+'</option>>';
+                }
+                $('#productId').append($(html));
+                form.render();
+            }
+        });
+    }
 
             /**
              * 初始化用户信息
@@ -54,14 +87,14 @@ layui.config({
                     $("[name='productId']").val(data.productId);
                     $("[name='customer']").val(data.customer);
                     $("[name='deliverNumber']").val(data.deliverNumber);
-                    $("[name='currentNumber']").val(data.currentNumber);
                     $("[name='plannedNumber']").val(data.plannedNumber);
                     $("[name='acceptedAmount']").val(data.acceptedAmount);
-                    $("[name='unpaidAmount']").val(data.unpaidAmount);
                     $("[name='applyUser']").val(data.applyUser);
                     $("[name='state']").val(data.state);
                     $("[name='orderAuditUser']").val(data.orderAuditUser);
-                    $("[name='remarks']").val(data.remarks)
+                    $("[name='orderAuditDepot']").val(data.orderAuditDepot);
+                    $("[name='remarks']").val(data.remarks);
+                    $("[name='depotRemarks']").val(data.depotRemarks);
 
                     /*orgId = data.orgId;
                     orgName = data.orgName;*/
@@ -85,15 +118,15 @@ layui.config({
                 var productId = data.field.productId;
                 var customer = data.field.customer;
                 var deliverNumber = data.field.deliverNumber;
-                var currentNumber = data.field.currentNumber;
                 var plannedNumber = data.field.plannedNumber;
                 var acceptedAmount = data.field.acceptedAmount;
-                var unpaidAmount = data.field.unpaidAmount;
                 var applyUser = data.field.applyUser;
                 var state = $(this).html();
                 //var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
-                var remarks = data.field.remarks
+                var orderAuditDepot = data.field.orderAuditDepot;
+                var remarks = data.field.remarks;
+                var depotRemarks = data.field.depotRemarks;
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
@@ -114,14 +147,14 @@ layui.config({
                     productId: productId,
                     customer: customer,
                     deliverNumber: deliverNumber,
-                    currentNumber: currentNumber,
                     plannedNumber: plannedNumber,
                     acceptedAmount: acceptedAmount,
-                    unpaidAmount: unpaidAmount,
                     applyUser: applyUser,
                     state: state,
                     orderAuditUser: orderAuditUser,
-                    remarks: remarks
+                    orderAuditDepot: orderAuditDepot,
+                    remarks: remarks,
+                    depotRemarks: depotRemarks
                 };
 
                 $api.updateOrderAudit(req, function (data) {

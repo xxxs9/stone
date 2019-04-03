@@ -23,7 +23,6 @@ layui.config({
         initGoods();  //初始化货品名称
         initState();  //初始化订单状态
     }
-
     init();
 
     /**
@@ -50,9 +49,9 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].goodsName + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -71,7 +70,8 @@ layui.config({
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
                 {field: 'orderNumber', title: '订单单号', fixed: 'left', width: 180}
-                , {field: 'goodsId', title: '商品名称', width: 120}
+                , {field: 'goodsName', title: '商品名称', width: 120}
+                , {field: 'supplierName', title: '供应商', width: 180}
                 , {field: 'goodsNumber', title: '商品数量', width: 100}
                 , {field: 'price', title: '商品单价', width: 120}
                 , {field: 'totalPrice', title: '商品总价', width:140}
@@ -115,13 +115,13 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var depotState = data.field.depotState;
-        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
 
         //表格重新加载
         tableIns.reload({
             where: {
                 depotState: depotState,
-                goodsId: goodsId
+                goodsName: goodsName
             }
         });
         return false;

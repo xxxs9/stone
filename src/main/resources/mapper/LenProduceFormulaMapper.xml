@@ -8,14 +8,15 @@
            <result column="PRODUCT_ID" property="productId"/>
             <result column="FORMULA_TYPE" property="formulaType"/>
             <result column="FORMULA_NUMBER" property="formulaNumber"/>
-            <result column="CREATE_USER_ID" property="createUserId"/>
+            <result column="CREATE_USER" property="createUser"/>
+            <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
             <result column="OTHER1" property="other1"/>
             <result column="OTHER2" property="other2"/>
             <result column="OTHER3" property="other3"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    ID,PRODUCT_ID,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER_ID,OTHER1,OTHER2,OTHER3
+    ID,PRODUCT_ID,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,OTHER1,OTHER2,OTHER3,CREATE_TIME
      </sql>
 
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -23,6 +24,12 @@
         <include refid="Base_Column_List"/>
         from l_produce_formula
         where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select ID,PRODUCT_ID,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,CREATE_TIME,OTHER1,OTHER2,OTHER3
+        from l_produce_formula
     </select>
 
 
@@ -33,8 +40,8 @@
         <if test="productId != null and productId != ''">
             and t.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
         </if>
-        <if test="createUserId != null and createUserId != ''">
-            and t.CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR}
+        <if test="createUser != null and createUser != ''">
+            and t.CREATE_USER = #{createUser,jdbcType=VARCHAR}
         </if>
         order by t.id desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -77,16 +84,17 @@
 
 
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormula">
-    insert into l_produce_formula ( ID,PRODUCT_ID,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER_ID,OTHER1,OTHER2,OTHER3)
+    insert into l_produce_formula ( ID,PRODUCT_ID,FORMULA_TYPE,FORMULA_NUMBER,CREATE_USER,CREATE_TIME,OTHER1,OTHER2,OTHER3)
     values (
     #{id},
     #{productId},
     #{formulaType},
     #{formulaNumber},
-    #{createUserId},
+    #{createUser},
+    #{createTime},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
 
   </insert>
@@ -105,8 +113,11 @@
             <if test="formulaNumber != null">
                 FORMULA_NUMBER,
             </if>
-            <if test="createUserId != null">
-                CREATE_USER_ID,
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
             </if>
             <if test="other1 != null">
                 OTHER1,
@@ -132,8 +143,11 @@
             <if test="formulaNumber != null">
                 #{formulaNumber,jdbcType=VARCHAR},
             </if>
-            <if test="createUserId != null">
-                #{createUserId,jdbcType=VARCHAR},
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
             </if>
             <if test="other1 != null">
                 #{other1,jdbcType=VARCHAR},
@@ -163,8 +177,11 @@
             <if test="formulaNumber != null">
                 FORMULA_NUMBER,
             </if>
-            <if test="createUserId != null">
-                CREATE_USER_ID,
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="createTime != null">
+                CREATE_Time,
             </if>
             <if test="other1 != null">
                 OTHER1,
@@ -181,9 +198,15 @@
 
     <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormula">
     update l_produce_formula
-    set PRODUCT_ID=#{productId},FORMULA_TYPE=#{formulaType},FORMULA_NUMBER=#{formulaNumber},
-    CREATE_USER_ID=#{createUserId},
-    OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
+    set
+    PRODUCT_ID=#{productId},
+    FORMULA_TYPE=#{formulaType},
+    FORMULA_NUMBER=#{formulaNumber},
+    CREATE_USER=#{createUser},
+    CREATE_TIME=#{createTime},
+    OTHER1=#{other1},
+    OTHER2=#{other2},
+    OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

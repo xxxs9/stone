@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProductPlanReachCheckMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        <id column="ID" property="id"/>
+        <result  column="PRODUCT_NAME" property="productName"/>
+        <result column="PRODUCT_TYPE" property="productType"/>
+        <result column="PRODUCT_NUMBER" property="productNumber"/>
+        <result column="STATE" property="state"/>
+        <result column="CAN_SOLD" property="canSold"/>
+        <result column="SUPPORT_PRICE" property="supportPrice"/>
+        <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.gameloft9.demo.dataaccess.model.system.LenProducePlan">
+        <id column="ID" property="id"/>
+        <result  column="PRODUCT_ID" property="productId"/>
+        <result column="PlAN_NUMBER" property="planNumber"/>
+        <result column="REAL_NUMBER" property="realNumber"/>
+        <result column="STATE" property="state"/>
+        <result column="GOODS_NUMBER" property="goodNumber"/>
+        <result column="PRODUCE_DATE" property="produceDate" jdbcType="DATE"/>
+        <result column="FINISH_DATE" property="finishDate" jdbcType="DATE"/>
+        <result column="BILL_DATE" property="billDate" jdbcType="DATE"/>
+        <result column="BILL_CYCLE" property="billCycle"/>
+        <result column="PLAN_REMARK" property="planRemark"/>
+    </resultMap>
+    <resultMap id="BaseResultMap2" type="com.gameloft9.demo.dataaccess.model.system.LenFormulaReach">
+        <id column="ID" property="id"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="PRODUCE_FORMULA_ID" property="produceFormulaId" jdbcType="VARCHAR"/>
+        <result column="PRODUCE_FORMULA_DETAIL_ID" property="produceFormulaDetailId"/>
+        <result column="DEPOT_AUDI" property="depotAudi"/>
+        <result column="STATE" property="state"/>
+        <result column="REACH_USER" property="reachUser"/>
+        <result column="REACH_TIME" property="reachTime" jdbcType="DATE"/>
+        <result column="FORMULA_BACK" property="formulaBack"/>
+        <result column="OTHER1" property="other1"/>
+        <result column="OTHER2" property="other2"/>
+        <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap3" type="com.gameloft9.demo.dataaccess.model.system.LenProductCheck">
+        <id column="ID" property="id"/>
+        <result  column="PRODUCE_PLAN_ID" property="producePlanId"/>
+        <result column="FORMULA_REACH_ID" property="formulaReachId"/>
+        <result column="STATE" property="state"/>
+        <result column="CHECK_USER" property="checkUser"/>
+        <result column="CHECK_TIME" property="checkTime" jdbcType="DATE"/>
+        <result column="WASTE_ID" property="wasteId" />
+        <result column="CHECK_REMARK" property="checkRemark" jdbcType="DATE"/>
+
+    </resultMap>
+
+    <resultMap id="allResult" type="com.gameloft9.demo.dataaccess.model.system.LenProductPlanReachCheck">
+        <id column="ID" property="productId"/>
+        <result  column="PRODUCT_NAME" property="productName"/>
+        <result column="PRODUCT_TYPE" property="productType"/>
+        <result column="PRODUCT_NUMBER" property="productNumber"/>
+        <result column="STATE" property="productState"/>
+        <result column="CAN_SOLD" property="canSold"/>
+        <result column="SUPPORT_PRICE" property="supportPrice"/>
+        <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
+
+
+        <result column="FR_ID" property="reachId"/>
+        <result column="PRODUCT_ID" property="reachProductId"/>
+        <result column="PRODUCE_FORMULA_ID" property="produceFormulaId" jdbcType="VARCHAR"/>
+        <result column="PRODUCE_FORMULA_DETAIL_ID" property="produceFormulaDetailId"/>
+        <result column="DEPOT_AUDI" property="depotAudi"/>
+        <result column="FR_STATE" property="reachState"/>
+        <result column="REACH_USER" property="reachUser"/>
+        <result column="REACH_TIME" property="reachTime" jdbcType="DATE"/>
+        <result column="FORMULA_BACK" property="formulaBack"/>
+        <result column="OTHER1" property="other1"/>
+        <result column="OTHER2" property="other2"/>
+        <result column="OTHER3" property="other3"/>
+
+
+
+    </resultMap>
+    <sql id="allSql">
+      p.ID,p.PRODUCT_NAME,p.PRODUCT_TYPE,p.PRODUCT_NUMBER,p.STATE,p.CAN_SOLD,p.SUPPORT_PRICE,p.PRODUCT_DESCRIBE,
+      fr.ID FR_ID,fr.PRODUCT_ID,fr.PRODUCE_FORMULA_ID,fr.PRODUCE_FORMULA_DETAIL_ID,fr.DEPOT_AUDI,fr.STATE FR_STATE,
+      fr.REACH_USER,fr.REACH_TIME,fr.FORMULA_BACK,fr.OTHER1
+
+    </sql>
+
+    <select id="selectPCR" resultMap="allResult">
+        select * from l_formula_reach fr,l_product p ,l_product_check pc where
+        p.ID=fr.PRODUCT_ID and fr.ID=pc.FORMULA_REACH_ID
+    </select>
+    <select id="selectReach" resultMap="allResult">
+        select
+        p.ID,p.PRODUCT_NAME,p.PRODUCT_TYPE,p.PRODUCT_NUMBER,p.PRODUCT_STATE,p.CAN_SOLD,p.SUPPORT_PRICE,p.PRODUCT_DESCRIBE,
+        fr.ID FR_ID,fr.PRODUCT_ID,fr.PRODUCE_FORMULA_ID,fr.PRODUCE_FORMULA_DETAIL_ID,fr.DEPOT_AUDI,fr.STATE FR_STATE,
+        fr.REACH_USER,fr.REACH_TIME,fr.FORMULA_BACK,fr.OTHER1
+         from l_formula_reach fr,l_product p  where
+        p.ID=fr.PRODUCT_ID
+
+        <if test="productId != null and productId != ''">
+            and p.PRODUCT_NAME= #{productId,jdbcType=VARCHAR}
+        </if>
+        <if test="reachUser != null and reachUser != ''">
+            and fr.REACH_USER = #{reachUser,jdbcType=VARCHAR}
+        </if>
+        order by fr.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+
+
+</mapper>
+

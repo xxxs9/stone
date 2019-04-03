@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>销售订单管理</title>
+    <title>退货单管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -95,20 +95,43 @@
        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
     {{# }else if(d.state =='退货') { }}
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe65c;</i>主管审核</a>
-    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>-->
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
    <!-- <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
-    {{# }else if(d.state =='主管审核成功') { }}
+    {{# }else if(d.state =='等待主管审核') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="depo"><i class="layui-icon">&#xe65c;</i>等待主管审核</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+
+
+    {{# }else if(d.state =='审核成功') { }}
     <a class="layui-btn  layui-btn-warm   layui-btn-sm" lay-event="depot"><i class="layui-icon">&#xe65c;</i>提交仓库</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
-    {{# }else if(d.state =='仓库审核成功') { }}
-    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="finance"><i class="layui-icon">&#xe65c;</i>提交财务</a>
+    {{# }else if(d.state =='审核失败') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="audit"><i class="layui-icon">&#xe65c;</i>重新提交</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
 
-    {{# }else if(d.state =='财务审核成功') { }}
-    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>已完成退货</a>
+    {{# }else if(d.state =='等待仓库审核') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="fi"><i class="layui-icon">&#xe65c;</i>等待仓库审核</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='仓库审核成功') { }}
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="finance"><i class="layui-icon">&#xe640;</i>提交财务</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    <!--<a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    {{# }else if(d.state =='仓库审核失败') { }}
+    <a class="layui-btn  layui-btn-warm   layui-btn-sm" lay-event="depot"><i class="layui-icon">&#xe65c;</i>重新提交仓库</a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>查看</a>
+
+    {{# }else if(d.state =='等待财务查收') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="fi"><i class="layui-icon">&#xe65c;</i>等待财务查收</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='财务查收成功') { }}
+    <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>完成退货</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+
+
     {{#  } }}
    <!-- <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->

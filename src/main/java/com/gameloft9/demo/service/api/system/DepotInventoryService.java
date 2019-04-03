@@ -59,8 +59,9 @@ public interface DepotInventoryService {
     Boolean delsDepotInventory(String ids);
 
     /**
-     * 查询是否有匹配库存信息
+     * 根据货物id获取库存信息
      * @param goodsId               原料/成品ID
      * */
     DepotInventory findOne(String goodsId);
+
 }

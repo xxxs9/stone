@@ -1,8 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -65,7 +63,6 @@ public interface LenProductService {
 
     /**
      * 删除
-     *
      * @param id
      * @return
      */
@@ -73,18 +70,24 @@ public interface LenProductService {
 
     /**
      * 统计条数
-     *
      * @param state
      * @return
      */
     int dataCount(String state);
 
     /**
-     * 更改state状态码
-     *
+     * 更改状态
+     * @param id
      * @return
      */
-    boolean changeState();
+    boolean changeState(String id);
+
+    /**
+     * 撤回
+     * @param id
+     * @return
+     */
+    boolean stepBack(String id);
 
     /**
      * 选择修改
@@ -102,4 +105,38 @@ public interface LenProductService {
      */
     boolean insertSelective(LenProduct lenProduct);
 
+    /**
+     * 查询已审核产品订单
+     *
+     * @return
+     */
+    List<LenProduct> selectByState();
+
+    /**
+     * 更改状态
+     * @param state
+     * @param id
+     * @return
+     */
+    boolean changeProState(String state,String id);
+
+    /**
+     * 更改状态
+     * @param state
+     * @param id
+     * @return
+     */
+    boolean changeBehindState(String state,String id);
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
+
+    /**
+     * 插入成本
+     * @param supportPrice
+     * @param id
+     * @return
+     */
+    boolean insertSupportPrice(String supportPrice, String id);
 }

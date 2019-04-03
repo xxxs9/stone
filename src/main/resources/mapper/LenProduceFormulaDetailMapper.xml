@@ -5,7 +5,7 @@
     <!--结果集映射-->
     <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
             <id column="ID" property="id"/>
-            <result column="PRODUCT_FORMULA_ID" property="productFormulaId"/>
+            <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
             <result column="MATERIAL_ID" property="materialId"/>
             <result column="MATERIAL_NUMBER" property="materialNumber"/>
             <result column="DEPOT_ID" property="depotId"/>
@@ -15,8 +15,13 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    ID,PRODUCT_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
+    ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
      </sql>
+
+    <select id="getByFormulaId"  resultMap="BaseResultMap">
+        select * from l_produce_formula_detail where
+        PRODUCE_FORMULA_ID=#{formulaId}
+    </select>
 
     <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -24,7 +29,12 @@
         from l_produce_formula_detail
         where ID = #{id,jdbcType=VARCHAR}
     </select>
+    <select id="selectAll" resultMap="BaseResultMap" >
+        select
+        ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
+        from l_produce_formula_detail
 
+    </select>
 
     <!--mysql版本-->
     <select id="selectByPage" resultMap="BaseResultMap">

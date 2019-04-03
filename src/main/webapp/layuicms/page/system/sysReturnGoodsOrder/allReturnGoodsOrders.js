@@ -67,6 +67,7 @@ layui.config({
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+                $("[data-field='id']").css('display','none');
             }
         });
 
@@ -179,10 +180,10 @@ layui.config({
 
 
 
-    //提交
+    //提交主管审核
 
     function audit(id,goodsAmount){
-        layer.confirm('通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交主管审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
@@ -191,7 +192,7 @@ layui.config({
             };
 
             $api.updateAudit(req,function (data) {
-                layer.msg("审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //提交对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -207,7 +208,7 @@ layui.config({
     //提交仓库
 
     function depot(id){
-        layer.confirm('仓库通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交仓库审核吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
@@ -215,7 +216,7 @@ layui.config({
             };
 
             $api.updateDepot(req,function (data) {
-                layer.msg("仓库审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -232,7 +233,7 @@ layui.config({
     //提交财务
 
     function finance(id){
-        layer.confirm('财务通过审核吗？', function (confirmIndex) {
+        layer.confirm('提交财务确认吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
@@ -240,7 +241,7 @@ layui.config({
             };
 
             $api.updateFinance(req,function (data) {
-                layer.msg("财务审核成功",{time:1000},function(){
+                layer.msg("提交成功",{time:1000},function(){
                     //obj.del(); //撤回对应行（tr）的DOM结构
                     //重新加载表格
                     tableIns.reload();
@@ -285,9 +286,9 @@ layui.config({
     //查看
     function look(id) {
         var index = layui.layer.open({
-            title: "查看订单",
+            title: "查看发货单",
             type: 2,
-            content: "lookMarkerOrder.html?id=" + id,
+            content: "lookReturnGoodsOrder.html?id=" + id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {

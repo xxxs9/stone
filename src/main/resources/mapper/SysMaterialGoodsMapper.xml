@@ -126,4 +126,9 @@
         from sys_material_goods t
         where t.SUPPLIER_ID = #{supplierId,jdbcType=VARCHAR} and  t.MATERIAL_ID = #{materialId,jdbcType=VARCHAR}
    </select>
+    <select id="getMaterialGoodsId"  resultType="java.lang.String">
+        select DISTINCT
+        t.ID
+        from SYS_MATERIAL_GOODS t
+    </select>
 </mapper>

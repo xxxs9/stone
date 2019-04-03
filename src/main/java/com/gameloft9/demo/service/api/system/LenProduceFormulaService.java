@@ -37,25 +37,34 @@ public interface LenProduceFormulaService {
      */
     List<LenProduceFormula> selectByPage(
             String page,String limit,
-            String productId,
-            String createUserId
+
+            String createUser,
+             String productId
     );
 
     /**
-     *增加
+     * 增加
      *
-     * @param lenProduceFormula
+     * @param productId
+     * @param formulaType
+     * @param formulaNumber
+     * @param createUser
+     * @param createTime
      * @return
      */
-    boolean insert(LenProduceFormula lenProduceFormula);
+    boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime);
 
     /**
-     * 修改
+     * 增加
      *
-     * @param lenProduceFormula
+     * @param productId
+     * @param formulaType
+     * @param formulaNumber
+     * @param createUser
+     * @param createTime
      * @return
      */
-    boolean update(LenProduceFormula lenProduceFormula);
+    boolean update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime);
 
     /**
      * 删除

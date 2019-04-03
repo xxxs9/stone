@@ -170,4 +170,13 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
 
         return true;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<String> getPurchasePayChart() {
+        return purchaseReceivableMapper.getPurchaseReceiveChart();
+    }
 }

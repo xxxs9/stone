@@ -1,6 +1,7 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import org.apache.ibatis.annotations.Param;
@@ -22,36 +23,36 @@ public interface ReturnGoodsOrderMapper {
             @Param("goodsName") String goodsName);
 
     /**
-     * 获取所有销售订单个数
+     * 获取所有退货单个数
      * @param goodsName
      * @return
      */
     int countGetAll( @Param("goodsName") String goodsName);
 
     /**
-     * 通过ID删除销售订单信息
+     * 通过ID删除退货单信息
      * @param id
      * @return
      */
     int deleteById(String id);
 
     /**
-     * 获取销售订单id
+     * 获取退货订单id
      * @param id
      * @return
      */
-    ReturnGoodsOrder getById(String id);
+    ShipmentOrder getById(String id);
 
     /**
-     * 修改销售订单信息
-     * @param returnGoodsOrder
+     * 修改退货单信息
+     * @param shipmentOrder
      * @return
      */
-    Boolean update(ReturnGoodsOrder returnGoodsOrder);
+    Boolean update(ShipmentOrder shipmentOrder);
 
 
     /**
-     * 增加销售订单信息
+     * 增加退货订单信息
      * @param returnGoodsOrder
      * @return
      */
@@ -76,5 +77,29 @@ public interface ReturnGoodsOrderMapper {
      * @return
      */
     Boolean finance(ShipmentOrder shipmentOrder);
+
+    /**
+     * 啊发包
+     * 根据id和财务审核类型更新 returnGoodsOrder
+     * @param returnGoodsOrder returnGoodsOrder
+     */
+    void updateByIdAndState(ReturnGoodsOrder returnGoodsOrder);
+
+    /**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    ReturnGoodsOrder findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);
+
+    /**
+     * 啊发包
+     * 更新 returnGoodsOrder 的财务审核状态
+     * @param returnGoodsOrder
+     */
+    void returnGoodsOrderPayPass(ReturnGoodsOrder returnGoodsOrder);
 
 }

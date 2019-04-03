@@ -1,13 +1,13 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.gameloft9.demo.dataaccess.dao.system.DepotInventoryMapper;
-import com.gameloft9.demo.dataaccess.dao.system.SysDepotMapper;
+import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.DepotAdjustment;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
 import com.gameloft9.demo.dataaccess.model.system.SysDepot;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.DepotInventoryService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,11 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
     @Autowired
     private DepotInventoryMapper depotInventoryMapper;
     @Autowired
-    private SysDepotMapper sysDepotMapper;
+    private LenProductMapper lenProductMapper;
+    @Autowired
+    private SysMaterialGoodsMapper sysMaterialGoodsMapper;
+    @Autowired
+    private SysMaterialMapper sysMaterialMapper;
 
     /**
      * 获取所有库存数据
@@ -66,17 +70,28 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
         CheckUtil.notBlank(type, "货物类型为空");
         CheckUtil.notBlank(goodsId, " 原料/成品ID为空");
 
-
         //库存不能重复
         DepotInventory menuTest = depotInventoryMapper.findOne(goodsId);
         CheckUtil.check(menuTest == null, "该库存已经存在");
 
+        String goodsName = null;
+
+        if(lenProductMapper.getByPrimaryKey(goodsId) !=null){
+            goodsName = lenProductMapper.getByPrimaryKey(goodsId).getProductName();
+        }
+        if(sysMaterialGoodsMapper.getById(goodsId) !=null){
+            goodsName = sysMaterialMapper.getById(sysMaterialGoodsMapper.getById(goodsId).getMaterialId()).getGoodsName();
+        }
+
         DepotInventory depotInventory = new DepotInventory();
         depotInventory.setId(UUIDUtil.getUUID());
+        depotInventory.setGoodsName(goodsName);
         depotInventory.setType(type);
         depotInventory.setGoodsId(goodsId);
         depotInventory.setGoodsNumber(goodsNumber);
+        depotInventory.setSaleableNumber(goodsNumber);
 
+        depotInventoryMapper.insertSelective(depotInventory);
         return depotInventory.getId();
     }
 
@@ -131,4 +146,5 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
     public DepotInventory findOne( String goodsId) {
         return depotInventoryMapper.findOne(goodsId);
     }
+
 }

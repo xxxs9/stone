@@ -33,7 +33,7 @@ layui.config({
         });
     }
 
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -52,7 +52,7 @@ layui.config({
                     for (var i = 0; i < data.length; i++) {
                         html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                     }
-                    $('#goodsId').append($(html));
+                    $('#goodsName').append($(html));
                     form.render();
                 }
             });
@@ -70,10 +70,12 @@ layui.config({
 
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
-                console.log(data)
+                console.log(data);
                 $("[name='id']").val(data.id);
                 $("[name='orderNumber']").val(data.orderNumber);
-                $("[name='goodsId']").val(data.goodsId);
+                $("[name='goodsName']").val(data.goodsName);
+                $("[name='supplierName']").val(data.supplierName);
+                /*goodsName(data.goodsName);*/
                 $("[name='goodsNumber']").val(data.goodsNumber);
                 $("[name='price']").val(data.price);
                 $("[name='totalPrice']").val(data.totalPrice);
@@ -95,7 +97,6 @@ layui.config({
      * 加载申请单列表
      * */
     function loadRoleList() {
-        var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
             limit:10
@@ -122,6 +123,24 @@ layui.config({
         });
     }
 
+    //对数量、价格进行判断，不能为零或负数
+    form.verify({
+        actualBalance:function (value) {
+            if(value<0){
+                return '数量不能为负数!';
+            } else if (value==0){
+                return '请输入数量!';
+            }
+        },
+        actualPrice:function (value) {
+            if(value<0){
+                return '价格不能为负数!';
+            } else if (value==0){
+                return '请输入价格!';
+            }
+        }
+    });
+
     //计算总金额 数量goodsNumber*价格price
     $(function(){
         //总结个totalPrice
@@ -139,7 +158,9 @@ layui.config({
     form.on("submit(submitFilter)", function (data) {
         var queryArgs =  $tool.getQueryParam();//获取查询参数
         var orderNumber = data.field.orderNumber;
-        var goodsId = data.field.goodsId;
+        var goodsId = datat.field.goodsId;
+        var goodsName = data.field.goodsName;
+        var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var totalPrice = data.field.totalPrice;
@@ -157,11 +178,12 @@ layui.config({
         }
 
         //请求
-        var url = $tool.getContext()+'purchase_order/update.do';
         var req = {
             id:queryArgs['id'],
             orderNumber:orderNumber,
             goodsId:goodsId,
+            goodsName:goodsName,
+            supplierName:supplierName,
             goodsNumber:goodsNumber,
             price:price,
             totalPrice:totalPrice,
@@ -183,15 +205,6 @@ layui.config({
         return false;
     })
 
-    /*layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#time' //指定元素
-            ,type: 'datetime'
-        });
-    });*/
 });
 
 

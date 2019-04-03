@@ -1,0 +1,23 @@
+
+`squid:S4488/"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(˜¹‘D
+fsquid:S4488="JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(÷×Ñğıÿÿÿÿ
+asquid:S4488L"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¯¥œ´
+fsquid:S4488]"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¤’åšúÿÿÿÿ
+fsquid:S4488n"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(‘ÓÇşÿÿÿÿ
+gsquid:S4488€"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(“€ñ„ıÿÿÿÿ
+bsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÉØç
+bsquid:S4488›"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ğéæ¸
+bsquid:S4488ª"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ì¾áÉ
+gsquid:S4488¹"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÄĞ‡„şÿÿÿÿ
+asquid:S4488È"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(á´Ò
+bsquid:S4488Ö"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(„ú¼Ó
+gsquid:S4488ã"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(±Áøùÿÿÿÿ
+asquid:S4488î"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¡û°
+bsquid:S4488ù"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ö²†©
+asquid:S4488„"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¤Â­l
+bsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¸è·å
+^squid:S1192Q"HDefine a constant instead of duplicating this literal "sysUser" 6 times.(§‡Â@
+squid:UselessImportCheck"XRemove this unused import 'com.gameloft9.demo.service.api.system.DepotInventoryService'.(÷Ë‚ıÿÿÿÿ
+ysquid:UselessImportCheck"PRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysDepot'.(ÈæãŒûÿÿÿÿ
+\squid:UselessImportCheck"3Remove this unused import 'java.lang.reflect.Type'.(‰ûÕñıÿÿÿÿ
+squid:UselessImportCheck"VRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotInventory'.(—¡±ûÿÿÿÿ

@@ -26,17 +26,40 @@ layui.config({
     /**
      * 表单提交
      * */
-    //todo(产品类型)
+
     function select(hh) {
         $api.getAllProduct(null, function (res) {
             var data = res.data;
             if (data.length > 0) {
-                var html = '<option value="">--请选择--</option>';
+                var html = '';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].productType + '">' + data[i].productType + '</option>>';
+                    html += '<option value="' + data[i].productState + '"></option>';
                 }
-                $('#parentMenu').append($(html));
-                $('#parentMenu').val(hh);
+                $('#productState').append($(html));
+                $('#productState').val(hh);
+                form.render();
+            }
+
+        });
+
+    }
+
+
+
+
+
+
+    function select2(hh) {
+        $api.getAllProduct(null, function (res) {
+            var data3 = res.data;
+            if (data3.length > 0) {
+                var html = '';
+                for (var i = 0; i < data3.length; i++) {
+                    html += '<option value="' + data3[i].productType + '"></option>';
+                }
+
+                $('#productType').append($(html));
+                $('#productType').val(hh);
                 form.render();
             }
 
@@ -58,14 +81,19 @@ layui.config({
 
 
             $("[name='productName']").val(data.productName);
+            $("[name='productNumber']").val(data.productNumber);
+            $("[name='supportPrice']").val(data.supportPrice);
+            $('#canSold').val(data.canSold);
 
-            select(data.productType);
-            // $("[name='goodsId']").val(data.goodsId);
+            select2(data.productType);
+            select(data.state);
+
+
 
             $("[name='productDescribe']").val(data.productDescribe);
-            $("[name='wasteId']").val(data.wasteId);
 
-            $("[name='state']").val(data.state);
+
+
 
             form.render();//重新绘制表单，让修改生效
         });
@@ -82,8 +110,10 @@ layui.config({
         console.log(queryArgs)
         var productType = data.field.productType;
         var productName = data.field.productName;
-        var state = data.field.state;
-        var wasteId = data.field.wasteId;
+        var productState = data.field.productState;
+        var productNumber = data.field.productNumber;
+        var supportPrice = data.field.supportPrice;
+        var canSold = data.field.canSold;
         var productDescribe = data.field.productDescribe;
 
 
@@ -93,10 +123,11 @@ layui.config({
             id: queryArgs['id'],
             productType: productType,
             productName: productName,
-            state: state,
-            wasteId: wasteId,
-            productDescribe: productDescribe
-
+            productState: productState,
+            canSold:canSold,
+            supportPrice:supportPrice,
+            productNumber:productNumber,
+            productDescribe: productDescribe,
 
 
         };

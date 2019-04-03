@@ -52,4 +52,180 @@
             </if>
         </where>
     </select>
+
+    <!--生成采购应收单  add(T t)
+     <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="saleId" column="SALE_ID" jdbcType="VARCHAR"/>
+        <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="PRODUCT_NUMBER" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>-->
+    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable">
+        insert into a_sale_receivable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE,
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE,
+            </if>
+            <if test="productNumber != null and productNumber != ''">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE,
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+            <if test="saleId != null and saleId != ''">
+                SALE_ID,
+            </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE,
+            </if>
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                #{auditType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="productNumber != null and productNumber != ''">
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="saleId != null and saleId != ''">
+                #{saleId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditState != null and auditState != ''">
+                #{auditState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </select>
+
+    <!--根据 saleId 和auditType   SysFinanceSaleReceivable getSaleReceiveBysaleIdAndAuditType-->
+    <select id="getSaleReceiveBysaleIdAndAuditType" resultMap="saleReceivableMap">
+        select * from a_sale_receivable
+        <where>
+            <if test="saleId != null and saleId != ''">
+                and SALE_ID=#{saleId,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--   SysFinanceSaleReceivable getSaleReceiveById(@Param("id1") String id);-->
+    <select id="getSaleReceiveById" parameterType="java.lang.String" resultMap="saleReceivableMap">
+        select * from
+        a_sale_receivable
+        where
+        <if test="id != null and id != '' ">
+            ID = #{id,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <!--update
+    <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="saleId" column="SALE_ID" jdbcType="VARCHAR"/>
+        <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="PRODUCT_NUMBER" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
+    -->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable">
+        update a_sale_receivable
+        <set>
+            <if test="saleId != null and saleId != ''">
+                SALE_ID = #{saleId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE = #{auditType,jdbcType=INTEGER},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="productNumber != null and productNumber != ''">
+                PRODUCT_NUMBER = #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE = #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="actualBalance != null and actualBalance != ''">
+                ACTUAL_BALANCE = #{actualBalance,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER = #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME = #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditUser != null and auditUser != ''">
+                AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="auditTime != null and auditTime != ''">
+                AUDIT_TIME = #{auditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditDescribe != null and auditDescribe != ''">
+                AUDIT_DESCRIBE = #{auditDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--List<String> getSaleReceiveChart();-->
+    <select id="getSaleReceiveChart" resultType="java.lang.String">
+        SELECT
+        SUM(ACTUAL_BALANCE)
+        FROM a_sale_receivable
+        WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
+        GROUP BY ACTUAL_BALANCE
+        ORDER BY AUDIT_TIME
+    </select>
 </mapper>

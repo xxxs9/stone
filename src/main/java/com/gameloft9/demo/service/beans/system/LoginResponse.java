@@ -3,6 +3,7 @@ package com.gameloft9.demo.service.beans.system;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 登录成功返回bean
@@ -24,4 +25,6 @@ public class LoginResponse implements Serializable{
      * web上下文
      * */
     private String webContext;
+
+    private List<String> roles;
 }

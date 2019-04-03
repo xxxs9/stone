@@ -27,7 +27,7 @@ public interface LenProductMapper {
      * @param id
      * @return
      */
-    LenProduct getByPrimaryKey(String id);
+    LenProduct getByPrimaryKey(@Param("id") String id);
 
     /**
      * 分页查找
@@ -35,14 +35,14 @@ public interface LenProductMapper {
      * @param start
      * @param end
      * @param productName
-     * @param state
+     * @param productState
      * @return
      */
     List<LenProduct> selectByPage(
             @Param("start") int start,
             @Param("end") int end,
             @Param("productName") String productName,
-            @Param("state") String state
+            @Param("productState") String productState
     );
 
     /**
@@ -75,14 +75,16 @@ public interface LenProductMapper {
      * @param state
      * @return
      */
-    int dataCount(String state);
+    int dataCount(@Param("productState") String productState);
 
     /**
      * 更改state状态码
      *
+     * @param productState
+     * @param id
      * @return
      */
-    int changeState();
+    int changeState(@Param("productState")String productState,@Param("id")String id);
 
     /**
      * 选择修改
@@ -99,5 +101,19 @@ public interface LenProductMapper {
      * @return
      */
     int insertSelective(LenProduct lenProduct);
+
+
+    /**
+     * 获取产品id
+     * */
+    List<String> getProductId();
+    /**
+     * 查找已审核的产品
+     *
+     * @return List
+     */
+    List<LenProduct> selectByState();
+
+    int insertSupportPrice(@Param("supportPrice")String supportPrice,@Param("id")String id);
 
 }

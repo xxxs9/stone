@@ -67,6 +67,8 @@ layui.config({
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+                $("[data-field='id']").css('display','none');
+
             }
         });
 
@@ -90,6 +92,8 @@ layui.config({
                 look(row.id);
             }else if (layEvent === 'goods') {//提交仓库发货
                 goods(row.id);
+            }else if (layEvent === 'sub') {//提交仓库发货
+                sub(row.id);
             }
         });
     }
@@ -126,7 +130,6 @@ layui.config({
                 state :state ,
                 auditUser:auditUser,
                 auditType:auditType,
-
                 remarks:remarks
             }
         });
@@ -251,6 +254,30 @@ layui.config({
         layui.layer.full(index);
     }
 
+    //提交财务
+
+    function sub(id){
+        layer.confirm('提交财务吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送撤回指令
+            var req = {
+                id: id
+            };
+
+            $api.updateSub(req,function (data) {
+                layer.msg("提交成功",{time:1000},function(){
+                    //obj.del(); //撤回对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
 
 
     //编辑

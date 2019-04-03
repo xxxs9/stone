@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -144,7 +145,15 @@ public class SysMaterialGoodsController {
         return new ResultBean<Map<String,Object>>(map);
     }
 
-
+    /**
+     * 根据获取原料商品id信息
+     * */
+    @RequestMapping(value = "/getId.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getMaterialGoodsId(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getMaterialGoodsId());
+    }
 
 
 }

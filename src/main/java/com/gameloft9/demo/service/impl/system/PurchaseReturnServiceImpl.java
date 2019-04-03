@@ -1,14 +1,15 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
+import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseReturnMapper;
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
+import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.PurchaseReturnService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.DocumentNumberUtil;
-import com.gameloft9.demo.utils.OrderUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -30,16 +31,20 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
 
     @Autowired
     PurchaseReturnMapper dao;
+    @Autowired
+    FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    PurchaseOrderMapper purOrder;
 
     /**查询所有*/
-    public List<PurchaseReturn> selectAll(String page, String limit, String goodsId, String depotState) {
+    public List<PurchaseReturn> selectAll(String page, String limit, String goodsNume, String depotState) {
         PageRange pageRange = new PageRange(page, limit);
-        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,depotState);
+        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsNume,depotState);
     }
 
     /**分页查找*/
-    public int countGetAll(String goodsId, String depotState) {
-        return dao.countGetAll(goodsId,depotState);
+    public int countGetAll(String goodsName, String depotState) {
+        return dao.countGetAll(goodsName,depotState);
     }
 
     /**增加*/
@@ -49,9 +54,9 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         String userName = (String) request.getSession().getAttribute("sysUser");
         purchaseReturn.setApplyUser(userName);
         purchaseReturn.setId(UUIDUtil.getUUID());
-        purchaseReturn.setApplyTime(new Date());
-        //下拉框内容相同时不能创建
 
+        purchaseReturn.setApplyTime(new Date());
+        purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.insert(purchaseReturn);
         return purchaseReturn.getId();
     }
@@ -76,7 +81,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return true;
     }
 
-    /**获取goodsId下拉框*/
+    /**获取goodsNume下拉框*/
     public List<PurchaseReturn> selectAllGoodsId() {
         List<PurchaseReturn> list = new ArrayList<PurchaseReturn>();
         list = dao.selectAllGoodsId();
@@ -103,10 +108,39 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return true;
     }
 
-    /**采购退回 提交*/
+    /**采购退货 提交*/
     public boolean commitReUpdate(PurchaseReturn purchaseReturn){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
+        purchaseReturn.setDepotState(Constants.DepotState.DEPOT_WAITING_IN);
+        /*String state = purchaseReturn.getDepotState();
+        //按固定格式生成订单编号
+        String str="审核通过";
+        if(str.equals(state)){
+            purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_PASS);
+            //插入订单
+            SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
+            financeApplyOrder.setId(UUIDUtil.getUUID());
+            financeApplyOrder.setApplyId(purchaseReturn.getId());
+            int price = NumberUtil.strToInt(purchaseReturn.getPrice());
+            int goodsNumber = NumberUtil.strToInt(purchaseReturn.getGoodsNumber());
+            int applyMoney = price * goodsNumber;
+            financeApplyOrder.setApplyMoney(applyMoney+"");
+            financeApplyOrder.setApplyType(1);
+            financeApplyOrder.setApplyState(1);
+            financeApplyOrder.setApplyTime(new Date());
+            String applyUser = (String) request.getSession().getAttribute("sysUser");
+            financeApplyOrder.setApplyUser(applyUser);
+            applyOrderMapper.add(financeApplyOrder);
+        }else{
+            purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_FAIL);
+        }*/
+
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+
+        //生成采购退货申请单
+
+
         dao.updateTools(purchaseReturn);
         return true;
     }

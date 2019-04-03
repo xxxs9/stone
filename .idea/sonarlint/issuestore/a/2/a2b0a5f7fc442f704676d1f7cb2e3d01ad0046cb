@@ -1,0 +1,7 @@
+
+;squid:S2119P"Save and re-use this "Random".(¼İÅf8é¿İ›-
+‚squid:S1149C"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¨âàøÿÿÿÿ8ñÍ›-
+‚squid:S1149Q"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(˜İâœÿÿÿÿÿ8çİ›-
+Qsquid:S1118":Add a private constructor to hide the implicit public one.(â½Ü¢
+bsquid:CommentedOutCodeLine&"<This block of commented-out lines of code should be removed.(´üô×
+isquid:CommentedOutCodeLineE"<This block of commented-out lines of code should be removed.(„ğÿÎ8À˜Û›-

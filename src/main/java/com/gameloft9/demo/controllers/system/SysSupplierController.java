@@ -95,15 +95,27 @@ public class SysSupplierController {
             return new ResultBean<Boolean>(sysSupplierServiceImpl.updateSupplier(supplier.getId(),supplier.getSupplierName(),supplier.getSupplierDescribe(),supplier.getChargeName(),supplier.getPhone(),supplier.getEmail()));
         }
 
-        /**
-         * 根据主键删除供应商信息
-         * @param id 供应商id
-         * */
-        @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
-        @ResponseBody
-        @BizOperLog(operType = OperType.DELETE,memo = "删除供应商")
-        public IResult deleteSupplier(String id){
-            //返回json至前端的均返回ResultBean或者PageResultBean
-            return new ResultBean<Boolean>(sysSupplierServiceImpl.deleteSupplier(id));
-        }
+    /**
+     * 根据主键删除供应商信息
+     * @param id 供应商id
+     * */
+    @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
+    @ResponseBody
+    @BizOperLog(operType = OperType.DELETE,memo = "删除供应商")
+    public IResult deleteSupplier(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(sysSupplierServiceImpl.deleteSupplier(id));
+    }
+
+    /**
+     * 根据供应商名称获取供应商信息
+     * @param supplierName 供应商名称
+     * */
+    @RequestMapping(value = "/getBySupplierName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getBySupplierName(String supplierName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<SysSupplier>(sysSupplierServiceImpl.getBySupplierName(supplierName));
+    }
+
 }
