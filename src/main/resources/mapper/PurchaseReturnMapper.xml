@@ -246,6 +246,15 @@
         </where>
     </update>
 
+    <!--根据orderNumber获取-->
+    <select id="selectByOrderNumber" resultMap="purOrderMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
 
 
 

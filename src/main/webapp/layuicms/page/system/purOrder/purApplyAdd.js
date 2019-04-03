@@ -53,6 +53,7 @@ layui.config({
             console.log(res);
             $("[name='price']").val(data[0].goodsPrice);
             $("[name='supplierName']").val(data[0].supplierName);
+            $("[name='goodsId']").val(data[0].id);
             form.render();//重新绘制表单，让修改生效
         });
     });
@@ -84,7 +85,7 @@ layui.config({
     form.on("submit(purAdd)", function (data) {
         //var id = data.field.id;
         var orderNumber = data.field.orderNumber;
-        var goodsId = $("#goodsName").val();
+        var goodsId = $("#goodsId").val();
         var goodsName = $("#goodsName").find("option:selected").text();
         var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;

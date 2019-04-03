@@ -36,6 +36,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     @Autowired
     PurchaseOrderMapper purOrder;
 
+
     /**查询所有*/
     public List<PurchaseReturn> selectAll(String page, String limit, String goodsNume, String depotState) {
         PageRange pageRange = new PageRange(page, limit);
@@ -137,10 +138,16 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         }*/
 
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+        return true;
+    }
 
-        //生成采购退货申请单
-
-
+    /**
+     * 采购入库 华锋确认审核
+     * */
+    public boolean depotState(String orderNumber){
+        CheckUtil.notBlank(orderNumber,"订单编号为空");
+        PurchaseReturn purchaseReturn = dao.selectByOrderNumber(orderNumber);
+        purchaseReturn.setDepotState(Constants.DepotState.DEPOT_PASS);
         dao.updateTools(purchaseReturn);
         return true;
     }

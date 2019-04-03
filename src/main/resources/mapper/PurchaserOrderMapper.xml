@@ -425,7 +425,7 @@
     <!--选取goodsName下拉框内容，自动获取price价格-->
     <select id="selectPriceByGoodsId" resultMap="publicMap">
         SELECT
-            m.ID,
+            d.ID,
             d.GOODS_PRICE,
             s.SUPPLIER_NAME
         FROM

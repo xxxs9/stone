@@ -84,7 +84,12 @@ public interface PurchaseReturnMapper {
      * */
     Boolean updateTools(PurchaseReturn purchaseReturn);
 
-
+    /**
+     * 根据订单编号获取所有内容
+     * @param orderNumber orderNumber
+     * @return PurchaseOrder
+     * */
+    PurchaseReturn selectByOrderNumber(String orderNumber);
 
 
     /**
