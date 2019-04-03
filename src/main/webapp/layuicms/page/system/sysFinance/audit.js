@@ -91,7 +91,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         } else if(auditType ==2){
-            $api.getSaleReceiveById(req,function (res) {
+                $api.getSaleReceiveById(req,function (res) {
 
                 var data = res.data;
                 console.log(data)

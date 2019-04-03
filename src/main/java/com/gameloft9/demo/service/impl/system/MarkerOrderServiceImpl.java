@@ -190,7 +190,7 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
     @Override
     public Boolean fina(MarkerOrderTest markerOrderTest) {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
-        markerOrderTest.setState(StateUUtil.APPLY_fina);
+        markerOrderTest.setState(StateUUtil.APPLY_fina_pass);
         markerOrderMapper.submit(markerOrderTest);
         return true;
     }

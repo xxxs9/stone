@@ -29,25 +29,27 @@ layui.config({
 
         //如果订单类型为3
         if(queryArgs.applyType == 2){
-            $api.GetShipmentOrder(req,function (res) {
+            $api.GetMarkerOrder(req,function (res) {
                 var data = res.data;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = data.goodsAmount;
-                var price = totalPrice/goodsNumber;
-                var financeState = data.state;
+                var plannedNumber = totalPrice/goodsNumber;
+                var financeState;
                 console.log(data)
                 $('#id').val(id);
-                $("[name='goodsName']").val(data.goodsId);
+                $("[name='goodsName']").val(data.productId);
                 $("[name='goodsId']").val(data.id);
-                $("[name='auditType']").val(data.auditType);
-                $("[name='goodsNumber']").val(goodsNumber);
-                $("[name='price']").val(price);
-                $("[name='totalPrice']").val(totalPrice);
+                $("[name='auditType']").val(2);
+                $("[name='goodsNumber']").val(data.deliverNumber);
+                $("[name='price']").val(data.plannedNumber);
+                $("[name='totalPrice']").val(data.acceptedAmount);
                 $("[name='applyUser']").val(data.applyUser);
-                $("[name='applyTime']").val(data.applyTime);
-                $("[name='applyDescribe']").val(data.applyDescribe);
+                $("[name='applyTime']").val(data.orderTime);
+                $("[name='applyDescribe']").val(data.remarks);
 
-                if(financeState != null){
+
+                //alert(financeState)
+                if(financeState != null ||typeof "financeState" == "undefined"){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -84,7 +86,7 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
 
-                if(financeState != null){
+                if(financeState != null ||typeof "financeState" == "undefined"){
                     $('#gnrt').css("display",'none');
                 }
 
