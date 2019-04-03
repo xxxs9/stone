@@ -50,6 +50,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private OrderAuditMapper orderAuditMapper;
     @Autowired
     private PurchaseOrderService purchaseOrderServiceImpl;
+    @Autowired
+    private PurchaseReturnService purchaseReturnServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -276,6 +278,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
             }
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
+        }
+        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+            purchaseReturnServiceImpl.depotState(id);
         }
 
         if(depotOrderMapper.getById(id).getType().equals("销售出库")){
