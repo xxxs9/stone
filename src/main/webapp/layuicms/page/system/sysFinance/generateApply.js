@@ -73,7 +73,7 @@ layui.config({
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = data.goodsAmount;
                 var price = totalPrice/goodsNumber;
-                var financeState = data.state;
+                var financeState ;
                 console.log(data)
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsId);

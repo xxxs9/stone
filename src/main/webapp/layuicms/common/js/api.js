@@ -893,6 +893,10 @@ layui.define(['$tool','jquery'], function (exports) {
         getSaleReceiveById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getSaleReceiveById.do',req,successCallback,errorCallback);
         },
+        /*根据id获取销售发货未审核单*/
+        getSalePayById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
+        },
 
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
