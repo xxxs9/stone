@@ -205,13 +205,12 @@ public interface PurchaseOrderMapper {
     int selectAllBySearch(PurchaseOrder record);
 
     /**
-     * orderNumber
+     * 根据订单编号获取所有内容
      * @param orderNumber orderNumber
      * @return PurchaseOrder
      * */
     PurchaseOrder selectByOrderNumber(String orderNumber);
 
-    String selectGoodsIdByGoodsName();
 
 
 

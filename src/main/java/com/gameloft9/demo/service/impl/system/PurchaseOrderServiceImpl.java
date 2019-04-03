@@ -278,11 +278,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**
-     * 采购入库 华锋确认审核*//*
-    public boolean depotState(PurchaseOrder purchaseOrder){
-        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
-
-    }*/
+     * 采购入库 华锋确认审核
+     * */
+    public boolean depotState(String orderNumber){
+        CheckUtil.notBlank(orderNumber,"订单编号为空");
+        PurchaseOrder purchaseOrder = dao.selectByOrderNumber(orderNumber);
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_PASS);
+        dao.toolsUpdate(purchaseOrder);
+        return true;
+    }
 
     /**采购入库之撤回*/
     public boolean backInUpdate(PurchaseOrder purchaseOrder){
