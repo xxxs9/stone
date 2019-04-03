@@ -1,18 +1,15 @@
 package com.gameloft9.demo.service.impl.system;
 
+import ch.qos.logback.classic.spi.STEUtil;
 import com.alibaba.druid.sql.visitor.functions.If;
+import com.gameloft9.demo.controllers.system.OrderAuditController;
 import com.gameloft9.demo.dataaccess.dao.system.DepotInventoryMapper;
 import com.gameloft9.demo.dataaccess.dao.system.DepotOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.dao.system.SysMaterialGoodsMapper;
-import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
-import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysDepot;
+import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
-import com.gameloft9.demo.service.api.system.DepotInventoryService;
-import com.gameloft9.demo.service.api.system.DepotOrderService;
-import com.gameloft9.demo.service.api.system.LenProductService;
-import com.gameloft9.demo.service.api.system.SysMaterialGoodsService;
+import com.gameloft9.demo.service.api.system.*;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.UUIDUtil;
@@ -45,6 +42,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private SysMaterialGoodsMapper sysMaterialGoodsMapper;
     @Autowired
     private LenProductMapper lenProductMapper;
+    @Autowired
+    private OrderAuditService orderAuditServiceImpl;
+
     /**
      * 获取仓库单列表
      * @param page                  页序
@@ -171,6 +171,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         CheckUtil.notBlank(orderAuditUser, "审核人为空");
         CheckUtil.notBlank(auditDescribe, "审核描述为空");
         DepotOrder depotOrder= new DepotOrder();
+
         if(depotOrderMapper.getById(id).getState().equals(Constants.DepotState.DEPOT_WAITING_OUT)){
             if(state.equals(Constants.DepotState.DEPOT_PASS)){
                 depotOrder.setState(Constants.DepotState.DEPOT_PASS);
@@ -180,6 +181,14 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
+
+        if(depotOrderMapper.getById(id).getOrderType().equals("销售出库")){
+            OrderAuditBean orderAuditBean = new OrderAuditBean();
+            orderAuditBean.setState("仓库审核成功");
+            orderAuditBean.setId(id);
+            orderAuditServiceImpl.depot(orderAuditBean);
+        }
+
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
         //库存中的数量

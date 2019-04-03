@@ -12,16 +12,22 @@ public interface DepotInventoryCheckDetailMapper {
      * @param start                 记录行的偏移量
      * @param end                   记录的最大数目
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      * */
     List<DepotInventoryCheckDetail> getAll(@Param("start") int start,
                                            @Param("end") int end,
-                                           @Param("checkId") String checkId);
+                                           @Param("checkId") String checkId,
+                                           @Param("type") String type,
+                                           @Param("goodsId") String goodsId);
 
     /**
      * 获取盘点单明细记录数据条数
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      * */
-    int countGetAll( @Param("checkId") String checkId);
+    int countGetAll( @Param("checkId") String checkId, @Param("type") String type, @Param("goodsId") String goodsId);
 
     /**
      * 新增盘点单明细

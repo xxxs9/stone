@@ -11,15 +11,19 @@ public interface DepotInventoryCheckDetailService {
      * @param page                  页序
      * @param limit                 分页大小
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      */
-    List<DepotInventoryCheckDetail> getAll(String page, String limit, String checkId);
+    List<DepotInventoryCheckDetail> getAll(String page, String limit, String checkId,String type,String goodsId);
 
 
     /**
      * 获取盘点单明细记录数据条数
      * @param checkId               盘点单ID
+     * @param type                  货品（原料/成品）
+     * @param goodsId               原料/成品ID
      * */
-    int countGetAll(String checkId);
+    int countGetAll(String checkId,String type,String goodsId);
 
     /**
      * 新增盘点单明细

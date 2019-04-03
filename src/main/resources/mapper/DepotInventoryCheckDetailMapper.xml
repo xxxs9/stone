@@ -23,6 +23,15 @@
         <if test="checkId !=null and checkId != ''">
             AND t.CHECK_ID = #{checkId,jdbcType=VARCHAR}
         </if>
+        <if test="type !=null and type != ''">
+            AND t.TYPE = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
+        </if>
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="countGetAll" resultType="Integer" parameterType="map">
@@ -31,6 +40,15 @@
         WHERE 1=1
         <if test="checkId !=null and checkId != ''">
             AND t.CHECK_ID = #{checkId,jdbcType=VARCHAR}
+        </if>
+        <if test="type !=null and type != ''">
+            AND t.TYPE = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
         </if>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheckDetail">

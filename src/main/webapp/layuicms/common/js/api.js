@@ -812,7 +812,6 @@ layui.define(['$tool','jquery'], function (exports) {
         purchaseOrderReceivePass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
-
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },

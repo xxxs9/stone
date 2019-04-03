@@ -97,15 +97,17 @@ layui.config({
     }
 
     //查询
-    form.on("submit(queryDepotInventory)", function (data) {
+    form.on("submit(queryDepotInventoryCheckDetail)", function (data) {
+        var queryArgs = $tool.getQueryParam();//获取查询参数
         var type = $("#type").val();
         var goodsId = data.field.goodsId;
 
         //表格重新加载
         tableIns.reload({
             where:{
+                checkId:queryArgs['id'],
                 type:type,
-                goodsId:goodsId,
+                goodsId:goodsId
             }
         });
 
