@@ -81,6 +81,22 @@ layui.config({
     init();
     stateOk();
     stateNotOk();
+
+
+
+    function insertSupport() {
+        var queryArgs = $tool.getQueryParam();
+        var id = queryArgs['id'];
+       var supportPrice= $("#supportPrice").val()
+        var req5={
+            id:id,
+            supportPrice:supportPrice
+        }
+        $api.insertSupportPrice(req5,function (res) {
+
+        })
+
+    }
        function stateOk(){
            var queryArgs = $tool.getQueryParam();
            var id = queryArgs['id'];
@@ -167,6 +183,7 @@ layui.config({
 
         $api.addBillCheckNew(req,function (data) {
             changeProductState(productId);
+            insertSupport();
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("检验单提交成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");

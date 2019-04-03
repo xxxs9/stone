@@ -7,7 +7,7 @@
             <id column="ID" property="id"/>
             <result  column="PRODUCT_NAME" property="productName"/>
             <result column="PRODUCT_TYPE" property="productType"/>
-            <result column="PRODUCT_NUMBER" property="productNumber"/>
+            <result column="PRODUCT_NUMBER" property="productNumber" />
             <result column="PRODUCT_STATE" property="productState"/>
             <result column="CAN_SOLD" property="canSold"/>
             <result column="SUPPORT_PRICE" property="supportPrice"/>
@@ -240,5 +240,8 @@
         select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
         from l_product where PRODUCT_STATE='3';
     </select>
+    <update id="insertSupportPrice" >
+        update l_product set SUPPORT_PRICE=#{supportPrice} where ID=#{id}
+    </update>
 </mapper>
 

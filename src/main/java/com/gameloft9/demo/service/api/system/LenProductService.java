@@ -120,5 +120,19 @@ public interface LenProductService {
      */
     boolean changeProState(String state,String id);
 
+    /**
+     * 更改状态
+     * @param state
+     * @param id
+     * @return
+     */
     boolean changeBehindState(String state,String id);
+
+    /**
+     * 插入成本
+     * @param supportPrice
+     * @param id
+     * @return
+     */
+    boolean insertSupportPrice(String supportPrice, String id);
 }
