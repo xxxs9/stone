@@ -32,7 +32,7 @@ layui.config({
             id:goodsId
         };
 
-        $api.getProductById(req,function (res) {
+        $api.GetProductId(req,function (res) {
             var data = res.data;
             $("[name='productName']").html(data.productName);
             $("[name='productType']").html(data.productType);

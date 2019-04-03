@@ -17,6 +17,7 @@ layui.config({
     function init() {
         //初始化下拉框
       /*  initParentMenu();*/
+
     }
 
     init();
@@ -38,6 +39,7 @@ layui.config({
         });
     }
 */
+    $('#canSold').val(window.sessionStorage.getItem('sysUser'));
     /**
      * 监听radio选择
      * */

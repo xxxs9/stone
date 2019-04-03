@@ -97,4 +97,10 @@ public class LenProducePlanController {
         return  new ResultBean<Boolean>(service.changeOther(id));
     }
 
+    @RequestMapping(value = "/findId",method = RequestMethod.POST)
+    @ResponseBody
+    public  IResult findId(String productId){
+        return  new ResultBean<LenProducePlan>(service.findId(productId));
+    }
+
 }

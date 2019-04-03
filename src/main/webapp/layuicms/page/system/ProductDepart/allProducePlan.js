@@ -93,7 +93,7 @@ layui.config({
                   ,{field: 'billDate', title: '订单日期'}
                   ,{field: 'billCycle', title: '订单周期'/*,templet:'#cd'*/}
                   ,{field: 'planNumber', title: '计划产量'/*,templet:'#tmp'*/}
-                  ,{field: 'realNumber', title: '实际产量'/*,templet:'#tmpe'*/}
+                  /*,{field: 'realNumber', title: '实际产量'/!*,templet:'#tmpe'*!/}*/
                   ,{field: 'produceDate', title: '投产日期'}
                   ,{field: 'finishDate', title: '完成日期'}
                   /*,{field: 'state', title: '状态',templet:'#tmp'}*/
