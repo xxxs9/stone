@@ -1,13 +1,8 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.alibaba.druid.sql.visitor.functions.If;
-import com.gameloft9.demo.dataaccess.dao.system.DepotInventoryMapper;
-import com.gameloft9.demo.dataaccess.dao.system.DepotOrderMapper;
-import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
-import com.gameloft9.demo.dataaccess.dao.system.SysMaterialGoodsMapper;
-import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
-import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysDepot;
+import com.gameloft9.demo.dataaccess.dao.system.*;
+import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
@@ -51,6 +46,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private LenProductMapper lenProductMapper;
     @Autowired
     private OrderAuditService orderAuditServiceImpl;
+    @Autowired
+    private OrderAuditMapper orderAuditMapper;
 
     /**
      * 获取仓库单列表
@@ -133,7 +130,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         CheckUtil.notBlank(applyUser, "申请人为空");
 
         DepotOrder depotOrder= new DepotOrder();
-        depotOrder.setId(UUIDUtil.getUUID());
+        depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_IN);
         depotOrder.setType("采购入库");
         depotOrder.setGoodsId(goodsId);
@@ -164,7 +161,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         CheckUtil.notBlank(applyUser, "申请人为空");
 
         DepotOrder depotOrder= new DepotOrder();
-        depotOrder.setId(UUIDUtil.getUUID());
+        depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
         depotOrder.setType("销售出库");
         depotOrder.setGoodsId(goodsId);
@@ -251,7 +248,12 @@ public class DepotOrderServiceImpl implements DepotOrderService {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
 
-        if(depotOrderMapper.getById(id).getOrderType().equals("销售出库")){
+        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+
+            OrderAuditBean orderAuditBean = orderAuditMapper.getByOrderId(id);
+            orderAuditBean.setState("仓库通过审核");
+            orderAuditServiceImpl.depot(orderAuditBean);
+
         }
 
 

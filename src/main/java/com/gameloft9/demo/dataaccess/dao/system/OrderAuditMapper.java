@@ -76,12 +76,6 @@ public interface OrderAuditMapper {
      */
     Boolean depot(OrderAuditBean orderAuditBean);
 
-
-
-
-
-
-
     /**
      * 根据订单编号获取订单信息
      */

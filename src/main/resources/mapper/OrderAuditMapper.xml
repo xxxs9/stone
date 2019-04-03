@@ -223,14 +223,9 @@
             </if>
         </set>
         <where>
-            <if test="state !=null  and state != ''">
-                STATE = #{state,jdbcType=VARCHAR}
-            </if>
             <if test="id != null and id != ''">
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
-
-
         </where>
 
 
