@@ -17,5 +17,6 @@ public class StateUUtil {
     public static final String APPLY_goback ="已撤回,无法审核";
     public static final String APPLY_director ="等待主管审核";
     public static final String APPLY_accept ="财务查收成功";
+    public static final String APPLY_unpass ="财务审核不通过";
     public static final String APPLY_finacc ="等待财务审核";
 }
