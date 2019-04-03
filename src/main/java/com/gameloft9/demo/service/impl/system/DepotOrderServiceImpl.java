@@ -48,6 +48,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private OrderAuditService orderAuditServiceImpl;
     @Autowired
     private OrderAuditMapper orderAuditMapper;
+    @Autowired
+    private PurchaseOrderService purchaseOrderServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -412,6 +414,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrder.setId(id);
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
+        //采购入库,更新沧海采购单状态
+        purchaseOrderServiceImpl.depotState(id);
+
         //入库单
         DepotOrder current = depotOrderMapper.getById(id);
         //货物类型
@@ -436,6 +441,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotInventory.setGoodsNumber(String.valueOf(Integer.parseInt(current.getGoodsNumber())+Integer.parseInt(depotInventory.getGoodsNumber())));
         depotInventory.setSaleableNumber(String.valueOf(Integer.parseInt(current.getGoodsNumber())+Integer.parseInt(depotInventory.getSaleableNumber())));
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),type,goodsId,depotInventory.getGoodsNumber(),null,depotInventory.getSaleableNumber());
+
+
+
         return true;
     }
 
