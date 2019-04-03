@@ -65,4 +65,10 @@ public interface FinanceSaleBillPayService {
      *      SysFinanceSaleBillsPayable
      */
     SysFinanceSaleBillsPayable getSalePayById(String id);
+
+    /**
+     * 获取销售支出图表数据
+     * @return
+     */
+    List<String> getSalePayChart();
 }

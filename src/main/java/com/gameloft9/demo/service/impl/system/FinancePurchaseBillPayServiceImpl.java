@@ -213,5 +213,14 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<String> getPurchasePayChart() {
+        return purchaseBillsPayableMapper.getPurchasePayChart();
+    }
+
 
 }

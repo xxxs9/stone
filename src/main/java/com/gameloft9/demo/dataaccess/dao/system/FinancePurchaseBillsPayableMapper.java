@@ -70,5 +70,11 @@ public interface FinancePurchaseBillsPayableMapper extends BaseMapper<SysFinance
             @Param("auditType") Integer auditType
     );
 
+    /**
+     * 获取采购支出图表数据
+     * @return
+     */
+    List<String> getPurchasePayChart();
+
 
 }

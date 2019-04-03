@@ -60,4 +60,10 @@ public interface FinanceSaleBillsPayableMapper extends BaseMapper<SysFinanceSale
      *      SysFinanceSaleBillsPayable
      */
     SysFinanceSaleBillsPayable getSalePayById(@Param("id") String id);
+
+    /**
+     * 获取销售支出图表数据
+     * @return
+     */
+    List<String> getSalePayChart();
 }

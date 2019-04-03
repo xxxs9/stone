@@ -167,4 +167,9 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
     public SysFinanceSaleReceivable getSaleReceiveById(String id) {
         return saleReceivableMapper.getSaleReceiveById(id);
     }
+
+    @Override
+    public List<String> getSaleReceiveChart() {
+        return saleReceivableMapper.getSaleReceiveChart();
+    }
 }
