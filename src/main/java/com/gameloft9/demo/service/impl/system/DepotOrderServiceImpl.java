@@ -279,7 +279,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
-        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
             purchaseReturnServiceImpl.depotState(id);
         }
 
