@@ -83,4 +83,9 @@ public interface PurchaseReturnService {
      * */
     boolean depotState(String orderNumber);
 
+    /**
+     * 华锋对接 获取orderNumber
+     * */
+    PurchaseReturn selectByOrderNumber(String orderNumber);
+
 }
