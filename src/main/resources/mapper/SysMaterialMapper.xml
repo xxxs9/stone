@@ -31,16 +31,16 @@
         select ID,GOODS_NAME,GOODS_TYPE,GOODS_DESCRIBE,GOODS_SPECIFICATION
         from sys_material t
         where 1=1
-        <if test="goodsName !=null and goodsName != '' ">
+        <if test="goodsName != null and goodsName != '' ">
             and (
             t.GOODS_NAME like (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
             and t.GOODS_NAME >' '
             )
         </if>
-        <if test="goodsType !=null and goodsType != '' ">
+        <if test="goodsType != null and goodsType != '' ">
             and t.GOODS_TYPE = #{goodsType,jdbcType=VARCHAR}
         </if>
-        <if test="goodsSpecification !=null and goodsSpecification != '' ">
+        <if test="goodsSpecification != null and goodsSpecification != '' ">
             and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
         </if>
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -50,16 +50,16 @@
         select count(1)
         from sys_material t
         where 1=1
-        <if test="goodsName !=null and goodsName != '' ">
+        <if test="goodsName != null and goodsName != '' ">
             and (
             t.GOODS_NAME like (concat('%',concat(#{goodsName,jdbcType=VARCHAR},'%')))
             and t.GOODS_NAME >' '
             )
         </if>
-        <if test="goodsType !=null and goodsType != ''">
+        <if test="goodsType != null and goodsType != '' ">
             and t.GOODS_TYPE = #{goodsType,jdbcType=VARCHAR}
         </if>
-        <if test="goodsSpecification !=null and goodsSpecification != ''">
+        <if test="goodsSpecification != null and goodsSpecification != ''">
             and t.GOODS_SPECIFICATION = #{goodsSpecification,jdbcType=VARCHAR}
         </if>
     </select>
@@ -73,7 +73,7 @@
             <if test="goodsName != null and goodsName != '' ">
                 GOODS_NAME,
             </if>
-            <if test="goodsType != null amd goodsType != '' ">
+            <if test="goodsType != null and goodsType != '' ">
                 GOODS_TYPE,
             </if>
             <if test="goodsDescribe != null and goodsDescribe != '' ">
