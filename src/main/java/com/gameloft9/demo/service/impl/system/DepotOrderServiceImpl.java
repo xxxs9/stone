@@ -251,7 +251,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         if(depotOrderMapper.getById(id).getType().equals("销售出库")){
 
             OrderAuditBean orderAuditBean = orderAuditMapper.getByOrderId(id);
-            orderAuditBean.setState("仓库审核通过");
+            orderAuditBean.setState("仓库通过审核");
             orderAuditServiceImpl.depot(orderAuditBean);
 
         }
