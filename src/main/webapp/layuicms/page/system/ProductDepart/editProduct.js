@@ -33,10 +33,10 @@ layui.config({
             if (data.length > 0) {
                 var html = '';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].state + '"></option>';
+                    html += '<option value="' + data[i].productState + '"></option>';
                 }
-                $('#state').append($(html));
-                $('#state').val(hh);
+                $('#productState').append($(html));
+                $('#productState').val(hh);
                 form.render();
             }
 
@@ -45,22 +45,9 @@ layui.config({
     }
 
 
-    function select1(hh) {
-        $api.getAllProduct(null, function (res) {
-            var data2 = res.data;
-            if (data2.length > 0) {
-                var html = '';
-                for (var i = 0; i < data2.length; i++) {
-                    html += '<option value="' + data2[i].canSold + '"></option>';
-                }
-                $('#canSold').append($(html));
-                $('#canSold').val(hh);
-                form.render();
-            }
 
-        });
 
-    }
+
 
     function select2(hh) {
         $api.getAllProduct(null, function (res) {
@@ -96,10 +83,11 @@ layui.config({
             $("[name='productName']").val(data.productName);
             $("[name='productNumber']").val(data.productNumber);
             $("[name='supportPrice']").val(data.supportPrice);
+            $('#canSold').val(data.canSold);
 
             select2(data.productType);
             select(data.state);
-            select1(data.canSold);
+
 
 
             $("[name='productDescribe']").val(data.productDescribe);
@@ -122,11 +110,10 @@ layui.config({
         console.log(queryArgs)
         var productType = data.field.productType;
         var productName = data.field.productName;
-        var state = data.field.state;
+        var productState = data.field.productState;
         var productNumber = data.field.productNumber;
         var supportPrice = data.field.supportPrice;
         var canSold = data.field.canSold;
-
         var productDescribe = data.field.productDescribe;
 
 
@@ -136,11 +123,13 @@ layui.config({
             id: queryArgs['id'],
             productType: productType,
             productName: productName,
-            state: state,
+            productState: productState,
             canSold:canSold,
             supportPrice:supportPrice,
             productNumber:productNumber,
-            productDescribe: productDescribe
+            productDescribe: productDescribe,
+
+
         };
 
         $api.updateProduct(req, function (data) {

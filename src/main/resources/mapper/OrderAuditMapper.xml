@@ -16,13 +16,12 @@
         <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
-        <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
         <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
         <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
-        <result column="UNPAID_AMOUNT" property="unpaidAmount" jdbcType="VARCHAR"/>
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_DEPOT" property="orderAuditDepot" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -35,13 +34,12 @@
         <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="DELIVER_NUMBER" property="deliverNumber" jdbcType="VARCHAR"/>
-        <result column="CURRENT_NUMBER" property="currentNumber" jdbcType="VARCHAR"/>
         <result column="PLANNED_NUMBER" property="plannedNumber" jdbcType="VARCHAR"/>
         <result column="ACCEPTED_AMOUNT" property="acceptedAmount" jdbcType="VARCHAR"/>
-        <result column="UNPAID_AMOUNT" property="unpaidAmount" jdbcType="VARCHAR"/>
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
         <result column="STATE" property="state" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
+        <result column="ORDER_AUDIT_DEPOT" property="orderAuditDepot" jdbcType="VARCHAR"/>
         <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -66,9 +64,16 @@
 
         <where>
             <if test="productId != null and productId != ''">
-                and PRODUCT_ID = #{productId,jdbcType=DATE}
+                and PRODUCT_ID = #{productId,jdbcType=VARCHAR}
             </if>
-            STATE != "未提交"
+            <if test="orderId != null and orderId != ''">
+                and ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="applyUser != null and applyUser != ''">
+                and APPLY_USER = #{applyUser,jdbcType=VARCHAR}
+            </if>
+            and
+            STATE != "未提交" and w_marker_order.STATE != "财务收到货款"
         </where>
 
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -117,6 +122,13 @@
             <if test="productId != null and productId != ''">
                 and PRODUCT_ID = #{productId,jdbcType=VARCHAR}
             </if>
+            <if test="orderId != null and orderId != ''">
+                and ORDER_ID = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="applyUser != null and applyUser != ''">
+                and APPLY_USER = #{applyUser,jdbcType=VARCHAR}
+            </if>
+
 
         </where>
     </select>
@@ -131,13 +143,12 @@
         PRODUCT_ID,
         CUSTOMER,
         DELIVER_NUMBER,
-        CURRENT_NUMBER,
         PLANNED_NUMBER,
         ACCEPTED_AMOUNT,
-        UNPAID_AMOUNT,
         APPLY_USER,
         STATE,
         ORDER_AUDIT_USER,
+        ORDER_AUDIT_DEPOT,
         REMARKS
         from
         w_marker_order
@@ -154,13 +165,12 @@
      PRODUCT_ID=#{productId},
      CUSTOMER=#{customer},
      DELIVER_NUMBER=#{deliverNumber},
-     CURRENT_NUMBER=#{currentNumber},
      PLANNED_NUMBER=#{plannedNumber},
      ACCEPTED_AMOUNT=#{acceptedAmount},
-     UNPAID_AMOUNT=#{unpaidAmount},
      APPLY_USER=#{applyUser},
      STATE=#{state},
      ORDER_AUDIT_USER=#{orderAuditUser},
+     ORDER_AUDIT_DEPOT=#{orderAuditDepot},
      REMARKS=#{remarks}
      where ID=#{id}
 
@@ -215,9 +225,25 @@
         </where>
     </update>
 
+   <!--depot-->
 
+    <update id="depot" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+        update
+        w_marker_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </update>
     <!--仓库审核-->
-    <update id="ware" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
+ <!--   <update id="ware" parameterType="com.gameloft9.demo.dataaccess.model.system.OrderAuditBean">
         update
         w_marker_order
         <set>
@@ -230,5 +256,5 @@
                 and ID = #{id,jdbcType=VARCHAR}
             </if>
         </where>
-    </update>
+    </update>-->
 </mapper>

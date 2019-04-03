@@ -1,0 +1,8 @@
+
+asquid:S44884"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ø›ˆˆ
+`squid:S4488@"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(…½‹6
+fsquid:S4488K"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÏàÛ€ùÿÿÿÿ
+`squid:S4488V"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ï˜¦
+asquid:S4488a"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ú¿Ìã
+fsquid:S4488j"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¹­è‹øÿÿÿÿ
+zsquid:UselessImportCheck"WRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest'.(ˆê·k

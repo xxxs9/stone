@@ -34,10 +34,10 @@ public class OrderAuditServiceImpl implements OrderAuditService {
      */
 
     @Override
-    public List<OrderAudit> findAll(String page, String limit, String productId) {
+    public List<OrderAudit> findAll(String page, String limit, String productId ,String orderId,String applyUser) {
         PageRange pageRange = new PageRange(page, limit);
 
-        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
+        return orderAuditMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId,orderId,applyUser);
     }
 
     /**
@@ -121,7 +121,6 @@ public class OrderAuditServiceImpl implements OrderAuditService {
             orderAuditBean.setState(StateUtil.APPLY_PASS);
         }else{orderAuditBean.setState(StateUtil.APPLY_FAIL);
         }
-
         return true;
     }
 
@@ -137,6 +136,26 @@ public class OrderAuditServiceImpl implements OrderAuditService {
         orderAuditMapper.ware(orderAuditBean);
         return true;
     }
+    /**
+     * 11仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    @Override
+    public Boolean depot(OrderAuditBean orderAuditBean) {
+        CheckUtil.notBlank(orderAuditBean.getId(),"订单id为空");
+        orderAuditBean.setState(StateUUtil.APPLY_pas);
+        orderAuditMapper.audit(orderAuditBean);
+        String state=orderAuditBean.getState();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String str="仓库通过审核";
+        if (str.equals(state)){
+            orderAuditBean.setState(StateUUtil.APPLY_pas);
+        }else{orderAuditBean.setState(StateUUtil.APPLY_fai);
+        }
+        return true;
+    }
+    }
 
 
-}
+

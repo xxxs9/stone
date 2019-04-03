@@ -1,0 +1,20 @@
+
+:squid:S3066'"#Lower the visibility of this field.( şÍ¾
+Vsquid:S1118[":Add a private constructor to hide the implicit public one.(µ’¼Üøÿÿÿÿ
+‹squid:S1845"tRename field "name" to prevent any misunderstanding/clash with method "name" defined in superclass "java.lang.Enum".( şÍ¾
+:squid:S3066"#Lower the visibility of this field.(çªÆà
+gsquid:S2068V"Q'PWD' detected in this expression, review this potentially hard-coded credential.(ßõÃ+
+:squid:S3066&"#Lower the visibility of this field.(çªÆà
+]squid:S1118":Add a private constructor to hide the implicit public one.(Şîåäüÿÿÿÿ8‘ùëŸš-
+Vsquid:S1118J":Add a private constructor to hide the implicit public one.(¹ÕĞæşÿÿÿÿ
+~"squid:ClassVariableVisibilityCheck"PMake name a static final constant or non-public and provide accessors if needed.( şÍ¾
+~"squid:ClassVariableVisibilityCheck'"PMake name a static final constant or non-public and provide accessors if needed.( şÍ¾
+"squid:ClassVariableVisibilityCheck&"QMake value a static final constant or non-public and provide accessors if needed.(çªÆà
+"squid:ClassVariableVisibilityCheck6"QMake value a static final constant or non-public and provide accessors if needed.(çªÆà
+]squid:S1118l":Add a private constructor to hide the implicit public one.(¤‚ƒÔúÿÿÿÿ8ÓŠÖšš-
+‹squid:S1845'"tRename field "name" to prevent any misunderstanding/clash with method "name" defined in superclass "java.lang.Enum".( şÍ¾
+]squid:S1118v":Add a private constructor to hide the implicit public one.(ˆÍï•üÿÿÿÿ8£İÜšš-
+Qsquid:UselessImportCheck"(Remove this unused import 'lombok.Data'.(÷í«ÿÿÿÿÿ
+"squid:ClassVariableVisibilityCheck"QMake value a static final constant or non-public and provide accessors if needed.(çªÆà
+:squid:S3066"#Lower the visibility of this field.( şÍ¾
+:squid:S30666"#Lower the visibility of this field.(çªÆà

@@ -182,6 +182,7 @@ layui.define(['$tool','jquery'], function (exports) {
         lookGetPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/lookGet.do',req,config,successCallback,errorCallback);
         },
+
         //查看
         lookPurOrder:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/look.do',req,config,successCallback,errorCallback);
@@ -251,7 +252,8 @@ layui.define(['$tool','jquery'], function (exports) {
         //根据id获取
         getPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
-        },        //修改
+        },
+        //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/update.do',req,config,successCallback,errorCallback);
         },
@@ -309,8 +311,67 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         DelsDepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotSet/dels.do',req,successCallback,errorCallback);
+        },
+        GetDepotOrderInType:function(req,successCallback,errorCallback){
+            doPost($tool.getContext()+'depotOrder/getDepotOrderInType.do',req,successCallback,errorCallback);
+        },GetDepotOrderOutType:function(req,successCallback,errorCallback){
+        doPost($tool.getContext()+'depotOrder/getDepotOrderOutType.do',req,successCallback,errorCallback);
+         },
+        AddDepotOrderIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/addIn.do',req,successCallback,errorCallback);
+        },
+        AddDepotOrderOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/addOut.do',req,successCallback,errorCallback);
+        },
+        AuditPassDepotOrderIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/auditPassIn.do',req,successCallback,errorCallback);
+        },
+        AuditPassDepotOrderOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/auditPassOut.do',req,successCallback,errorCallback);
+        },
+        AuditRejectDepotOrderIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/auditRejectIn.do',req,successCallback,errorCallback);
+        },
+        AuditRejectDepotOrderOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/auditRejectOut.do',req,successCallback,errorCallback);
+        },
+        StorageInDepotOrderIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/storageIn.do',req,successCallback,errorCallback);
+        },
+        StorageInDepotOrderOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/storageOut.do',req,successCallback,errorCallback);
+        },
+        DeleteDepotOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/delete.do',req,successCallback,errorCallback);
+        },
+        DelsDepotOrder:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/dels.do',req,successCallback,errorCallback);
+        },
+        GetDepotInventoryByGoodsId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventory/getByGoodsId.do',req,successCallback,errorCallback);
+        },
+        AddDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/add.do',req,successCallback,errorCallback);
+        },
+        EndDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/end.do',req,successCallback,errorCallback);
+        },
+        AuditDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/audit.do',req,successCallback,errorCallback);
+        },
+        AddsDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/adds.do',req,successCallback,errorCallback);
+        },
+        UpdateDepotInventoryCheckDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheckDetail/update.do',req,successCallback,errorCallback);
+        },
+        AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
+        },
 
-        },//销售订单删除
+
+
+        //销售订单删除
         DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
             doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
         },//获取销售订单ID
@@ -393,13 +454,6 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
 
         },
-        AddProduct:function(req,successCallback,errorCallback) {
-            doPost($tool.getContext() + 'product/add', req, successCallback, errorCallback);
-        },
-
-        AddProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
-        },
         delProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/del',req,successCallback,errorCallback);
         },
@@ -412,15 +466,37 @@ layui.define(['$tool','jquery'], function (exports) {
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
+        //领料reach.do
+        productReachDo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
+        },
+        startProduce:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/startProduce',req,successCallback,errorCallback);
+             },
+        stopProduce:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/stopProduce',req,successCallback,errorCallback);
+        },
+        continueProduce1:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/continueProduce',req,successCallback,errorCallback);
+        },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
         },
+        managerAudi:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/managerAudi',req,successCallback,errorCallback);
+        },
+        jumpAudi:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/jumpAudi',req,successCallback,errorCallback);
+        },
         stepBack1:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/sb',req,successCallback,errorCallback);
         },
-        updateProduct:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
+        completeProduce1:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/completeProduce',req,successCallback,errorCallback);
+    },
+        unIntodepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
         delProduceFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/del',req,successCallback,errorCallback);
@@ -463,14 +539,40 @@ layui.define(['$tool','jquery'], function (exports) {
         getAllProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/list',req,successCallback,errorCallback);
         },
-        //连料单api_lennon
+        getAllProducePlanId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'plan/findId',req,successCallback,errorCallback);
+        },
+        //billCheck
+        addBillCheckNew:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/add',req,successCallback,errorCallback);
+        },
+        getBillCheckById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/get',req,successCallback,errorCallback);
+        },
+        ok1:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/ok',req,successCallback,errorCallback);
+        },
+        notOk:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/notOk',req,successCallback,errorCallback);
+        },
+        billCheckstepBack:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'billCheck/stepBack',req,successCallback,errorCallback);
+        },
+        selectByProductId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/selectByProductId',req,successCallback,errorCallback);
+        },
+        billCheckIntoDepot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'billCheck/intoDepot',req,successCallback,errorCallback);
+        },
         addFormulaReach:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'reach/add',req,successCallback,errorCallback);
+            doPost($tool.getContext() + '/reach/add',req,successCallback,errorCallback);
         },
         updFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/upd',req,successCallback,errorCallback);
         },
-
+        getReachByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
+         },
         delFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/del',req,successCallback,errorCallback);
         },
@@ -512,6 +614,12 @@ layui.define(['$tool','jquery'], function (exports) {
         useless:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'check/unUse',req,successCallback,errorCallback);
         },
+        getPCR:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'pcr/list',req,successCallback,errorCallback);
+        },
+        getreachList:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
+    },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
@@ -575,6 +683,8 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepotPersonnel:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
         },
+
+
         GetGoodsType:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
         },
@@ -592,6 +702,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetSupplierName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'supplier/getSupplierName.do',req,successCallback,errorCallback);
+        },
+        GetBySupplierName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'supplier/getBySupplierName.do',req,successCallback,errorCallback);
         },
         GetGoodsSpecification:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsSpecification.do',req,successCallback,errorCallback);
@@ -620,12 +733,16 @@ layui.define(['$tool','jquery'], function (exports) {
         GetMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/get.do',req,successCallback,errorCallback);
         },
+        GetMaterialGoodsId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getId.do',req,successCallback,errorCallback);
+        },
         UpdateMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);
-        },//销售订单删除
+        },
+        //销售订单删除
         DeleteMarkerOrder:function(req,config,successCallback,errorCallback) {
             doPost($tool.getContext() + 'marker/delete', req, config, successCallback, errorCallback);
         },//获取销售订单ID
@@ -687,14 +804,6 @@ layui.define(['$tool','jquery'], function (exports) {
         getPurchaseReceiveById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getPurchaseReceiveById.do',req,successCallback,errorCallback);
         },
-        /*根据申请单id查找应收单*/
-        getSaleReceiveById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/getSaleReceiveById.do',req,successCallback,errorCallback);
-        },
-        /*根据申请单id查找应收单*/
-        getSalePayById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
-        },
         /*审核采购应付单*/
         purchaseOrderPayPass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/purchaseOrderPayPass.do',req,successCallback,errorCallback);
@@ -704,23 +813,19 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
 
-
-
-        AddProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/add',req,config,successCallback,errorCallback);
-        },
-        delProduct:function(req,config,successCallback,errorCallback){
-            doComplexPost($tool.getContext() + 'product/del',req,config,successCallback,errorCallback);
-        },
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
-        getProductById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
+        GetProductId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/getId.do',req,successCallback,errorCallback);
         },
-        updateProduct:function(req,config,successCallback,errorCallback){
+        updateProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/upd',req,successCallback,errorCallback);
         },
+        changeProState:function(req,config,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/intoDepot',req,successCallback,errorCallback);
+            },
+
         delProduceFormula:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/del',req,config,successCallback,errorCallback);
         },
@@ -808,6 +913,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },//提交仓库审核
         updateWare:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'audit/ware',req,successCallback,errorCallback);
+        },//销售订单提交财务
+        updateFina:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         }
     };
 

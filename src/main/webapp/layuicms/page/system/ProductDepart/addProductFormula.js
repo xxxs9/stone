@@ -108,12 +108,13 @@ layui.config({
     /**
      * 表单提交
      * */
+
     form.on("submit(add)", function (data) {
 
         var productId = data.field.productId;
         var formulaType = data.field.formulaType;
         var formulaNumber = data.field.formulaNumber;
-        var createUser = data.field.createUser;
+        var createUser = data.field.reachUser;
         var createTime = data.field.createTime;
 
         /*var sort = data.field.sort;

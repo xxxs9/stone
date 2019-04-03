@@ -20,7 +20,9 @@ public interface OrderAuditMapper {
     List<OrderAudit> findAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("productId") String productId);
+            @Param("productId")String productId ,
+            @Param("orderId")String orderId,
+            @Param("applyUser") String applyUser);
 
     /**
      * 获取所有销售订单个数
@@ -66,4 +68,11 @@ public interface OrderAuditMapper {
      * @return
      */
     Boolean ware(OrderAuditBean orderAuditBean);
+
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    Boolean depot(OrderAuditBean orderAuditBean);
 }

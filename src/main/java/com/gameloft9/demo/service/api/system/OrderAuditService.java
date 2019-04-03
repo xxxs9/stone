@@ -12,11 +12,12 @@ public interface OrderAuditService {
     /**
      * 获取所有销售订单信息
      */
-    List<OrderAudit> findAll(String page, String limit, String productId);
+    List<OrderAudit> findAll(String page, String limit, String productId ,String orderId,String applyUser);
 
     /**
      * 获取所有销售订单个数
-     * */
+     * @return
+     */
     //int countGetAll(String markerOrderId);
 
     int dataCount();
@@ -61,4 +62,11 @@ public interface OrderAuditService {
      * @return
      */
     Boolean ware(OrderAuditBean orderAuditBean);
+
+    /**
+     * 仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+    Boolean depot(OrderAuditBean orderAuditBean);
 }

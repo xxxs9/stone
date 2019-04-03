@@ -194,4 +194,6 @@ public interface LenProducePlanService {
     );
 
     boolean changeOther(String id);
+
+    LenProducePlan findId(String productId);
 }

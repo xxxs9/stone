@@ -72,8 +72,15 @@ public interface SysSupplierService {
 
     /**
      * 根据主键删除供应商信息
-     * @param id
+     * @param id 供应商id
      * @return
      */
     Boolean deleteSupplier(String id);
+
+    /**
+     * 根据供应商名称获取供应商信息
+     * @param supplierName 供应商名称
+     * */
+    SysSupplier getBySupplierName(String supplierName);
+
 }

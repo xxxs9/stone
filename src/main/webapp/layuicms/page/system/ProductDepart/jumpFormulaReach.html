@@ -27,50 +27,64 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;" id="myform">
-
+    <h2>仓库审核单详情</h2>
     </br>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">产品编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productId" id="productId">
+            <input type="text" class="layui-input" name="productId" id="productId" >
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productName" id="productName">
+            <input type="text" class="layui-input" name="productName" id="productName" readonly>
         </div>
     </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">配方列表</label>
+    </br>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">领料人</label>
         <div class="layui-input-block">
-            <select name="produceFormulaId" lay-verify="required" id="produceFormulaId">
-
-            </select>
+            <input type="text" class="layui-input" name="reachUser"  readonly>
         </div>
     </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">配方详情</label>
+    </br>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">领料时间</label>
         <div class="layui-input-block">
-            <select name="produceFormulaDetailId" lay-verify="required" id="produceFormulaDetailId">
-
-            </select>
+            <input type="text" class="layui-input" name="reachTime"  placeholder="请选择领料时间" id="reachTime">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">仓库审核</label>
         <div class="layui-input-block">
-            <select name="depotAudi" lay-verify="required" id="depotAudi">
-                <!--//todo(仓库审核)-->
-                <option value="0"selected>--待仓库审核--</option>
+            <input type="text" class="layui-input" name="depotAudi"  id="depotAudi">
+        </div>
+    </div>
+
+    </br>
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">配方列表</label>
+        <div class="layui-input-block">
+            <select name="produceFormulaId" lay-verify="required" id="produceFormulaId" r>
+
             </select>
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">配方详情</label>
+        <div class="layui-input-block">
+            <select name="produceFormulaDetailId" lay-verify="required" id="produceFormulaDetailId" >
+
+            </select>
+        </div>
+    </div>
+    </br>
+
+
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
             <select name="state" lay-verify="required" id="state">
@@ -81,10 +95,10 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item "style="display: none">
         <label class="layui-form-label">退料</label>
         <div class="layui-input-block">
-            <select name="formulaBack" lay-verify="required" id="formulaBack">
+            <select name="formulaBack"  id="formulaBack">
                 <option value="0" selected>无</option>
                 <option value="1" >有</option>
                 <!--<option value="2" >已通过</option>
@@ -92,20 +106,6 @@
             </select>
         </div>
     </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">领料人</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="reachUser"  placeholder="请输入领料人姓名">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">领料时间</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="reachTime"  placeholder="请选择领料时间" id="reachTime">
-        </div>
-    </div>
-
 
 
     <div class="layui-form-item">

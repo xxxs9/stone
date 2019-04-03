@@ -62,10 +62,12 @@ layui.config({
      * 表单提交
      * */
         //todo(产品类型)
+
     var wid = 0;
     function selectProduct() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
+        alert(id)
         var req={
             id:id
         }
@@ -74,13 +76,14 @@ layui.config({
         $api.getProducePlanById(req, function (res) {
 
             var data2 = res.data;
+            console.log(data2)
             wid=data2.productId;
             //alert( wid);
 
 
             $('#productId').val(data2.productId)
             // $('#produceFormulaId1').val(hh);
-
+            $("[name='reachUser']").val(window.sessionStorage.getItem('sysUser'));
 
             function aa(wid){
                 var reqs={
@@ -188,7 +191,7 @@ layui.config({
      * */
     form.on("submit(addMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
-
+        var id =queryArgs['id'];
         var productId = data.field.productId;
         var produceFormulaId = data.field.produceFormulaId;
         var produceFormulaDetailId = data.field.produceFormulaDetailId;
@@ -200,9 +203,9 @@ layui.config({
 
 
         //请求
-        var url = $tool.getContext() + '/reach/upd';
+        var url = $tool.getContext() + '/reach/add';
         var req = {
-            id: queryArgs['id'],
+            id:id,
             productId:productId,
             produceFormulaDetailId:produceFormulaDetailId,
             depotAudi:depotAudi,
@@ -219,7 +222,7 @@ layui.config({
 
         $api.addFormulaReach(req, function (data) {
 
-            layer.msg("领料单填写成功！等待仓库审核", {time: 1000}, function () {
+            layer.msg("领料单填写成功！等待仓库审核", {time: 3000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();

@@ -93,4 +93,12 @@ public interface MarkerOrderMapper {
      */
 
     Boolean submit(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean fina(MarkerOrderTest markerOrderTest);
 }

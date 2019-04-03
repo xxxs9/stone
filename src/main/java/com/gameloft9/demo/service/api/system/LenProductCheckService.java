@@ -61,7 +61,11 @@ public interface LenProductCheckService {
                String checkUser,
                String checkTime,
                String wasteId,
-               String checkRemark);
+               String checkRemark,
+                   String other1,
+                   String other2,
+                   String other3
+    );
 
     /**
      *
@@ -84,7 +88,11 @@ public interface LenProductCheckService {
                String checkUser,
                String checkTime,
                String wasteId,
-               String checkRemark);
+               String checkRemark,
+                   String other1,
+                   String other2,
+                   String other3
+    );
 
     /**
      * 删除

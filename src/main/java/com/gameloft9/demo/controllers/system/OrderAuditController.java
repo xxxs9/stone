@@ -54,9 +54,9 @@ public class OrderAuditController {
      */
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page, String limit, String productId) {
+    public IResult findAll(String page, String limit, String productId ,String orderId,String applyUser) {
 
-        List<OrderAudit> list = orderAuditService.findAll(page, limit, productId);
+        List<OrderAudit> list = orderAuditService.findAll(page, limit, productId,orderId,applyUser);
         return new PageResultBean<Collection<OrderAudit>>(list, orderAuditService.dataCount());
     }
 
@@ -143,5 +143,18 @@ public class OrderAuditController {
     @ResponseBody
     public IResult ware(OrderAuditBean orderAuditBean) {
         return new ResultBean<Boolean>(orderAuditService.ware(orderAuditBean));
+    }
+
+
+    /**
+     * 11仓库审核
+     * @param orderAuditBean
+     * @return
+     */
+
+    @RequestMapping(value = "/depot", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult depot(OrderAuditBean orderAuditBean) {
+        return new ResultBean<Boolean>(orderAuditService.depot(orderAuditBean));
     }
 }

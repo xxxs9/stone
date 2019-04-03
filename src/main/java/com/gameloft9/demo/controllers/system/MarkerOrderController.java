@@ -148,7 +148,7 @@ public class MarkerOrderController {
     }
 
     /**
-     * 提交仓库身上
+     * 提交仓库审核
      * @param markerOrderTest
      * @return
      */
@@ -156,5 +156,16 @@ public class MarkerOrderController {
     @ResponseBody
     public IResult submit(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.submit(markerOrderTest));
+    }
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+    @RequestMapping(value = "/fina",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult fina(MarkerOrderTest markerOrderTest){
+        return new ResultBean<Boolean>(markerOrderService.fina(markerOrderTest));
     }
 }

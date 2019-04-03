@@ -1,5 +1,7 @@
 package com.gameloft9.demo.utils;
 
+import org.apache.shiro.SecurityUtils;
+
 /**
  * 常量
  * Created by gameloft9 on 2017/12/13.
@@ -224,10 +226,12 @@ public class Constants {
      * 审核状态：仓库管理人员
      */
     public static class DepotState{
-        public static final String DEPOT_PASS_SEND="已发货";
+        public static final String DEPOT_PASS_OUT="已出库";
+        public static final String DEPOT_PASS_IN="已入库";
         public static final String DEPOT_SURE="确认中";
         public static final String DEPOT_NO_SUNMIT="未提交";
         public static final String DEPOT_WAITING_IN="入库单审核中";
+        public static final String DEPOT_WAITING_OUT="出库单审核中";
         public static final String DEPOT_PASS="审核通过";
         public static final String DEPOT_FAIL="审核未通过";
     }
@@ -235,5 +239,73 @@ public class Constants {
      *仓库人员的机构名
      */
     public static final String DPOT_ORG = "供应部";
+
+
+    /**
+     * 生产部授权情况
+     * @return
+     */
+    public static int lennonPDAudi(){
+        if (SecurityUtils.getSubject().hasRole(PRODUCE_ADMIN)){
+            return 1;
+        }else if (SecurityUtils.getSubject().hasRole(PRODUCE_STADFF)){
+            return 0;
+        }else{
+            return -1;
+        }
+
+    }
+    public static class productState{
+        public static String UN_TIJIAO="1";
+        public static String TIJIAO_UNAUDI="2";
+        public static String AUDI_UNREACH="3";
+        public static String REACH_UNFENPEI="4";
+        public static String FENPEI_START_PRODUCE="5";
+        public static String STOP_PRODUCE="6";
+        public static String CONTINUE_PRODUCE="7";
+        public static String COMPLETE_PRODUCE="8";
+        public static String CHECK_GOOD="9";
+        public static String CHECK_BAD="10";
+        public static String UN_INTO_DEPOT="11";
+        public static String INTO_DEPOT="12";
+
+    }
+    public static class productType{
+        public static String BANCHENGPING_UNSOLD="1";
+        public static String BANCHENGPING_SOLD="2";
+        public static String CHENGPING_UNSOLD="3";
+        public static String CHENGPING_SOLD="4";
+    }
+    /**
+     * 仓库单分类
+     */
+    public static class Depot{
+        public static final String ORDER_OUT="出库单";
+        public static final String ORDER_IN="入库单";
+
+    }
+
+    /**
+     * 盘点单状态
+     */
+    public static class DepotInventoryCheck{
+        public static final String CHECK_IN="盘点中";
+        public static final String CHECK_OUT="盘点结束";
+        public static final String CHECK_AUIDT_IN="盘点单审核中";
+        public static final String CHECK_PASS="审核通过";
+        public static final String CHECK_FAIL="审核未通过";
+
+
+
+
+        /**kdsfjsldjflkdsjfldsf**/
+
+
+
+
+    }
+
+    public static final String MATERIAL = "原料";
+    public static final String PRODUCT = "产品";
 
 }

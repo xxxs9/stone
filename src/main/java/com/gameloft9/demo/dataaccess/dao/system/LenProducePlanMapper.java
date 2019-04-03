@@ -103,4 +103,11 @@ public interface LenProducePlanMapper {
      */
     int insertSelective(LenProducePlan lenProducePlan);
 
+    /**
+     * 查询id
+     * @param productId
+     * @return
+     */
+    LenProducePlan findId(@Param("productId") String productId);
+
 }

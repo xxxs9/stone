@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.DepotInventoryCheckMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="CHECK_TYPE" property="checkType" jdbcType="VARCHAR"/>
+        <result column="SOURCE_USER" property="sourceUser" jdbcType="VARCHAR"/>
+        <result column="SOURCE_TIME" property="sourceTime" jdbcType="VARCHAR"/>
+        <result column="RECORD_NUMBER" property="recordNumber" jdbcType="VARCHAR"/>
+        <result column="CHECK_STATE" property="checkState" jdbcType="VARCHAR"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, CHECK_TYPE, SOURCE_USER, SOURCE_TIME, RECORD_NUMBER, CHECK_STATE, STATE
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_INVENTORY_CHECK t
+        WHERE 1=1
+        <if test="sourceUser !=null and sourceUser != ''">
+            AND (
+            t.SOURCE_USER LIKE (concat('%',concat(#{sourceUser,jdbcType=VARCHAR},'%')))
+            AND t.SOURCE_USER >' '
+            )
+        </if>
+        <if test="checkType !=null and checkType != ''">
+            AND t.CHECK_TYPE = #{checkType,jdbcType=VARCHAR}
+        </if>
+        <if test="checkState !=null and checkState != ''">
+            AND t.CHECK_STATE = #{checkState,jdbcType=VARCHAR}
+        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM D_DEPOT_INVENTORY_CHECK t
+        WHERE 1=1
+        <if test="sourceUser !=null and sourceUser != ''">
+            AND (
+            t.SOURCE_USER LIKE (concat('%',concat(#{sourceUser,jdbcType=VARCHAR},'%')))
+            AND t.SOURCE_USER >' '
+            )
+        </if>
+        <if test="checkType !=null and checkType != ''">
+            AND t.CHECK_TYPE = #{checkType,jdbcType=VARCHAR}
+        </if>
+        <if test="checkState !=null and checkState != ''">
+            AND t.CHECK_STATE = #{checkState,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck">
+        INSERT INTO D_DEPOT_INVENTORY_CHECK
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="checkType != null">
+                CHECK_TYPE,
+            </if>
+            <if test="sourceUser != null">
+                SOURCE_USER,
+            </if>
+            <if test="sourceTime != null">
+                SOURCE_TIME,
+            </if>
+            <if test="recordNumber != null">
+                RECORD_NUMBER,
+            </if>
+            <if test="checkState != null">
+                CHECK_STATE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="checkType != null">
+                #{checkType,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceUser != null">
+                #{sourceUser,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTime != null">
+                #{sourceTime,jdbcType=VARCHAR},
+            </if>
+            <if test="recordNumber != null">
+                #{recordNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="checkState != null">
+                #{checkState,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_INVENTORY_CHECK t
+        WHERE
+        t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck" >
+        UPDATE D_DEPOT_INVENTORY_CHECK
+        <set >
+            <if test="checkType != null" >
+                CHECK_TYPE = #{checkType,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceUser != null" >
+                SOURCE_USER = #{sourceUser,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTime != null" >
+                SOURCE_TIME = #{sourceTime,jdbcType=VARCHAR},
+            </if>
+            <if test="recordNumber != null" >
+                RECORD_NUMBER = #{recordNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="checkState != null" >
+                CHECK_STATE = #{checkState,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                STATE = #{state,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      DELETE FROM
+	    D_DEPOT_INVENTORY_CHECK
+      WHERE
+	    ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="delsByIds" parameterType="java.lang.String" >
+        DELETE FROM
+        D_DEPOT_INVENTORY_CHECK
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </delete>
+</mapper>

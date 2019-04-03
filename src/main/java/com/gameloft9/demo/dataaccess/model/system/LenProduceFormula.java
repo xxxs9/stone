@@ -1,8 +1,6 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gameloft9.demo.utils.DateUtil;
-import com.gameloft9.demo.utils.lennonUtils.LenSuperClass;
 import lombok.Data;
 
 import java.util.Date;

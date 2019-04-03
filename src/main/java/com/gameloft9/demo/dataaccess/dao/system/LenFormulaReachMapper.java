@@ -153,4 +153,5 @@ public interface LenFormulaReachMapper {
     int insertSelective(String id,String productId,String productFormulaId,String ProductFormulaDetailId,
                         String depotAudi,String formulaBack,String state,String reachUser,String reachTime  );
 
+    LenFormulaReach getByProductId (@Param("productId")String productId);
 }

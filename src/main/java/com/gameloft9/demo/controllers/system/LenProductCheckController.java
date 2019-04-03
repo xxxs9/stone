@@ -38,7 +38,7 @@ public class LenProductCheckController {
         return new PageResultBean<List>(service.selectByPage(page,limit,checkUser,state),service.dataCount(state));
     }
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public IResult add(String id,
                        String producePlanId,
@@ -47,11 +47,14 @@ public class LenProductCheckController {
                        String checkUser,
                        String checkTime,
                        String wasteId,
-                       String checkRemark){
-        return new ResultBean<Boolean>(service.insert(id, producePlanId, formulaReachId, state, checkUser, checkTime, wasteId, checkRemark));
+                       String checkRemark,
+                       String other1,
+                       String other2,
+                       String other3){
+        return new ResultBean<Boolean>(service.insert(id, producePlanId, formulaReachId, state, checkUser, checkTime, wasteId, checkRemark,other1,other2,other3));
     }
 
-    @RequestMapping("/upd")
+    @RequestMapping(value = "/upd",method = RequestMethod.POST)
     @ResponseBody
     public IResult update(String id,
                           String producePlanId,
@@ -60,8 +63,11 @@ public class LenProductCheckController {
                           String checkUser,
                           String checkTime,
                           String wasteId,
-                          String checkRemark){
-        return  new ResultBean<Boolean>(service.update(id, producePlanId, formulaReachId, state, checkUser, checkTime, wasteId, checkRemark));
+                          String checkRemark,
+                          String other1,
+                          String other2,
+                          String other3){
+        return  new ResultBean<Boolean>(service.update(id, producePlanId, formulaReachId, state, checkUser, checkTime, wasteId, checkRemark,other1,other2,other3));
     }
 
     @RequestMapping("/del")
