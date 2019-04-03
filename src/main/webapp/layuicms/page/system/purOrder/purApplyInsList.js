@@ -32,7 +32,7 @@ layui.config({
      */
     function initState(){
         var html1 = '<option value="">--请选择--</option>';
-        html1 += '<option value="未审核">提交审核中</option>>';
+        html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
         html1 += '<option value="审核未通过">审核未通过</option>>';
 
@@ -51,7 +51,7 @@ layui.config({
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -82,7 +82,8 @@ layui.config({
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
                 {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
-                , {field: 'goodsId', title: '商品名称', width:120}
+                , {field: 'goodsName', title: '商品名称', width:120}
+                , {field: 'supplierName', title: '供销商', width:180}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品单价', width:100}
                 , {field: 'totalPrice', title: '商品总价', width:100}
@@ -117,14 +118,14 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
-        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
         var financeState = data.field.financeState;
 
         //表格重新加载
         tableIns.reload({
             where:{
                 state:state,
-                goodsId:goodsId,
+                goodsName:goodsName,
                 financeState:financeState
             }
         });

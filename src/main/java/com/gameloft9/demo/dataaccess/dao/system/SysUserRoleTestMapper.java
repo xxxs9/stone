@@ -85,4 +85,9 @@ public interface SysUserRoleTestMapper {
      * */
     int deleteByUserId(@Param("userId") String userId);
 
+    /**
+     * 根据user的ID获取role的ID
+     * */
+    List<String> selectRoleIdByUserId(@Param("userId") String userId);
+
 }

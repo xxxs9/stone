@@ -124,6 +124,10 @@
     {{# }else if(d.state =='仓库审核失败') { }}
     <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="submit"><i class="layui-icon">&#xe65c;</i>重新提交仓库</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='等待财务审核') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="final"><i class="layui-icon">&#xe65c;</i>等待审核财务</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+
     {{# }else if(d.state =='财务收到货款') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>订单审核完成</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>

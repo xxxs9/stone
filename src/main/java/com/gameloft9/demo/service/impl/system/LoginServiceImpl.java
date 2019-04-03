@@ -1,5 +1,7 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.SysRoleTestMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysUserRoleTestMapper;
 import com.gameloft9.demo.dataaccess.dao.system.UserMapper;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
@@ -20,6 +22,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.gameloft9.demo.mgrframework.utils.CheckUtil.*;
 
 /**
@@ -32,6 +37,10 @@ public class LoginServiceImpl implements LoginService{
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SysUserRoleTestMapper userRoleMapper;
+    @Autowired
+    SysRoleTestMapper roleMapper;
 
     /**
      * 登录
@@ -74,11 +83,24 @@ public class LoginServiceImpl implements LoginService{
             log.info("验证成功！");
             //还可以把用户信息放入session中
             request.getSession().setAttribute("sysUser",loginName);
+            //根据登录名loginName获取对应的id
+            String userId = userMapper.selectIdByLoginName(loginName);
+            //根据userMapper获取的id去获取对应的roleId
+            List<String> roleId = userRoleMapper.selectRoleIdByUserId(userId);
+            //根据获取到的roleId去获取所需要的roleName，因为对应的部门不止一个所以需要遍历
+            List<String> list = new ArrayList<String>();
+            for (String s : roleId) {
+                String s1 = roleMapper.selectRoleNameById(s);
+                list.add(s1);
+            }
+            //将遍历出来的值存入域roles中
+            request.getSession().setAttribute("roles", list);
 
             //拼接返回信息
             UserTest userTest = userMapper.getByLoginName(loginName);
             loginResponse.setUserId(userTest.getId());
             loginResponse.setLoginName(loginName);
+            loginResponse.setRoles(list);
             String baseUrl = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
             loginResponse.setWebContext(baseUrl);
             return loginResponse;

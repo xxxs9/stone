@@ -225,6 +225,7 @@
             PLANNED_NUMBER=#{plannedNumber},
             ACCEPTED_AMOUNT=#{acceptedAmount},
             APPLY_USER=#{applyUser},
+            STATE=#{state},
             ORDER_AUDIT_USER=#{orderAuditUser},
             ORDER_AUDIT_DEPOT=#{orderAuditDepot},
             REMARKS=#{remarks},
@@ -233,6 +234,7 @@
         where
             ID=#{id}
   </update>
+
 
 
 

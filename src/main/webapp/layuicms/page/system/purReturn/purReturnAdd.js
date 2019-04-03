@@ -32,7 +32,7 @@ layui.config({
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -67,9 +67,11 @@ layui.config({
         $api.selectOtherByOrderNumber(req,function (res) {
             var data = res.data;
             console.log(data);
-            //$("[name='id']").val(data.id);
+            /*$("[name='id']").val(data.id);*/
             //$("[name='orderNumber']").val(data.orderNumber);
             $("[name='goodsId']").val(data.goodsId);
+            $("[name='supplierName']").val(data.supplierName);
+            $("[name='goodsName']").val(data.goodsName);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
             $("[name='totalPrice']").val(data.totalPrice);
@@ -84,8 +86,11 @@ layui.config({
      * 表单提交
      * */
     form.on("submit(purAdd)", function (data) {
-        var orderNumber = data.field.orderNumber;
+        /*var id = data.field.id;*/
         var goodsId = data.field.goodsId;
+        var orderNumber = data.field.orderNumber;
+        var goodsName = data.field.goodsName;
+        var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var totalPrice = data.field.totalPrice;
@@ -96,8 +101,11 @@ layui.config({
 
         //请求
         var req = {
-            orderNumber:orderNumber,
+           /* id:id,*/
             goodsId:goodsId,
+            orderNumber:orderNumber,
+            goodsName:goodsName,
+            supplierName:supplierName,
             goodsNumber: goodsNumber,
             price: price,
             totalPrice:totalPrice,

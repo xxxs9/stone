@@ -83,4 +83,9 @@ public interface SysRoleTestMapper {
      * @param ids id列表
      * */
     List<String> getRoleNamesByIds(@Param("ids") List<String> ids);
+
+    /**
+     * 根据ID获取roleName角色部门
+     * */
+    String selectRoleNameById(@Param("id") String id);
 }
