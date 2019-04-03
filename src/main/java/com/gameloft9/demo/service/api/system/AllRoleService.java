@@ -34,12 +34,12 @@ public interface AllRoleService {
     /**仓库部门
      * @param limit 限制
      * @return List<AllRole> 返回值*/
-    /*List<AllRole> selectDepot(String limit);*/
+    List<AllRole> selectDepot(String limit);
 
     /**生产部门
      * @param limit 限制
      * @return List<AllRole> 返回值*/
-    /*List<AllRole> selectProduct(String limit);*/
+    List<AllRole> selectProduct(String limit);
 
     /**财务部门
      * @param limit 限制

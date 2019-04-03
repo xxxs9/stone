@@ -65,29 +65,29 @@ public interface PurchaseOrderService {
      * 获取所有
      * @param page 页数
      * @param limit 限制
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param state 订单类型
      * @return List<PurchaseOrder> 返回类型
      */
-    List<PurchaseOrder> selectAll(String page,String limit,String goodsId,String state);
+    List<PurchaseOrder> selectAll(String page,String limit,String goodsName,String state);
 
     /**
      * 根据id获取审核所需的列表
      * @param page 页数
      * @param limit 限制
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param state 订单类型
      * @return List<PurchaseOrder> 返回类型
      * */
-    List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState);
+    List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsName,String state,String financeState);
 
     /**
      * 获取个数
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param state 订单类型
      * @return int 返回类型
      */
-    int countGetAll(String goodsId,String state,String financeState);
+    int countGetAll(String goodsName,String state,String financeState);
 
     /**
      * 获取goodsId下拉框
@@ -113,20 +113,20 @@ public interface PurchaseOrderService {
      *采购收货 获取所有
      * @param page 页面
      * @param limit 页面页数
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 仓管审核状态
      * @return List<PurchaseOrder> 返回值*/
-    List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsId,
+    List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsName,
                                            String depotState);
 
     /**
      * 采购收货
      * 获取个数
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 订单类型
      * @return int 返回类型
      */
-    int countGetAllByInOrder(String goodsId,String depotState);
+    int countGetAllByInOrder(String goodsName,String depotState);
 
     /**
      * 采购入库之收货bring
@@ -174,7 +174,7 @@ public interface PurchaseOrderService {
      * 采购 通过goodsId自动获取price
      * @param materialId 商品名称
      * @return PurchaseOrder 返回实体类型*/
-    String selectPriceByGoodsId(String materialId);
+    List<String> selectPriceByGoodsId(String materialId);
 
     /**
      * 获取orderNumber下拉框

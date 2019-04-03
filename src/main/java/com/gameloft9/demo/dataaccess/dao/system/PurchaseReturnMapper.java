@@ -18,22 +18,22 @@ public interface PurchaseReturnMapper {
      * 显示所有列表
      * @param start 开始
      * @param end 结束
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return List<PurchaseReturn> 返回内容*/
     List<PurchaseReturn> selectAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("depotState") String depotState);
 
     /**
      * 分页显示
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return int 返回值*/
     int countGetAll(
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("depotState") String depotState);
 
     /**

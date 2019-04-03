@@ -15,23 +15,24 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-        //初始化供应商名称下拉框
+        //初始化商品名称下拉框
         initGoodsId();
     }
     init();
 
     /**
-     * 初始化供应商名称下拉框
+     * 初始化商品名称下拉框
      * */
     function initGoodsId() {
         $api.getListGoods(null,function (res) {
             var data = res.data;
+            console.log(data);
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].goodsName + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -42,14 +43,16 @@ layui.config({
         console.log(data.elem.checked); //是否被选中，true或者false
         console.log(data.value); //复选框value值，也可以通过data.elem.value得到
         console.log(data.othis); //得到美化后的DOM对象
+        var materialId = $("#goodsName").find("option:selected").text();
         var req = {
-            materialId:data.value
+            materialId:materialId
         };
 
         $api.selectPriceByGoodsId(req,function (res) {
             var data = res.data;
             console.log(res);
-            $("[name='price']").val(data);
+            $("[name='price']").val(data[0].goodsPrice);
+            $("[name='supplierName']").val(data[0].supplierName);
             form.render();//重新绘制表单，让修改生效
         });
     });
@@ -69,7 +72,6 @@ layui.config({
     $(function(){
         //总结个totalPrice
         $('[name=totalPrice]').bind('click',function(){
-
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             $("[name = totalPrice]").val(price * goodsNumber);
@@ -82,7 +84,9 @@ layui.config({
     form.on("submit(purAdd)", function (data) {
         //var id = data.field.id;
         var orderNumber = data.field.orderNumber;
-        var goodsId = data.field.goodsId;
+        var goodsId = $("#goodsName").val();
+        var goodsName = $("#goodsName").find("option:selected").text();
+        var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var totalPrice = data.field.totalPrice;
@@ -90,6 +94,7 @@ layui.config({
         var applyTime = data.field.applyTime;
         var state = data.field.state;
         var applyDescribe = data.field.applyDescribe;
+        console.log(data);
 
         //console.log(data)
         /*var parentMenuId = data.field.parentMenuId;
@@ -101,6 +106,8 @@ layui.config({
             //id:id,
             orderNumber:orderNumber,
             goodsId:goodsId,
+            goodsName:goodsName,
+            supplierName:supplierName,
             goodsNumber: goodsNumber,
             price: price,
             totalPrice:totalPrice,

@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -111,9 +112,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAll(String page,String limit,String goodsId,String state,String financeState){
-        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsId,
-                state),service.countGetAll(goodsId,state,financeState));
+    public IResult selectAll(String page,String limit,String goodsNume,String state,String financeState){
+        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsNume,
+                state),service.countGetAll(goodsNume,state,financeState));
     }
 
     /**
@@ -121,9 +122,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listInspect.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
+    public IResult selectAllByInspect(String page,String limit,String goodsName,String state,String financeState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInspect(page,
-                limit,goodsId,state,financeState),service.countGetAll(goodsId,state,financeState));
+                limit,goodsName,state,financeState),service.countGetAll(goodsName,state,financeState));
     }
 
     /**
@@ -158,9 +159,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listIn.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByInOrder(String page,String limit,String goodsId,String depotState){
+    public IResult selectAllByInOrder(String page,String limit,String goodsNume,String depotState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInOrder(page,limit,
-                goodsId,depotState),service.countGetAllByInOrder(goodsId,depotState));
+                goodsNume,depotState),service.countGetAllByInOrder(goodsNume,depotState));
     }
 
     /**
@@ -223,7 +224,7 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/price.do",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectPriceByGoodsId(String materialId){
-        return new ResultBean<String>(service.selectPriceByGoodsId(materialId));
+        return new ResultBean<List<String>>(service.selectPriceByGoodsId(materialId));
     }
 
     /**

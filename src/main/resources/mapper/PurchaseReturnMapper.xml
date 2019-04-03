@@ -7,6 +7,8 @@
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
         <result column="PRICE" property="price" jdbcType="VARCHAR"/>
         <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR"/>
@@ -39,7 +41,7 @@
         SELECT
             t.ID,
             t.ORDER_NUMBER,
-            t.GOODS_ID,
+            t.GOODS_NAME,
             t.GOODS_NUMBER,
             t.PRICE,
             t.TOTAL_PRICE,
@@ -59,13 +61,13 @@
             sys_material m,
             t_purchase_order s
         <where>
-            <if test="goodsId != null and goodsId != ''">
-                AND GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+            <if test="goodsName != null and goodsName != ''">
+                AND GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
                 AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
             </if>
-                AND m.GOODS_NAME = t.GOODS_ID
+                AND m.GOODS_NAME = t.GOODS_NAME
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
             ORDER BY t.ORDER_NUMBER ASC
@@ -79,8 +81,8 @@
         FROM
             t_purchase_return t
         <where>
-            <if test="goodsId != null and goodsId != ''">
-                GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+            <if test="goodsName != null and goodsName != ''">
+                GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
                 DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
@@ -93,9 +95,11 @@
         INSERT INTO
             t_purchase_return
             (ID,
-            ORDER_NUMBER,
             GOODS_ID,
+            ORDER_NUMBER,
+            GOODS_NAME,
             GOODS_NUMBER,
+            SUPPLIER_NAME,
             PRICE,
             TOTAL_PRICE,
             APPLY_USER,
@@ -111,9 +115,11 @@
             FINANCE_AUDIT_DESCRIBE)
         VALUES
             (#{id},
-            #{orderNumber},
             #{goodsId},
+            #{orderNumber},
+            #{goodsName},
             #{goodsNumber},
+            #{supplierName},
             #{price},
             #{totalPrice},
             #{applyUser},
@@ -142,6 +148,8 @@
         SELECT
             ORDER_NUMBER,
             GOODS_ID,
+            SUPPLIER_NAME,
+            GOODS_NAME,
             GOODS_NUMBER,
             PRICE,
             TOTAL_PRICE,
@@ -167,8 +175,10 @@
         UPDATE
             t_purchase_return
         SET
-            ORDER_NUMBER=#{orderNumber},
             GOODS_ID=#{goodsId},
+            ORDER_NUMBER=#{orderNumber},
+            GOODS_NAME=#{goodsName},
+            SUPPLIER_NAME=#{supplierName},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
             TOTAL_PRICE=#{totalPrice},
@@ -201,6 +211,8 @@
     <select id="selectOtherByOrderNumber" resultMap="purReturnMap">
         SELECT
             GOODS_ID,
+            GOODS_NAME,
+            SUPPLIER_NAME,
             GOODS_NUMBER,
             PRICE,
             TOTAL_PRICE
@@ -242,7 +254,7 @@
         SELECT
             ID,
             ORDER_NUMBER,
-            GOODS_ID,
+            GOODS_NAME,
             GOODS_NUMBER,
             PRICE,
             APPLY_USER,
@@ -268,7 +280,7 @@
         SELECT
             ID,
             ORDER_NUMBER,
-            GOODS_ID,
+            GOODS_NAME,
             GOODS_NUMBER,
             PRICE,
             APPLY_USER,

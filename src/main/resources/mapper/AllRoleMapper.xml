@@ -40,7 +40,7 @@
         <id column="ID" property="proOrderId" jdbcType="VARCHAR"/>
         <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
         <result column="ORDER_AUDIT_USER" property="orderAuditUser" jdbcType="VARCHAR"/>
-        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
         <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -129,7 +129,7 @@
         SELECT
             ORDER_NUMBER,
             ORDER_AUDIT_USER,
-            GOODS_ID,
+            GOODS_NAME,
             GOODS_NUMBER,
             APPLY_TIME
         FROM
@@ -140,22 +140,22 @@
     </select>
 
     <!--仓库部门-->
-    <!--<select id="selectDepot" resultMap="depotMap">
+    <select id="selectDepot" resultMap="depotMap">
         SELECT
-            sd.DEPOT_TYPE,
-            sd.DEPOT_NAME,
-            sd.DEPOT_NUMBER,
+            sd.TYPE,
+            sd.GOODS_NAME,
+            sd.GOODS_NUMBER,
             do.OUT_IN_TIME
         FROM
-            d_sys_depot sd,
+            d_depot_inventory sd,
             d_depot_order do
         ORDER BY
             OUT_IN_TIME ASC
             limit 0,5
-    </select>-->
+    </select>
 
     <!--生产部门-->
-    <!--<select id="selectProduct" resultMap="productPlanMap">
+    <select id="selectProduct" resultMap="productPlanMap">
         SELECT
             PRODUCT_NAME,
             PRODUCT_NUMBER,
@@ -164,7 +164,7 @@
         FROM
             l_product
             limit 0,5
-    </select>-->
+    </select>
 
     <!--财务部门-->
     <select id="selectFinance" resultMap="financeMap">

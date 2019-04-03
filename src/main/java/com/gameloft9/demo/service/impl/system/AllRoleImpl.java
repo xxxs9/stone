@@ -44,16 +44,16 @@ public class AllRoleImpl implements AllRoleService {
     }
 
     /**仓库部门*/
-   /* @Override
+    @Override
     public List<AllRole> selectDepot(String limit) {
         return dao.selectDepot(limit);
-    }*/
+    }
 
     /**生产部门*/
-    /*@Override
+    @Override
     public List<AllRole> selectProduct(String limit) {
         return dao.selectProduct(limit);
-    }*/
+    }
 
     /**财务部门*/
     public List<AllRole> selectFinance(String limit){

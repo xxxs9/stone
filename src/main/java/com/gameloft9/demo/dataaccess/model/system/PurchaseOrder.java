@@ -15,7 +15,9 @@ public class PurchaseOrder {
     private String id;
     private String orderNumber;
     private String goodsId;
+    private String goodsName;
     private String goodsNumber;
+    private String supplierName;
     private String price;
     private String totalPrice;
     private String applyUser;

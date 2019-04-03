@@ -48,7 +48,7 @@ layui.config({
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -88,7 +88,7 @@ layui.config({
             $("[name='id']").val(data.id);
             $("[name='orderNumber']").val(data.orderNumber);
             initOrderNumber(data.orderNumber);
-            $("[name='goodsId']").val(data.goodsId);
+            $("[name='goodsName']").val(data.goodsName);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
             $("[name='totalPrice']").val(data.totalPrice);
@@ -147,7 +147,7 @@ layui.config({
     form.on("submit(submitFilter)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var orderNumber = data.field.orderNumber;
-        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var totalPrice = data.field.totalPrice;
@@ -167,7 +167,7 @@ layui.config({
         var req = {
             id:queryArgs['id'],
             orderNumber:orderNumber,
-            goodsId:goodsId,
+            goodsName:goodsName,
             goodsNumber:goodsNumber,
             price:price,
             totalPrice:totalPrice,

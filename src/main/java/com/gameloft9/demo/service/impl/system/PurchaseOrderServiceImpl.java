@@ -1,9 +1,13 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.controllers.system.DepotInventoryCheckController;
+import com.gameloft9.demo.controllers.system.DepotOrderController;
 import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysSupplierMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
+import com.gameloft9.demo.dataaccess.model.system.SysSupplier;
 import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
@@ -12,6 +16,7 @@ import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -27,12 +32,15 @@ import java.util.List;
  * @date 2019/03/18
  */
 @Service
+@Transactional
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Autowired
     PurchaseOrderMapper dao;
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    DepotOrderController depotOrder;
 
     /**根据id获取*/
     public PurchaseOrder selectByPrimaryKey(String id) {
@@ -52,7 +60,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         purchaseOrder.setOrderNumber("CG" + OrderUtil.createOrderNumber());
         purchaseOrder.setApplyTime(new Date());
         purchaseOrder.setAuditType(Constants.Finance.PURCHASE_PAYABLE);
-
         //BigDecimal计算总价格，保留两位小数,Scale保留几位小数
         String price = purchaseOrder.getPrice();
         String goodsNumber = purchaseOrder.getGoodsNumber();
@@ -61,7 +68,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
                 java.math.BigDecimal.ROUND_HALF_UP);
         purchaseOrder.setTotalPrice(resultBD.toString());
-
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
     }
@@ -125,9 +131,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**采购部门经理审核*/
     public boolean inspectUpdate(PurchaseOrder purchaseOrder){
         //审核前判断state是否为提交审核中（避免撤回后还能审核）
-        String st = purchaseOrder.getState();
+        PurchaseOrder purchaseOrder1 = dao.selectByPrimaryKey(purchaseOrder.getId());
+        String st = purchaseOrder1.getState();
         String s = "提交审核中";
-        if(st != s) {
+        if(!st.equals(s)) {
             throw new BizException(AbstractResult.CHECK_FAIL,"订单被撤回，无法审核");
         }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
@@ -175,27 +182,27 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**获取所有*/
-    public List<PurchaseOrder> selectAll(String page, String limit, String goodsId, String state) {
+    public List<PurchaseOrder> selectAll(String page, String limit, String goodsName, String state) {
         PageRange pageRange = new PageRange(page, limit);
-        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,state);
+        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsName,state);
     }
 
 
     /**根据id获取审核所需的状态*/
-    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsId,String state,String financeState){
+    public List<PurchaseOrder> selectAllByInspect(String page,String limit,String goodsName,String state,String financeState){
         PageRange pageRange = new PageRange(page,limit);
-        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsId,state,financeState);
+        return dao.selectAllByInspect(pageRange.getStart(),pageRange.getEnd(),goodsName,state,financeState);
     }
 
 
     /**获取分页*/
-    public int countGetAll(String goodsId, String state,String financeState) {
-        return dao.countGetAll(goodsId,state,financeState);
+    public int countGetAll(String goodsName, String state,String financeState) {
+        return dao.countGetAll(goodsName,state,financeState);
     }
 
 
 
-    /**获取下拉框goodsId商品名称*/
+    /**获取下拉框goodsName商品名称*/
     public List<PurchaseOrder> getSelectListGoods() {
         List<PurchaseOrder> list = new ArrayList<PurchaseOrder>();
         list = dao.getSelectListGoods();
@@ -231,14 +238,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 采购收货 获取所有
      */
-    public List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsId,String depotState){
+    public List<PurchaseOrder> selectAllByInOrder(String page,String limit,String goodsName,String depotState){
         PageRange pageRange = new PageRange(page,limit);
-        return dao.selectAllByInOrder(pageRange.getStart(),pageRange.getEnd(),goodsId,depotState);
+        return dao.selectAllByInOrder(pageRange.getStart(),pageRange.getEnd(),goodsName,depotState);
     }
 
     /**采购收货 获取分页*/
-    public int countGetAllByInOrder(String goodsId, String depotState) {
-        return dao.countGetAllByInOrder(goodsId,depotState);
+    public int countGetAllByInOrder(String goodsName, String depotState) {
+        return dao.countGetAllByInOrder(goodsName,depotState);
     }
 
     /**采购入库之收货 bring*/
@@ -257,13 +264,26 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return true;
     }
 
-    /**采购入库之提交*/
+    /**采购入库之提交
+     * 与华锋对接*/
     public boolean commitInUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setDepotState(Constants.DepotState.DEPOT_WAITING_IN);
+        String p1 = dao.selectByPrimaryKey(purchaseOrder.getId()).getOrderNumber();
+        String p2 = dao.selectByPrimaryKey(purchaseOrder.getId()).getGoodsId();
+        String p3 = dao.selectByPrimaryKey(purchaseOrder.getId()).getGoodsNumber();
+        String p4 = dao.selectByPrimaryKey(purchaseOrder.getId()).getApplyUser();
+        depotOrder.addPurorderDepotOrderIn(p1,p2,p3,p4);
         dao.toolsUpdate(purchaseOrder);
         return true;
     }
+
+    /**
+     * 采购入库 华锋确认审核*//*
+    public boolean depotState(PurchaseOrder purchaseOrder){
+        CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+
+    }*/
 
     /**采购入库之撤回*/
     public boolean backInUpdate(PurchaseOrder purchaseOrder){
@@ -294,7 +314,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**根据goodsId自动获取pruce信息*/
-    public String selectPriceByGoodsId(String materialId){
+    public List<String> selectPriceByGoodsId(String materialId){
         return dao.selectPriceByGoodsId(materialId);
     }
 

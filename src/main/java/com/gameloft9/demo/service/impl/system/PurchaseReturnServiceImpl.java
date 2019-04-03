@@ -1,7 +1,9 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.FinanceApplyOrderMapper;
+import com.gameloft9.demo.dataaccess.dao.system.PurchaseOrderMapper;
 import com.gameloft9.demo.dataaccess.dao.system.PurchaseReturnMapper;
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
@@ -31,16 +33,18 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     PurchaseReturnMapper dao;
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    PurchaseOrderMapper purOrder;
 
     /**查询所有*/
-    public List<PurchaseReturn> selectAll(String page, String limit, String goodsId, String depotState) {
+    public List<PurchaseReturn> selectAll(String page, String limit, String goodsNume, String depotState) {
         PageRange pageRange = new PageRange(page, limit);
-        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsId,depotState);
+        return dao.selectAll(pageRange.getStart(),pageRange.getEnd(),goodsNume,depotState);
     }
 
     /**分页查找*/
-    public int countGetAll(String goodsId, String depotState) {
-        return dao.countGetAll(goodsId,depotState);
+    public int countGetAll(String goodsName, String depotState) {
+        return dao.countGetAll(goodsName,depotState);
     }
 
     /**增加*/
@@ -50,6 +54,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         String userName = (String) request.getSession().getAttribute("sysUser");
         purchaseReturn.setApplyUser(userName);
         purchaseReturn.setId(UUIDUtil.getUUID());
+
         purchaseReturn.setApplyTime(new Date());
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.insert(purchaseReturn);
@@ -76,7 +81,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return true;
     }
 
-    /**获取goodsId下拉框*/
+    /**获取goodsNume下拉框*/
     public List<PurchaseReturn> selectAllGoodsId() {
         List<PurchaseReturn> list = new ArrayList<PurchaseReturn>();
         list = dao.selectAllGoodsId();
