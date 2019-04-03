@@ -1,6 +1,9 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.controllers.system.DepotInventoryCheckController;
+import com.gameloft9.demo.controllers.system.DepotOrderController;
 import com.gameloft9.demo.dataaccess.dao.system.MarkerOrderMapper;
+import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.mgrframework.utils.StateUtil;
@@ -28,7 +31,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
 
     @Autowired
     MarkerOrderMapper markerOrderMapper;
-
+    @Autowired
+    DepotOrderController depotOrder;
     /**
      * 获取所有订单信息
      * @param page
@@ -170,6 +174,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUUtil.APPLY_submit);
         markerOrderMapper.submit(markerOrderTest);
+        MarkerOrderTest markerOrder = markerOrderMapper.getMaker(markerOrderTest.getId());
+        depotOrder.addMarketDepotOrderOut(markerOrder.getOrderId(),markerOrder.getProductId(),markerOrder.getDeliverNumber(),markerOrder.getApplyUser());
         return true;
     }
 

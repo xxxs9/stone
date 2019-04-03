@@ -47,19 +47,26 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">订单日期 :</label>
         <div class="layui-input-block">
             <input type="hidden" style="border:none" style="border:none" id="test1" class="layui-input" readonly="readonly" name="orderTime" placeholder="请输入订单日期">
         </div>
+    </div>-->
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单日期 :</label>
+        <div class="layui-input-block">
+            <input type="text" style="border:none" id="test1" class="layui-input" readonly="readonly" name="orderTime" placeholder="请输入订单日期">
+        </div>
     </div>
 
-
-
-    <div class="layui-form-item parent-menu">
-        <label class="layui-form-label">产品名 :</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
-            <input type="hidden" style="border:none" readonly="readonly"  name="productId" placeholder="产品名">
+            <select id="productId" style="border:none" readonly="readonly" name="productId" lay-verify="required">
+            </select>
         </div>
     </div>
 

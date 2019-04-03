@@ -25,7 +25,7 @@ layui.config({
         //初始化机构树
       //  initOrgTree();
         //初始化用户信息
-
+        loadProductIdList();
     }
 
     init();
@@ -42,6 +42,25 @@ layui.config({
 
 
 
+    /**
+     * 初始化下拉框
+     */
+
+
+    function loadProductIdList() {
+
+        $api.GetProductId(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '<option value="">--请填写--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]+'">'+data[i]+'</option>>';
+                }
+                $('#productId').append($(html));
+                form.render();
+            }
+        });
+    }
 
             /**
              * 初始化用户信息

@@ -75,4 +75,11 @@ public interface OrderAuditMapper {
      * @return
      */
     Boolean depot(OrderAuditBean orderAuditBean);
+
+
+    /**
+     * 根据订单编号获取订单信息
+     */
+    OrderAuditBean getByOrderId(String orderId);
+
 }

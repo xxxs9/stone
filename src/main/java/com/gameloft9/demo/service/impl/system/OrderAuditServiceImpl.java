@@ -1,5 +1,6 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.controllers.system.OrderAuditController;
 import com.gameloft9.demo.dataaccess.dao.system.OrderAuditMapper;
 import com.gameloft9.demo.dataaccess.model.system.OrderAudit;
 import com.gameloft9.demo.dataaccess.model.system.OrderAuditBean;
@@ -26,6 +27,8 @@ public class OrderAuditServiceImpl implements OrderAuditService {
 
     @Autowired
     OrderAuditMapper orderAuditMapper;
+
+
 
     /**
      * 分页模糊查询
@@ -158,7 +161,6 @@ public class OrderAuditServiceImpl implements OrderAuditService {
         orderAuditBean.setState(StateUUtil.APPLY_pas);
         orderAuditMapper.audit(orderAuditBean);
         String state=orderAuditBean.getState();
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String str="仓库通过审核";
         if (str.equals(state)){
             orderAuditBean.setState(StateUUtil.APPLY_pas);

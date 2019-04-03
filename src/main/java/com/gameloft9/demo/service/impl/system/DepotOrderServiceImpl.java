@@ -180,6 +180,9 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
+
+
+
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
         //库存中的数量
