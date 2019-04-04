@@ -109,6 +109,7 @@ layui.config({
                     console.log(data)
                     //$("[name='id']").val(data.id);
                     $("[name='goodsId']").val(data.goodsId);
+                    $("[name='productId']").val(data.productId);
                     $("[name='goodsName']").val(data.goodsName);
                     $("[name='customer']").val(data.customer);
                     $("[name='goodsNumber']").val(data.goodsNumber);
@@ -139,6 +140,7 @@ layui.config({
                 console.log(data)
               //  var id = data.field.id;
                 var goodsId = data.field.goodsId;
+                var productId = data.field.productId;
                 var goodsName = data.field.goodsName;
                 var customer = data.field.customer;
                 var goodsNumber = data.field.goodsNumber;
@@ -166,6 +168,7 @@ layui.config({
                 var req = {
                     id:id,
                     goodsId: goodsId,
+                    productId: productId,
                     goodsName: goodsName,
                     customer: customer,
                     goodsNumber: goodsNumber,

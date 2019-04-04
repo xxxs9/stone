@@ -147,6 +147,24 @@ layui.config({
         return false;
     })
 
+    var abc;
+    function initTree1(){
+
+        $api.initTreeNode(null,function (data) {
+            abc = data.data
+        });
+    }
+    var node = new layuiXtree({
+        elem: 'xtree2'   //(必填) 放置xtree的容器id，不要带#号
+        , form: form     //(必填) layui 的 from
+        , data: abc
+        ,isopen:false
+        ,click:function(data){
+            console.log(data)
+        }
+    });
+    //initTree1();
+
 });
 
 

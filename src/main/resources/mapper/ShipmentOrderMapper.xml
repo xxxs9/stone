@@ -6,6 +6,7 @@
     <resultMap id="ShipmentOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
@@ -21,6 +22,7 @@
     <sql id="Base_Column_List">
         ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -105,6 +107,7 @@
         select
             ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -163,6 +166,7 @@
            w_shipment_order
           ( ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -176,6 +180,7 @@
         values
           (#{id},
           #{goodsId},
+          #{productId},
           #{goodsName},
           #{customer},
           #{goodsNumber},
@@ -193,6 +198,7 @@
             w_shipment_order
         set
             GOODS_ID=#{goodsId},
+            PRODUCT_ID=#{productId},
            GOODS_NAME=#{goodsName},
             CUSTOMER=#{customer},
             GOODS_NUMBER=#{goodsNumber},
