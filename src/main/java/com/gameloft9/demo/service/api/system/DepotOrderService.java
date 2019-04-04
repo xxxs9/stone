@@ -87,6 +87,16 @@ public interface DepotOrderService {
     String addProduceDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser);
 
     /**
+     * 添加销售退货单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addMarketDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser);
+
+
+    /**
      * 添加仓库单
      * @param id                    仓库单编号
      * @param orderType             仓库单类型

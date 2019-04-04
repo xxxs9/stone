@@ -271,6 +271,36 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
 
     /**
+     * 添加销售退货单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.ADD,memo = "新增销售退货单")
+    public String addMarketDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(orderNumber);
+        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setType("销售退货");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
+    /**
      * 添加仓库单
      * @param id                    仓库单编号
      * @param orderType             仓库单类型
