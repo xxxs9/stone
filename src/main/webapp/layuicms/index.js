@@ -386,9 +386,9 @@ function showmessage() {
     setTimeout(function(){
         Push();
     },200);
-        setInterval(function(){
+       /* setInterval(function(){
             Push();
-        },2000);
+        },2000);*/
 
 
 function Push() {
