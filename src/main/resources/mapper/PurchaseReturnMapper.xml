@@ -62,15 +62,15 @@
             t_purchase_order s
         <where>
             <if test="goodsName != null and goodsName != ''">
-                AND GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+                AND t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
-                AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
+                AND t.DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
             </if>
                 AND m.GOODS_NAME = t.GOODS_NAME
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
-            ORDER BY t.ORDER_NUMBER ASC
+            ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -224,10 +224,14 @@
 
     <!--初始化goodsId下拉框-->
     <select id="selectAllGoodsId" resultType="java.lang.String">
-        SELECT DISTINCT
-            GOODS_ID
+        SELECT
+            m.GOODS_NAME,
+            g.ID
         FROM
-            t_purchase_return
+            sys_material m,
+            sys_material_goods g
+        WHERE
+            g.MATERIAL_ID = m.ID
     </select>
 
     <!--提交、撤回等操作，修改状态depotState-->
@@ -246,12 +250,22 @@
         </where>
     </update>
 
-    <!--根据orderNumber获取-->
+    <!--根据orderNumber获取purOrderMap-->
     <select id="selectByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
         SELECT
             *
         FROM
             t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+    <!--根据orderNumber获取purReturnMap-->
+    <select id="selectReturnByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_return
         WHERE
             ORDER_NUMBER=#{orderNumber}
     </select>

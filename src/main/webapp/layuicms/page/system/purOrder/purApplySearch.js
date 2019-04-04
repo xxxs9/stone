@@ -31,6 +31,7 @@ layui.config({
         });
     }
     initTestarea();
+
     function init() {
         initDepotInfo();
     }
@@ -65,36 +66,6 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         }
-
-       /* /!**
-         * 加载列表
-         * *!/
-        function loadRoleList() {
-            var req =  {
-                page:1,
-                limit:10
-            };
-
-            $api.listPurOrder(req,function (res) {
-                var data = res.data;
-                if(data.length > 0){
-                    var depotHtml = "";
-                    for(var i = 0;i<data.length;i++){
-                        //是否初始化选中
-                        if($.inArray(data[i].id) != -1){
-                            depotHtml += '<input type="checkbox" checked name="'+data[i].id+'" title="'+data[i].applyUser+'">';
-                        }else{
-                            depotHtml += '<input type="checkbox" name="'+data[i].id+'" title="'+data[i].applyUser+'">';
-                        }
-
-                        depotIdList.push(data[i].id);//保存id列表
-                    }
-
-                    $('.role-check-list').append($(depotHtml));
-                    form.render();//重新绘制表单，让修改生效
-                }
-            });
-        }*/
 
     /**
      * 表单提交

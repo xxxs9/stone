@@ -110,4 +110,9 @@ public interface PurchaseReturnMapper {
             @Param("start") int start,
             @Param("end") int end);
 
+    /**
+     * 阿发包
+     * 根据orderNumber获取所有purReturn内容
+     * */
+    PurchaseReturn selectReturnByOrderNumber(@Param("orderNumber") String orderNumber);
 }

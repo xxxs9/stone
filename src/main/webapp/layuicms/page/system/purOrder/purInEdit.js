@@ -117,7 +117,6 @@ layui.config({
     $(function(){
         //总结个totalPrice
         $('[name=totalPrice]').bind('click',function(){
-
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             $("[name = totalPrice]").val(price * goodsNumber);
