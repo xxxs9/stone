@@ -148,6 +148,28 @@ public class DepotOrderController {
     }
 
     /**
+     * 获取仓库单信息,判断是否入库成功
+     * @param id 仓库单主键
+     * */
+    @RequestMapping(value = "/isStorageIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult isStorageIn(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotOrderServiceImpl.isStorageIn(id));
+    }
+
+    /**
+     * 获取仓库单信息,判断是否出库成功
+     * @param id 仓库单主键
+     * */
+    @RequestMapping(value = "/isStorageOut.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult isStorageOut(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotOrderServiceImpl.isStorageOut(id));
+    }
+
+    /**
      * 审核通过,更新入库单
      * @param id                    仓库单id
      * @param state                 仓库单状态
@@ -276,5 +298,7 @@ public class DepotOrderController {
         String orderType = Constants.Depot.ORDER_OUT;
         return new ResultBean<List<String>>(depotOrderServiceImpl.getDepotOrderInType(orderType));
     }
+
+
 
 }

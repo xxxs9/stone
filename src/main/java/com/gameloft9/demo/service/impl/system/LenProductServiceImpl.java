@@ -299,7 +299,8 @@ public class LenProductServiceImpl implements LenProductService {
 
 
     @Override
-    public boolean huaOutDepot(String id) {
+    public boolean
+    huaOutDepot(String id) {
         //华峰出库
        if (mapper.changeState(Constants.productState.DEPOT_OUT,id)>0){
            return true;

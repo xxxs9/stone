@@ -58,4 +58,6 @@ public class DepotInventoryController {
         return new ResultBean<DepotInventory>(depotInventoryServiceImpl.findOne(goodsId));
     }
 
+
+
 }

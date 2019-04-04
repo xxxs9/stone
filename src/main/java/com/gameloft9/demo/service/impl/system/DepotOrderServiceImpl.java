@@ -52,6 +52,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private PurchaseOrderService purchaseOrderServiceImpl;
     @Autowired
     private PurchaseReturnService purchaseReturnServiceImpl;
+    @Autowired
+    private LenProductService lenProductServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -89,7 +91,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
      * @param applyUser             申请人
      * */
     @Override
-    public String addDepotOrder(String orderType, String type, String goodsId, String goodsNumber, String applyUser) {
+    public String  addDepotOrder(String orderType, String type, String goodsId, String goodsNumber, String applyUser) {
 
         CheckUtil.notBlank(orderType, "仓库单类型为空");
         CheckUtil.notBlank(type, "出入库类型为空");
@@ -579,6 +581,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产领料,更新隆缘状态
         if(depotOrderMapper.getById(id).getType().equals("生产领料")){
             //隆缘改变状态的方法
+            lenProductServiceImpl.huaOutDepot(id);
         }
 
         //出库单要出库的数量
@@ -633,5 +636,54 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     @Override
     public List<String> getDepotOrderInType(String orderType) {
         return depotOrderMapper.getDepotOrderInType(orderType);
+    }
+
+    /**
+     * 获取仓库单信息,判断是否出库成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isStorageOut(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS_OUT);
+        return true;
+    }
+
+
+    /**
+     * 获取仓库单信息,判断是否入库成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isStorageIn(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS_IN);
+        return true;
+    }
+
+    /**
+     * 获取入库单信息,判断是否成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isAuditPassIn(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS);
+        return true;
+    }
+
+    /**
+     * 获取出库单信息,判断是否审核成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isAuditPassOut(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS);
+        return true;
     }
 }

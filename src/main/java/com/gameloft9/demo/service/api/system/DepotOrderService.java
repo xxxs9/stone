@@ -171,4 +171,27 @@ public interface DepotOrderService {
      * */
     List<String> getDepotOrderInType(String orderType);
 
+    /**
+     * 获取出库单信息,判断是否出库成功
+     * @param id 仓库单主键
+     * */
+    Boolean isStorageOut(String id);
+
+    /**
+     * 获取入库单信息,判断是否入库成功
+     * @param id 仓库单主键
+     * */
+    Boolean isStorageIn(String id);
+
+    /**
+     * 获取入库单信息,判断是否成功
+     * @param id 仓库单主键
+     * */
+    Boolean isAuditPassIn(String id);
+
+    /**
+     * 获取出库单信息,判断是否审核成功
+     * @param id 仓库单主键
+     * */
+    Boolean isAuditPassOut(String id);
 }
