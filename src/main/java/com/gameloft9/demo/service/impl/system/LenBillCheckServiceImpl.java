@@ -96,11 +96,11 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
         billCheck.setPlanId(planId);
         billCheck.setProductId(productId);
         billCheck.setProductName(productName);
-        LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
-        String productId1 = billCheck1.getProductId();
-        LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
-        String other1 = lenProduct.getOther1();
         if (mapper.insert(billCheck)>0){
+            LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
+            String productId1 = billCheck1.getProductId();
+            LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
+            String other1 = lenProduct.getOther1();
             depotOrderService.addProduceDepotOrderIn(other1,productId1,checkNumber,checkUser);
             return true;
         }else{
