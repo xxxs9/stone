@@ -57,33 +57,5 @@ public class DepotInventoryController {
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<DepotInventory>(depotInventoryServiceImpl.findOne(goodsId));
     }
-/*
-    *//**
-     * 添加产品库存
-     * @param goodsId               成品ID
-     * @param goodsNumber           货品数量
-     * *//*
-    @RequestMapping(value = "/addProduct.do",method = RequestMethod.POST)
-    @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增产品库存信息")
-    public IResult addDepotInventoryProduct(String goodsId,String goodsNumber){
-        //返回json至前端的均返回ResultBean或者PageResultBean
-        String type = Constants.DPOT_INV_PRODUCT;
-        return new ResultBean<String>(depotInventoryServiceImpl.addDepotInventory(type,goodsId,goodsNumber));
-    }
 
-
-    *//**
-     * 添加原料库存
-     * @param goodsId               原料ID
-     * @param goodsNumber           货品数量
-     * *//*
-    @RequestMapping(value = "/addProduct.do",method = RequestMethod.POST)
-    @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增原料库存信息")
-    public IResult addDepotInventoryMaterial(String goodsId,String goodsNumber){
-        //返回json至前端的均返回ResultBean或者PageResultBean
-        String type = Constants.DPOT_INV_MATERIAL;
-        return new ResultBean<String>(depotInventoryServiceImpl.addDepotInventory(type,goodsId,goodsNumber));
-    }*/
 }
