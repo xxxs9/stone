@@ -70,7 +70,7 @@
                 AND m.GOODS_NAME = t.GOODS_NAME
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
-            ORDER BY t.ORDER_NUMBER ASC
+            ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -250,12 +250,22 @@
         </where>
     </update>
 
-    <!--根据orderNumber获取-->
+    <!--根据orderNumber获取purOrderMap-->
     <select id="selectByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
         SELECT
             *
         FROM
             t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+    <!--根据orderNumber获取purReturnMap-->
+    <select id="selectReturnByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_return
         WHERE
             ORDER_NUMBER=#{orderNumber}
     </select>
