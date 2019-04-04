@@ -72,7 +72,7 @@ public interface LenProductMapper {
     /**
      * 统计条数
      *
-     * @param state
+     * @param
      * @return
      */
     int dataCount(@Param("productState") String productState);
@@ -114,6 +114,20 @@ public interface LenProductMapper {
      */
     List<LenProduct> selectByState();
 
+    /**
+     * 查询成本
+     * @param supportPrice
+     * @param id
+     * @return
+     */
     int insertSupportPrice(@Param("supportPrice")String supportPrice,@Param("id")String id);
+
+    /**
+     * 根据流水号查id
+     * @param other1
+     * @return
+     */
+
+    String selectByOther1(@Param("other1")String other1);
 
 }

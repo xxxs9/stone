@@ -70,4 +70,11 @@ public interface ReturnGoodsOrderService {
      * @return
      */
     Boolean finance(ShipmentOrder shipmentOrder);
+
+    /**
+     * 退货产品入库
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean wareh(ShipmentOrder shipmentOrder);
 }

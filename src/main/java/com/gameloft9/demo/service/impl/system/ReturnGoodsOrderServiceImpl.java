@@ -176,4 +176,17 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         applyOrderMapper.add(applyOrder);
         return true;
     }
+
+    /**
+     * 退货产品入库
+     * @param shipmentOrder
+     * @return
+     */
+    @Override
+    public Boolean wareh(ShipmentOrder shipmentOrder) {
+        CheckUtil.notBlank(shipmentOrder.getGoodsId(),"订单编号为空");
+        shipmentOrder.setState(StateUUtil.APPLY_pas);
+        returnGoodsOrderMapper.wareh(shipmentOrder);
+        return true;
+    }
 }

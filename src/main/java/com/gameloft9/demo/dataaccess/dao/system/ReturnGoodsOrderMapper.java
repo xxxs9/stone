@@ -102,4 +102,12 @@ public interface ReturnGoodsOrderMapper {
      */
     void returnGoodsOrderPayPass(ReturnGoodsOrder returnGoodsOrder);
 
+
+    /**
+     * 退货产品入库
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean wareh(ShipmentOrder shipmentOrder);
+
 }
