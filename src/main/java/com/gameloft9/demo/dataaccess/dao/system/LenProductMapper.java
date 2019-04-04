@@ -72,7 +72,7 @@ public interface LenProductMapper {
     /**
      * 统计条数
      *
-     * @param state
+     * @param
      * @return
      */
     int dataCount(@Param("productState") String productState);
@@ -127,6 +127,7 @@ public interface LenProductMapper {
      * @param other1
      * @return
      */
+
     String selectByOther1(@Param("other1")String other1);
 
 }
