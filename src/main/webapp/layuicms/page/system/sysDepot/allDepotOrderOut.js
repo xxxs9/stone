@@ -55,7 +55,7 @@ layui.config({
                 ,{field: 'type', title: '出库类型', width: '10%'}
                 , {field: 'goodsNumber', title: '货品数量', width: '10%'}
                 , {field: 'applyUser', title: '申请人', width: '10%'}
-                , {field: 'applyTime', title: '申请时间', width: '20%'}
+                , {field: 'applyTime', title: '申请时间', width: '20%',sort:'true'}
                 , {field: 'orderAuditUser', title: '审核人', width: '25%'}
                 , {field: 'orderAuditTime', title: '审核时间', width: '25%'}
                 , {field: 'auditDescribe', title: '审核描述', width: '25%'}
