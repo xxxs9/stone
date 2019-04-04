@@ -54,6 +54,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private PurchaseReturnService purchaseReturnServiceImpl;
     @Autowired
     private ReturnGoodsOrderService returnGoodsOrderServiceImpl;
+    @Autowired
+    private LenFormulaReachService lenFormulaReachServiceImpl;
     /***
      * 啊发包
      */
@@ -557,6 +559,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产入库,更新沧海采购单状态
         if(current.getType().equals("生产入库")){
             //隆缘改变状态的方法
+
         }
         //销售退货入库,更新锦祥退货单状态
         if(current.getType().equals("销售退货")){
@@ -622,6 +625,13 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
 
+        if(depotOrderMapper.getById(id).getType().equals("生产领料")){
+            LenFormulaReach lenFormulaReach = lenFormulaReachServiceImpl.getByPrimaryKey(id);
+            String productId = lenFormulaReach.getProductId();
+            lenProductMapper.changeState(Constants.productState.FENPEI_START_PRODUCE,productId);
+        }
+
+
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
         //库存中的数量
@@ -637,7 +647,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         System.out.println(depotInventory);
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),depotInventory.getType(),depotInventory.getGoodsId(),depotInventory.getGoodsNumber(),depotInventory.getShipmentsNumber(),depotInventory.getSaleableNumber());
 
-
+        //采购退货财务插入申请单
+        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
         //啊发包
         PurchaseReturn purchaseReturn = purchaseReturnMapper.selectReturnByOrderNumber(id);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
@@ -657,7 +668,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         applyOrder.setApplyMoney(purchaseReturn.getTotalPrice());
         //插入申请单
         applyOrderMapper.add(applyOrder);
-
+        }
         return true;
     }
 
