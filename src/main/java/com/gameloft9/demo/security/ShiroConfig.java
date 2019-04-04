@@ -1,13 +1,13 @@
 package com.gameloft9.demo.security;
 
-import com.gameloft9.demo.service.api.system.SysAccessPermissionService;
 import com.gameloft9.demo.dataaccess.model.system.SysAccessPermissionTest;
+import com.gameloft9.demo.service.api.system.SysAccessPermissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.apache.shiro.mgt.SecurityManager;
 
 import java.util.LinkedHashMap;
 import java.util.List;

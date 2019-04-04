@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 系统用户
