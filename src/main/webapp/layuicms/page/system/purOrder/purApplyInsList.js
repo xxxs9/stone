@@ -35,7 +35,6 @@ layui.config({
         html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
         html1 += '<option value="审核未通过">审核未通过</option>>';
-
         $('#state').append($(html1));
         form.render();
     }
@@ -49,7 +48,7 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].goodsName + '</option>>';
                 }
                 $('#goodsName').append($(html));
                 form.render();
@@ -118,8 +117,14 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
-        var goodsName = data.field.goodsName;
+        /*var goodsName = data.field.goodsName;*/
         var financeState = data.field.financeState;
+        var goodsName = "";
+        if($("#goodsName").find("option:selected").text() == '--请选择--'){
+            goodsName = "";
+        }else {
+            goodsName = $("#goodsName").find("option:selected").text();
+        }
 
         //表格重新加载
         tableIns.reload({

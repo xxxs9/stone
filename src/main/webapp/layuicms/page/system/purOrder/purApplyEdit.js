@@ -50,7 +50,7 @@ layui.config({
                 if (data.length > 0) {
                     var html = '<option value="">--请选择--</option>';
                     for (var i = 0; i < data.length; i++) {
-                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                        html += '<option value="' + data[i].id + '">' + data[i].goodsName + '</option>>';
                     }
                     $('#goodsName').append($(html));
                     form.render();
@@ -72,6 +72,7 @@ layui.config({
                 var data = res.data;
                 console.log(data);
                 $("[name='id']").val(data.id);
+                $("[name='goodsId']").val(data.goodsId);
                 $("[name='orderNumber']").val(data.orderNumber);
                 $("[name='goodsName']").val(data.goodsName);
                 $("[name='supplierName']").val(data.supplierName);
@@ -158,7 +159,7 @@ layui.config({
     form.on("submit(submitFilter)", function (data) {
         var queryArgs =  $tool.getQueryParam();//获取查询参数
         var orderNumber = data.field.orderNumber;
-        var goodsId = datat.field.goodsId;
+        var goodsId = data.field.goodsId;
         var goodsName = data.field.goodsName;
         var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;
@@ -171,11 +172,11 @@ layui.config({
         var idList = new Array();
 
         //获取选中的角色列表
-        for(var i=0;i<depotIdList.length;i++){
+        /*for(var i=0;i<depotIdList.length;i++){
             if(data.field[depotIdList[i]] === 'on'){
                 idList.push(depotIdList[i]);
             }
-        }
+        }*/
 
         //请求
         var req = {

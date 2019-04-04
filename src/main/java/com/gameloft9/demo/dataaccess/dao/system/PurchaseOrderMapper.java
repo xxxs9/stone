@@ -87,7 +87,7 @@ public interface PurchaseOrderMapper {
     List<PurchaseOrder> selectAllByInOrder(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsName") String goodsName,
+            @Param("goodsName") String goodsNamge,
             @Param("depotState") String depotState);
 
     /**
