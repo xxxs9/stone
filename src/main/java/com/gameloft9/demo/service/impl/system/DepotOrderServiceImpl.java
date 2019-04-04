@@ -585,11 +585,6 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrder.setId(id);
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
-        //生产领料,更新隆缘状态
-        if(depotOrderMapper.getById(id).getType().equals("生产领料")){
-            //隆缘改变状态的方法
-            lenProductServiceImpl.huaOutDepot(id);
-        }
 
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();

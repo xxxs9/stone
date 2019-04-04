@@ -131,6 +131,9 @@
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>完成退货</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
 
+    {{# }else if(d.state =='财务审核不通过') { }}
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="finance"><i class="layui-icon">&#xe640;</i>重新提交财务</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
 
     {{#  } }}
    <!-- <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
