@@ -60,7 +60,7 @@ layui.config({
 
             //区分事件
             if (layEvent === 'revise') { //修正库存
-                reviseInventory(row.goodsId,row.checkNumber);
+                reviseInventory(row.id,row.goodsId,row.checkNumber);
             }
         });
 
@@ -70,8 +70,10 @@ layui.config({
 
     //查询
     form.on("submit(queryDepotInventory)", function (data) {
+        var queryArgs = $tool.getQueryParam();
         var type = $("#type").val();
         var goodsId = data.field.goodsId;
+        var checkId = queryArgs['id'];
 
         //表格重新加载
         tableIns.reload({
@@ -129,6 +131,27 @@ layui.config({
             });
         });
     });
+
+    //修正库存
+    function reviseInventory(id,goodsId,checkNumber){
+        layer.confirm('修正库存吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id,
+                goodsId: goodsId,
+                goodsNumber: checkNumber
+            };
+
+            $api.UpdateDepotInventoryGoodsNumber(req,function (data) {
+                layer.msg("修正成功",{time:1000},function(){
+                    //obj.del(); //删除对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
+    }
 
 
 });

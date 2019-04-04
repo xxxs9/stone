@@ -3,6 +3,7 @@ package com.gameloft9.demo.service.impl.system;
 import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.DepotAdjustment;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
+import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheckDetail;
 import com.gameloft9.demo.dataaccess.model.system.SysDepot;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.DepotInventoryService;
@@ -34,7 +35,8 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
     private SysMaterialGoodsMapper sysMaterialGoodsMapper;
     @Autowired
     private SysMaterialMapper sysMaterialMapper;
-
+    @Autowired
+    private  DepotInventoryCheckDetailMapper depotInventoryCheckDetailMapper;
     /**
      * 获取所有库存数据
      * @param page                  页序
@@ -145,6 +147,31 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
     @Override
     public DepotInventory findOne( String goodsId) {
         return depotInventoryMapper.findOne(goodsId);
+    }
+
+    /**
+     * 根据货物id更新库存货物数量信息
+     * @param id                    盘点单明细id
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货物数量
+     * */
+    @Override
+    public Boolean updateGoodsNumber(String id,String goodsId, String goodsNumber) {
+
+        CheckUtil.notBlank(id, " 盘点单明细id为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, " 货物数量为空");
+
+        DepotInventory depotInventory = depotInventoryMapper.findOne(goodsId);
+        depotInventory.setGoodsNumber(goodsNumber);
+
+        depotInventoryMapper.updateByPrimaryKeySelective(depotInventory);
+
+        DepotInventoryCheckDetail depotInventoryCheckDetail = new  DepotInventoryCheckDetail();
+        depotInventoryCheckDetail.setId(id);
+        depotInventoryCheckDetail.setGoodsNumber(goodsNumber);
+        depotInventoryCheckDetailMapper.updateByPrimaryKeySelective(depotInventoryCheckDetail);
+        return true;
     }
 
 }

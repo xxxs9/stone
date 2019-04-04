@@ -58,6 +58,19 @@ public class DepotInventoryController {
         return new ResultBean<DepotInventory>(depotInventoryServiceImpl.findOne(goodsId));
     }
 
+    /**
+     * 根据货物id更新库存信息
+     * @param id                    盘点单明细id
+     * @param goodsId               货物id
+     * @param goodsNumber           货物数量
+     * */
+    @RequestMapping(value = "/update.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult updateGoodsNumber(String id,String goodsId,String goodsNumber){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotInventoryServiceImpl.updateGoodsNumber(id,goodsId,goodsNumber));
+    }
+
 
 
 }

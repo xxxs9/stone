@@ -64,4 +64,11 @@ public interface DepotInventoryService {
      * */
     DepotInventory findOne(String goodsId);
 
+    /**
+     * 根据货物id更新库存货物数量信息
+     * @param id                    盘点单明细id
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货物数量
+     * */
+    Boolean updateGoodsNumber(String id,String goodsId, String goodsNumber);
 }
