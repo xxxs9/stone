@@ -246,7 +246,7 @@
         update l_formula_reach set DEPOT_AUDI=#{depot} where ID = #{id,jdbcType=VARCHAR}
     </update>
     <select id="getByProductId" resultMap="BaseResultMap">
-        select * from stone.l_formula_reach fr where fr.PRODUCT_ID=#{productId}
+        select * from l_formula_reach fr where fr.PRODUCT_ID=#{productId}
     </select>
 </mapper>
 

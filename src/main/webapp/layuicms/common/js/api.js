@@ -671,6 +671,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getReachByProductId:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
          },
+        getReachByProductId1:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
+        },
         delFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/del',req,successCallback,errorCallback);
         },
