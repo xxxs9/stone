@@ -103,7 +103,42 @@ layui.config({
 
             });
 
-        }else if(queryArgs.applyType == 1 || queryArgs.applyType == 3){//如果订单类型为1和2
+        }else if(queryArgs.applyType == 1 ){//如果订单类型为1和2
+            //沧海的getPurOrder
+            $api.getPurOrder(req,function (res) {
+                var data = res.data;
+                var price = data.price;
+                var goodsNumber = data.goodsNumber;
+                var totalPrice = price * goodsNumber;
+                console.log(data)
+                var financeState = data.financeState;
+                $('#id').val(id);
+                $("[name='goodsName']").val(data.goodsName);
+                $("[name='goodsId']").val(data.id);
+                $("[name='auditType']").val(data.auditType);
+                $("[name='goodsNumber']").val(goodsNumber);
+                $("[name='price']").val(price);
+                $("[name='totalPrice']").val(totalPrice);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+                if(financeState != null){
+                    $('#gnrt').css("display",'none');
+                }
+                /*var f  = financeState != '待审核'
+                alert(f)*/
+                if(queryArgs.applyType == 1 ){
+                    $('#apply').text('采购订单应付单');
+                } else if(queryArgs.applyType == 2){
+                    $('#apply').text('销售出货应收单');
+                }else if(queryArgs.applyType == 3 ){
+                    $('#apply').text('采购退货应收单');
+                }else if(queryArgs.applyType == 4){
+                    $('#apply').text('销售退货应付单');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        } else if(queryArgs.applyType == 3){//如果订单类型为1和2
             //沧海的getPurOrder
             $api.getPurOrder(req,function (res) {
                 var data = res.data;

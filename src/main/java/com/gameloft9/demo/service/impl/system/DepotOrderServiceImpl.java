@@ -616,7 +616,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //申请id
         applyOrder.setApplyId(purchaseReturn.getId());
         //申请类型
-        applyOrder.setApplyType(purchaseReturn.getAuditType());
+        applyOrder.setApplyType(3);
         //总价
         applyOrder.setApplyMoney(purchaseReturn.getTotalPrice());
         //插入申请单
