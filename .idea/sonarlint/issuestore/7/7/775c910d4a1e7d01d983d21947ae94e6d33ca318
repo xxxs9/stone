@@ -1,9 +1,9 @@
 
-Vjavascript:S1854
-":Remove this useless assignment to local variable "laypage"(ĞÏ¦
-Tjavascript:S1854"8Remove this useless assignment to local variable "$tool"(î¯¢Í
 ]javascript:UnusedVariable
 "8Remove the declaration of the unused 'laypage' variable.(ĞÏ¦
 Ujavascript:S1854"4Remove this useless assignment to local variable "$"(¹æ•ıøÿÿÿÿ
 \javascript:UnusedVariable"2Remove the declaration of the unused '$' variable.(¹æ•ıøÿÿÿÿ
+Tjavascript:S1854"8Remove this useless assignment to local variable "$tool"(î¯¢Í
+Vjavascript:S1854
+":Remove this useless assignment to local variable "laypage"(ĞÏ¦
 [javascript:UnusedVariable"6Remove the declaration of the unused '$tool' variable.(î¯¢Í

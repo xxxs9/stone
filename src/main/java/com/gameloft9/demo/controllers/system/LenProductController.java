@@ -363,6 +363,11 @@ public class LenProductController {
         return result;
     }
 
+    /**
+     * 产品入仓库
+     * @param id
+     * @return
+     */
     @RequestMapping("/IntoDepot")
     @ResponseBody
     public IResult IntoDepot(String id){

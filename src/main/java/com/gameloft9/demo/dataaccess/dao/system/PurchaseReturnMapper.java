@@ -89,7 +89,7 @@ public interface PurchaseReturnMapper {
      * @param orderNumber orderNumber
      * @return PurchaseOrder
      * */
-    PurchaseReturn selectByOrderNumber(String orderNumber);
+    PurchaseReturn selectByOrderNumber(@Param("orderNumber") String orderNumber);
 
 
     /**
@@ -101,7 +101,7 @@ public interface PurchaseReturnMapper {
             @Param("start") int start,
             @Param("end") int end);
 
-    //TODO...哈哈哈汤华锋，就等你了哈哈哈
+
     /**华锋 仓库主管 审核状态为提交审核中
      * @param start 开始
      * @param end 结束

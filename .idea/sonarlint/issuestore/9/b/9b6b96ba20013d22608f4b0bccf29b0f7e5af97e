@@ -1,6 +1,5 @@
 
-ysquid:UselessImportCheck"PRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysDepot'.(ÈæãŒûÿÿÿÿ
-csquid:UselessImportCheck
-"?Remove this unused import 'com.gameloft9.demo.utils.Constants'.(‘âÓÄ
-€squid:UselessImportCheck"WRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotAdjustment'.(µ‡ø‚üÿÿÿÿ
-gsquid:UselessImportCheck">Remove this unused import 'javax.xml.bind.annotation.XmlType'.(°‰íÒøÿÿÿÿ
+~squid:UselessImportCheck"WRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotAdjustment'.(µ‡ø‚üÿÿÿÿ
+esquid:UselessImportCheck">Remove this unused import 'javax.xml.bind.annotation.XmlType'.(°‰íÒøÿÿÿÿ
+asquid:UselessImportCheck"?Remove this unused import 'com.gameloft9.demo.utils.Constants'.(‘âÓÄ
+wsquid:UselessImportCheck"PRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysDepot'.(ÈæãŒûÿÿÿÿ

@@ -1,15 +1,12 @@
 
-Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(­¼¼­
-Usquid:S1126"AReplace this if-then-else statement by a single return statement.(™ñO
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(Ÿõ¶ şÿÿÿÿ
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(ùºØìüÿÿÿÿ
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(÷Ò®ûÿÿÿÿ
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(÷Ò®ûÿÿÿÿ
-Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(¿óĞ²
-Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(ôÅóÃ
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(³Ï¬ùÿÿÿÿ
-Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(¿ÔŞš
-[squid:S1126"AReplace this if-then-else statement by a single return statement.(ÓÀ¢íşÿÿÿÿ
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ƒÈ’8İ¼ì‡-
 Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(˜ù”…
+[squid:S1126"AReplace this if-then-else statement by a single return statement.(ùºØìüÿÿÿÿ
+bsquid:S1126"AReplace this if-then-else statement by a single return statement.(ÙëÿÛøÿÿÿÿ8İ¼ì‡-
+[squid:S1126"AReplace this if-then-else statement by a single return statement.(ÓÀ¢íşÿÿÿÿ
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(”ã¨šøÿÿÿÿ8İ¼ì‡-
+hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(îëñ…ıÿÿÿÿ8İ¼ì‡-
+bsquid:S1126"AReplace this if-then-else statement by a single return statement.(ÙëÿÛøÿÿÿÿ8İ¼ì‡-
 xsquid:S1488"cImmediately return this expression instead of assigning it to the temporary variable "lenProducts".(——¹×
-lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(Åúßßşÿÿÿÿ
+Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(­¼¼­
+[squid:S1126"AReplace this if-then-else statement by a single return statement.(÷Ò®ûÿÿÿÿ

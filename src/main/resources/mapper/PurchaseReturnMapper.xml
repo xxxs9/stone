@@ -240,14 +240,14 @@
             </if>
         </set>
         <where>
-            <if test="id != null and id != ''">
-                ID = #{id,jdbcType=VARCHAR}
+            <if test="orderNumber != null and orderNumber != ''">
+                ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
             </if>
         </where>
     </update>
 
     <!--根据orderNumber获取-->
-    <select id="selectByOrderNumber" resultMap="purOrderMap" parameterType="java.lang.String">
+    <select id="selectByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
         SELECT
             *
         FROM

@@ -1,9 +1,19 @@
 
-ysquid:UselessImportCheck"PRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysDepot'.(ÈæãŒûÿÿÿÿ
-ysquid:UselessImportCheck"PRemove this unused import 'org.springframework.web.bind.annotation.RequestBody'.(â­½Àıÿÿÿÿ
-fsquid:S4488-"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ìò¿ÿÿÿÿÿ
-Tsquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
-asquid:S4488G"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÉØç
-`squid:S4488R"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¡û°
-asquid:S4488^"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ö²†©
-`squid:S4488:"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¸‘¥V
+_squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÉØç
+ksquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(îß¤¡úÿÿÿÿ8é·Œ‰-
+wsquid:UselessImportCheck"PRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysDepot'.(ÈæãŒûÿÿÿÿ
+dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ìò¿ÿÿÿÿÿ
+csquid:S1854"BRemove this useless assignment to local variable "orderAuditUser".(èŠ¼Ïşÿÿÿÿ8é·Œ‰-
+Rsquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+ksquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Û÷É½øÿÿÿÿ8é·Œ‰-
+_squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ö²†©
+Jsquid:S1481".Remove this unused "checkUser" local variable.(£ØÜ8é·Œ‰-
+Tsquid:S1481"3Remove this unused "orderAuditUser" local variable.(èŠ¼Ïşÿÿÿÿ8é·Œ‰-
+^squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¡û°
+Ysquid:S1854"=Remove this useless assignment to local variable "checkUser".(£ØÜ8é·Œ‰-
+Tsquid:S1481"3Remove this unused "orderAuditUser" local variable.(èŠ¼Ïşÿÿÿÿ8é·Œ‰-
+csquid:S1854"BRemove this useless assignment to local variable "orderAuditUser".(èŠ¼Ïşÿÿÿÿ8é·Œ‰-
+ksquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(·ÙÿÊşÿÿÿÿ8é·Œ‰-
+isquid:S1192"HDefine a constant instead of duplicating this literal "sysUser" 4 times.(½ëĞ¥ıÿÿÿÿ8é·Œ‰-
+^squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¸‘¥V
+lsquid:UselessImportCheck"CRemove this unused import 'org.springframework.stereotype.Service'.(¼º¡Ú8Àãó‘-

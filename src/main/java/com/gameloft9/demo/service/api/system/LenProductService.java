@@ -139,4 +139,22 @@ public interface LenProductService {
      * @return
      */
     boolean insertSupportPrice(String supportPrice, String id);
+
+    /**
+     * 华峰货品出库
+     * @param id
+     * @return
+     */
+    boolean huaOutDepot(String id);
+
+    /**
+     * 仓库已收到货品，将货品入库
+     * @param id
+     * @return
+     */
+    boolean huaInDepot(String id);
+
+    boolean productIntoDepot(String id);
+
+    boolean inssrDepot(LenProduct lenProduct);
 }

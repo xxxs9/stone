@@ -293,4 +293,50 @@ public class LenProductServiceImpl implements LenProductService {
     public List<String> getProductId() {
         return mapper.getProductId();
     }
+
+
+
+
+
+    @Override
+    public boolean
+    huaOutDepot(String id) {
+        //华峰出库
+       if (mapper.changeState(Constants.productState.DEPOT_OUT,id)>0){
+           return true;
+       }else {
+
+
+
+           return false;
+       }
+
+    }
+
+    @Override
+    public boolean huaInDepot(String id) {
+        if (mapper.changeState(Constants.productState.INTO_DEPOT,id)>0){
+            return true;
+        }else{
+
+
+            return false;
+        }
+    }
+
+    @Override
+    public boolean productIntoDepot(String id) {
+        if (mapper.changeState(Constants.productState.INTO_DEPOT,id)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //插入到仓库
+    @Override
+    public boolean inssrDepot(LenProduct lenProduct) {
+
+        return false;
+    }
 }
