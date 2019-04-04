@@ -1,7 +1,10 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenBillCheckMapper;
+import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenBillCheck;
+import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenBillCheckService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.DateUtil;
@@ -24,6 +27,10 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
 
     @Autowired
     LenBillCheckMapper mapper;
+    @Autowired
+    DepotOrderService depotOrderService;
+    @Autowired
+    LenProductMapper lenProductMapper;
 
     @Override
     public List<LenBillCheck> selectAll() {
@@ -89,7 +96,12 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
         billCheck.setPlanId(planId);
         billCheck.setProductId(productId);
         billCheck.setProductName(productName);
+        LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
+        String productId1 = billCheck1.getProductId();
+        LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
+        String other1 = lenProduct.getOther1();
         if (mapper.insert(billCheck)>0){
+            depotOrderService.addProduceDepotOrderIn(other1,productId1,checkNumber,checkUser);
             return true;
         }else{
             return false;
