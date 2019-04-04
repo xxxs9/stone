@@ -139,4 +139,15 @@ public class ReturnGoodsOrderController {
     public IResult finance(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.finance(shipmentOrder));
     }
+
+    /**
+     * 退货产品已入库
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/wareh",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult wareh(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.wareh(shipmentOrder));
+    }
 }
