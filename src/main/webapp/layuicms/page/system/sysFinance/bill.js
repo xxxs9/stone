@@ -4,7 +4,7 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['form', 'layer', 'jquery','element', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
@@ -12,10 +12,89 @@ layui.config({
         $tool = layui.$tool,
         table = layui.table,
         $api = layui.$api;
+    var element = layui.element;
 
     var tableIns;//表格实例
 
+    //日报表
+    var option1 = {
 
+        elem:'#day',
+        id:'day',
+        height:400,
+        //height: 'full-100',
+        cols:[[
+            {type:'numbers',title:'序号',fixed: 'left'}
+            , {field: 'department', title: '部门',width:100}
+            , {field: 'balance', title: '款', width:120}
+            , {field: 'billTime', title: '时间', width:170}
+        ]],
+        url:$tool.getContext() + 'finance/purchasePayList.do',
+        method:'post',
+        page:true,
+        limit:[10,20,30,40],
+        limit:10,
+        done:function(res,curr,count){
+            // 隐藏列
+            $(".layui-table-box").find("[data-field='auditType']").css("display","none");
+        }
+    };
+    tableIns = table.render(option1)
+    form.render();
+//=====================================================================//
+
+    //周报表
+    var option2 = {
+
+        elem:'#week',
+        id:'week',
+        height:400,
+        //height: 'full-100',
+        cols:[[
+            {type:'numbers',title:'序号',fixed: 'left'}
+            , {field: 'department', title: '部门',width:100}
+            , {field: 'balance', title: '款', width:120}
+            , {field: 'billTime', title: '时间', width:170}
+        ]],
+        url:$tool.getContext() + 'finance/purchasePayList.do',
+        method:'post',
+        page:true,
+        limit:[10,20,30,40],
+        limit:10,
+        done:function(res,curr,count){
+            // 隐藏列
+            $(".layui-table-box").find("[data-field='auditType']").css("display","none");
+        }
+    };
+    tableIns = table.render(option2)
+    form.render();
+//=====================================================================//
+    //周报表
+    var option3 = {
+
+        elem:'#month',
+        id:'month',
+        height:400,
+        //height: 'full-100',
+        cols:[[
+            {type:'numbers',title:'序号',fixed: 'left'}
+            , {field: 'department', title: '部门',width:100}
+            , {field: 'balance', title: '款', width:120}
+            , {field: 'billTime', title: '时间', width:170}
+        ]],
+        url:$tool.getContext() + 'finance/purchasePayList.do',
+        method:'post',
+        page:true,
+        limit:[10,20,30,40],
+        limit:10,
+        done:function(res,curr,count){
+            // 隐藏列
+            $(".layui-table-box").find("[data-field='auditType']").css("display","none");
+        }
+    };
+    tableIns = table.render(option3)
+    form.render();
+//=====================================================================//
     /**
      * 定义表格
      * */

@@ -36,4 +36,19 @@ public interface FinanceBillMapper extends BaseMapper<SysFinanceBill>{
      */
     List<SysFinanceBill> getAllBill();
 
+    /**
+     * 日报表
+     */
+    List<SysFinanceBill> getDayBill();
+
+    /**
+     * 周报表
+     */
+    List<SysFinanceBill> getWeekBill();
+
+    /**
+     * 月报表
+     */
+    List<SysFinanceBill> getMonthBill();
+
 }

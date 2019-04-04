@@ -140,9 +140,7 @@ layui.config({
             });
         } else if(queryArgs.applyType == 3){
             //沧海的getPurOrder
-
             $api.getPurchaseReturn(req,function (res) {
-                alert(1)
                 var data = res.data;
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;

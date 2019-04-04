@@ -45,6 +45,7 @@
     <!--列表   List<SysFinanceBill> getAll(int start,int end);-->
     <select id="getAll" resultMap="billMap">
         select * from a_bill
+        order by BILL_TIME DESC
         limit #{start},#{end}
     </select>
 
@@ -56,6 +57,33 @@
     <!--查找所有bill   List<SysFinanceBill> getAllBill();-->
     <select id="getAllBill" resultMap="billMap">
         select * from a_bill
+    </select>
+
+    <!--/**
+     * 日报表
+     */
+    List<SysFinanceBill> getDayBill();-->
+    <select id="getDayBill" resultMap="billMap">
+        select * from a_bill
+        where to_days(BILL_TIME) = to_days(now());
+    </select>
+
+    <!--/**
+    * 月报表
+    */
+    List<SysFinanceBill> getWeekBill(); 这周日开始-->
+    <select id="getWeekBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE YEARWEEK(DATE_FORMAT(BILL_TIME,'%Y-%m-%d')) = YEARWEEK(NOW());
+    </select>
+
+    <!--/**
+     * 月报表
+     */
+    List<SysFinanceBill> getMonthBill();-->
+    <select id="getMonthBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE DATE_FORMAT( BILL_TIME, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
     </select>
 
 </mapper>
