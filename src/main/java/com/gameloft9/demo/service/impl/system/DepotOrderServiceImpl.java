@@ -53,7 +53,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     @Autowired
     private PurchaseReturnService purchaseReturnServiceImpl;
     @Autowired
-    private LenProductService lenProductServiceImpl;
+    private ReturnGoodsOrderService returnGoodsOrderServiceImpl;
     /***
      * 啊发包
      */
@@ -557,6 +557,12 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产入库,更新沧海采购单状态
         if(current.getType().equals("生产入库")){
             //隆缘改变状态的方法
+        }
+        //销售退货入库,更新锦祥退货单状态
+        if(current.getType().equals("销售退货")){
+            ShipmentOrder shipmentOrder = new ShipmentOrder();
+            shipmentOrder.setGoodsId(id);
+            returnGoodsOrderServiceImpl.wareh(shipmentOrder);
         }
 
 

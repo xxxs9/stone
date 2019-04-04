@@ -184,8 +184,8 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      */
     @Override
     public Boolean wareh(ShipmentOrder shipmentOrder) {
-        CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_depot_pass);
+        CheckUtil.notBlank(shipmentOrder.getGoodsId(),"订单编号为空");
+        shipmentOrder.setState(StateUUtil.APPLY_pas);
         returnGoodsOrderMapper.wareh(shipmentOrder);
         return true;
     }
