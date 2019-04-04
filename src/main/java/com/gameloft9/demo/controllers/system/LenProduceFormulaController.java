@@ -34,20 +34,20 @@ public class LenProduceFormulaController {
 
     @RequestMapping(value = "/pageList",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByPage(String page, String limit, String createUserId, String productId){
-        return new PageResultBean<List>(service.selectByPage(page,limit,createUserId,productId),service.dataCount(productId));
+    public IResult selectAllByPage(String page, String limit, String createUser, String productId){
+        return new PageResultBean<List>(service.selectByPage(page,limit,createUser,productId),service.dataCount(productId));
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(LenProduceFormula len){
-        return new ResultBean<Boolean>(service.insert(len));
+    public IResult add(String productId,String formulaType ,String formulaNumber,String createUser,String createTime){
+        return new ResultBean<Boolean>(service.insert(productId, formulaType, formulaNumber, createUser, createTime));
     }
 
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
     @ResponseBody
-    public IResult update(LenProduceFormula len){
-        return  new ResultBean<Boolean>(service.update(len));
+    public IResult update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime){
+        return  new ResultBean<Boolean>(service.update(productId, formulaType, formulaNumber, createUser, createTime));
     }
 
     @RequestMapping("/del")

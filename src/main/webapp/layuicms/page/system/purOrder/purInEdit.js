@@ -28,7 +28,7 @@ layui.config({
 
       });
     }
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -47,7 +47,7 @@ layui.config({
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
@@ -70,7 +70,8 @@ layui.config({
             console.log(data)
             $("[name='id']").val(data.id);
             $("[name='orderNumber']").val(data.orderNumber);
-            $("[name='goodsId']").val(data.goodsId);
+            $("[name='goodsName']").val(data.goodsName);
+            $("[name='supplierName']").val(data.supplierName);
             $("[name='goodsNumber']").val(data.goodsNumber);
             $("[name='price']").val(data.price);
             $("[name='totalPrice']").val(data.totalPrice);
@@ -84,7 +85,7 @@ layui.config({
     /**
      * 加载申请单列表
      * */
-    function loadRoleList() {
+   /* function loadRoleList() {
         //var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
@@ -110,13 +111,12 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }
+    }*/
 
     //计算总金额 数量goodsNumber*价格price
     $(function(){
         //总结个totalPrice
         $('[name=totalPrice]').bind('click',function(){
-
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             $("[name = totalPrice]").val(price * goodsNumber);
@@ -129,7 +129,8 @@ layui.config({
     form.on("submit(submitFilter)", function (data) {
         var queryArgs =  $tool.getQueryParam();//获取查询参数
         var orderNumber = data.field.orderNumber;
-        var goodsId = data.field.goodsId;
+        var goodsName = data.field.goodsName;
+        var supplierName = data.field.supplierName;
         var goodsNumber = data.field.goodsNumber;
         var price = data.field.price;
         var totalPrice = data.field.totalPrice;
@@ -148,7 +149,8 @@ layui.config({
         var req = {
             id:queryArgs['id'],
             orderNumber:orderNumber,
-            goodsId:goodsId,
+            goodsName:goodsName,
+            supplierName:supplierName,
             goodsNumber:goodsNumber,
             price:price,
             totalPrice:totalPrice,

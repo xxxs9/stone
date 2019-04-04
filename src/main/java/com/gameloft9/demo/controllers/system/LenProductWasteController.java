@@ -40,8 +40,8 @@ public class LenProductWasteController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public IResult add(LenProductWaste lenProduct){
-        return new ResultBean<Boolean>(service.insert(lenProduct));
+    public IResult add(String wasteNumber,String produceFormulaId,String wasteTime,String wasteRemark,String state){
+        return new ResultBean<Boolean>(service.insert(wasteNumber, produceFormulaId, wasteTime, wasteRemark, state));
     }
 
     @RequestMapping("/upd")

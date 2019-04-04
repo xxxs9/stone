@@ -220,6 +220,17 @@
 
         </set>
     </update>
+
+    <!--List<String> getPurchasePayChart();-->
+    <select id="getPurchasePayChart" resultType="java.lang.String">
+        SELECT
+        SUM(ACTUAL_BALANCE)
+        FROM a_purchase_bills_payable
+        WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
+        AND AUDIT_STATE=3
+        GROUP BY ACTUAL_BALANCE
+        ORDER BY AUDIT_TIME
+    </select>
     
 
 </mapper>

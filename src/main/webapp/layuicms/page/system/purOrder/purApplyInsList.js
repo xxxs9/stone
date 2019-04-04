@@ -22,6 +22,7 @@ layui.config({
     function init() {
         initGoods();  //初始化货品名称
         initState();  //初始化订单状态
+        initFinance();//初始化财务审核状态
     }
 
     init();
@@ -31,10 +32,9 @@ layui.config({
      */
     function initState(){
         var html1 = '<option value="">--请选择--</option>';
-        html1 += '<option value="未审核">提交审核中</option>>';
+        html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
         html1 += '<option value="审核未通过">审核未通过</option>>';
-
         $('#state').append($(html1));
         form.render();
     }
@@ -48,12 +48,24 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].goodsName + '</option>>';
                 }
-                $('#goodsId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
+    }
+
+    /**
+     * 初始化财务审核状态查询
+     */
+    function initFinance(){
+        var html1 = '<option value="">--请选择--</option>';
+        html1 += '<option value="未通过">审核未通过</option>>';
+        html1 += '<option value="已付款">已付款</option>>';
+
+        $('#financeState').append($(html1));
+        form.render();
     }
 
     /**
@@ -69,7 +81,8 @@ layui.config({
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
                 {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
-                , {field: 'goodsId', title: '商品名称', width:120}
+                , {field: 'goodsName', title: '商品名称', width:120}
+                , {field: 'supplierName', title: '供销商', width:180}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品单价', width:100}
                 , {field: 'totalPrice', title: '商品总价', width:100}
@@ -104,13 +117,21 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var state = data.field.state;
-        var goodsId = data.field.goodsId;
+        /*var goodsName = data.field.goodsName;*/
+        var financeState = data.field.financeState;
+        var goodsName = "";
+        if($("#goodsName").find("option:selected").text() == '--请选择--'){
+            goodsName = "";
+        }else {
+            goodsName = $("#goodsName").find("option:selected").text();
+        }
 
         //表格重新加载
         tableIns.reload({
             where:{
                 state:state,
-                goodsId:goodsId
+                goodsName:goodsName,
+                financeState:financeState
             }
         });
         return false;

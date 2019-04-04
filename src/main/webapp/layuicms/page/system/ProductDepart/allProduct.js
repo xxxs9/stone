@@ -21,12 +21,12 @@ layui.config({
     function init() {
 
         //初始化下拉框
-        $api.GetFirstClassMenus(null,function (res) {
+        $api.GetFirstClassMenus(null, function (res) {
             var data = res.data;
-            if(data.length > 0){
+            if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].title + '</option>>';
                 }
                 $('#parentMenu').append($(html));
                 form.render();
@@ -34,6 +34,7 @@ layui.config({
         });
         return false;
     }
+
     init();
 
 
@@ -43,21 +44,23 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
+
             , url: $tool.getContext() + 'product/pageList' //数据接口
             , method: 'post'
-            , page:true //开启分页
+            , page: true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'productName', title: '产品名称'}
-                , {field: 'productType', title: '产品类型',templet:'#tmp'}
-                , {field: 'state', title: '产品状态',templet:'#tmpe'}
-                , {field: 'productDescribe', title: '产品描述'}
-                , {field: 'wasteId', title: '废料编号'}
+                {type: 'numbers', title: '序号', fixed: 'left'}
+                , {field: 'other1', title: '产品流水号'}
+                , {field: 'productName', title: '产品名称'}
+                , {field: 'productNumber', title: '产品数量'}
+                , {field: 'canSold', title: '订单来源'/*,templet:'#cd'*/}
+                , {field: 'productType', title: '产品类型', templet: '#tmp'}
+                , {field: 'productState', title: '产品状态', templet: '#tmpe'}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
+
             }
         });
 
@@ -69,34 +72,128 @@ layui.config({
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delMenu(row.id);
-            } else if (layEvent === 'edit') { //编辑
+                delMenu(row.id, row.other2);
+            } else if (layEvent === 'edit') {
                 //do something
                 editMenu(row.id);
+
+            } else if (layEvent === 'audi') { //编辑
+                //do something
+                audi(row.id);
+            }else if(layEvent==='intoDepot'){
+                intoDepot(row.id)
+            } else if (layEvent === 'stepBack1') {
+                stepBack1(row.id);
+
+            } else if (layEvent === 'plan') {
+                plan(row.id);
+            } else if (layEvent === 'ManagerAudi') { //编辑
+                //do something
+                ManagerAudi(row.id, row.other2);
+            } else if (layEvent === 'fenPei') {
+               /* var flag;
+                var id = row.id;
+                var req = {
+                    productId: id
+                }
+                $api.getReachByProductId(req, function (res) {
+                    var data = res.data;
+                    flag = data;
+                    console.log(flag)
+                });
+                if (flag === null) {
+                    fenPei(row.id);
+                } else {
+
+                    //
+                    layer.msg(">>>>>等待仓库审核<<<<<", {time: 2000}, function () {
+                        //重新加载表格
+                        tableIns.reload();
+                    });
+
+                }
+
+*/
+                fenPei(row.id);
+            } else if (layEvent === 'stopProduce') {//生产暂停
+                stopProduce(row.id);
+            } else if (layEvent === 'completeProduce') {
+                completeProduce(row.id);
+            } else if (layEvent === 'JFR') {
+                var flag;
+                var id = row.id;
+                var req = {
+                    productId: id
+                }
+                $api.getReachByProductId1(req, function (res) {
+                    var data = res.data;
+                    flag = data;
+                    console.log(flag)
+                });
+
+                if (flag == null) {
+                    JFR(row.id);
+                } else {
+
+                    //
+                    layer.msg(">>>>>等待仓库审核<<<<<", {time: 2000}, function () {
+                        //重新加载表格
+                        tableIns.reload();
+                    });
+
+                }
+
+
+
+            } else if (layEvent === 'continueProduce') {
+                continueProduce(row.id)
             }
+
         });
     }
+
     defineTable();
 
 
     //查询
     form.on("submit(queryMenu)", function (data) {
         var productName = data.field.productName;
-        var state = data.field.state;
+        var productState = data.field.productState;
 
 
         //表格重新加载
         tableIns.reload({
-            where:{
-                productName:productName,
-                state:state
+            where: {
+                productName: productName,
+                productState: productState
 
             }
         });
 
-       /* return false;*/
+        /* return false;*/
     });
+    //跳转图标页面
+    $("#chart").click(function () {
+        var index = layui.layer.open({
+            title: "图标总览图",
+            type: 2,
+            content: "LenCharts.html",
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
 
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    });
     //添加
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
@@ -119,33 +216,12 @@ layui.config({
         layui.layer.full(index);
     });
 
-    //删除
-    function delMenu(id){
-        layer.confirm('确认删除吗？', function (confirmIndex) {
-            layer.close(confirmIndex);//关闭confirm
-            //向服务端发送删除指令
-            var req = {
-                id: id
-            };
-
-            $api.delProduct(req,function (data) {
-                layer.msg("删除成功",{time:1000},function(){
-                    //obj.del(); //删除对应行（tr）的DOM结构
-                    //重新加载表格
-                    tableIns.reload();
-                });
-            });
-            return false;
-        });
-    }
-
-    //编辑
-    function editMenu(id){
+    function continueProduce(id) {//暂停生产 1生成暂停生产单
         var index = layui.layer.open({
-            title: "修改内容",
+            title: "继续生产记录单",
             type: 2,
-            content: "editProduct.html?id="+id,
-            success: function (layero, index) {
+            content: "addContinueBillCheck.html?id=" + id,
+            success: function (layer, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -160,4 +236,223 @@ layui.config({
         });
         layui.layer.full(index);
     }
+
+    function stopProduce(id) {//暂停生产 1生成暂停生产单
+
+        var index = layui.layer.open({
+            title: "暂停生产记录单",
+            type: 2,
+            content: "addStopBillCheck.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+    function completeProduce(id) {
+        var index = layui.layer.open({
+            title: "生产完成验收单",
+            type: 2,
+            content: "compareCheck.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    }
+
+    //删除
+    function delMenu(id) {
+        layer.confirm('确认删除吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id
+            };
+
+            $api.delProduct(req, function (data) {
+                layer.msg("删除成功", {time: 1000}, function () {
+                    //obj.del(); //删除对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+                return false;
+            });
+
+        });
+    }
+
+    //编辑
+    function editMenu(id) {
+        var index = layui.layer.open({
+            title: "修改内容",
+            type: 2,
+            content: "editProduct.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+    function JFR(id) {
+        var index = layui.layer.open({
+            title: "填写领料单",
+            type: 2,
+            content: "jumpFormulaReach2.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+
+    //计划
+    function plan(id) {
+        var index = layui.layer.open({
+            title: "生产计划",
+            type: 2,
+            content: "addProducePlan.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
+
+
+    function audi(id) {
+        layer.confirm('请确认操作', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id,
+
+            };
+
+            $api.changProductState(req, function (data) {
+                layer.msg("操作成功", {time: 1000}, function () {
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+            return false;
+        });
+    }
+
+    /*主管审核*/
+    function ManagerAudi(id) {
+        var index = layui.layer.open({
+            title: "主管审核",
+            type: 2,
+            content: "jumpProductAudi.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    }
+
+    function stepBack1(id) {
+        layer.confirm('确定撤回吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id
+            };
+
+            $api.stepBack1(req, function (data) {
+                layer.msg("操作成功", {time: 1000}, function () {
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+            return false;
+        });
+
+    }
+
+    function fenPei(id) {
+
+        var index = layui.layer.open({//添加到生产计划单
+            title: "加工单分配",
+            type: 2,
+            content: "addProducePlan.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    }
+
+
 });

@@ -15,17 +15,17 @@ public interface PurchaseReturnService {
      * 获取所有信息
      * @param page 页数
      * @param limit 显示的条数
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return List<PurchaseReturn> 返回值*/
-    List<PurchaseReturn> selectAll(String page,String limit,String goodsId,String depotState);
+    List<PurchaseReturn> selectAll(String page,String limit,String goodsName,String depotState);
 
     /**
      * 分页查找
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return int 返回值*/
-    int countGetAll(String goodsId,String depotState);
+    int countGetAll(String goodsName,String depotState);
 
     /**
      * 增加
@@ -77,5 +77,15 @@ public interface PurchaseReturnService {
      * @param purchaseReturn 实体
      * @return boolean 布尔类型*/
     boolean backReUpdate(PurchaseReturn purchaseReturn);
+
+    /**
+     * 华锋对接 改变DepotState
+     * */
+    boolean depotState(String orderNumber);
+
+    /**
+     * 华锋对接 获取orderNumber
+     * */
+    PurchaseReturn selectByOrderNumber(String orderNumber);
 
 }

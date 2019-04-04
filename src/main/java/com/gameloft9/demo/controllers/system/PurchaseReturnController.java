@@ -44,9 +44,9 @@ public class PurchaseReturnController {
      *查询所有列表*/
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAll(String page,String limit,String goodsId,String depotState){
-        return new PageResultBean<Collection<PurchaseReturn>>(service.selectAll(page,limit,goodsId,
-                depotState),service.countGetAll(goodsId,depotState));
+    public IResult selectAll(String page,String limit,String goodsName,String depotState){
+        return new PageResultBean<Collection<PurchaseReturn>>(service.selectAll(page,limit,goodsName,
+                depotState),service.countGetAll(goodsName,depotState));
     }
 
     /**
@@ -82,7 +82,7 @@ public class PurchaseReturnController {
     }
 
     /**
-     * 获取goodsId下拉框*/
+     * 获取goodsNume下拉框*/
     @RequestMapping("/goodsId.do")
     @ResponseBody
     public IResult selectAllGoodsId(){
@@ -118,5 +118,15 @@ public class PurchaseReturnController {
     @ResponseBody
     public IResult backReUpdate(PurchaseReturn purchaseReturn){
         return new ResultBean<Boolean>(service.backReUpdate(purchaseReturn));
+    }
+
+    /**
+     * 阿发包
+     * 根据orderNumber获取所有
+     * */
+    @RequestMapping(value = "/afabao.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult afabao(String orderNumber){
+        return new ResultBean<PurchaseReturn>(service.selectByOrderNumber(orderNumber));
     }
 }

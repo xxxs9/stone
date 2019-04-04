@@ -349,7 +349,7 @@ layui.config({//基础目录
         closeWebSocket();
     }
 
-    
+
 
     //将消息显示在网页上
     function setMessageInnerHTML(innerHTML) {

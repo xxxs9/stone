@@ -85,4 +85,22 @@ public interface MarkerOrderMapper {
      * @return
      */
     List<MarkerOrderTest> getProductId();
+
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean submit(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean fina(MarkerOrderTest markerOrderTest);
+
+
 }

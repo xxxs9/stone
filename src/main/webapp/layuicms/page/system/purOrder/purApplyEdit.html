@@ -43,19 +43,27 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品名称</label>
         <div class="layui-input-block">
-            <select id="goodsId" name="goodsId" lay-filter="initGoods"></select>
+            <!--<select id="goodsName" name="goodsName" lay-filter="bhs" lay-filter="initGoods"></select>-->
+            <input type="text" class="layui-input" name="goodsName" readonly="readonly" lay-verify="required" placeholder="请输入商品名称">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商</label>
+        <div class="layui-input-block">
+            <!--<select id="supplierName" name="supplierName"></select>-->
+            <input type="text" class="layui-input" name="supplierName" readonly="readonly" lay-verify="required" placeholder="请输入供应商名称">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="goodsNumber" lay-verify="required" placeholder="请输入商品数量">
+            <input type="text" class="layui-input" name="goodsNumber" lay-verify="actualBalance" lay-verify="required" placeholder="请输入商品数量">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="price" lay-verify="required" placeholder="请输入商品单价">
+            <input type="text" class="layui-input" name="price" lay-verify="actualPrice" lay-verify="actualBalance" placeholder="请输入商品单价">
         </div>
     </div>
     <div class="layui-form-item">

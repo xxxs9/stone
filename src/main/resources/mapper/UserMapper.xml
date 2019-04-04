@@ -238,6 +238,16 @@
 	      t.LOGIN_NAME
         FROM
 	      USER_TEST t
-	    WHERE t.ORG_NAME = #{orgName,jdbcType=VARCHAR}
+	    WHERE t.ORG_NAME = #{orgName,jdbcType=VARCHAR}loginName
+    </select>
+
+    <!--根据loginName登录名获取id-->
+    <select id="selectIdByLoginName" resultType="java.lang.String">
+        SELECT
+            ID
+        FROM
+            user_test
+        WHERE
+            LOGIN_NAME = #{loginName}
     </select>
 </mapper>

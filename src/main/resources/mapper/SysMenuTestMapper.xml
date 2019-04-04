@@ -20,6 +20,7 @@
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR"/>
         <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="PERMS" property="perms" jdbcType="VARCHAR"/>
     </resultMap>
     <resultMap id="ExtendResultMap" type="com.gameloft9.demo.service.beans.system.SysMenuTestExtend">
         <id column="ID" property="id" jdbcType="VARCHAR"/>

@@ -79,8 +79,8 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public IResult update(ReturnGoodsOrder returnGoodsOrder){
-        return new ResultBean<Boolean>(returnGoodsOrderService.update(returnGoodsOrder));
+    public IResult update(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.update(shipmentOrder));
     }
 
     /**
@@ -91,7 +91,7 @@ public class ReturnGoodsOrderController {
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
     public IResult getById(String id){
-        return new ResultBean<ReturnGoodsOrder>(returnGoodsOrderService.getById(id));
+        return new ResultBean<ShipmentOrder>(returnGoodsOrderService.getById(id));
     }
 
     /**
@@ -138,5 +138,16 @@ public class ReturnGoodsOrderController {
     @ResponseBody
     public IResult finance(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.finance(shipmentOrder));
+    }
+
+    /**
+     * 退货产品已入库
+     * @param shipmentOrder
+     * @return
+     */
+    @RequestMapping(value = "/wareh",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult wareh(ShipmentOrder shipmentOrder){
+        return new ResultBean<Boolean>(returnGoodsOrderService.wareh(shipmentOrder));
     }
 }

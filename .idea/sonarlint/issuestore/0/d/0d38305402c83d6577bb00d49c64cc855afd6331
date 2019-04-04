@@ -1,0 +1,5 @@
+
+O
+squid:S106"9Replace this use of System.out or System.err by a logger.(‹Âáø
+asquid:S1858"J"decimal" is already a string, there's no need to call "toString()" on it.(‹Âáø
+Usquid:UselessImportCheck"1Remove this unused import 'java.math.BigDecimal'.(êêŠ

@@ -52,7 +52,13 @@
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="goods"><i class="layui-icon">&#xe65c;</i>提交仓库发货</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-    {{# }else if(d.state =='等待收货') { }}
+
+    {{# }else if(d.state =='等待仓库发货') { }}
+    <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="confi"><i class="layui-icon">&#xe65c;</i>等待发货</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+
+
+    {{# }else if(d.state =='仓库已发货') { }}
     <a class="layui-btn  layui-btn-norma   layui-btn-sm" lay-event="confirm"><i class="layui-icon">&#xe65c;</i>确认收货</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="back"><i class="layui-icon">&#xe640;</i>退货</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
@@ -62,6 +68,9 @@
     <a class="layui-btn layui-btn-danger" ><i class="layui-icon">&#xe640;</i>客户已退货</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{# }else if(d.state =='收货成功') { }}
+    <a class="layui-btn  layui-btn-normal   layui-btn-sm" lay-event="sub"><i class="layui-icon">&#xe65c;</i>提交财务</a>
+    <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
+    {{# }else if(d.state =='提交财务成功') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>订单完成</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{# }else if(d.state =='退货成功') { }}
@@ -73,7 +82,7 @@
     {{# }else if(d.state =='仓库审核成功') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>已移交仓库</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
-    {{# }else if(d.state =='财务审核成功') { }}
+    {{# }else if(d.state =='财务查收成功') { }}
     <a class="layui-btn layui-btn-disabled" ><i class="layui-icon">&#xe640;</i>退货完成</a>
     <a class="layui-btn layui-btn-sm" lay-event="look"><i class="layui-icon">&#xe642;</i>查看</a>
     {{#  } }}

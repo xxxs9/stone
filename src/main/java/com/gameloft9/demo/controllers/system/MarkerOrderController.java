@@ -46,6 +46,10 @@ public class MarkerOrderController {
 
     /**
      * 获取所有销售订单信息
+     * @param page
+     * @param limit
+     * @param productId
+     * @return
      */
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
@@ -53,8 +57,11 @@ public class MarkerOrderController {
         List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, productId);
         return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(productId));
     }
+
     /**
      * 删除
+     * @param id
+     * @return
      */
    @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
@@ -64,6 +71,8 @@ public class MarkerOrderController {
 
     /**
      * 修改
+     * @param markerOrderTest
+     * @return
      */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
@@ -73,6 +82,8 @@ public class MarkerOrderController {
 
     /**
      * 获取销售订单ID
+     * @param id
+     * @return
      */
     @RequestMapping(value = "/get",method = RequestMethod.POST)
     @ResponseBody
@@ -82,6 +93,9 @@ public class MarkerOrderController {
 
     /**
      * 增加
+     * @param markerOrderTest
+     * @param request
+     * @return
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
@@ -102,6 +116,8 @@ public class MarkerOrderController {
 
     /**
      * 提交
+     * @param markerOrderTest
+     * @return
      */
     @RequestMapping(value = "/audi",method = RequestMethod.POST)
     @ResponseBody
@@ -111,6 +127,8 @@ public class MarkerOrderController {
 
     /**
      * 撤回
+     * @param markerOrderTest
+     * @return
      */
     @RequestMapping(value = "/back",method = RequestMethod.POST)
     @ResponseBody
@@ -127,5 +145,27 @@ public class MarkerOrderController {
     @ResponseBody
     public IResult getProductId(){
         return new ResultBean<Collection<MarkerOrderTest>>(markerOrderService.getProductId());
+    }
+
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
+    @RequestMapping(value = "/submit",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult submit(MarkerOrderTest markerOrderTest){
+        return new ResultBean<Boolean>(markerOrderService.submit(markerOrderTest));
+    }
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+    @RequestMapping(value = "/fina",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult fina(MarkerOrderTest markerOrderTest){
+        return new ResultBean<Boolean>(markerOrderService.fina(markerOrderTest));
     }
 }

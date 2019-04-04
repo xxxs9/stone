@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProducePlanMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProducePlan">
+            <id column="ID" property="id"/>
+            <result  column="PRODUCT_ID" property="productId"/>
+            <result column="PlAN_NUMBER" property="planNumber"/>
+            <result column="REAL_NUMBER" property="realNumber"/>
+            <result column="STATE" property="state"/>
+            <result column="GOODS_NUMBER" property="goodNumber"/>
+            <result column="PRODUCE_DATE" property="produceDate" jdbcType="DATE"/>
+            <result column="FINISH_DATE" property="finishDate" jdbcType="DATE"/>
+            <result column="BILL_DATE" property="billDate" jdbcType="DATE"/>
+            <result column="BILL_CYCLE" property="billCycle"/>
+            <result column="PLAN_REMARK" property="planRemark"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+
+
+    <sql id="Base_Column_List">
+      ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3
+     </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3 from l_produce_plan
+    </select>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" >
+        select
+        ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3
+        from l_produce_plan
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--mysql版本/分页查询-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3 from l_produce_plan t
+        <where>
+
+        <if test="productId != null and productId != ''">
+            and t.PRODUCT_ID= #{productId,jdbcType=VARCHAR}
+        </if>
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+
+        </where>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>-->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_produce_plan t
+        where 1=1
+        <if test="state != null and state != ''">
+            and t.STATE = #{state,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_produce_plan
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+    insert into l_produce_plan ( ID,PRODUCT_ID,PLAN_NUMBER,REAL_NUMBER,STATE,GOODS_NUMBER,PRODUCE_DATE,FINISH_DATE,BILL_DATE,BILL_CYCLE,PLAN_REMARK,OTHER1,OTHER2,OTHER3)
+    values (
+    #{id},
+    #{productId},
+    #{planNumber},
+    #{realNumber},
+    #{state},
+    #{goodNumber},
+    #{produceDate},
+    #{finishDate},
+    #{billDate},
+    #{billCycle},
+    #{planRemark},
+    #{other1},
+    #{other2},
+    #{other3}
+    )
+  </insert>
+    <!--<insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        insert into l_produce_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                canSold,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productNumber != null">
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="canSold != null">
+                #{canSold,jdbcType=VARCHAR},
+            </if>
+            <if test="supportPrice != null">
+                #{supportPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="productDescribe != null">
+                #{productDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR}
+            </if>
+        </trim>
+
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        update l_produce_plan
+        <set>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                CAN_SOLD,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>-->
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+    update l_produce_plan
+    set
+
+     PRODUCT_ID=#{productId},
+     PLAN_NUMBER=#{planNumber},
+     REAL_NUMBER=#{realNumber},
+     STATE=#{state},
+     GOODS_NUMBER=#{goodNumber},
+     PRODUCE_DATE=#{produceDate},
+     FINISH_DATE= #{finishDate},
+     BILL_DATE=#{billDate},
+     BILL_CYCLE=#{billCycle},
+     PLAN_REMARK=#{planRemark},
+     OTHER1=#{other1},
+     OTHER2=#{other2},
+     OTHER3=#{other3}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <update id="changeState" parameterType="String">
+        update l_produce_plan set STATE=#{state} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="changeOther1" parameterType="String">
+        update l_produce_plan set OTHER1=#{other1} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="findId" resultMap="BaseResultMap">
+        select * from l_produce_plan p
+        where p.PRODUCT_ID=#{productId}
+    </select>
+</mapper>
+

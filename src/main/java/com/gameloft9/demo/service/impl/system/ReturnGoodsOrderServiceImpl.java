@@ -6,6 +6,7 @@ import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.ReturnGoodsOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -31,6 +32,8 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
     ReturnGoodsOrderMapper returnGoodsOrderMapper;
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    DepotOrderService depotOrderService;
 
 
 
@@ -73,18 +76,18 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      * @return
      */
     @Override
-    public ReturnGoodsOrder getById(String id) {
+    public ShipmentOrder getById(String id) {
         return returnGoodsOrderMapper.getById(id);
     }
 
     /**
      * 修改
-     * @param returnGoodsOrder
+     * @param shipmentOrder
      * @return
      */
     @Override
-    public Boolean update(ReturnGoodsOrder returnGoodsOrder) {
-        return returnGoodsOrderMapper.update(returnGoodsOrder);
+    public Boolean update(ShipmentOrder shipmentOrder) {
+        return returnGoodsOrderMapper.update(shipmentOrder);
     }
 
     /**
@@ -104,14 +107,17 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         return returnGoodsOrder.getId();
     }
     /**
-     * 提交
+     * 提交主管审核
      * @param shipmentOrder
      * @return
      */
     @Override
     public Boolean audit(ShipmentOrder shipmentOrder) {
+        HttpServletRequest request1 = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String username = (String) request1.getSession().getAttribute("sysUser");
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_pass);
+        shipmentOrder.setState(StateUUtil.APPLY_director);
+        shipmentOrder.setApplyUser(username);
         returnGoodsOrderMapper.audit(shipmentOrder);
 
         //阿发包
@@ -138,7 +144,8 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_depot);
         returnGoodsOrderMapper.depot(shipmentOrder);
-
+        ShipmentOrder returnGoods = returnGoodsOrderMapper.getById(shipmentOrder.getId());
+        depotOrderService.addMarketDepotOrderIn(returnGoods.getGoodsId(),returnGoods.getProductId(),returnGoods.getGoodsNumber(),returnGoods.getApplyUser());
         return true;
     }
 
@@ -149,9 +156,37 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
      */
     @Override
     public Boolean finance(ShipmentOrder shipmentOrder) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_finance);
+        returnGoodsOrderMapper.finance(shipmentOrder);
+        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
+        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setApplyTime(new Date());
+        String auditUser = (String) request.getSession().getAttribute("sysUser");
+        applyOrder.setApplyUser(auditUser);
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
+        applyOrder.setApplyType(Constants.Finance.SALE_PAYABLE);
+        //订单id
+        applyOrder.setApplyId(shipmentOrder.getId());
+        //订单总价
+        applyOrder.setApplyMoney(shipmentOrder.getGoodsAmount());
+        //插入申请单
+        applyOrderMapper.add(applyOrder);
+        return true;
+    }
 
+    /**
+     * 退货产品入库
+     * @param shipmentOrder
+     * @return
+     */
+    @Override
+    public Boolean wareh(ShipmentOrder shipmentOrder) {
+        CheckUtil.notBlank(shipmentOrder.getGoodsId(),"订单编号为空");
+        shipmentOrder.setState(StateUUtil.APPLY_pas);
+        returnGoodsOrderMapper.wareh(shipmentOrder);
         return true;
     }
 }

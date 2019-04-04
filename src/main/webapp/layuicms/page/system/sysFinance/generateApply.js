@@ -29,12 +29,51 @@ layui.config({
 
         //如果订单类型为3
         if(queryArgs.applyType == 2){
-            $api.GetShipmentOrder(req,function (res) {
+            $api.GetMarkerOrder(req,function (res) {
                 var data = res.data;
-                var price = data.price;
                 var goodsNumber = data.goodsNumber;
-                var totalPrice = price * goodsNumber;
-                var financeState = data.financeState;
+                var totalPrice = data.goodsAmount;
+                var plannedNumber = totalPrice/goodsNumber;
+                var financeState;
+                console.log(data)
+                $('#id').val(id);
+                $("[name='goodsName']").val(data.productId);
+                $("[name='goodsId']").val(data.id);
+                $("[name='auditType']").val(2);
+                $("[name='goodsNumber']").val(data.deliverNumber);
+                $("[name='price']").val(data.plannedNumber);
+                $("[name='totalPrice']").val(data.acceptedAmount);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.orderTime);
+                $("[name='applyDescribe']").val(data.remarks);
+
+
+                //alert(financeState)
+                if(data.state != '等待财务审核'){
+                    $('#gnrt').css("display",'none');
+                }
+
+                if(queryArgs.applyType == 1 ){
+                    $('#apply').text('采购订单应付单');
+                } else if(queryArgs.applyType == 2){
+                    $('#apply').text('销售出货应收单');
+                }else if(queryArgs.applyType == 3 ){
+                    $('#apply').text('采购退货应收单');
+                }else if(queryArgs.applyType == 4){
+                    $('#apply').text('销售退货应付单');
+                }
+                form.render();//重新绘制表单，让修改生效
+
+            });
+
+        }else if(queryArgs.applyType == 4){//如果订单类型为4
+
+            $api.GetReturnGoodsOrder(req,function (res) {
+                var data = res.data;
+                var goodsNumber = data.goodsNumber;
+                var totalPrice = data.goodsAmount;
+                var price = totalPrice/goodsNumber;
+                var financeState ;
                 console.log(data)
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsId);
@@ -47,20 +86,34 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
 
+                if(data.state != '等待财务审核'){
+                    $('#gnrt').css("display",'none');
+                }
+
+                if(queryArgs.applyType == 1 ){
+                    $('#apply').text('采购订单应付单');
+                } else if(queryArgs.applyType == 2){
+                    $('#apply').text('销售出货应收单');
+                }else if(queryArgs.applyType == 3 ){
+                    $('#apply').text('采购退货应收单');
+                }else if(queryArgs.applyType == 4){
+                    $('#apply').text('销售退货应付单');
+                }
+                form.render();//重新绘制表单，让修改生效
+
             });
 
-        }else if(queryArgs.applyType == 4){//如果订单类型为4
-
-        }else if(queryArgs.applyType == 1 || queryArgs.applyType == 3){//如果订单类型为1和2
+        }else if(queryArgs.applyType == 1 ){//如果订单类型为1和2
             //沧海的getPurOrder
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = price * goodsNumber;
+                console.log(data)
                 var financeState = data.financeState;
                 $('#id').val(id);
-                $("[name='goodsName']").val(data.goodsId);
+                $("[name='goodsName']").val(data.goodsName);
                 $("[name='goodsId']").val(data.id);
                 $("[name='auditType']").val(data.auditType);
                 $("[name='goodsNumber']").val(goodsNumber);
@@ -69,7 +122,6 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-
                 if(financeState != null){
                     $('#gnrt').css("display",'none');
                 }
@@ -80,31 +132,50 @@ layui.config({
                 } else if(queryArgs.applyType == 2){
                     $('#apply').text('销售出货应收单');
                 }else if(queryArgs.applyType == 3 ){
-                    $('#apply').text('采购退货应付单');
+                    $('#apply').text('采购退货应收单');
+                }else if(queryArgs.applyType == 4){
+                    $('#apply').text('销售退货应付单');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        } else if(queryArgs.applyType == 3){
+            //沧海的getPurOrder
+
+            $api.getPurchaseReturn(req,function (res) {
+                alert(1)
+                var data = res.data;
+                var price = data.price;
+                var goodsNumber = data.goodsNumber;
+                var totalPrice = price * goodsNumber;
+                console.log(data)
+                var financeState = data.financeState;
+                $('#id').val(id);
+                $("[name='goodsName']").val(data.goodsName);
+                $("[name='goodsId']").val(data.id);
+                $("[name='auditType']").val(data.auditType);
+                $("[name='goodsNumber']").val(goodsNumber);
+                $("[name='price']").val(price);
+                $("[name='totalPrice']").val(totalPrice);
+                $("[name='applyUser']").val(data.applyUser);
+                $("[name='applyTime']").val(data.applyTime);
+                $("[name='applyDescribe']").val(data.applyDescribe);
+                if(financeState != null){
+                    $('#gnrt').css("display",'none');
+                }
+                /*var f  = financeState != '待审核'
+                alert(f)*/
+                if(queryArgs.applyType == 1 ){
+                    $('#apply').text('采购订单应付单');
+                } else if(queryArgs.applyType == 2){
+                    $('#apply').text('销售出货应收单');
+                }else if(queryArgs.applyType == 3 ){
+                    $('#apply').text('采购退货应收单');
                 }else if(queryArgs.applyType == 4){
                     $('#apply').text('销售退货应付单');
                 }
                 form.render();//重新绘制表单，让修改生效
             });
         }
-
-
-
-        /*$api.getPurOrder(req,function (res) {
-            //alert($('#id').val())  申请订单id
-            var data = res.data;
-            $("[name='goodsId']").val(data.goodsId);
-            $("[name='goodsNumber']").val(data.goodsNumber);
-            $("[name='price']").val(data.price);
-            $("[name='applyUser']").val(data.applyUser);
-            $("[name='applyTime']").val(data.applyTime);
-            $("[name='applyDescribe']").val(data.applyDescribe);
-
-            //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
-            //加载角色列表
-            //loadRoleList();
-            form.render();//重新绘制表单，让修改生效
-        });*/
     }
 
     init();
@@ -123,8 +194,7 @@ layui.config({
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
             var price = $('[name=price]').val();
-            var goodsNumber = $('[name=auditType]').val();
-            alert(1)
+            var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
                 id1:id1,
                 id:payId,
@@ -142,8 +212,33 @@ layui.config({
                 });
             });
             return false;
-        }else if($('[name=auditType]').val() == 2){
 
+        }else if($('[name=auditType]').val() == 2){//生成销售应收
+            var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
+            //请求
+            //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
+            var payId = $('[name=goodsId]').val();
+            var auditType = $('[name=auditType]').val();
+            var totalPrice = $('[name=totalPrice]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            var req = {
+                id1:id1,
+                id:payId,
+                auditType : auditType,
+                goodsAmount:totalPrice,
+                goodsNumber:goodsNumber
+            };
+
+
+            $api.generateSaleReceive(req ,function (data) {
+                layer.msg("生成成功！",{time:1000},function () {
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                });
+            });
+            return false;
         }else if($('[name=auditType]').val() == 3){
             var queryArgs = $tool.getQueryParam();//获取查询参数
             var id1 = queryArgs['id'];
@@ -160,6 +255,7 @@ layui.config({
                 price:price,
                 goodsNumber:goodsNumber
             };
+            
             $api.generatePurchaseReceive(req ,function (data) {
                 layer.msg("生成成功！",{time:1000},function () {
                     layer.closeAll("iframe");
@@ -168,8 +264,34 @@ layui.config({
                 });
             });
             return false;
-        }else if($('[name=auditType]').val() == 4){
 
+        }else if($('[name=auditType]').val() == 4){
+            var queryArgs = $tool.getQueryParam();//获取查询参数
+            var id1 = queryArgs['id'];
+            //请求
+            //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
+            var payId = $('[name=goodsId]').val();
+            var auditType = $('[name=auditType]').val();
+            var totalPrice = $('[name=totalPrice]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            alert(totalPrice)
+            var req = {
+                id1:id1,
+                id:payId,
+                auditType : auditType,
+                goodsAmount:totalPrice,
+                goodsNumber:goodsNumber
+            };
+
+
+            $api.generateSalePay(req ,function (data) {
+                layer.msg("生成成功！",{time:1000},function () {
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                });
+            });
+            return false;
         }
 
     })

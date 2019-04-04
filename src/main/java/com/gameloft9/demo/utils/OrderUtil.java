@@ -55,21 +55,35 @@ public class OrderUtil {
         return s.substring(0, length);
     }
 
+
+
+
+
+
     /**
      * 生成编号(由编号类型编码+编号创建平台编码+6位日期+时间戳后4位+4位随机数组成)
+     * @param
      * @return
      * @throws Exception
      */
     public static String createOrderNumber(){
-        //格式化日期为"mmdd"
-        DateFormat format = new SimpleDateFormat("yyMMdd");
+        //格式化日期为"yymmdd"
+        DateFormat format = new SimpleDateFormat("MMdd");
         Date date = new Date();
         StringBuffer buffer = new StringBuffer();
+
         buffer.append(format.format(date));
-        //buffer.append((date.getTime() + "").substring(9));
+        buffer.append((date.getTime() + "").substring(9));
         buffer.append(getRandNum(4));
         return buffer.toString();
     }
+
+
+
+
+
+
+
 
     /**
      * 获取四位随机数

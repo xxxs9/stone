@@ -22,7 +22,9 @@ public class MarkerOrderTest {
     private String applyUser;
     private String state;
     private String orderAuditUser;
+    private String orderAuditDepot;
     private String remarks;
+    private String depotRemarks;
 
 
 }

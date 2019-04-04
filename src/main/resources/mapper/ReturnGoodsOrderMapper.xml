@@ -6,6 +6,7 @@
     <resultMap id="ReturnGoodsOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
@@ -22,6 +23,7 @@
     <resultMap id="ShipmentOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
@@ -37,6 +39,7 @@
     <sql id="Base_Column_List">
         ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -89,6 +92,23 @@
         </where>
     </update>
 
+    <!--产品退货入库-->
+    <update id="wareh" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                 GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+
     <!--提交财务-->
     <update id="finance" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         update
@@ -116,10 +136,11 @@
 
     <!--获取角色ID-->
 
-    <select id="getById" resultMap="ReturnGoodsOrderResultMap" parameterType="java.lang.String">
+    <select id="getById" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
         select
             ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -131,7 +152,7 @@
         AUDIT_TYPE,
         REMARKS
         from
-          w_return_goods_order
+          w_shipment_order
         where
           ID = #{id,jdbcType=VARCHAR}
     </select>
@@ -165,6 +186,7 @@
                 and GOODS_NAME = #{goodsName,jdbcType=DATE}
             </if>
             w_shipment_order.STATE != "收货成功" and w_shipment_order.STATE != "等待收货" and w_shipment_order.STATE != "等待发货"
+            and w_shipment_order.STATE != "提交财务成功"
         </where>
 
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
@@ -198,6 +220,7 @@
            w_return_goods_order
           ( ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -211,6 +234,7 @@
         values
           (#{id},
           #{goodsId},
+          #{productId},
           #{goodsName},
           #{customer},
           #{goodsNumber},
@@ -228,7 +252,8 @@
             w_shipment_order
         set
             GOODS_ID=#{goodsId},
-           GOODS_NAME=#{goodsName},
+            PRODUCT_ID=#{productId},
+            GOODS_NAME=#{goodsName},
             CUSTOMER=#{customer},
             GOODS_NUMBER=#{goodsNumber},
             GOODS_AMOUNT=#{goodsAmount},
@@ -242,7 +267,84 @@
             ID=#{id}
   </update>
 
+    <!--啊发包 根据id和state更新pruchaseOrder   void updateByIdAndState(PurchaseOrder purchaseOrder);
+    <resultMap id="ReturnGoodsOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>-->
+    <update id="updateByIdAndState" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update w_return_goods_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE=#{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 
+    <!--啊发包  根据id和订单类型    PurchaseOrder findByIdAndAuditType(String id,Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="ReturnGoodsOrderResultMap">
+        select * from w_return_goods_order
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
 
-
+    <!--啊发包  更新 ReturnGoodsOrder 的财务审核状态  void returnGoodsOrderPayPass(PurchaseOrder purchaseOrder);
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>-->
+    <update id="returnGoodsOrderPayPass" parameterType="com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder">
+        update w_return_goods_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE=#{state,jdbcType=VARCHAR},
+            </if>
+            <if test="applyUser != null and applyUser != ''">
+                APPLY_USER=#{applyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                REMARKS=#{remarks,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 </mapper>

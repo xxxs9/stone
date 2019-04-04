@@ -21,35 +21,35 @@ public interface ShipmentOrderService {
     List<ShipmentOrder> findAll(String page, String limit, String goodsName);
 
     /**
-     * 获取所有销售订单个数
+     * 获取所有订单个数
      * @param goodsName
      * @return
      */
     int countGetAll(String goodsName);
 
     /**
-     * 通过ID删除销售订单信息
+     * 通过ID删除订单信息
      * @param id
      * @return
      */
     int deleteById(String id);
 
     /**
-     * 获取销售订单id
+     * 获取订单id
      * @param id
      * @return
      */
     ShipmentOrder getById(String id);
 
     /**
-     * 修改销售订单表信息
+     * 修改订单表信息
      * @param shipmentOrder
      * @return
      */
     Boolean update(ShipmentOrder shipmentOrder);
 
     /**
-     * 增加销售订单表信息
+     * 增加订单表信息
      */
     String add(ShipmentOrder shipmentOrder);
 
@@ -72,4 +72,11 @@ public interface ShipmentOrderService {
      * @return
      */
     Boolean goods(ShipmentOrder shipmentOrder);
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    Boolean sub(ShipmentOrder shipmentOrder);
 }

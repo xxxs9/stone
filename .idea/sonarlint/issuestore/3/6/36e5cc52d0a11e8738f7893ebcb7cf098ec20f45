@@ -1,0 +1,61 @@
+
+nsquid:S2068\"Q'PWD' detected in this expression, review this potentially hard-coded credential.(ίυΓ+8κμ°™-
+†"squid:ClassVariableVisibilityCheck6"QMake value a static final constant or non-public and provide accessors if needed.(ηªΖΰ8κμ°™-
+Asquid:S3066"#Lower the visibility of this field.( ώΝΎ8κμ°™-
+ssquid:S3008®"URename this field "INTO_DEPOT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(λΈ­Z8κμ°™-
+~squid:S3008§"_Rename this field "FENPEI_START_PRODUCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ίΨε§8κμ°™-
+{squid:S3008¨"WRename this field "STOP_PRODUCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Ò΄ωÿÿÿÿ8κμ°™-
+’squid:S1845"tRename field "name" to prevent any misunderstanding/clash with method "name" defined in superclass "java.lang.Enum".( ώΝΎ8κμ°™-
+†"squid:ClassVariableVisibilityCheck"QMake value a static final constant or non-public and provide accessors if needed.(ηªΖΰ8κμ°™-
+ysquid:S3008©"[Rename this field "CONTINUE_PRODUCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤·•g8κμ°™-
+Ssquid:S1444£"/Make this "public static UN_TIJIAO" field final(ςάΦ‘ωÿÿÿÿ8κμ°™-
+…"squid:ClassVariableVisibilityCheck'"PMake name a static final constant or non-public and provide accessors if needed.( ώΝΎ8κμ°™-
+Asquid:S3066&"#Lower the visibility of this field.(ηªΖΰ8κμ°™-
+Tsquid:S1444«"0Make this "public static CHECK_GOOD" field final(ÒΆª¬ÿÿÿÿÿ8κμ°™-
+Ysquid:S1444§":Make this "public static FENPEI_START_PRODUCE" field final(ίΨε§8κμ°™-
+vsquid:S3008¤"XRename this field "TIJIAO_UNAUDI" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΧαE8κμ°™-
+†"squid:ClassVariableVisibilityCheck&"QMake value a static final constant or non-public and provide accessors if needed.(ηªΖΰ8κμ°™-
+—"squid:ClassVariableVisibilityCheckª"\Make COMPLETE_PRODUCE a static final constant or non-public and provide accessors if needed.(ψÿυϊÿÿÿÿ8κμ°™-
+]squid:S1118a":Add a private constructor to hide the implicit public one.(µ’Όάψÿÿÿÿ8κμ°™-
+^squid:S1118»":Add a private constructor to hide the implicit public one.(εΧ‰βϋÿÿÿÿ8κμ°™-
+’squid:S1845'"tRename field "name" to prevent any misunderstanding/clash with method "name" defined in superclass "java.lang.Enum".( ώΝΎ8κμ°™-
+"squid:ClassVariableVisibilityCheck¬"UMake CHECK_BAD a static final constant or non-public and provide accessors if needed.(¦™ω‰όÿÿÿÿ8κμ°™-
+"squid:ClassVariableVisibilityCheck£"UMake UN_TIJIAO a static final constant or non-public and provide accessors if needed.(ςάΦ‘ωÿÿÿÿ8κμ°™-
+vsquid:S3008¥"WRename this field "AUDI_UNREACH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ΡςΗ8κμ°™-
+Qsquid:S1135΅"2Complete the task associated to this TODO comment.(Òά8κμ°™-
+"squid:ClassVariableVisibilityCheck¤"YMake TIJIAO_UNAUDI a static final constant or non-public and provide accessors if needed.(ΧαE8κμ°™-
+Tsquid:S1444©"6Make this "public static CONTINUE_PRODUCE" field final(¤·•g8κμ°™-
+^squid:S1118σ":Add a private constructor to hide the implicit public one.(Νο•όÿÿÿÿ8κμ°™-
+squid:S3008ª"[Rename this field "COMPLETE_PRODUCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ψÿυϊÿÿÿÿ8κμ°™-
+Ssquid:S1444¬"/Make this "public static CHECK_BAD" field final(¦™ω‰όÿÿÿÿ8κμ°™-
+Ysquid:S1118 ":Add a private constructor to hide the implicit public one.(Ε‚• 8κμ°™-
+osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(ΛΙ†όÿÿÿÿ8κμ°™-
+–"squid:ClassVariableVisibilityCheck§"`Make FENPEI_START_PRODUCE a static final constant or non-public and provide accessors if needed.(ίΨε§8κμ°™-
+“"squid:ClassVariableVisibilityCheck¨"XMake STOP_PRODUCE a static final constant or non-public and provide accessors if needed.(†Ò΄ωÿÿÿÿ8κμ°™-
+Ssquid:S1444¦"4Make this "public static REACH_UNFENPEI" field final(Ε½ΧΨ8κμ°™-
+^squid:S1118ώ":Add a private constructor to hide the implicit public one.(ήξεδόÿÿÿÿ8κμ°™-
+"squid:ClassVariableVisibilityCheck¥"XMake AUDI_UNREACH a static final constant or non-public and provide accessors if needed.(“ΡςΗ8κμ°™-
+‹"squid:ClassVariableVisibilityCheck®"VMake INTO_DEPOT a static final constant or non-public and provide accessors if needed.(λΈ­Z8κμ°™-
+^squid:S1118Δ":Add a private constructor to hide the implicit public one.(ζΫβ—ωÿÿÿÿ8κμ°™-
+msquid:S00101 "MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ε‚• 8κμ°™-
+‘"squid:ClassVariableVisibilityCheck«"VMake CHECK_GOOD a static final constant or non-public and provide accessors if needed.(ÒΆª¬ÿÿÿÿÿ8κμ°™-
+”"squid:ClassVariableVisibilityCheck­"YMake UN_INTO_DEPOT a static final constant or non-public and provide accessors if needed.(ϊσ¦Άÿÿÿÿÿ8κμ°™-
+xsquid:S3008¦"YRename this field "REACH_UNFENPEI" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ε½ΧΨ8κμ°™-
+Vsquid:S1444¨"2Make this "public static STOP_PRODUCE" field final(†Ò΄ωÿÿÿÿ8κμ°™-
+‘"squid:ClassVariableVisibilityCheck©"\Make CONTINUE_PRODUCE a static final constant or non-public and provide accessors if needed.(¤·•g8κμ°™-
+…"squid:ClassVariableVisibilityCheck"PMake name a static final constant or non-public and provide accessors if needed.( ώΝΎ8κμ°™-
+ysquid:S3008«"URename this field "CHECK_GOOD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒΆª¬ÿÿÿÿÿ8κμ°™-
+Nsquid:S1444®"0Make this "public static INTO_DEPOT" field final(λΈ­Z8κμ°™-
+Asquid:S3066'"#Lower the visibility of this field.( ώΝΎ8κμ°™-
+^squid:S1118™":Add a private constructor to hide the implicit public one.(¤‚ƒΤϊÿÿÿÿ8κμ°™-
+"squid:ClassVariableVisibilityCheck¦"ZMake REACH_UNFENPEI a static final constant or non-public and provide accessors if needed.(Ε½ΧΨ8κμ°™-
+Asquid:S3066"#Lower the visibility of this field.(ηªΖΰ8κμ°™-
+Asquid:S30666"#Lower the visibility of this field.(ηªΖΰ8κμ°™-
+Zsquid:S1444ª"6Make this "public static COMPLETE_PRODUCE" field final(ψÿυϊÿÿÿÿ8κμ°™-
+xsquid:S3008£"TRename this field "UN_TIJIAO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ςάΦ‘ωÿÿÿÿ8κμ°™-
+xsquid:S3008¬"TRename this field "CHECK_BAD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦™ω‰όÿÿÿÿ8κμ°™-
+Wsquid:S1444­"3Make this "public static UN_INTO_DEPOT" field final(ϊσ¦Άÿÿÿÿÿ8κμ°™-
+Qsquid:S1444¤"3Make this "public static TIJIAO_UNAUDI" field final(ΧαE8κμ°™-
+Qsquid:S1444¥"2Make this "public static AUDI_UNREACH" field final(“ΡςΗ8κμ°™-
+]squid:S1118J":Add a private constructor to hide the implicit public one.(ΉΥΠζώÿÿÿÿ8κμ°™-
+|squid:S3008­"XRename this field "UN_INTO_DEPOT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ϊσ¦Άÿÿÿÿÿ8κμ°™-

@@ -67,52 +67,54 @@ public interface PurchaseOrderMapper {
      * 分页获取所有
      * @param start 开始
      * @param end 结束
-     * @param goodsId 货品名称
+     * @param goodsName 货品名称
      * @param state 订单状态
      * @return List<PurchaseOrder> 返回值
      * */
     List<PurchaseOrder> selectAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("state") String state);
 
     /**
      * 根据仓管财务状态获取信息
      * @param start 开始
      * @param end 结束
-     * @param goodsId 货品名称
+     * @param goodsName 货品名称
      * @param depotState 仓管订单状态
      * @return List<PurchaseOrder> 返回值 */
     List<PurchaseOrder> selectAllByInOrder(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsNamge,
             @Param("depotState") String depotState);
 
     /**
      * 审核页面根据id获取列表
      * @param start 开始
      * @param end 结束
-     * @param goodsId 货品名称
+     * @param goodsName 货品名称
      * @param state 订单状态
      * @return List<PurchaseOrder> 返回值
      * */
     List<PurchaseOrder> selectAllByInspect(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("goodsName") String goodsName,
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 分页获取个数
-     * @param goodsId 货品名称
+     * @param goodsName 货品名称
      * @param state 订单状态
      * @return int
      * */
     int countGetAll(
-            @Param("goodsId") String goodsId,
-            @Param("state") String state);
+            @Param("goodsName") String goodsName,
+            @Param("state") String state,
+            @Param("financeState") String financeState);
 
     /**
      * 获取goodsId下拉框
@@ -165,12 +167,12 @@ public interface PurchaseOrderMapper {
     /**
      * 采购收货
      * 分页获取个数
-     * @param goodsId 货品名称
+     * @param goodsName 货品名称
      * @param depotState 订单状态
      * @return int
      * */
     int countGetAllByInOrder(
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("depotState") String depotState);
 
     /**
@@ -184,9 +186,32 @@ public interface PurchaseOrderMapper {
     /**
      * 采购
      * 根据goodsId获取price
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @return PurchaseOrder 返回实体类*/
-    String selectPriceByGoodsId(String materialId);
+    List<String> selectPriceByGoodsId(String goodsName);
+
+    /**
+     * 获取orderNumber下拉框
+     * 根据状态为审核通过
+     * @return List<PurchaseOrder> 返回类型
+     * */
+    List<PurchaseOrder> selectAllByOrderNumber();
+
+    /**
+     * 查看审核通过的订单详情
+     * @param record 记录
+     * @return int
+     * */
+    int selectAllBySearch(PurchaseOrder record);
+
+    /**
+     * 根据订单编号获取所有内容
+     * @param orderNumber orderNumber
+     * @return PurchaseOrder
+     * */
+    PurchaseOrder selectByOrderNumber(String orderNumber);
+
+
 
 
 

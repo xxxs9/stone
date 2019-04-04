@@ -19,6 +19,7 @@ import java.util.List;
  * @description:
  */
 @Service
+
 public class LenCreateUserInfoServiceImpl implements LenCreateUserInfoService {
     @Autowired
     LenCreateUserInfoMapper mapper;

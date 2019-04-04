@@ -14,7 +14,7 @@ public class DepotInventory implements Serializable {
 
     private String id;
 
-    private String depotId;
+    private String goodsName;
 
     private String type;
 

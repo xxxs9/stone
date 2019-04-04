@@ -10,6 +10,7 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -113,6 +114,12 @@ public class FinancePurchaseBillPayController {
     @ResponseBody
     public IResult purchaseOrderPayPass(String attitude,String purchaseOrderId,String auditType,String actualPrice,String auditDescribe){
         return new ResultBean<Boolean>(purchaseBillPayService.purchaseOrderPayPass(attitude,purchaseOrderId,auditType,actualPrice,auditDescribe));
+    }
+
+    @RequestMapping(value = "/getPurchasePayChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getPurchasePayChart(){
+        return new ResultBean<Collection<String>>(purchaseBillPayService.getPurchasePayChart());
     }
 
 }

@@ -6,6 +6,7 @@
     <resultMap id="ShipmentOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
         <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
@@ -21,6 +22,7 @@
     <sql id="Base_Column_List">
         ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -83,12 +85,29 @@
         </where>
     </update>
 
+    <!--提交财务-->
+    <update id="sub" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update
+        w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE = #{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
     <!--获取角色ID-->
 
     <select id="getById" resultMap="ShipmentOrderResultMap" parameterType="java.lang.String">
         select
             ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -147,6 +166,7 @@
            w_shipment_order
           ( ID,
         GOODS_ID,
+        PRODUCT_ID,
         GOODS_NAME,
         CUSTOMER,
         GOODS_NUMBER,
@@ -160,6 +180,7 @@
         values
           (#{id},
           #{goodsId},
+          #{productId},
           #{goodsName},
           #{customer},
           #{goodsNumber},
@@ -177,6 +198,7 @@
             w_shipment_order
         set
             GOODS_ID=#{goodsId},
+            PRODUCT_ID=#{productId},
            GOODS_NAME=#{goodsName},
             CUSTOMER=#{customer},
             GOODS_NUMBER=#{goodsNumber},
@@ -191,7 +213,84 @@
             ID=#{id}
   </update>
 
+    <!--啊发包 根据id和state更新pruchaseOrder   void updateByIdAndState(PurchaseOrder purchaseOrder);
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>-->
+    <update id="updateByIdAndState" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE=#{state,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 
+    <!--啊发包  根据id和订单类型    ShipmentOrder findByIdAndAuditType(String id,Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="ShipmentOrderResultMap">
+        select * from w_shipment_order
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--啊发包  ShipmentOrder  void shipmentOrderPayPass(PurchaseOrder purchaseOrder);
+    <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
+        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>-->
+    <update id="shipmentOrderPayPass" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
+        update w_shipment_order
+        <set>
+            <if test="state != null and state != ''">
+                STATE=#{state,jdbcType=VARCHAR},
+            </if>
+            <if test="auditUser != null and auditUser != ''">
+                AUDIT_USER=#{auditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                REMARKS=#{remarks,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != '' ">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
 
 
 </mapper>

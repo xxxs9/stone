@@ -30,6 +30,13 @@ public interface LenProduceFormulaDetailMapper {
     LenProduceFormulaDetail getByPrimaryKey(String id);
 
     /**
+     * 通过formulaId获取实体列表
+     * @param formulaId
+     * @return
+     */
+    List<LenProduceFormulaDetail> getByFormulaId(@Param("formulaId") String formulaId);
+
+    /**
      * 分页查找
      *
      * @param start
@@ -92,6 +99,11 @@ public interface LenProduceFormulaDetailMapper {
      * @return
      */
     int updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
+
+    String selectMaterialId(@Param("id")String id);
+
+    String selectMaterialNumber(@Param("id")String id);
+
 
 
 }

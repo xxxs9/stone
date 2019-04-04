@@ -110,18 +110,6 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
 
 
 
-        //阿发包
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String applyUser = (String) request.getSession().getAttribute("sysUser");
-        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
-        applyOrder.setId(UUIDUtil.getUUID());
-        applyOrder.setApplyId(shipmentOrder.getId());
-        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
-        applyOrder.setApplyType(2);
-        applyOrder.setApplyUser(applyUser);
-        applyOrder.setApplyTime(new Date());
-        applyOrder.setApplyMoney(shipmentOrder.getGoodsAmount());
-        applyOrderMapper.add(applyOrder);
 
 
         return shipmentOrder.getId();
@@ -162,6 +150,19 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_goods);
         shipmentOrderMapper.goods(shipmentOrder);
+        return true;
+    }
+
+    /**
+     * 提交财务
+     * @param shipmentOrder
+     * @return
+     */
+    @Override
+    public Boolean sub(ShipmentOrder shipmentOrder) {
+        CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
+        shipmentOrder.setState(StateUUtil.APPLY_sub);
+        shipmentOrderMapper.sub(shipmentOrder);
         return true;
     }
 }

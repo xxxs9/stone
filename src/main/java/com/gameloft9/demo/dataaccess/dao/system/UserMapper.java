@@ -62,4 +62,9 @@ public interface UserMapper {
      * 根据机构名获取机构人员登入用户名
      * */
     List<String> getUserLoginNameByOrgName(@Param("orgName") String orgName);
+
+    /**
+     * 根据登录名loginName获取id
+     * */
+    String selectIdByLoginName(@Param("loginName") String loginName);
 }

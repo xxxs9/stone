@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>财务图表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <link rel="stylesheet" href="../../../common/css/user.css" media="all"/>
+</head>
+<body>
+    <!--搜索栏-->
+    <blockquote class="layui-elem-quote news_search">
+        <div align="center" >
+            <p><font size="6" color="tomato">财务收入、支出图表</font></p>
+        </div>
+    </blockquote>
+    <hr class="layui-bg-cyan ">
+    <div style="margin-left: 20px">
+        <div class="chart-container"  style="width: 800px;height: 150px;">
+            <!--图表容器-->
+            <canvas id="financeChart"></canvas>
+        </div>
+        <div style="position: absolute;left: 350px;top: 480px;"><font size="4">采购、销售支出柱状图</font></div>
+        <!--div:控制图表长宽-->
+        <div class="chart-container" style="width: 400px;height: 150px;position: absolute;right: 10px">
+            <!--图表容器-->
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <hr class="layui-bg-cyan" style="margin-top: 280px;width: 1200px;margin-left: 20px" />
+    <div style="margin-left: 20px">
+        <div class="chart-container" style="width: 800px;height: 150px;position: absolute;top: 550px">
+            <!--图表容器-->
+            <canvas id="financeChart1"></canvas>
+        </div>
+        <!--div:控制图表长宽-->
+        <div class="chart-container" style="width: 400px;height: 150px;position: absolute;right: 10px;top: 650px">
+            <!--图表容器-->
+            <canvas id="myChart1"></canvas>
+        </div>
+    </div>
+    <hr class="layui-bg-cyan" style="margin-top: 470px;width: 1200px;margin-left: 20px;" />
+    <div style="position: absolute;left: 350px;top: 950px;"><font size="4">采购、销售支出柱状图</font></div>
+    <div style="width: 1px;background-color: #0C0C0C;height: 880px;position: absolute;left: 850px;top: 80px;"></div>
+<!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
+<script type="text/javascript" src="../../../lib/layui/layui.js"></script>
+<script type="text/javascript" src="../../../common/js/config.js"></script>
+<script type="text/javascript" src="chart.js"></script>
+
+<!--引入chart.js-->
+<script type="text/javascript" src="../../../lib/chart/Chart.js"></script>
+</body>
+</html>

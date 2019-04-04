@@ -20,13 +20,19 @@
         <div class="layui-inline">
             <label class="layui-form-label">货品名称</label>
             <div class="layui-input-block">
-                <select id="goodsId" name="goodsId"></select>
+                <select id="goodsName" name="goodsName"></select>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">订单状态</label>
             <div class="layui-input-block">
                 <select id="state" name="state"></select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">财务审核</label>
+            <div class="layui-input-block">
+                <select id="financeState" name="financeState"></select>
             </div>
         </div>
         <div class="layui-inline">
@@ -49,7 +55,7 @@
 <!--设置按钮-->
 <script type="text/html" id="barDemo">
     {{# if(d.state=="提交审核中"){ }}
-    <a class="layui-btn layui-btn-sm" lay-event="inspect"><i class="layui-icon">&#xe642;</i>审核</a>
+    <a class="layui-btn layui-btn-sm" lay-event="inspect" lay-verify="actualInspect"><i class="layui-icon">&#xe642;</i>审核</a>
     {{# } else if(d.state=="审核通过"){ }}
     <label>审核已通过</label>
     {{# } else if(d.state=="审核未通过"){ }}

@@ -1,5 +1,8 @@
 package com.gameloft9.demo.service.api.system;
 
+import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
+import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
+import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 
 import java.util.List;
@@ -30,4 +33,42 @@ public interface FinanceSaleBillPayService {
      *          条件查询总条数
      */
     int getCount(String auditState);
+
+    /**
+     * 添加销售申请应付单
+     *
+     * @param shipmentOrder 销售应付申请单
+     * @param id1 id1
+     * @return
+     *      string
+     */
+    String generateSalePay(ShipmentOrder shipmentOrder, String id1);
+
+    /**
+     * 更新purchaseOrder的财务审核状态
+     * @param attitude purchaseOrder
+     * @param id id
+     * @param auditType 申请类型
+     * @param actualPrice 实际价格
+     * @param auditDescribe 审核信息
+     *
+     * @return
+     *  boolean
+     */
+    Boolean saleOrderPayPass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      SysFinanceSaleBillsPayable
+     */
+    SysFinanceSaleBillsPayable getSalePayById(String id);
+
+    /**
+     * 获取销售支出图表数据
+     * @return
+     */
+    List<String> getSalePayChart();
 }

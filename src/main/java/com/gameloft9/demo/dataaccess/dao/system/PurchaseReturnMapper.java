@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,22 +19,22 @@ public interface PurchaseReturnMapper {
      * 显示所有列表
      * @param start 开始
      * @param end 结束
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return List<PurchaseReturn> 返回内容*/
     List<PurchaseReturn> selectAll(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("depotState") String depotState);
 
     /**
      * 分页显示
-     * @param goodsId 商品名称
+     * @param goodsName 商品名称
      * @param depotState 审核
      * @return int 返回值*/
     int countGetAll(
-            @Param("goodsId") String goodsId,
+            @Param("goodsName") String goodsName,
             @Param("depotState") String depotState);
 
     /**
@@ -84,7 +85,12 @@ public interface PurchaseReturnMapper {
      * */
     Boolean updateTools(PurchaseReturn purchaseReturn);
 
-
+    /**
+     * 根据订单编号获取所有内容
+     * @param orderNumber orderNumber
+     * @return PurchaseOrder
+     * */
+    PurchaseReturn selectByOrderNumber(@Param("orderNumber") String orderNumber);
 
 
     /**
@@ -96,6 +102,7 @@ public interface PurchaseReturnMapper {
             @Param("start") int start,
             @Param("end") int end);
 
+
     /**华锋 仓库主管 审核状态为提交审核中
      * @param start 开始
      * @param end 结束
@@ -103,5 +110,21 @@ public interface PurchaseReturnMapper {
     List<PurchaseReturn> selectReturnByDepot(
             @Param("start") int start,
             @Param("end") int end);
+
+    /**
+     * 阿发包
+     * 根据orderNumber获取所有purReturn内容
+     * */
+    PurchaseReturn selectReturnByOrderNumber(@Param("orderNumber") String orderNumber);
+
+    /**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);
 
 }

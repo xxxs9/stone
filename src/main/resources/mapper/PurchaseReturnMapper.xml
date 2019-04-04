@@ -7,6 +7,8 @@
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
         <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
         <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
         <result column="PRICE" property="price" jdbcType="VARCHAR"/>
         <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR"/>
@@ -24,8 +26,8 @@
     </resultMap>
 
     <!--原料商品List 需要ID来获取原料名称-->
-    <resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.MaterialGoods">
-        <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+    <resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--采购申请的列表 List-->
@@ -39,7 +41,7 @@
         SELECT
             t.ID,
             t.ORDER_NUMBER,
-            t.GOODS_ID,
+            t.GOODS_NAME,
             t.GOODS_NUMBER,
             t.PRICE,
             t.TOTAL_PRICE,
@@ -56,19 +58,19 @@
             t.FINANCE_AUDIT_DESCRIBE
         FROM
             t_purchase_return t,
-            y_material_goods m,
+            sys_material m,
             t_purchase_order s
         <where>
-            <if test="goodsId != null and goodsId != ''">
-                AND GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+            <if test="goodsName != null and goodsName != ''">
+                AND t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
-                AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
+                AND t.DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
             </if>
-                AND m.MATERIAL_ID = t.GOODS_ID
+                AND m.GOODS_NAME = t.GOODS_NAME
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
         </where>
-            ORDER BY t.ORDER_NUMBER ASC
+            ORDER BY t.APPLY_TIME DESC
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -79,8 +81,8 @@
         FROM
             t_purchase_return t
         <where>
-            <if test="goodsId != null and goodsId != ''">
-                GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+            <if test="goodsName != null and goodsName != ''">
+                GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
                 DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
@@ -93,9 +95,11 @@
         INSERT INTO
             t_purchase_return
             (ID,
-            ORDER_NUMBER,
             GOODS_ID,
+            ORDER_NUMBER,
+            GOODS_NAME,
             GOODS_NUMBER,
+            SUPPLIER_NAME,
             PRICE,
             TOTAL_PRICE,
             APPLY_USER,
@@ -111,9 +115,11 @@
             FINANCE_AUDIT_DESCRIBE)
         VALUES
             (#{id},
-            #{orderNumber},
             #{goodsId},
+            #{orderNumber},
+            #{goodsName},
             #{goodsNumber},
+            #{supplierName},
             #{price},
             #{totalPrice},
             #{applyUser},
@@ -140,22 +146,7 @@
     <!--根据id获取信息-->
     <select id="selectByPrimaryKey" resultMap="purReturnMap" parameterType="java.lang.String">
         SELECT
-            ORDER_NUMBER,
-            GOODS_ID,
-            GOODS_NUMBER,
-            PRICE,
-            TOTAL_PRICE,
-            APPLY_USER,
-            APPLY_TIME,
-            DEPOT_STATE,
-            FINANCE_STATE,
-            AUDIT_TYPE,
-            DEPOT_USER,
-            DEPOT_TIME,
-            DEPOT_DESCRIBE,
-            FINANCE_AUDIT_USER,
-            FINANCE_AUDIT_TIME,
-            FINANCE_AUDIT_DESCRIBE
+            *
         FROM
             t_purchase_return
         WHERE
@@ -167,8 +158,10 @@
         UPDATE
             t_purchase_return
         SET
-            ORDER_NUMBER=#{orderNumber},
             GOODS_ID=#{goodsId},
+            ORDER_NUMBER=#{orderNumber},
+            GOODS_NAME=#{goodsName},
+            SUPPLIER_NAME=#{supplierName},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
             TOTAL_PRICE=#{totalPrice},
@@ -194,13 +187,15 @@
         FROM
             t_purchase_order
         WHERE
-            STATE = '审核通过'
+            DEPOT_STATE = '审核通过'
     </select>
 
     <!--orderNumber下拉框自动获取对应的信息-->
     <select id="selectOtherByOrderNumber" resultMap="purReturnMap">
         SELECT
             GOODS_ID,
+            GOODS_NAME,
+            SUPPLIER_NAME,
             GOODS_NUMBER,
             PRICE,
             TOTAL_PRICE
@@ -211,11 +206,15 @@
     </select>
 
     <!--初始化goodsId下拉框-->
-    <select id="selectAllGoodsId" resultType="java.lang.String">
-        SELECT DISTINCT
-            GOODS_ID
+    <select id="selectAllGoodsId" resultMap="purReturnMap">
+        SELECT
+            m.GOODS_NAME,
+            g.ID
         FROM
-            t_purchase_return
+            sys_material m,
+            sys_material_goods g
+        WHERE
+            g.MATERIAL_ID = m.ID
     </select>
 
     <!--提交、撤回等操作，修改状态depotState-->
@@ -228,12 +227,31 @@
             </if>
         </set>
         <where>
-            <if test="id != null and id != ''">
-                ID = #{id,jdbcType=VARCHAR}
+            <if test="orderNumber != null and orderNumber != ''">
+                ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
             </if>
         </where>
     </update>
 
+    <!--根据orderNumber获取purOrderMap-->
+    <select id="selectByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+    <!--根据orderNumber获取purReturnMap-->
+    <select id="selectReturnByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_return
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
 
 
 
@@ -242,7 +260,7 @@
         SELECT
             ID,
             ORDER_NUMBER,
-            GOODS_ID,
+            GOODS_NAME,
             GOODS_NUMBER,
             PRICE,
             APPLY_USER,
@@ -268,7 +286,7 @@
         SELECT
             ID,
             ORDER_NUMBER,
-            GOODS_ID,
+            GOODS_NAME,
             GOODS_NUMBER,
             PRICE,
             APPLY_USER,
@@ -287,5 +305,26 @@
         WHERE
             DEPOT_STATE='提交审核中'
         AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--/**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="purReturnMap">
+        select * from t_purchase_return
+        <where>
+            <if test="id != null and id != ''">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
     </select>
 </mapper>

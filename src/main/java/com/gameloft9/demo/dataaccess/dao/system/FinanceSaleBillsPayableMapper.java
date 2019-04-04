@@ -38,4 +38,32 @@ public interface FinanceSaleBillsPayableMapper extends BaseMapper<SysFinanceSale
     int getCount(
             @Param("auditState") int auditState
     );
+
+    /**
+     * 根据purchaseOrderId 和auditType
+     *
+     * @param saleRejectedId 采购订单编号
+     * @param auditType 采购订单类型
+     * @return
+     *
+     */
+    SysFinanceSaleBillsPayable getSalePayBysaleRejectedIdAndAuditType(
+            @Param("saleRejectedId") String saleRejectedId,
+            @Param("auditType") Integer auditType
+    );
+
+    /**
+     * 根据id获取
+     *
+     * @param id 主键id
+     * @return
+     *      SysFinanceSaleBillsPayable
+     */
+    SysFinanceSaleBillsPayable getSalePayById(@Param("id") String id);
+
+    /**
+     * 获取销售支出图表数据
+     * @return
+     */
+    List<String> getSalePayChart();
 }

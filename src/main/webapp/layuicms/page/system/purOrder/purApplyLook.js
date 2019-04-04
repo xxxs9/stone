@@ -65,14 +65,14 @@ layui.config({
     /**
      * 加载查看列表
      * */
-    function loadRoleList() {
-        //var url = $tool.getContext()+'purchase_order/look.do';
+    /*function loadRoleList() {
+        var url = $tool.getContext()+'purchase_order/look.do';
         var req =  {
             page:1,
             limit:10
-        };
+        };*/
 
-        $api.listPurOrder(req,function (res) {
+        /*$api.listPurOrder(req,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var depotHtml = "";
@@ -91,7 +91,8 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }
+    }*/
+
     /**
      * 表单提交
      * */

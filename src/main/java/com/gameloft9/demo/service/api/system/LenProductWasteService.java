@@ -39,18 +39,22 @@ public interface LenProductWasteService {
      * @return
      */
     List<LenProductWaste> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            @Param("state") String state
+             String page,
+             String limit,
+             String state
     );
 
     /**
-     *增加
+     * 增加
      *
-     * @param lenProduct
+     * @param wasteNumber
+     * @param produceFormulaId
+     * @param wasteTime
+     * @param wasteRemark
+     * @param state
      * @return
      */
-    boolean insert(LenProductWaste lenProduct);
+    boolean insert(String wasteNumber,String produceFormulaId,String wasteTime,String wasteRemark,String state);
 
     /**
      * 修改
