@@ -633,7 +633,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
 
         //啊发包
-        PurchaseReturn purchaseReturn = purchaseReturnMapper.selectByOrderNumber(id);
+        PurchaseReturn purchaseReturn = purchaseReturnMapper.selectReturnByOrderNumber(id);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
         //id
         applyOrder.setId(UUIDUtil.getUUID());

@@ -146,24 +146,7 @@
     <!--根据id获取信息-->
     <select id="selectByPrimaryKey" resultMap="purReturnMap" parameterType="java.lang.String">
         SELECT
-            ORDER_NUMBER,
-            GOODS_ID,
-            SUPPLIER_NAME,
-            GOODS_NAME,
-            GOODS_NUMBER,
-            PRICE,
-            TOTAL_PRICE,
-            APPLY_USER,
-            APPLY_TIME,
-            DEPOT_STATE,
-            FINANCE_STATE,
-            AUDIT_TYPE,
-            DEPOT_USER,
-            DEPOT_TIME,
-            DEPOT_DESCRIBE,
-            FINANCE_AUDIT_USER,
-            FINANCE_AUDIT_TIME,
-            FINANCE_AUDIT_DESCRIBE
+            *
         FROM
             t_purchase_return
         WHERE
@@ -322,5 +305,26 @@
         WHERE
             DEPOT_STATE='提交审核中'
         AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--/**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="purReturnMap">
+        select * from t_purchase_return
+        <where>
+            <if test="id != null and id != ''">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
     </select>
 </mapper>

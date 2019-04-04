@@ -285,8 +285,8 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'purchase_return/delete.do',req,config,successCallback,errorCallback);
         },
         //根据id获取
-        getPurchaseReturn:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
+        getPurchaseReturn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/get.do',req,successCallback,errorCallback);
         },
         //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
@@ -314,8 +314,8 @@ layui.define(['$tool','jquery'], function (exports) {
         },
 
         //阿发包 接口
-        afabaoDo:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,config,successCallback,errorCallback);
+        afabaoDo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
         },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息

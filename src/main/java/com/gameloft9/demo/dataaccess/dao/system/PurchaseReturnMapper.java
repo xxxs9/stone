@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import org.apache.ibatis.annotations.Param;
 
@@ -115,4 +116,15 @@ public interface PurchaseReturnMapper {
      * 根据orderNumber获取所有purReturn内容
      * */
     PurchaseReturn selectReturnByOrderNumber(@Param("orderNumber") String orderNumber);
+
+    /**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);
+
 }

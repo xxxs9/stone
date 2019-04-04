@@ -138,9 +138,11 @@ layui.config({
                 }
                 form.render();//重新绘制表单，让修改生效
             });
-        } else if(queryArgs.applyType == 3){//如果订单类型为1和2
+        } else if(queryArgs.applyType == 3){
             //沧海的getPurOrder
-            $api.getPurOrder(req,function (res) {
+
+            $api.getPurchaseReturn(req,function (res) {
+                alert(1)
                 var data = res.data;
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
