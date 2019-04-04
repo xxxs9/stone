@@ -54,7 +54,14 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private PurchaseReturnService purchaseReturnServiceImpl;
     @Autowired
     private LenProductService lenProductServiceImpl;
-
+    /***
+     * 啊发包
+     */
+    @Autowired
+    private PurchaseReturnMapper purchaseReturnMapper;
+    /**啊发包*/
+    @Autowired
+    private FinanceApplyOrderMapper applyOrderMapper;
     /**
      * 获取仓库单列表
      * @param page                  页序
@@ -601,6 +608,24 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
 
         //啊发包
+        PurchaseReturn purchaseReturn = purchaseReturnMapper.selectByOrderNumber(id);
+        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
+        //id
+        applyOrder.setId(UUIDUtil.getUUID());
+        //申请人
+        applyOrder.setApplyUser(purchaseReturn.getApplyUser());
+        //申请时间
+        applyOrder.setApplyTime(new Date());
+        //申请状态
+        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
+        //申请id
+        applyOrder.setApplyId(purchaseReturn.getId());
+        //申请类型
+        applyOrder.setApplyType(purchaseReturn.getAuditType());
+        //总价
+        applyOrder.setApplyMoney(purchaseReturn.getTotalPrice());
+        //插入申请单
+        applyOrderMapper.add(applyOrder);
 
         return true;
     }
