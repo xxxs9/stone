@@ -403,6 +403,19 @@ layui.define(['$tool','jquery'], function (exports) {
         AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
         },
+        //入库单是否入库成功,返回Boolean值
+        IsStorageIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/isStorageIn.do',req,successCallback,errorCallback);
+        },//出库单是否入库成功,返回Boolean值
+        IsStorageOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/isStorageOut.do',req,successCallback,errorCallback);
+        },//入库单是否审核成功,返回Boolean值
+        isAuditPassIn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/isAuditPassIn.do',req,successCallback,errorCallback);
+        },//出库单是否审核成功,返回Boolean值
+        isAuditPassOut:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotOrder/isAuditPassOut.do',req,successCallback,errorCallback);
+        },
 
 
 
@@ -536,6 +549,11 @@ layui.define(['$tool','jquery'], function (exports) {
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
+
+
+
+
+
         //领料reach.do
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);

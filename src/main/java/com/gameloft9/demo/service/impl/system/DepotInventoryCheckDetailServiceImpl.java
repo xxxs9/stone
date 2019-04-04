@@ -44,6 +44,7 @@ public class DepotInventoryCheckDetailServiceImpl implements DepotInventoryCheck
     @Override
     public List<DepotInventoryCheckDetail> getAll(String page, String limit, String checkId,String type,String goodsId) {
         PageRange pageRange = new PageRange(page, limit);
+        System.out.println(depotInventoryCheckDetailMapper.getAll(pageRange.getStart(), pageRange.getEnd(), checkId, type, goodsId));
         return depotInventoryCheckDetailMapper.getAll(pageRange.getStart(),pageRange.getEnd(),checkId,type,goodsId);
     }
 

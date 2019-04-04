@@ -1,8 +1,10 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenFormulaReachMapper;
+import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProducePlanMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenFormulaReach;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenFormulaReachService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -24,12 +26,17 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class LenFormulaReachServiceImpl implements LenFormulaReachService {
+    @Autowired
+    DepotOrderService depotOrderService;
 
     @Autowired
     LenFormulaReachMapper mapper;
 
     @Autowired
     LenProducePlanMapper plan;
+
+    @Autowired
+    LenProduceFormulaDetailMapper detailMapper;
 
     @Override
     public List<LenFormulaReach> selectAll() {
@@ -81,7 +88,7 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
     }
 
     @Override
-    public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime) {
+    public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1) {
 
         if (Constants.lennonPDAudi() == 1) {
             LenFormulaReach reach = new LenFormulaReach();
@@ -96,8 +103,15 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
             reach.setReachUser(reachUser);
             reach.setState(state);
             reach.setFormulaBack(formulaBack);
+            String materialId = detailMapper.selectMaterialId(produceFormulaDetailId);
+            String materialNumber = detailMapper.selectMaterialNumber(produceFormulaDetailId);
+            int i = Integer.parseInt(other1);
+            int i1 = Integer.parseInt(materialNumber);
+            int goodsNumbers = i*i1;
+            String goodsNumber = String.valueOf(goodsNumbers);
 
             if (mapper.insert(reach) > 0) {
+                depotOrderService.addProduceDepotOrderOut(uuid,materialId,goodsNumber,reachUser);
                 return true;
             } else {
                 return false;

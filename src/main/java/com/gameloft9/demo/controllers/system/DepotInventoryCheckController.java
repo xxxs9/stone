@@ -128,6 +128,8 @@ public class DepotInventoryCheckController {
     }
 
 
+
+
     /**
      * 审核驳回,更新盘点单
      * @param id                    仓库单id
@@ -142,6 +144,8 @@ public class DepotInventoryCheckController {
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
         return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.auditReject(id,state));
     }
+
+
 
 
 

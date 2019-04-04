@@ -136,4 +136,11 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         dao.updateTools(purchaseReturn);
         return true;
     }
+
+    @Override
+    public PurchaseReturn selectByOrderNumber(String orderNumber) {
+        return dao.selectByOrderNumber(orderNumber);
+    }
+
+
 }

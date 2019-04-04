@@ -1,10 +1,15 @@
 
-_squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ø›ˆˆ
-_squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(µ¨î
-dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÏàÛ€ùÿÿÿÿ
-_squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(›œá»
-dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(“Äåûÿÿÿÿ
-dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¥Éàúÿÿÿÿ
-dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ïÆ‡øÿÿÿÿ
-dsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¬µ×ïÿÿÿÿÿ
-esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(’­±öúÿÿÿÿ
+hsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ø›ˆˆ8Ù¿˜-
+hsquid:S4488%"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(µ¨î8Ù¿˜-
+msquid:S4488O"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÏàÛ€ùÿÿÿÿ8Ù¿˜-
+hsquid:S4488X"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(›œá»8Ù¿˜-
+msquid:S4488^"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(“Äåûÿÿÿÿ8Ù¿˜-
+msquid:S4488i"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¥Éàúÿÿÿÿ8Ù¿˜-
+nsquid:S4488„"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ïÆ‡øÿÿÿÿ8Ù¿˜-
+nsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¬µ×ïÿÿÿÿÿ8Ù¿˜-
+isquid:S4488¦"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(­ˆŸÛ8Ù¿˜-
+isquid:S4488´"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(‚Îıù8Ù¿˜-
+€squid:S1192‹"aDefine a constant instead of duplicating this literal ">>>>>>>æ“ä½œæ— æ³•å®Œæˆ<<<<<<<" 6 times.(…ÁİŸ8Ù¿˜-
+ˆsquid:S1192Ğ"dDefine a constant instead of duplicating this literal ">>>>>>>æ•°æ®åº“æ“ä½œå¤±è´¥<<<<<<<" 9 times.(§¼¥Ãûÿÿÿÿ8Ù¿˜-
+ssquid:S00100ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÙ…ºÿÿÿÿÿ8Ù¿˜-
+squid:S1845ğ"lRename method "IntoDepot" to prevent any misunderstanding/clash with method "intoDepot" defined on line 168.(ÏÙ…ºÿÿÿÿÿ8Ù¿˜-

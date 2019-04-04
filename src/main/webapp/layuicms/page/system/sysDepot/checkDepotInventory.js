@@ -105,7 +105,6 @@ layui.config({
         //表格重新加载
         tableIns.reload({
             where:{
-                checkId:queryArgs['id'],
                 type:type,
                 goodsId:goodsId
             }

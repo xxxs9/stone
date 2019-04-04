@@ -52,6 +52,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private PurchaseOrderService purchaseOrderServiceImpl;
     @Autowired
     private PurchaseReturnService purchaseReturnServiceImpl;
+    @Autowired
+    private LenProductService lenProductServiceImpl;
 
     /**
      * 获取仓库单列表
@@ -89,7 +91,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
      * @param applyUser             申请人
      * */
     @Override
-    public String addDepotOrder(String orderType, String type, String goodsId, String goodsNumber, String applyUser) {
+    public String  addDepotOrder(String orderType, String type, String goodsId, String goodsNumber, String applyUser) {
 
         CheckUtil.notBlank(orderType, "仓库单类型为空");
         CheckUtil.notBlank(type, "出入库类型为空");
@@ -207,6 +209,66 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         return depotOrder.getId();
     }
 
+    /**
+     * 添加生产领料单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.ADD,memo = "新增生产领料单")
+    public String addProduceDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(orderNumber);
+        depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
+        depotOrder.setType("生产领料");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_OUT);
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
+    /**
+     * 添加生产入库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    @BizOperLog(operType = OperType.ADD,memo = "新增生产入库单")
+    public String addProduceDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
+
+        CheckUtil.notBlank(orderNumber, "订单编号为空");
+        CheckUtil.notBlank(goodsId, "原料/成品ID为空");
+        CheckUtil.notBlank(goodsNumber, "货品数量为空");
+        CheckUtil.notBlank(applyUser, "申请人为空");
+
+        DepotOrder depotOrder= new DepotOrder();
+        depotOrder.setId(orderNumber);
+        depotOrder.setOrderType(Constants.Depot.ORDER_IN);
+        depotOrder.setType("生产入库");
+        depotOrder.setGoodsId(goodsId);
+        depotOrder.setGoodsNumber(goodsNumber);
+        depotOrder.setApplyUser(applyUser);
+        depotOrder.setApplyTime(new Date());
+        depotOrder.setState(Constants.DepotState.DEPOT_WAITING_IN);
+
+        depotOrderMapper.insertSelective(depotOrder);
+
+        return depotOrder.getId();
+    }
+
 
     /**
      * 添加仓库单
@@ -279,7 +341,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
-        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
             purchaseReturnServiceImpl.depotState(id);
         }
 
@@ -447,11 +509,21 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrder.setId(id);
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
-        //采购入库,更新沧海采购单状态
-        purchaseOrderServiceImpl.depotState(id);
-
         //入库单
         DepotOrder current = depotOrderMapper.getById(id);
+
+
+        //采购入库,更新沧海采购单状态
+        if(current.getType().equals("采购入库")){
+            purchaseOrderServiceImpl.depotState(id);
+        }
+        //生产入库,更新沧海采购单状态
+        if(current.getType().equals("生产入库")){
+            //隆缘改变状态的方法
+        }
+
+
+
         //货物类型
         String type = null;
         String goodsId = current.getGoodsId();
@@ -505,6 +577,12 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
         depotOrder.setId(id);
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
+
+        //生产领料,更新隆缘状态
+        if(depotOrderMapper.getById(id).getType().equals("生产领料")){
+            //隆缘改变状态的方法
+            lenProductServiceImpl.huaOutDepot(id);
+        }
 
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
@@ -562,5 +640,54 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     @Override
     public List<String> getDepotOrderInType(String orderType) {
         return depotOrderMapper.getDepotOrderInType(orderType);
+    }
+
+    /**
+     * 获取仓库单信息,判断是否出库成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isStorageOut(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS_OUT);
+        return true;
+    }
+
+
+    /**
+     * 获取仓库单信息,判断是否入库成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isStorageIn(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS_IN);
+        return true;
+    }
+
+    /**
+     * 获取入库单信息,判断是否成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isAuditPassIn(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS);
+        return true;
+    }
+
+    /**
+     * 获取出库单信息,判断是否审核成功
+     * @param id 仓库单主键
+     * */
+    @Override
+    public Boolean isAuditPassOut(String id) {
+        CheckUtil.notBlank(id, "仓库单id为空");
+        DepotOrder depotOrder = depotOrderMapper.getById(id);
+        depotOrder.getState().equals(Constants.DepotState.DEPOT_PASS);
+        return true;
     }
 }

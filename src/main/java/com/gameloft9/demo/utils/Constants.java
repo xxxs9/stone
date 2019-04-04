@@ -300,6 +300,8 @@ public class Constants {
             public static String CHECK_BAD = "10";
             public static String UN_INTO_DEPOT = "11";
             public static String INTO_DEPOT = "12";
+            //仓库发料
+            public static String DEPOT_OUT = "13";
         }
         /**
          * 盘点单状态
