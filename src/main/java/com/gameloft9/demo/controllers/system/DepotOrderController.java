@@ -170,6 +170,28 @@ public class DepotOrderController {
     }
 
     /**
+     * 获取入库单信息,判断是否成功
+     * @param id 仓库单主键
+     * */
+    @RequestMapping(value = "/isAuditPassIn.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult isAuditPassIn(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotOrderServiceImpl.isAuditPassIn(id));
+    }
+
+    /**
+     * 获取入库单信息,判断是否成功
+     * @param id 仓库单主键
+     * */
+    @RequestMapping(value = "/isAuditPassOut.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult isAuditPassOut(String id){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Boolean>(depotOrderServiceImpl.isAuditPassOut(id));
+    }
+
+    /**
      * 审核通过,更新入库单
      * @param id                    仓库单id
      * @param state                 仓库单状态

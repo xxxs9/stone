@@ -184,7 +184,7 @@ public interface DepotOrderService {
     Boolean isStorageIn(String id);
 
     /**
-     * 获取入库单信息,判断是否成功
+     * 获取入库单信息,判断是否审核成功
      * @param id 仓库单主键
      * */
     Boolean isAuditPassIn(String id);
