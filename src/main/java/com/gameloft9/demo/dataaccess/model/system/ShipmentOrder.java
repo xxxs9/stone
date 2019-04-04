@@ -10,6 +10,7 @@ public class ShipmentOrder {
 
     private String id;
     private String goodsId;
+    private String productId;
     private String goodsName;
     private String customer;
     private String goodsNumber;

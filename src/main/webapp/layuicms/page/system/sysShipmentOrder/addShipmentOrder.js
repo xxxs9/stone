@@ -23,35 +23,25 @@ layui.config({
         //初始化机构树
         //initOrgTree();
         //加载角色列表
-       //loadRoleList();
+        loadProductIdList();
     }
 
     init();
 
-
     /**
      * 初始化下拉框
      */
+    function loadProductIdList() {
 
-
-    function loadRoleList() {
-        var req = {
-            page: 1,
-            limit: 999
-        };
-
-
-        $api.GetShipmentOrder(req,function (res) {
+        $api.GetProductId(null,function (res) {
             var data = res.data;
-            if (data.length > 0) {
-                var roleHtml = "";
-                for (var i = 0; i < data.length; i++) {
-                    roleHtml += '<input type="checkbox" name="' + data[i].id + '" title="' + data[i].roleName + '">';
-                    roleIdList.push(data[i].id);//保存id列表
+            if(data.length > 0){
+                var html = '<option value="">--请填写--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]+'">'+data[i]+'</option>>';
                 }
-
-                $('.role-check-list').append($(roleHtml));
-                form.render();//重新绘制表单，让修改生效
+                $('#productId').append($(html));
+                form.render();
             }
         });
     }
@@ -62,6 +52,7 @@ layui.config({
     form.on("submit(addShipmentOrder)", function (data) {
         var id = data.field.id;
         var goodsId = data.field.goodsId;
+        var productId = data.field.productId;
         var goodsName = data.field.goodsName;
         var customer = data.field.customer;
         var goodsNumber = data.field.goodsNumber;
@@ -90,6 +81,7 @@ layui.config({
         var req = {
             id: id,
             goodsId: goodsId,
+            productId: productId,
             goodsName: goodsName,
             customer: customer,
             goodsNumber: goodsNumber,
