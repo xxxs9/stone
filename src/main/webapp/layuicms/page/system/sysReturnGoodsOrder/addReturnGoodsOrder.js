@@ -62,6 +62,7 @@ layui.config({
     form.on("submit(addReturnGoodsOrder)", function (data) {
         var id = data.field.id;
         var goodsId = data.field.goodsId;
+        var productId = data.field.productId;
         var goodsName = data.field.goodsName;
         var customer = data.field.customer;
         var goodsNumber = data.field.goodsNumber;
@@ -90,6 +91,7 @@ layui.config({
         var req = {
             id: id,
             goodsId: goodsId,
+            productId: productId,
             goodsName: goodsName,
             customer: customer,
             goodsNumber: goodsNumber,

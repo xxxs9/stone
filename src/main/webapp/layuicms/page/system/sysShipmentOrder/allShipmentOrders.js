@@ -53,6 +53,7 @@ layui.config({
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                {field: 'id', title: 'ID' ,fixed:'left'}
                 , {field: 'goodsId', title: '发货单号'}
+                , {field: 'productId', title: '货品ID'}
                 , {field: 'goodsName', title: '货品名称' }
                 , {field: 'customer', title: '购买客户' }
                 , {field: 'goodsNumber', title: '发货数量'}
@@ -105,6 +106,7 @@ layui.config({
         /*var status = data.field.status;*/
         var id=data.field.id;
         var goodsId = data.field.goodsId;
+        var productId = data.field.productId;
         var goodsName = data.field.goodsName;
         var customer = data.field.customer;
         var goodsNumber = data.field.goodsNumber;
@@ -121,6 +123,7 @@ layui.config({
                 /*status:status,*/
                 id:id,
                 goodsId:goodsId,
+                productId:productId,
                 goodsName:goodsName,
                 customer:customer,
                 goodsNumber:goodsNumber,
