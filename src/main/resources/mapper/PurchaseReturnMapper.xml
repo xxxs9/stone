@@ -62,10 +62,10 @@
             t_purchase_order s
         <where>
             <if test="goodsName != null and goodsName != ''">
-                AND GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+                AND t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
             </if>
             <if test="depotState != null and depotState != ''">
-                AND DEPOT_STATE = #{depotState,jdbc=VARCHAR}
+                AND t.DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
             </if>
                 AND m.GOODS_NAME = t.GOODS_NAME
                 AND s.ORDER_NUMBER = t.ORDER_NUMBER
@@ -224,10 +224,14 @@
 
     <!--初始化goodsId下拉框-->
     <select id="selectAllGoodsId" resultType="java.lang.String">
-        SELECT DISTINCT
-            GOODS_ID
+        SELECT
+            m.GOODS_NAME,
+            g.ID
         FROM
-            t_purchase_return
+            sys_material m,
+            sys_material_goods g
+        WHERE
+            g.MATERIAL_ID = m.ID
     </select>
 
     <!--提交、撤回等操作，修改状态depotState-->

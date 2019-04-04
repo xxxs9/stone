@@ -313,7 +313,10 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
 
-
+        //阿发包 接口
+        afabaoDo:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/afabao.do',req,config,successCallback,errorCallback);
+        },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
         financePurOrder:function(req,config,successCallback,errorCallback){
