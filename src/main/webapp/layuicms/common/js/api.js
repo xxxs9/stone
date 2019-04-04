@@ -93,11 +93,6 @@ layui.define(['$tool','jquery'], function (exports) {
 
     // API列表,工程庞大臃肿后可以将API拆分到单独的模块中
     var API = {
-        //获取roles
-        selectRole:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'role/role.do',req,successCallback,errorCallback);
-        },
-
         Login: function(req,successCallback,errorCallback){ // 登录
             doPost($tool.getContext() + "login",req,successCallback,errorCallback);
         },
@@ -180,6 +175,21 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
 
+        addSysNotify:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'sysNotify/add.do',req,successCallback,errorCallback);
+        },
+        getmessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getmessage.do', req, successCallback, errorCallback);
+        },
+        getSendMessageInfo:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getSendMessageInfo.do', req, successCallback, errorCallback);
+        },
+        getNewMessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getNewMessage.do', req, successCallback, errorCallback);
+        },
+        updatestate:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/updatestate.do', req, successCallback, errorCallback);
+        }
         //purOrder 采购订单管理purchase_order
         //初始化GoodsId下拉框
         getListGoods:function(req,config,successCallback,errorCallback){
@@ -285,8 +295,8 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'purchase_return/delete.do',req,config,successCallback,errorCallback);
         },
         //根据id获取
-        getPurchaseReturn:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/get.do',req,successCallback,errorCallback);
+        getPurchaseReturn:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
         },
         //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
@@ -313,10 +323,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
 
-        //阿发包 接口
-        afabaoDo:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
-        },
+
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
         financePurOrder:function(req,config,successCallback,errorCallback){
@@ -405,22 +412,6 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
-        },
-        UpdateDepotInventoryGoodsNumber:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'depotInventory/update.do',req,successCallback,errorCallback);
-        },
-        //入库单是否入库成功,返回Boolean值
-        IsStorageIn:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'depotOrder/isStorageIn.do',req,successCallback,errorCallback);
-        },//出库单是否入库成功,返回Boolean值
-        IsStorageOut:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'depotOrder/isStorageOut.do',req,successCallback,errorCallback);
-        },//入库单是否审核成功,返回Boolean值
-        isAuditPassIn:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'depotOrder/isAuditPassIn.do',req,successCallback,errorCallback);
-        },//出库单是否审核成功,返回Boolean值
-        isAuditPassOut:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'depotOrder/isAuditPassOut.do',req,successCallback,errorCallback);
         },
 
 
@@ -555,11 +546,6 @@ layui.define(['$tool','jquery'], function (exports) {
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
-
-
-
-
-
         //领料reach.do
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
@@ -671,9 +657,6 @@ layui.define(['$tool','jquery'], function (exports) {
         getReachByProductId:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
          },
-        getReachByProductId1:function(req,successCallback,errorCallback){
-            chart($tool.getContext() + 'reach/getByProductId',req,successCallback,errorCallback);
-        },
         delFormulaReach:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'reach/del',req,successCallback,errorCallback);
         },
@@ -941,7 +924,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
         },
-
+        findAll:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysUser/findAll.do', req, successCallback, errorCallback);
+        },
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
@@ -1012,7 +997,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'goods/delete', req, config, successCallback, errorCallback);
         },//获取发货单ID
         GetReturnGoodsOrder:function(req,successCallback,errorCallback){
-            doPost($tool.getContext()+'shipment/get',req,successCallback,errorCallback);
+            doPost($tool.getContext()+'goods/get',req,successCallback,errorCallback);
         },//发货单添加
         AddReturnGoodsOrder:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'goods/add',req,successCallback,errorCallback);

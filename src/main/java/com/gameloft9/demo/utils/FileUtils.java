@@ -1,9 +1,9 @@
 package com.gameloft9.demo.utils;
 
+import sun.misc.BASE64Encoder;
+
 import java.io.IOException;
 import java.net.URLEncoder;
-
-import sun.misc.BASE64Encoder;
 
 public class FileUtils {
 	/**
