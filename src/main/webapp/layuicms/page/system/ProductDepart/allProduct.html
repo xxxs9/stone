@@ -23,7 +23,7 @@
                 <input type="text" class="layui-input" name="productName" placeholder="输入产品名称">
             </div>
         </div>
-        <div class="layui-inline">
+        <div class="layui-inline" style="display: none">
             <label class="layui-form-label">产品类型</label>
             <div class="layui-input-block">
                 <select  name="productState">
@@ -36,11 +36,17 @@
             </div>
         </div>
     &nbsp;&nbsp;&nbsp;
+
         <div class="layui-inline">
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
         </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal usersAdd_btn">新增加工单</a>
+        </div>
+        &nbsp;&nbsp;
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-black "  lay-submit="" lay-filter="chart" id="chart">图表</a>
         </div>
     </form>
 </blockquote>

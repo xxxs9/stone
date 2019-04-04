@@ -96,9 +96,7 @@ layui.config({
     }
     $('#audiOk').click(function () {
         $api.managerAudi(req,function (res) {
-        alert(res)
-           alert(1)
-            alert(res.data)
+       
             if(res.code==='401'){
                 window.location.href = $tool.getResUrl()+"layuicms/page/system/401.html";
 
