@@ -33,7 +33,7 @@ layui.config({
                 form.render();
             }
         });*/
-alert(1)
+
 
     }
     init();

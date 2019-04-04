@@ -100,6 +100,10 @@ public interface LenProduceFormulaDetailMapper {
      */
     int updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
 
+    String selectMaterialId(@Param("id")String id);
+
+    String selectMaterialNumber(@Param("id")String id);
+
 
 
 }

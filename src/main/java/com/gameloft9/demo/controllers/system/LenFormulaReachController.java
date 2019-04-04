@@ -42,8 +42,8 @@ public class LenFormulaReachController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime){
-        if (service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime)){
+    public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1){
+        if (service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime,other1)){
             return new ResultBean<Boolean>(true);
         }else {
             throw new RuntimeException(">>>>>>>权限不足<<<<<<<");

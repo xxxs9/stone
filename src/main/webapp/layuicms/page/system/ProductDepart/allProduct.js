@@ -122,7 +122,28 @@ layui.config({
 
        /* return false;*/
     });
+    //跳转图标页面
+    $("#chart").click(function () {
+        var index = layui.layer.open({
+            title: "图标总览图",
+            type: 2,
+            content: "LenCharts.html",
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
 
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    });
     //添加
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({

@@ -198,5 +198,15 @@
     OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+    <select id="selectMaterialId" resultType="String" >
+        select MATERIAL_ID from l_produce_formula_detail
+        where ID = #{id}
+    </select>
+
+    <select id="selectMaterialNumber" resultType="String">
+        SELECT MATERIAL_NUMBER from l_produce_formula_detail
+        where ID = #{id}
+    </select>
 </mapper>
 

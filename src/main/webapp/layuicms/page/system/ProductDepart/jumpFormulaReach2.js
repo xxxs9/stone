@@ -31,8 +31,8 @@ layui.config({
         initMenuInfo()
         selectProduct();
         select4();
-        //select5();
-        select6();
+        select5();
+        //select6();
         // selectFormula()
 
     }
@@ -220,7 +220,8 @@ layui.config({
         var state = data.field.state;
         var formulaBack = data.field.formulaBack;
         var reachUser = data.field.reachUser;
-        var reachTime = data.field.reachTime
+        var reachTime = data.field.reachTime;
+        var reachNumber = $("#reachNumber").val();
 
 
         //请求
@@ -234,9 +235,8 @@ layui.config({
             produceFormulaId:produceFormulaId,
             formulaBack:formulaBack,
             reachUser:reachUser,
-            reachTime:reachTime
-
-
+            reachTime:reachTime,
+            other1:reachNumber
         };
 
         id2= productId;

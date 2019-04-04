@@ -69,6 +69,34 @@ public interface DepotOrderService {
     String addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser);
 
     /**
+     * 添加生产领料单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addProduceDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser);
+
+    /**
+     * 添加生产入库单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addProduceDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser);
+
+    /**
+     * 添加销售退货单
+     * @param orderNumber           订单编号
+     * @param goodsId               原料/成品ID
+     * @param goodsNumber           货品数量
+     * @param applyUser             申请入
+     * */
+    String addMarketDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser);
+
+
+    /**
      * 添加仓库单
      * @param id                    仓库单编号
      * @param orderType             仓库单类型
@@ -153,4 +181,27 @@ public interface DepotOrderService {
      * */
     List<String> getDepotOrderInType(String orderType);
 
+    /**
+     * 获取出库单信息,判断是否出库成功
+     * @param id 仓库单主键
+     * */
+    Boolean isStorageOut(String id);
+
+    /**
+     * 获取入库单信息,判断是否入库成功
+     * @param id 仓库单主键
+     * */
+    Boolean isStorageIn(String id);
+
+    /**
+     * 获取入库单信息,判断是否审核成功
+     * @param id 仓库单主键
+     * */
+    Boolean isAuditPassIn(String id);
+
+    /**
+     * 获取出库单信息,判断是否审核成功
+     * @param id 仓库单主键
+     * */
+    Boolean isAuditPassOut(String id);
 }
