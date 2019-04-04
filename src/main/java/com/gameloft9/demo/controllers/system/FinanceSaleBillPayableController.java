@@ -1,6 +1,7 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
+import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
@@ -44,14 +45,14 @@ public class FinanceSaleBillPayableController {
 
     /**
      *
-     * @param returnGoodsOrder
+     * @param shipmentOrder
      * @param id1
      * @return
      */
     @RequestMapping(value = "/generateSalePay",method = RequestMethod.POST)
     @ResponseBody
-    public IResult generateSalePay(ReturnGoodsOrder returnGoodsOrder,String id1){
-        return new ResultBean<String>(saleBillPayService.generateSalePay(returnGoodsOrder, id1));
+    public IResult generateSalePay(ShipmentOrder shipmentOrder, String id1){
+        return new ResultBean<String>(saleBillPayService.generateSalePay(shipmentOrder, id1));
     }
 
     /**

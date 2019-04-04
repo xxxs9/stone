@@ -37,12 +37,12 @@ public interface FinanceSaleBillPayService {
     /**
      * 添加销售申请应付单
      *
-     * @param returnGoodsOrder 销售应付申请单
+     * @param shipmentOrder 销售应付申请单
      * @param id1 id1
      * @return
      *      string
      */
-    String generateSalePay(ReturnGoodsOrder returnGoodsOrder, String id1);
+    String generateSalePay(ShipmentOrder shipmentOrder, String id1);
 
     /**
      * 更新purchaseOrder的财务审核状态

@@ -520,6 +520,10 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotInventory.setShipmentsNumber(String.valueOf(Integer.valueOf(shipmentsNumber)-Integer.parseInt(goodsNumberOut)));
         System.out.println(depotInventory);
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),depotInventory.getType(),depotInventory.getGoodsId(),depotInventory.getGoodsNumber(),depotInventory.getShipmentsNumber(),depotInventory.getSaleableNumber());
+
+
+        //啊发包
+
         return true;
     }
 

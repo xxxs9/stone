@@ -968,7 +968,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'goods/delete', req, config, successCallback, errorCallback);
         },//获取发货单ID
         GetReturnGoodsOrder:function(req,successCallback,errorCallback){
-            doPost($tool.getContext()+'goods/get',req,successCallback,errorCallback);
+            doPost($tool.getContext()+'shipment/get',req,successCallback,errorCallback);
         },//发货单添加
         AddReturnGoodsOrder:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'goods/add',req,successCallback,errorCallback);

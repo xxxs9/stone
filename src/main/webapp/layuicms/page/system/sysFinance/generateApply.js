@@ -49,7 +49,7 @@ layui.config({
 
 
                 //alert(financeState)
-                if(financeState != null ||typeof "financeState" == "undefined"){
+                if(data.state != '等待财务审核'){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -86,7 +86,7 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
 
-                if(financeState != null ||typeof "financeState" == "undefined"){
+                if(data.state != '等待财务审核'){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -110,9 +110,10 @@ layui.config({
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = price * goodsNumber;
+                console.log(data)
                 var financeState = data.financeState;
                 $('#id').val(id);
-                $("[name='goodsName']").val(data.goodsId);
+                $("[name='goodsName']").val(data.goodsName);
                 $("[name='goodsId']").val(data.id);
                 $("[name='auditType']").val(data.auditType);
                 $("[name='goodsNumber']").val(goodsNumber);
@@ -182,13 +183,13 @@ layui.config({
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
-            var price = $('[name=price]').val();
-            var goodsNumber = $('[name=auditType]').val();
+            var totalPrice = $('[name=totalPrice]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
             var req = {
                 id1:id1,
                 id:payId,
                 auditType : auditType,
-                goodsAmount:price,
+                goodsAmount:totalPrice,
                 goodsNumber:goodsNumber
             };
 
@@ -217,6 +218,7 @@ layui.config({
                 price:price,
                 goodsNumber:goodsNumber
             };
+            
             $api.generatePurchaseReceive(req ,function (data) {
                 layer.msg("生成成功！",{time:1000},function () {
                     layer.closeAll("iframe");
@@ -233,13 +235,14 @@ layui.config({
             //var url = $tool.getContext()+'finance/auditingPurchaseOrder.do';
             var payId = $('[name=goodsId]').val();
             var auditType = $('[name=auditType]').val();
-            var price = $('[name=price]').val();
-            var goodsNumber = $('[name=auditType]').val();
+            var totalPrice = $('[name=totalPrice]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            alert(totalPrice)
             var req = {
                 id1:id1,
                 id:payId,
                 auditType : auditType,
-                goodsAmount:price,
+                goodsAmount:totalPrice,
                 goodsNumber:goodsNumber
             };
 

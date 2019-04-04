@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -75,9 +76,10 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         saleReceivable.setSaleId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleReceivable.setAuditType(auditType);
-        int totalPrice = NumberUtil.strToInt(shipmentOrder.getGoodsAmount());
-        int goodsNumber = NumberUtil.strToInt(shipmentOrder.getGoodsNumber());
-        saleReceivable.setUnitPrice(totalPrice/goodsNumber+"");
+        BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
+        BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
+
+        saleReceivable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
         saleReceivable.setProductNumber(shipmentOrder.getGoodsNumber());
         saleReceivable.setTotalPrice(totalPrice+"");
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
