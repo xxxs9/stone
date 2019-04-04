@@ -134,7 +134,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String st = purchaseOrder1.getState();
         String s = "提交审核中";
         if(!st.equals(s)) {
-            throw new BizException(AbstractResult.CHECK_FAIL,"订单被撤回，无法审核");
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单已被撤回，请刷新！");
         }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
@@ -228,6 +228,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean recallUpdate(String  id) {
         CheckUtil.notBlank(id,"订单id为空");
         PurchaseOrder purchaseOrder = dao.selectByPrimaryKey(id);
+        //审核前判断state是否为提交审核中（避免撤回后还能审核）
+        PurchaseOrder purchaseOrder1 = dao.selectByPrimaryKey(purchaseOrder.getId());
+        String st = purchaseOrder1.getState();
+        String s = "审核通过";
+        String t = "审核未通过";
+        if(!st.equals(s) || !st.equals(t)) {
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单已审核，请刷新！");
+        }
         //Constants  APPLY_NO_SUBMIT定义'未提交'
         purchaseOrder.setState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.recallUpdate(purchaseOrder);

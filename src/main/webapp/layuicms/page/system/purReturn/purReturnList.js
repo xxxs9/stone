@@ -106,7 +106,13 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var depotState = data.field.depotState;
-        var goodsName = data.field.goodsName;
+        /*var goodsName = data.field.goodsName;*/
+        var goodsName = "";
+        if($("#goodsName").find("option:selected").text() == '--请选择--'){
+            goodsName = "";
+        }else {
+            goodsName = $("#goodsName").find("option:selected").text();
+        }
 
         //表格重新加载
         tableIns.reload({
