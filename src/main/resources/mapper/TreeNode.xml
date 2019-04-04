@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.TreeNodeMapper">
+    <resultMap id="treeNodeMap" type="com.gameloft9.demo.dataaccess.model.system.TreeNode">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="VALUE" property="value" jdbcType="VARCHAR"/>
+        <result column="CHECKED" property="checked" jdbcType="VARCHAR"/>
+        <result column="DISABLED" property="disabled" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <collection property="data" column="ID" ofType="com.gameloft9.demo.dataaccess.model.system.TreeNode" select="getChildrenNode"/>
+    </resultMap>
+
+
+    <!--/**
+    * 获取所有的父节点
+    * */
+    List<TreeNode> getAllNode();-->
+    <select id="getAllNode" resultMap="treeNodeMap">
+        select * from tree_node
+        where PARENT_ID="0"
+        order by TITLE desc
+    </select>
+
+    <!--/**
+    * 获取所有的子节点
+    */
+    List<TreeNode> getChildrenNode();-->
+    <select id="getChildrenNode" resultMap="treeNodeMap">
+        select * from tree_node
+        where PARENT_ID=#{pid}
+        order by TITLE desc
+    </select>
+
+</mapper>

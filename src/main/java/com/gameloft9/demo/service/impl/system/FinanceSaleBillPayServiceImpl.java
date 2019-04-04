@@ -4,10 +4,7 @@ import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinanceSaleBillPayService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.FinanceServiceUtil;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +34,8 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
     FinancePaymentMapper paymentMapper;
     @Autowired
     FinanceBillMapper billMapper;
-
+    @Autowired
+    ShipmentOrderMapper shipmentOrderMapper;
     /**
      *
      * @param page 当前页
@@ -65,19 +64,21 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
     }
 
     @Override
-    public String generateSalePay(ReturnGoodsOrder returnGoodsOrder, String id1) {
+    public String generateSalePay(ShipmentOrder shipmentOrder, String id1) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         SysFinanceSaleBillsPayable saleBillsPayable = new SysFinanceSaleBillsPayable();
 
         saleBillsPayable.setId(UUIDUtil.getUUID());
-        saleBillsPayable.setSaleRejectedId(returnGoodsOrder.getId());
-        int auditType = NumberUtil.strToInt(returnGoodsOrder.getAuditType());
+        saleBillsPayable.setSaleRejectedId(shipmentOrder.getId());
+        int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleBillsPayable.setAuditType(auditType);
-        int totalPrice = NumberUtil.strToInt(returnGoodsOrder.getGoodsAmount());
-        int goodsNumber = NumberUtil.strToInt(returnGoodsOrder.getGoodsNumber());
-        saleBillsPayable.setUnitPrice(totalPrice/goodsNumber+"");
-        saleBillsPayable.setRejectedNumber(returnGoodsOrder.getGoodsNumber());
+        BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
+        totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
+        goodsNumber.setScale(0);
+        saleBillsPayable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
+        saleBillsPayable.setRejectedNumber(shipmentOrder.getGoodsNumber());
         saleBillsPayable.setTotalPrice(totalPrice+"");
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         saleBillsPayable.setDocumentMaker(documentMaker);
@@ -89,8 +90,8 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
         //更新订单申请状态
         applyOrderMapper.updateApplyState(applyOrder);
         //更新purchaseOrder的financeState
-        returnGoodsOrder.setState(Constants.FinanceState.APPLY_PASS_WAIT);
-        returnGoodsOrderMapper.updateByIdAndState(returnGoodsOrder);
+        shipmentOrder.setState(Constants.FinanceState.APPLY_PASS_WAIT);
+        shipmentOrderMapper.updateByIdAndState(shipmentOrder);
         //添加销售应付申请单
         saleBillsPayableMapper.add(saleBillsPayable);
         return saleBillsPayable.getId();
@@ -110,27 +111,27 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
     public Boolean saleOrderPayPass(String attitude, String id, String auditType, String actualPrice, String auditDescribe) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
-        //获取PurchaseOrder
-        ReturnGoodsOrder returnGoodsOrder = returnGoodsOrderMapper.findByIdAndAuditType(id, auditType1);
+        //获取ShipmentOrder
+        ShipmentOrder shipmentOrder = shipmentOrderMapper.getById(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable
         SysFinanceSaleBillsPayable saleBillsPayable = saleBillsPayableMapper.getSalePayBysaleRejectedIdAndAuditType(id, auditType1);
         String agree = "agree";
         if(agree.equals(attitude)){
-            returnGoodsOrder.setState(Constants.FinanceState.APPLY_PASS_PAY);
+            shipmentOrder.setState(StateUUtil.APPLY_accept);
             saleBillsPayable.setAuditState(Constants.Finance.APPLY_ORDER_PASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_PASS);
         }else{
-            returnGoodsOrder.setState(Constants.FinanceState.NO_PASS);
+            shipmentOrder.setState(StateUUtil.APPLY_fina_unpass);
             saleBillsPayable.setAuditState(Constants.Finance.APPLY_ORDER_UNPASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNPASS);
 
         }
         String auditUser = (String) request.getSession().getAttribute("sysUser");
 
-        returnGoodsOrder.setAuditUser(auditUser);
-        returnGoodsOrder.setRemarks(auditDescribe);
+        shipmentOrder.setAuditUser(auditUser);
+        shipmentOrder.setRemarks(auditDescribe);
 
         saleBillsPayable.setAuditUser(auditUser);
         saleBillsPayable.setActualBalance(actualPrice);
@@ -142,7 +143,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
             SysFinancePayment payment = new SysFinancePayment();
             payment.setId(UUIDUtil.getUUID());
             payment.setBalance(actualPrice);
-            payment.setDocumentMaker(returnGoodsOrder.getApplyUser());
+            payment.setDocumentMaker(shipmentOrder.getApplyUser());
             payment.setDocumentMakeTime(new Date());
             payment.setPayId(saleBillsPayable.getId());
             payment.setPayType(saleBillsPayable.getAuditType());
@@ -163,7 +164,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
         //更新applyOrder
         applyOrderMapper.updateApplyState(applyOrder);
         //更新purchaseORder
-        returnGoodsOrderMapper.returnGoodsOrderPayPass(returnGoodsOrder);
+        shipmentOrderMapper.update(shipmentOrder);
         //更新FinancePurchaseBillPay
         saleBillsPayableMapper.update(saleBillsPayable);
 

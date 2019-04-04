@@ -117,6 +117,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_WAITING);
+        purchaseReturn.setAuditType(Constants.Finance.PURCHASE_RECEIVABLE);
         dao.updateTools(purchaseReturn);
         String p1 = dao.selectByPrimaryKey(purchaseReturn.getId()).getOrderNumber();
         String p2 = dao.selectByPrimaryKey(purchaseReturn.getId()).getGoodsId();
@@ -141,6 +142,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     public PurchaseReturn selectByOrderNumber(String orderNumber) {
         return dao.selectByOrderNumber(orderNumber);
     }
+
 
 
 }

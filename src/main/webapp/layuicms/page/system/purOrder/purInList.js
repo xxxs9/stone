@@ -115,7 +115,14 @@ layui.config({
     //查询
     form.on("submit(queryPurchase)", function (data) {
         var depotState = data.field.depotState;
-        var goodsName = data.field.goodsName;
+        //下拉框做判断，当没有选中目标的时候，就显示全部，反之显示条件对应的内容
+        var goodsName = "";
+        if($("#goodsName").find("option:selected").text() == '--请选择--'){
+            goodsName = "";
+        }else {
+            goodsName =  $("#goodsName").find("option:selected").text();
+        }
+       /* var goodsName = $("#goodsName").find("option:selected").text();*/
 
         //表格重新加载
         tableIns.reload({

@@ -229,6 +229,7 @@
             ORDER_AUDIT_USER=#{orderAuditUser},
             ORDER_AUDIT_DEPOT=#{orderAuditDepot},
             REMARKS=#{remarks},
+            STATE=#{state},
             DEPOT_REMARKS=#{depotRemarks}
         where
             ID=#{id}

@@ -6,6 +6,7 @@ import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.ReturnGoodsOrderService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -31,6 +32,8 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
     ReturnGoodsOrderMapper returnGoodsOrderMapper;
     @Autowired
     FinanceApplyOrderMapper applyOrderMapper;
+    @Autowired
+    DepotOrderService depotOrderService;
 
 
 
@@ -141,6 +144,8 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
         shipmentOrder.setState(StateUUtil.APPLY_depot);
         returnGoodsOrderMapper.depot(shipmentOrder);
+        ShipmentOrder returnGoods = returnGoodsOrderMapper.getById(shipmentOrder.getId());
+        depotOrderService.addMarketDepotOrderIn(returnGoods.getGoodsId(),returnGoods.getProductId(),returnGoods.getGoodsNumber(),returnGoods.getApplyUser());
         return true;
     }
 

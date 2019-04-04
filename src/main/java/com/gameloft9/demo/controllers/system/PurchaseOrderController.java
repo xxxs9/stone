@@ -112,9 +112,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/list.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAll(String page,String limit,String goodsNume,String state,String financeState){
-        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsNume,
-                state),service.countGetAll(goodsNume,state,financeState));
+    public IResult selectAll(String page,String limit,String goodsName,String state,String financeState){
+        return new PageResultBean<Collection<PurchaseOrder>>(service.selectAll(page,limit,goodsName,
+                state),service.countGetAll(goodsName,state,financeState));
     }
 
     /**
@@ -159,9 +159,9 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listIn.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByInOrder(String page,String limit,String goodsNume,String depotState){
+    public IResult selectAllByInOrder(String page,String limit,String goodsName,String depotState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInOrder(page,limit,
-                goodsNume,depotState),service.countGetAllByInOrder(goodsNume,depotState));
+                goodsName,depotState),service.countGetAllByInOrder(goodsName,depotState));
     }
 
     /**

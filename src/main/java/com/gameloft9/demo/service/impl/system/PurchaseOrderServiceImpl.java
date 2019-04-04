@@ -299,6 +299,23 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**采购入库之编辑*/
     public boolean InUpdate(PurchaseOrder purchaseOrder){
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
+        //BigDecimal计算总价格，保留两位小数,Scale保留几位小数
+        String price01 = purchaseOrder.getPrice();
+        String goodsNumber01 = purchaseOrder.getGoodsNumber();
+        BigDecimal aBD = new BigDecimal(price01).setScale(2);
+        BigDecimal bBD = new BigDecimal(goodsNumber01).setScale(2);
+        BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
+                java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setTotalPrice(resultBD.toString());
+        //对单价进行判断，价格不能为零或负数，字符串类型需要用长度来判断(length)
+        int r = resultBD.compareTo(BigDecimal.ZERO);
+        if(r == 0){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能零！");
+        }else if(r == -1){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为负数！");
+        }else if(resultBD.toString() == null){
+            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
+        }
         dao.InUpdate(purchaseOrder);
         return true;
     }

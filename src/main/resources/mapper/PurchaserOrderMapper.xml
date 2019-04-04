@@ -57,6 +57,7 @@
     <select id="selectAll" resultMap="purOrderMap">
         SELECT
             t.ID,
+            t.GOODS_ID,
             t.ORDER_NUMBER,
             t.GOODS_NAME,
             t.GOODS_NUMBER,
@@ -73,10 +74,10 @@
             sys_supplier s
         <where>
             <if test="goodsName != null and goodsName != ''">
-                AND GOODS_NAME = #{goodsName}
+                AND t.GOODS_NAME = #{goodsName}
             </if>
             <if test="state != null and state != ''">
-                AND STATE = #{state}
+                AND t.STATE = #{state}
             </if>
             AND m.GOODS_NAME = t.GOODS_NAME
             AND s.SUPPLIER_NAME = t.SUPPLIER_NAME
@@ -110,9 +111,15 @@
             <if test="financeState != null and financeState != ''">
                 and FINANCE_STATE=#{financeState,jdbcType=VARCHAR}
             </if>
+            <if test="state != null and state != ''">
+                and STATE=#{state,jdbcType=VARCHAR}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and GOODS_NAME=#{goodsName,jdbcType=VARCHAR}
+            </if>
                 and STATE != '未提交'
         </where>
-
+        ORDER BY APPLY_TIME DESC
     </select>
 
     <!--根据id获取-->
@@ -227,9 +234,13 @@
     <!--货品名称goodsId下拉框-->
     <select id="getSelectListGoods" resultMap="purOrderMap">
         SELECT
-            *
+            m.GOODS_NAME,
+            g.ID
         FROM
-            sys_material
+            sys_material m,
+            sys_material_goods g
+        WHERE
+            g.MATERIAL_ID = m.ID
     </select>
 
     <!--订单状态state下拉框-->
@@ -337,28 +348,38 @@
     <!--采购收货管理 获取需要字段List-->
     <select id="selectAllByInOrder" resultMap="purOrderMap">
         SELECT
-            ID,
-            ORDER_NUMBER,
-            GOODS_ID,
-            GOODS_NAME,
-            GOODS_NUMBER,
-            PRICE,
-            SUPPLIER_NAME,
-            TOTAL_PRICE,
-            APPLY_USER,
-            APPLY_TIME,
-            APPLY_PAY_TIME,
-            FINANCE_AUDIT_USER,
-            FINANCE_AUDIT_TIME,
-            FINANCE_STATE,
-            DEPOT_STATE,
-            DEPOT_USER,
-            DEPOT_TIME,
-            DEPOT_DESCRIBE
+            t.ID,
+            t.ORDER_NUMBER,
+            t.GOODS_ID,
+            t.GOODS_NAME,
+            t.GOODS_NUMBER,
+            t.PRICE,
+            t.SUPPLIER_NAME,
+            t.TOTAL_PRICE,
+            t.APPLY_USER,
+            t.APPLY_TIME,
+            t.APPLY_PAY_TIME,
+            t.FINANCE_AUDIT_USER,
+            t.FINANCE_AUDIT_TIME,
+            t.FINANCE_STATE,
+            t.DEPOT_STATE,
+            t.DEPOT_USER,
+            t.DEPOT_TIME,
+            t.DEPOT_DESCRIBE
         FROM
-            t_purchase_order
-        WHERE
-            FINANCE_STATE='已付款'
+            t_purchase_order t,
+            sys_material m
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                AND t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+            </if>
+            <if test="depotState != null and depotState != ''">
+                AND t.DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
+            </if>
+            AND t.FINANCE_STATE IN("已付款","未通过")
+            AND m.GOODS_NAME = t.GOODS_NAME
+        </where>
+        ORDER BY APPLY_TIME DESC
     </select>
 
     <!--总条数查询所有-->
@@ -440,46 +461,6 @@
             s.ID = d.SUPPLIER_ID
     </select>
 
-    <!--分三步-->
-    <!--获取商品下拉框-->
-    <!--<select id="selectGoodsName" resultType="java.lang.String">
-        SELECT
-            ID,
-            GOODS_NAME
-        FROM
-            sys_material
-    </select>-->
-
-    <!--根据选取的商品名称的ID，获取供应商-->
-    <!--<select id="selectSupplier" resultType="java.lang.String">
-        SELECT
-            s.SUPPLIER_NAME
-        FROM
-            sys_supplier s,
-            sys_material_goods mg,
-            sys_material m
-        WHERE
-            m.ID = #{id}
-        AND
-            m.ID = mg.MATERIAL_ID
-        AND
-            s.ID = mg.SUPPLIER_ID
-    </select>-->
-
-    <!--根据供应商，获取价格-->
-    <!--<select id="selectPrice" resultType="java.lang.String">
-        SELECT
-            mg.GOODS_PRICE
-        FROM
-            sys_supplier s,
-            sys_material_goods mg
-        WHERE
-            s.SUPPLIER_NAME = #{supplierName}
-        AND
-            s.ID = mg.SUPPLIER_ID
-    </select>-->
-
-
     <!--获取orderNumber下拉框 根据state=审核通过-->
     <select id="selectAllByOrderNumber" resultType="java.lang.String">
         SELECT
@@ -496,7 +477,7 @@
             t_purchase_order
         SET
             GOODS_NAME=#{goodsName},
-            SUPPLIER_NAME={supplierName},
+            SUPPLIER_NAME=#{supplierName},
             GOODS_NUMBER=#{goodsNumber},
             PRICE=#{price},
             TOTAL_PRICE=#{totalPrice},
@@ -510,6 +491,7 @@
             ORDER_NUMBER=#{orderNumber}
     </update>
 
+    <!--根据订单编号获取id-->
     <select id="selectGoodsIdByGoodsName" resultType="java.lang.String">
         SELECT
             ID
