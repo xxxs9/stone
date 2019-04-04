@@ -406,6 +406,9 @@ layui.define(['$tool','jquery'], function (exports) {
         AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
         },
+        UpdateDepotInventoryGoodsNumber:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventory/update.do',req,successCallback,errorCallback);
+        },
         //入库单是否入库成功,返回Boolean值
         IsStorageIn:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotOrder/isStorageIn.do',req,successCallback,errorCallback);
