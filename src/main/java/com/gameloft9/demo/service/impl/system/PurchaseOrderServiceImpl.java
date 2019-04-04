@@ -229,11 +229,11 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         CheckUtil.notBlank(id,"订单id为空");
         PurchaseOrder purchaseOrder = dao.selectByPrimaryKey(id);
         //审核前判断state是否为提交审核中（避免撤回后还能审核）
-        PurchaseOrder purchaseOrder1 = dao.selectByPrimaryKey(purchaseOrder.getId());
-        String st = purchaseOrder1.getState();
+        /*PurchaseOrder purchaseOrder1 = dao.selectByPrimaryKey(purchaseOrder.getId());*/
+        String st = purchaseOrder.getState();
         String s = "审核通过";
         String t = "审核未通过";
-        if(!st.equals(s) || !st.equals(t)) {
+        if(st.equals(s) || st.equals(t)) {
             throw new BizException(AbstractResult.CHECK_FAIL,"订单已审核，请刷新！");
         }
         //Constants  APPLY_NO_SUBMIT定义'未提交'

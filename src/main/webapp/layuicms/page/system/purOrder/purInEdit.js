@@ -28,7 +28,7 @@ layui.config({
 
       });
     }
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -85,7 +85,7 @@ layui.config({
     /**
      * 加载申请单列表
      * */
-    function loadRoleList() {
+   /* function loadRoleList() {
         //var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
@@ -111,7 +111,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }
+    }*/
 
     //计算总金额 数量goodsNumber*价格price
     $(function(){
