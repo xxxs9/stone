@@ -39,6 +39,21 @@ layui.define(['$tool','jquery'], function (exports) {
         });
     }
 
+    function treeNode(url,req,successCallback,errorCallback) {
+        $.ajax({
+            url:url,
+            data:req,
+            method:"post",
+            async:false,
+            success:function (data) {
+                successCallback(data);
+            },
+            error:function (error) {
+                errorCallback(error);
+            }
+        });
+    }
+
     /**
      * 封装一个get
      * */
@@ -270,8 +285,8 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'purchase_return/delete.do',req,config,successCallback,errorCallback);
         },
         //根据id获取
-        getPurchaseReturn:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/get.do',req,config,successCallback,errorCallback);
+        getPurchaseReturn:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/get.do',req,successCallback,errorCallback);
         },
         //修改
         updatePurchaseReturn:function(req,config,successCallback,errorCallback){
@@ -299,8 +314,8 @@ layui.define(['$tool','jquery'], function (exports) {
         },
 
         //阿发包 接口
-        afabaoDo:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,config,successCallback,errorCallback);
+        afabaoDo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
         },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
@@ -390,6 +405,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         AuditRejectDepotInventoryCheck:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventoryCheck/auditReject.do',req,successCallback,errorCallback);
+        },
+        UpdateDepotInventoryGoodsNumber:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventory/update.do',req,successCallback,errorCallback);
         },
         //入库单是否入库成功,返回Boolean值
         IsStorageIn:function(req,successCallback,errorCallback){
@@ -895,6 +913,14 @@ layui.define(['$tool','jquery'], function (exports) {
         purchaseOrderReceivePass:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/purchaseOrderReceivePass.do',req,successCallback,errorCallback);
         },
+        /*根据id获取销售发货未审核单*/
+        getSaleReceiveById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getSaleReceiveById.do',req,successCallback,errorCallback);
+        },
+        /*根据id获取销售发货未审核单*/
+        getSalePayById:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
+        },
 
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
@@ -966,7 +992,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'goods/delete', req, config, successCallback, errorCallback);
         },//获取发货单ID
         GetReturnGoodsOrder:function(req,successCallback,errorCallback){
-            doPost($tool.getContext()+'goods/get',req,successCallback,errorCallback);
+            doPost($tool.getContext()+'shipment/get',req,successCallback,errorCallback);
         },//发货单添加
         AddReturnGoodsOrder:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'goods/add',req,successCallback,errorCallback);
@@ -1015,6 +1041,11 @@ layui.define(['$tool','jquery'], function (exports) {
         },//销售订单提交财务
         updateFina:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
+        },
+
+        //权限树
+        initTreeNode:function(req,successCallback,errorCallback){
+            treeNode($tool.getContext() + 'node/initTreeNode',req,successCallback,errorCallback);
         }
     };
 

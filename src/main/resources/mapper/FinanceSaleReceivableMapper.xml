@@ -225,6 +225,7 @@
         SUM(ACTUAL_BALANCE)
         FROM a_sale_receivable
         WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
+        AND AUDIT_STATE=3
         GROUP BY ACTUAL_BALANCE
         ORDER BY AUDIT_TIME
     </select>

@@ -4,10 +4,7 @@ import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.service.api.system.FinanceSaleReceivableService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.FinanceServiceUtil;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +34,8 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
     FinanceReceiptMapper receiptMapper;
     @Autowired
     FinanceBillMapper billMapper;
+    @Autowired
+    MarkerOrderMapper markerOrderMapper;
 
 
 
@@ -76,9 +76,10 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         saleReceivable.setSaleId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleReceivable.setAuditType(auditType);
-        int totalPrice = NumberUtil.strToInt(shipmentOrder.getGoodsAmount());
-        int goodsNumber = NumberUtil.strToInt(shipmentOrder.getGoodsNumber());
-        saleReceivable.setUnitPrice(totalPrice/goodsNumber+"");
+        BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
+        BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
+
+        saleReceivable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
         saleReceivable.setProductNumber(shipmentOrder.getGoodsNumber());
         saleReceivable.setTotalPrice(totalPrice+"");
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
@@ -104,26 +105,26 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        ShipmentOrder shipmentOrder = shipmentOrderMapper.findByIdAndAuditType(id, auditType1);
+        MarkerOrderTest markerOrderTest = markerOrderMapper.getMaker(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable
         SysFinanceSaleReceivable saleReceivable = saleReceivableMapper.getSaleReceiveBysaleIdAndAuditType(id, auditType1);
         String agree = "agree";
         if(agree.equals(attitude)){
-            shipmentOrder.setState(Constants.FinanceState.APPLY_PASS_PAY);
+            markerOrderTest.setState(StateUUtil.APPLY_fina_pass);
             saleReceivable.setAuditState(Constants.Finance.APPLY_ORDER_PASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_PASS);
         }else{
-            shipmentOrder.setState(Constants.FinanceState.NO_PASS);
+            markerOrderTest.setState(StateUUtil.APPLY_fina_unpass);
             saleReceivable.setAuditState(Constants.Finance.APPLY_ORDER_UNPASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNPASS);
 
         }
         String auditUser = (String) request.getSession().getAttribute("sysUser");
 
-        shipmentOrder.setAuditUser(auditUser);
-        shipmentOrder.setRemarks(auditDescribe);
+        markerOrderTest.setOrderAuditUser(auditUser);
+        markerOrderTest.setRemarks(auditDescribe);
 
         saleReceivable.setAuditUser(auditUser);
         saleReceivable.setActualBalance(actualPrice);
@@ -135,7 +136,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
             SysFinanceReceipt receipt = new SysFinanceReceipt();
             receipt.setId(UUIDUtil.getUUID());
             receipt.setBalance(actualPrice);
-            receipt.setDocumentMaker(shipmentOrder.getApplyUser());
+            receipt.setDocumentMaker(markerOrderTest.getApplyUser());
             receipt.setDocumentMakeTime(new Date());
             receipt.setReceiveId(saleReceivable.getId());
             receipt.setReceiveType(saleReceivable.getAuditType());
@@ -156,7 +157,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         //更新applyOrder
         applyOrderMapper.updateApplyState(applyOrder);
         //更新purchaseORder
-        shipmentOrderMapper.shipmentOrderPayPass(shipmentOrder);
+        markerOrderMapper.update(markerOrderTest);
         //更新FinancePurchaseBillPay
         saleReceivableMapper.update(saleReceivable);
 

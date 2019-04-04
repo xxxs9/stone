@@ -36,6 +36,8 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
     FinanceReceiptMapper receiptMapper;
     @Autowired
     FinanceBillMapper billMapper;
+    @Autowired
+    PurchaseReturnMapper purchaseReturnMapper;
 
     /**
      *
@@ -110,27 +112,27 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        PurchaseOrder purchaseOrder = purchaseOrderMapper.findByIdAndAuditType(id, auditType1);
+        PurchaseReturn purchaseReturn = purchaseReturnMapper.findByIdAndAuditType(id, auditType1);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //purchaseReceivable
         SysFinancePurchaseReceivable purchaseReceivable = purchaseReceivableMapper.getPurchaseReceiveBypurchaseOrderIdAndAuditType(id, auditType1);
         String agree = "agree";
         if(agree.equals(attitude)){
-            purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_PAY);
+            purchaseReturn.setFinanceState(Constants.FinanceState.APPLY_PASS_RECEIVE);
             purchaseReceivable.setAuditState(Constants.Finance.APPLY_ORDER_PASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_PASS);
         }else{
-            purchaseOrder.setFinanceState(Constants.FinanceState.NO_PASS);
+            purchaseReturn.setFinanceState(Constants.FinanceState.NO_PASS);
             purchaseReceivable.setAuditState(Constants.Finance.APPLY_ORDER_UNPASS);
             applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNPASS);
 
         }
         String auditUser = (String) request.getSession().getAttribute("sysUser");
 
-        purchaseOrder.setFinanceAuditUser(auditUser);
-        purchaseOrder.setFinanceAuditTime(new Date());
-        purchaseOrder.setFinanceAuditDescribe(auditDescribe);
+        purchaseReturn.setFinanceAuditUser(auditUser);
+        purchaseReturn.setFinanceAuditTime(new Date());
+        purchaseReturn.setFinanceAuditDescribe(auditDescribe);
 
         purchaseReceivable.setAuditUser(auditUser);
         purchaseReceivable.setActualBalance(actualPrice);
@@ -143,8 +145,8 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
             SysFinanceReceipt receipt = new SysFinanceReceipt();
             receipt.setId(UUIDUtil.getUUID());
             receipt.setBalance(actualPrice);
-            receipt.setDocumentMaker(purchaseOrder.getFinanceAuditUser());
-            receipt.setDocumentMakeTime(purchaseOrder.getFinanceAuditTime());
+            receipt.setDocumentMaker(purchaseReturn.getFinanceAuditUser());
+            receipt.setDocumentMakeTime(purchaseReturn.getFinanceAuditTime());
             receipt.setReceiveId(purchaseReceivable.getId());
             receipt.setReceiveType(purchaseReceivable.getAuditType());
             //添加付款单
@@ -164,7 +166,7 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         //更新applyOrder
         applyOrderMapper.updateApplyState(applyOrder);
         //更新purchaseORder
-        purchaseOrderMapper.purchaseOrderPayPass(purchaseOrder);
+        purchaseReturnMapper.update(purchaseReturn);
         //purchaseReceivable
         purchaseReceivableMapper.update(purchaseReceivable);
 

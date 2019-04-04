@@ -191,7 +191,6 @@ layui.config({
 
         //区分事件
         if (layEvent === 'audit') {
-            alert(1)
             edit(row.id,row.auditType);
 
         }else if(layEvent === 'show'){
