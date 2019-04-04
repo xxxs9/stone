@@ -119,7 +119,7 @@
             </if>
                 and STATE != '未提交'
         </where>
-
+        ORDER BY APPLY_TIME DESC
     </select>
 
     <!--根据id获取-->
@@ -379,6 +379,7 @@
             AND t.FINANCE_STATE IN("已付款","未通过")
             AND m.GOODS_NAME = t.GOODS_NAME
         </where>
+        ORDER BY APPLY_TIME DESC
     </select>
 
     <!--总条数查询所有-->
