@@ -31,7 +31,7 @@
         <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR"/>
         <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
         <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
-        <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="saleName" jdbcType="VARCHAR"/>
         <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
@@ -48,13 +48,10 @@
     <!--仓库部门-->
     <resultMap id="depotMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
         <id column="ID" property="depotId" jdbcType="VARCHAR"/>
-        <result column="DEPOT_TYPE" property="depotType" jdbcType="VARCHAR"/>
-        <result column="DEPOT_NAME" property="depotName" jdbcType="VARCHAR"/>
-        <result column="DEPOT_NUMBER" property="depotNumber" jdbcType="VARCHAR"/>
-    </resultMap>
-    <resultMap id="depotOrderMap" type="com.gameloft9.demo.dataaccess.model.system.AllRole">
-        <id column="ID" property="depotOrderId" jdbcType="VARCHAR"/>
-        <result column="OUT_IN_TIME" property="outInTime" jdbcType="TIMESTAMP"/>
+        <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="depotName" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="depotNumber" jdbcType="VARCHAR"/>
+        <result column="SALEABLE_NUMBER" property="saleableNumber" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--生产部门-->
@@ -86,7 +83,7 @@
          WHERE
             n.NOTIFY_INFO_ID = ni.ID
          ORDER BY
-            n.SEND_TIME ASC
+            n.SEND_TIME DESC
             limit 0,5
      </select>
 
@@ -112,15 +109,18 @@
     <!--销售部门-->
     <select id="selectSale" resultMap="saleMap">
         SELECT
-            ORDER_ID,
-            APPLY_USER,
-            CUSTOMER,
-            PRODUCT_ID,
-            ORDER_TIME
+            w. ORDER_ID,
+            w.APPLY_USER,
+            w.CUSTOMER,
+            p.PRODUCT_NAME,
+            w.ORDER_TIME
         FROM
-            w_marker_order
+            w_marker_order w,
+            l_product p
+        WHERE
+            p.ID = w.PRODUCT_ID
         ORDER BY
-            ORDER_TIME ASC
+            ORDER_TIME DESC
             limit 0,5
     </select>
 
@@ -135,22 +135,19 @@
         FROM
             t_purchase_order
         ORDER BY
-            APPLY_TIME ASC
+            APPLY_TIME DESC
             limit 0,5
     </select>
 
     <!--仓库部门-->
     <select id="selectDepot" resultMap="depotMap">
         SELECT
-            sd.TYPE,
-            sd.GOODS_NAME,
-            sd.GOODS_NUMBER,
-            do.OUT_IN_TIME
+            TYPE,
+            GOODS_NAME,
+            GOODS_NUMBER,
+            SALEABLE_NUMBER
         FROM
-            d_depot_inventory sd,
-            d_depot_order do
-        ORDER BY
-            OUT_IN_TIME ASC
+            d_depot_inventory
             limit 0,5
     </select>
 
@@ -176,7 +173,7 @@
         FROM
             a_apply_order
         ORDER BY
-            APPLY_TIME ASC
+            APPLY_TIME DESC
             limit 0,5
     </select>
 </mapper>
