@@ -58,7 +58,7 @@ layui.config({
         tableIns = table.render({
             elem: '#menu-data'
 
-            /*, url: $tool.getContext() + 'reach/pageList' //数据接口*/
+           /* , url: $tool.getContext() + 'reach/pageList' //数据接口*/
             , url: $tool.getContext() + 'pcr/reachList' //数据接口
             , method: 'post'
             , page:true //开启分页

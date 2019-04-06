@@ -66,6 +66,39 @@ layui.config({
     }
     init();
 
+    function getFormula(hh) {
+        $api.getAllFormula(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i].id+'">'+data[i].other1+'</option>';
+                }
+                $('#produceFormulaId').append($(html));
+
+
+            }
+        });
+
+
+
+    }
+    function getMaterial(hh) {
+        $api.produceMaterial(null,function (res) {
+            var data2= res.data;
+            if(data2.length > 0){
+                var html = '';
+                for(var i=0;i<data2.length;i++){
+                    html += '<option value="'+data2[i].id+'">'+data2[i].id+'---'+data2[i].goodsName+'</option>';
+                }
+                $('#materialId').append($(html));
+
+
+            }
+
+        });
+    }
+
     /**
      * 初始化菜单信息
      * */
@@ -78,17 +111,18 @@ layui.config({
             id:wid
         };
 
-        $api.getFormulaById(req,function (res) {
+        $api.getProduceFormulaDetailById(req,function (res) {
             var data = res.data;
-            select();
+           console.log(data)
 
            /*select1(data.productType);*/
              /*$("[name='productId']").val(data.productId);*/
 
-            $("[name='formulaType']").val(data.formulaType);
-            $("[name='formulaNumber']").val(data.formulaNumber);
-            $("[name='createUser']").val(data.createUser);
-            $("[name='createTime']").val(data.createTime);
+
+            getFormula();
+            getMaterial();
+            $("[name='materialNumber']").val(data.materialNumber);
+
 
             form.render();//重新绘制表单，让修改生效
         });
@@ -133,11 +167,10 @@ layui.config({
     form.on("submit(editMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         console.log(queryArgs)
-        var productId = data.field.productId;
-        var formulaType = data.field.formulaType;
-        var formulaNumber = data.field.formulaNumber;
-        var createUser = data.field.createUser;
-        var createTime = data.field.createTime;
+        var produceFormulaId = data.field.produceFormulaId;
+        var materialId = data.field.materialId;
+        var materialNumber = data.field.materialNumber;
+
 
         /*var sort = data.field.sort;
         var idList = new Array();*/
@@ -153,15 +186,12 @@ layui.config({
         var url = $tool.getContext()+'/formula/update';
         var req = {
             id:queryArgs['id'],
-            productId:productId,
-            formulaType:formulaType,
-            formulaNumber:formulaNumber,
-            createUser:createUser,
-            createTime:createTime
-
+            produceFormulaId:produceFormulaId,
+            materialId:materialId,
+            materialNumber:materialNumber,
         };
 
-        $api.udpFormula(req,function (data) {
+        $api.updProduceFormulaDetail(req,function (data) {
             layer.msg("修改成功！",{time:1000},function () {
                 layer.closeAll("iframe");
                 //刷新父页面
