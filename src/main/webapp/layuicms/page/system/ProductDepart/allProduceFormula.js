@@ -48,7 +48,8 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'productId', title: '产品编号'}
+                  {field:'other1',title:'配方编号',fixed: 'left'}
+                  /*{field: 'productId', title: '产品编号'}*/
                 , {field: 'formulaType', title: '配方类型'/*,templet:'#tmp'*/}
                 , {field: 'formulaNumber', title: '配方数量'}
                 , {field: 'createUser', title: '创建者'}

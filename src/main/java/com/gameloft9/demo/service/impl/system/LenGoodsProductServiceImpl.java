@@ -4,6 +4,9 @@ import com.gameloft9.demo.dataaccess.dao.system.LenGoodsProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenGoodsProduct;
 import com.gameloft9.demo.service.api.system.LenGoodsProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +42,7 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
      */
     @Override
     public LenGoodsProduct getByPrimaryKey(String id) {
-        return getByPrimaryKey(id);
+        return mapper.getByPrimaryKey(id);
     }
 
     /**
@@ -123,7 +126,25 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
      */
     @Override
     public boolean insert(LenGoodsProduct lenGoodsProduct) {
-        if (mapper.insert(lenGoodsProduct)>0){
+        String uuid = UUIDUtil.getUUID();
+        LenGoodsProduct product = new LenGoodsProduct();
+        product.setId(uuid);
+        product.setZhuangtai(Constants.productState.UNYISHENGCHANG);
+        product.setBianhao(OrderUtil.lenOrderNumber("L"));
+        product.setCaizhi(lenGoodsProduct.getCaizhi());
+        product.setChichun(lenGoodsProduct.getChichun());
+        product.setChangdi(lenGoodsProduct.getChangdi());
+        product.setLeixing(lenGoodsProduct.getLeixing());
+        product.setPname(lenGoodsProduct.getPname());
+        product.setPprice(lenGoodsProduct.getPprice());
+        product.setStyle1(lenGoodsProduct.getStyle1());
+        product.setPicihao(lenGoodsProduct.getPicihao());
+        product.setXinghao(lenGoodsProduct.getXinghao());
+        product.setYanse(lenGoodsProduct.getYanse());
+        product.setOther1(lenGoodsProduct.getOther1());
+        product.setOther3(lenGoodsProduct.getOther2());
+        product.setOther1(lenGoodsProduct.getOther3());
+        if (mapper.insert(product)>0){
             return true;
         }else {
             return false;
@@ -139,5 +160,15 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
     @Override
     public List<LenGoodsProduct> selectByState(String zhuangtai) {
         return mapper.selectByState(zhuangtai);
+    }
+
+    /**
+     * 显示未生产
+     *
+     * @return
+     */
+    @Override
+    public List<LenGoodsProduct> selectByUnProduce() {
+        return mapper.selectByUnProduce();
     }
 }

@@ -67,5 +67,12 @@ public class LenGoodsProductController {
         return new ResultBean<LenGoodsProduct>(service.getByPrimaryKey(id));
     }
 
+    @RequestMapping(value = "/getUnProduce", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getUnProduce() {
+        return new ResultBean<List>(service.selectByUnProduce());
+    }
+
+
 
 }

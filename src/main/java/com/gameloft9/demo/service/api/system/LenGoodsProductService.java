@@ -74,4 +74,10 @@ public interface LenGoodsProductService {
      * @return
      */
     List<LenGoodsProduct> selectByState(String zhuangtai);
+
+    /**
+     * 显示未生产
+     * @return
+     */
+    List<LenGoodsProduct> selectByUnProduce();
 }

@@ -80,5 +80,11 @@ public interface LenGoodsProductMapper {
      */
      List<LenGoodsProduct> selectByState(@Param("zhuangtai")String zhuangtai);
 
+    /**
+     * 显示未生产
+     * @return
+     */
+     List<LenGoodsProduct> selectByUnProduce();
+
 
 }

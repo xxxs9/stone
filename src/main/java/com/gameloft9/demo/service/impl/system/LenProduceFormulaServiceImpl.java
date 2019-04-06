@@ -5,6 +5,7 @@ import com.gameloft9.demo.dataaccess.model.system.LenProduceFormula;
 import com.gameloft9.demo.service.api.system.LenProduceFormulaService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.DateUtil;
+import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,8 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
         formula.setCreateUser(createUser);
         Date date = DateUtil.str2Date(createTime,"yyyy-MM-dd");
         formula.setCreateTime(date);
+        String fm = OrderUtil.lenOrderNumber("FM");
+        formula.setOther1(fm);
         if (mapper.insert(formula) > 0) {
             return true;
         } else {

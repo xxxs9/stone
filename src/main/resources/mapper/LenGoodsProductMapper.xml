@@ -152,6 +152,13 @@
       XINGHAO,OTHER1,OTHER2,OTHER3
         from l_Goodsproduct where ZHUANGTAI=#{zhuangtai};
     </select>
+    <select id="selectByUnProduce"  resultMap="BaseResultMap">
+        select
+         ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3
+        from l_Goodsproduct where ZHUANGTAI='未生产';
+    </select>
 
 
 
