@@ -292,6 +292,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         CheckUtil.notBlank(orderNumber,"订单编号为空");
         PurchaseOrder purchaseOrder = dao.selectByOrderNumber(orderNumber);
         purchaseOrder.setDepotState(Constants.DepotState.DEPOT_PASS);
+        //审核通过后添加一个当下时间
+        purchaseOrder.setDepotTime(new Date());
         dao.toolsUpdate(purchaseOrder);
         return true;
     }
@@ -363,5 +365,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**根据id获取*/
     public PurchaseOrder selectByOrderNumber(String orderNumber) {
         return dao.selectByOrderNumber(orderNumber);
+    }
+
+    /**四月份报表 柱状图*/
+    public List<String> selectChartByApril(){
+        return dao.selectChartByApril();
     }
 }

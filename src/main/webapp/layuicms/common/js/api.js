@@ -327,24 +327,12 @@ layui.define(['$tool','jquery'], function (exports) {
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
+        //四月采购图表-柱状图
+        selectChartByApril:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/selectChartByApril.do',req,config,successCallback,errorCallback);
+        },
+        //四月采购图表-饼状图
 
-        //阿发包 接口
-        afabaoDo:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
-        },
-        //采购订单管理  接口
-        //阿发包 财务审核人员获取财务审核状态为待审核的信息
-        financePurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
-        },
-        //阿发包 财务审核人员获取财务审核状态为付款申请的信息
-        financeApplyPurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContent() + 'purchase_order/financeApply.do',req,config,successCallback,errorCallback);
-        },
-        //华锋 仓库审核人员获取仓库审核状态为入库单审核中的信息
-        depotPurOrder:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContent() + 'purchase_order/depot.do',req,config,successCallback,errorCallback);
-        },
 
 
         GetDepotType:function(req,successCallback,errorCallback){

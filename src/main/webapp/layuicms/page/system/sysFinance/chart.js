@@ -50,7 +50,7 @@ layui.config({
                 ],
                 borderWidth: 1
             }]
-        },
+        }
         /*options: {
             scales: {
                 yAxes: [{
@@ -131,7 +131,7 @@ layui.config({
     var data4;
     function getSaleReceiveChart(){
         $api.getSaleReceiveChart(null,function (res) {
-            console.log(res.data)
+            console.log(res.data);
             data4 = res.data;
         });
     }
@@ -159,7 +159,6 @@ layui.config({
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)'
                 ],
                 borderColor: [
@@ -173,9 +172,7 @@ layui.config({
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-
+                    'rgba(54, 162, 235, 0.2)'
                 ],
                 borderWidth: 1
             },{

@@ -252,4 +252,12 @@ public class PurchaseOrderController {
         return new ResultBean<PurchaseOrder>(service.selectByOrderNumber(orderNumber));
     }
 
+    /**
+     * 四月份采购报表 柱状图
+     * */
+    @RequestMapping(value = "/selectChartByApril.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectChartByApril(){
+        return new ResultBean<Collection<String>>(service.selectChartByApril());
+    }
 }
