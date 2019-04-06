@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.TreeNodeMapper">
+    <resultMap id="treeNodeMap" type="com.gameloft9.demo.dataaccess.model.system.TreeNode">
+        <!--private String id;
+    private String name;
+    private String parentId;
+    private List<TreeNode> children;
+    private boolean notParent;-->
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_ID" property="belongToId" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_NAME" property="belongToName" jdbcType="VARCHAR"/>
+        <result column="NOT_PARENT" property="notParent" jdbcType="BOOLEAN"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="PERMS" property="perms" jdbcType="VARCHAR"/>
+        <collection property="children" column="ID" ofType="com.gameloft9.demo.dataaccess.model.system.TreeNode" select="getChildrenNode"/>
+    </resultMap>
+
+
+    <!--/**
+    * 获取所有的父节点
+    * */
+    List<TreeNode> getAllNode();-->
+    <select id="getAllNode" resultMap="treeNodeMap">
+        select * from tree_node
+        where PARENT_ID not in ("0")
+        order by NAME desc
+    </select>
+
+    <!--/**
+    * 获取所有的子节点
+    */
+    List<TreeNode> getChildrenNode();-->
+    <select id="getChildrenNode" resultMap="treeNodeMap">
+        select * from tree_node
+        where PARENT_ID=#{pid}
+        order by NAME desc
+    </select>
+
+    <!--初始化所属资源public List<TreeNode> initBelongTo();-->
+    <select id="initBelongTo" resultMap="treeNodeMap">
+        select * from tree_node
+        where NOT_PARENT=true
+    </select>
+
+    <!--添加权限  void addPerms(TreeNode treeNode);-->
+    <!--<id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_ID" property="belongToId" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_NAME" property="belongToName" jdbcType="VARCHAR"/>
+        <result column="NOT_PARENT" property="notParent" jdbcType="BOOLEAN"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="PERMS" property="perms" jdbcType="VARCHAR"/>-->
+    <insert id="addPerms" parameterType="com.gameloft9.demo.dataaccess.model.system.TreeNode">
+
+        insert  into tree_node
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="id != null and id != ''">
+              ID,
+          </if>
+            <if test="name != null and name != ''">
+                NAME,
+            </if>
+            <if test="belongToId != null and belongToId != ''">
+                BELONG_TO_ID,
+            </if>
+            <if test="belongToName != null and belongToName != ''">
+                BELONG_TO_NAME,
+            </if>
+            <if test="notParent != null and notParent != ''">
+                NOT_PARENT,
+            </if>
+            <if test="parentId != null and parentId != ''">
+                PARENT_ID,
+            </if>
+            <if test="perms != null and perms != ''">
+                PERMS,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != ''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="belongToId != null and belongToId != ''">
+                #{belongToId,jdbcType=VARCHAR},
+            </if>
+            <if test="belongToName != null and belongToName != ''">
+                #{belongToName,jdbcType=VARCHAR},
+            </if>
+            <if test="notParent != null and notParent != ''">
+                #{notParent,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null and parentId != ''">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="perms != null and perms != ''">
+                #{perms,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--/**
+     * 根据id获取treeNode
+     */
+    TreeNode getById();-->
+    <select id="getById" resultMap="treeNodeMap">
+        select * from tree_node
+        <where>
+            <if test="id != null and id != ''">
+                ID=#{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--/**更新treeNode*/
+    void updatePerms(TreeNode treeNode);
+     <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_ID" property="belongToId" jdbcType="VARCHAR"/>
+        <result column="BELONG_TO_NAME" property="belongToName" jdbcType="VARCHAR"/>
+        <result column="NOT_PARENT" property="notParent" jdbcType="BOOLEAN"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <result column="PERMS" property="perms" jdbcType="VARCHAR"/>
+}-->
+    <update id="updatePerms" parameterType="com.gameloft9.demo.dataaccess.model.system.TreeNode">
+        update tree_node
+        <set>
+            <if test="name != null and name != ''">
+                NAME=#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="belongToId != null and belongToId != ''">
+                BELONG_TO_ID=#{belongToId,jdbcType=VARCHAR},
+            </if>
+            <if test="belongToName != null and belongToName != ''">
+                BELONG_TO_NAME=#{belongToName,jdbcType=VARCHAR},
+            </if>
+            <if test="notParent != null and notParent != ''">
+                NOT_PARENT=#{notParent,jdbcType=BOOLEAN},
+            </if>
+            <if test="parentId != null and parentId != ''">
+                PARENT_ID=#{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="perms != null and perms != ''">
+                PERMS=#{perms,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id!=''">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--/**删除*/
+    void deletePerms(@Param("id") String id);-->
+    <delete id="deletePerms" parameterType="java.lang.String">
+        delete from tree_node
+        <where>
+            <if test="id != null and id != ''">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+</mapper>

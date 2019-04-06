@@ -1046,10 +1046,28 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         },
 
-        //权限树
-        initTreeNode:function(req,successCallback,errorCallback){
-            treeNode($tool.getContext() + 'node/initTreeNode',req,successCallback,errorCallback);
-        }
+        //======权限=====//
+        //初始化所属权限
+        initBelongTo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/initBelongTo',req,successCallback,errorCallback);
+        },
+        //添加权限
+        addPerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/addPerms.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取treeNode
+        getNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/get',req,successCallback,errorCallback);
+        },
+        //更改权限
+        UpdatePerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/UpdatePerms.do',req,config,successCallback,errorCallback);
+        },
+        //删除权限
+        deleteNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/delete',req,successCallback,errorCallback);
+        },
+
     };
 
 
