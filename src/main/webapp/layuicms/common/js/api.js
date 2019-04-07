@@ -331,8 +331,19 @@ layui.define(['$tool','jquery'], function (exports) {
         selectChartByApril:function(req,successCallback,errorCallback){
             chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
-        //四月采购图表-饼状图
-
+        //采购订单管理  接口
+        //阿发包 财务审核人员获取财务审核状态为待审核的信息
+        financePurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/finance.do',req,config,successCallback,errorCallback);
+        },
+        //阿发包 财务审核人员获取财务审核状态为付款申请的信息
+        financeApplyPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/financeApply.do',req,config,successCallback,errorCallback);
+        },
+        //华锋 仓库审核人员获取仓库审核状态为入库单审核中的信息
+        depotPurOrder:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContent() + 'purchase_order/depot.do',req,config,successCallback,errorCallback);
+        },
 
 
         GetDepotType:function(req,successCallback,errorCallback){
@@ -597,7 +608,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //检验时增加价格
         insertSupportPrice:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/insertSupportPrice',req,successCallback,errorCallback);
-        },
+    },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
@@ -863,9 +874,6 @@ layui.define(['$tool','jquery'], function (exports) {
         GetGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsName.do',req,successCallback,errorCallback);
         },
-        GetAllGoodsName:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'material/materialList.do',req,successCallback,errorCallback);
-        },
         GetMaterial:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/get.do',req,successCallback,errorCallback);
         },
@@ -974,6 +982,11 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
         },
+        /*导出时间报表*/
+        timeReport:function(req,successCallback,errorCallback){
+            doGet($tool.getContext() + 'bill/exportTimeReport.do',req,successCallback,errorCallback);
+        },
+
         findAll:function(req,successCallback,errorCallback) {
             doPost($tool.getContext() + 'sysUser/findAll.do', req, successCallback, errorCallback);
         },
@@ -1098,10 +1111,28 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         },
 
-        //权限树
-        initTreeNode:function(req,successCallback,errorCallback){
-            treeNode($tool.getContext() + 'node/initTreeNode',req,successCallback,errorCallback);
-        }
+        //======权限=====//
+        //初始化所属权限
+        initBelongTo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/initBelongTo',req,successCallback,errorCallback);
+        },
+        //添加权限
+        addPerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/addPerms.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取treeNode
+        getNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/get',req,successCallback,errorCallback);
+        },
+        //更改权限
+        UpdatePerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/UpdatePerms.do',req,config,successCallback,errorCallback);
+        },
+        //删除权限
+        deleteNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/delete',req,successCallback,errorCallback);
+        },
+
     };
 
 

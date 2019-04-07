@@ -1,5 +1,11 @@
 package com.gameloft9.demo.security;
 
+import com.gameloft9.demo.dataaccess.dao.system.SysMenuTestMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysUserRoleTestMapper;
+import com.gameloft9.demo.dataaccess.model.system.SysMenuRoleTest;
+import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
+import com.gameloft9.demo.dataaccess.model.system.SysRoleTest;
+import com.gameloft9.demo.service.api.system.SysUserService;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import com.gameloft9.demo.service.api.system.SysUserService;
 import lombok.Data;
@@ -11,7 +17,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +34,10 @@ public class ShiroRealm extends AuthorizingRealm {
 	 * 通过setter注入,这里没有通过@Autowired注入
 	 * */
 	private SysUserService userServiceImpl;
+	@Autowired
+	SysUserRoleTestMapper userRoleTestMapper;
+	@Autowired
+	SysMenuTestMapper menuTestMapper;
 
 	/**
 	 * 获取授权信息方法，返回用户角色信息
@@ -38,13 +50,28 @@ public class ShiroRealm extends AuthorizingRealm {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}
 
+		List<String> prems = new ArrayList<String>();
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if (user != null) {
-			//获取用户角色信息
-			List<String> roles = userServiceImpl.getRoleNames(user.getId());
+			//根据用户获取角色列表
+			List<SysRoleTest> roles = userRoleTestMapper.getRolesByUserId(user.getId());
+			//循环获取权限
+			for (SysRoleTest role : roles) {
+				info.addRole(role.getRoleName());
 
-			info.addRoles(roles);
+				List<SysMenuRoleTest> menuRoles = menuTestMapper.getMenuRoleByRoleId(role.getId());
+				for (SysMenuRoleTest menuRole : menuRoles) {
+					//根据角色获取资源列表
+					SysMenuTest menu = menuTestMapper.getMenuByMenuId(menuRole.getMenuId());
+					//权限不为null并且不为空串才存
+					if(menu.getPerms() != null && menu.getPerms() != ""){
+						prems.add(menu.getPerms());
+						info.addStringPermission(menu.getPerms());
+					}
+
+				}
+			}
 		} else {
 			SecurityUtils.getSubject().logout();
 		}

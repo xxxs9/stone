@@ -34,7 +34,9 @@
                 and APPLY_STATE = #{applyState,jdbcType=VARCHAR}
             </if>
         </where>
+        order by APPLY_TIME DESC
         limit #{start},#{end}
+
     </select>
 
     <!--条件查询总条数   int getCount(

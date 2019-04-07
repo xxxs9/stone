@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.SysMenuRoleTest;
 import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
 import com.gameloft9.demo.service.beans.system.SysMenuTestExtend;
 import org.apache.ibatis.annotations.Param;
@@ -111,4 +112,19 @@ public interface SysMenuTestMapper {
      * @param requestUrl 后台请求路径
      * */
     SysMenuTest getByRequestUrl(@Param("requestUrl") String requestUrl);
+
+    /**
+     * 根据角色id获取角色资源表中的资源id
+     * @param id 角色id
+     * @return
+     *      stringlist
+     */
+    List<SysMenuRoleTest> getMenuRoleByRoleId(@Param("id") String id);
+
+    /**
+     * 根据角色资源表的资源id获取资源
+     * @param menuId
+     * @return
+     */
+    SysMenuTest getMenuByMenuId(@Param("menuId") String menuId);
 }

@@ -26,7 +26,6 @@ layui.config({
     init();
 
 
-
     /**
      * 初始化菜单信息
      * */
@@ -34,17 +33,18 @@ layui.config({
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
 
-        var url = $tool.getContext()+'menu/get.do';
+        var url = $tool.getContext()+'node/get.do';
         var req = {
             id:id
         };
 
-        $api.GetMenu(req,function (res) {
+        $api.getNode(req,function (res) {
             var data = res.data;
-            $("[name='menuName']").val(data.title);
-            $("[name='menuUrl']").val(data.href);
-            $("[name='requestUrl']").val(data.requestUrl);
-            $("[name='sort']").val(data.sort);
+            console.log(data)
+            $("[name='belongToName']").val(data.belongToName);
+            $("[name='name']").val(data.name);
+            $("[name='perms']").val(data.perms);
+            $("[name='parentId']").val(data.parentId);
             menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
             //加载角色列表
             loadRoleList();
@@ -64,6 +64,7 @@ layui.config({
 
         $api.GetRoleList(req,function (res) {
             var data = res.data;
+            console.log(data)
             if(data.length > 0){
                 var roleHtml = "";
                 for(var i = 0;i<data.length;i++){
@@ -89,10 +90,11 @@ layui.config({
      * */
     form.on("submit(editMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
-        var menuName = data.field.menuName;
-        var menuUrl = data.field.menuUrl;
-        var requestUrl = data.field.requestUrl;
-        var sort = data.field.sort;
+        var id = queryArgs["id"];
+        var belongToName = data.field.belongToName;
+        var name = data.field.name;
+        var perms = data.field.perms;
+        var parentId = data.field.parentId;
         var idList = new Array();
 
         //获取选中的角色列表
@@ -105,15 +107,15 @@ layui.config({
         //请求
         var url = $tool.getContext()+'menu/update.do';
         var req = {
-            id:queryArgs['id'],
-            menuName:menuName,
-            menuUrl:menuUrl,
-            requestUrl:requestUrl,
-            sort:sort,
-            roleIdList:idList
+            id:id,
+            belongToName:belongToName,
+            name:name,
+            perms:perms,
+            roleIdList:idList,
+            parentId:parentId
         };
 
-        $api.UpdateMenu(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {
+        $api.UpdatePerms(JSON.stringify(req),{contentType:'application/json;charset=utf-8'},function (data) {
             layer.msg("修改成功！",{time:1000},function () {
                 layer.closeAll("iframe");
                 //刷新父页面

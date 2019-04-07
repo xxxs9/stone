@@ -12,39 +12,72 @@
     <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
     <link rel="stylesheet" href="../../../common/css/user.css" media="all"/>
+
+    <style>
+        .layui-table-page {
+            position:fixed;
+        }
+    </style>
 </head>
 <body class="childrenBody">
 <!--搜索栏-->
-<blockquote class="layui-elem-quote news_search">
-    <form class="layui-form">
-
-        <div class="layui-inline">
-            <label class="layui-form-label">应收类型</label>
-            <div class="layui-input-block">
-                <select id="receiveType" name="receiveType">
-                    <option value="">请选择</option>
-                    <option value="1">采购应收单</option>
-                    <option value="4">销售应收单</option>
-                </select>
+<!--选项卡区-->
+<div class="layui-tab" lay-filter="test">
+    <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="11">日报表</li>
+        <li lay-id="22">周报表</li>
+        <li lay-id="33">月报表</li>
+        <li lay-id="44">年报表</li>
+        <li lay-id="44">时间报表</li>
+    </ul>
+    <div style="padding-left: 10px;padding-top: 10px;">
+        <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="exportDayData">导出日报表</span>
+        <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="exportWeekData" style="display: none">导出周报表</span>
+        <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="exportMonthData" style="display: none">导出月报表</span>
+        <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="exportYearData" style="display: none">导出年报表</span>
+        <div id="myDiv" style="display: none">
+            <form class="layui-form">
+                <div class="layui-inline">
+                    <label class="layui-form-label">日期范围</label>
+                    <div class="layui-input-inline">
+                        <input id="billTime" type="text" class="layui-input" name="billTime" placeholder="开始 到 结束">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn search_btn" lay-submit="" lay-filter="queryData">查询</a>
+                    <!--<span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="export">导出数据</span>-->
+                    <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="exportTimeData" >导出时间报表</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item  layui-show">
+            <table id="day" lay-filter="day" llay-data="{id: 'idTest'}">
+            </table>
+        </div>
+        <div class="layui-tab-item">
+            <div class="llayui-tab-item">
+                <table id="week" lay-filter="week"></table>
             </div>
         </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">日期范围</label>
-            <div class="layui-input-inline">
-                <input id="documentMakeTime" type="text" class="layui-input" name="documentMakeTime" placeholder="开始 到 结束">
+        <div class="layui-tab-item">
+            <div class="llayui-tab-item">
+                <table id="month" lay-filter="month"></table>
             </div>
         </div>
-
-        <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryPay">查询</a>
-            <span class="layui-btn search_btn" lay-submit="" lay-filter="export" id="export">导出数据</span>
+        <div class="layui-tab-item">
+            <div class="llayui-tab-item">
+                <table id="year" lay-filter="year"></table>
+            </div>
         </div>
-        <!--<div class="layui-inline">
-            <a class="layui-btn layui-btn-normal payAdd_btn">添加应收单</a>
-        </div>-->
-    </form>
-</blockquote>
+        <div class="layui-tab-item">
+            <div class="llayui-tab-item">
+                <table id="time" lay-filter="time"></table>
+            </div>
+        </div>
+    </div>
+</div>
 <!--表格区-->
 <div class="layui-form users_list">
     <!--通过lay-filter区分toolbar事件容器-->

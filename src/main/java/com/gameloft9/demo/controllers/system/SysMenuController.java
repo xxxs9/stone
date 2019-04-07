@@ -84,6 +84,7 @@ public class SysMenuController {
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
+    //@RequiresPermissions("bbb")
     @BizOperLog(operType = OperType.DELETE,memo = "删除菜单")
     public IResult deleteMenu(String menuId){
         //返回json至前端的均返回ResultBean或者PageResultBean

@@ -27,6 +27,7 @@
                 PAY_TYPE=#{payType,jdbcType=INTEGER}
             </if>
         </where>
+        order by DOCUMENT_MAKE_TIME DESC
         limit #{start},#{end}
     </select>
 

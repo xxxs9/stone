@@ -1,8 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
-import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleReceivable;
 
 import java.util.List;

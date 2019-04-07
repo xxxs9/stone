@@ -154,7 +154,6 @@ layui.config({
             show(row.purchaseOrderId,1);
         }
     });
-
     //为toolbar添加事件响应 //采购应收
     table.on('tool(purchaseReceive)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var row = obj.data; //获得当前行数据

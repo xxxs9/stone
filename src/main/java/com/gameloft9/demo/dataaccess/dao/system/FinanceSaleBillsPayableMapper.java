@@ -1,10 +1,8 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
-import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceSaleBillsPayable;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 /**
