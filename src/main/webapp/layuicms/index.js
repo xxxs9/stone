@@ -2,6 +2,8 @@
  * 整体布局
  * */
 var $, tab, skyconsWeather;
+var websocket = null;
+
 layui.config({//基础目录
     base: $config.resUrl+'layuicms/common/js/'//定义基目录
 }).extend({
@@ -150,6 +152,8 @@ layui.config({//基础目录
         })
     })
 
+
+
     //退出
     $(".signOut").click(function () {
         $api.LogOut(null,function (data) {
@@ -196,9 +200,41 @@ layui.config({//基础目录
 
     //公告层
     function showNotice() {
+            layer.open({
+                type: 1,
+                title: "系统公告",
+                closeBtn: false,
+                area: '310px',
+                shade: 0.8,
+                id: 'LAY_layuipro',
+                btn: ['好的'],
+                moveType: 1,
+                content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p>这是一个基于layui的带后台的CMS管理系统，已经集成了通用的功能，例如菜单、用户、角色、机构、日志管理，系统架构清晰，方便做二次开发。</p></div>',
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.css('text-align', 'center');
+                    btn.on("click", function () {
+                        window.sessionStorage.setItem("showNotice", "true");
+                    })
+                    if ($(window).width() > 432) {  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
+                        btn.on("click", function () {
+                            layer.tips('查看最新公告', '#showNotice', {
+                                tips: 3
+                            });
+                        })
+                    }
+                }
+            });
+    }
+
+
+
+
+
+    function showMessage() {
         layer.open({
             type: 1,
-            title: "系统公告",
+            title: "消息通知",
             closeBtn: false,
             area: '310px',
             shade: 0.8,
@@ -210,26 +246,182 @@ layui.config({//基础目录
                 var btn = layero.find('.layui-layer-btn');
                 btn.css('text-align', 'center');
                 btn.on("click", function () {
-                    window.sessionStorage.setItem("showNotice", "true");
+                    window.sessionStorage.setItem("showMessage", "true");
                 })
                 if ($(window).width() > 432) {  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
                     btn.on("click", function () {
-                        layer.tips('查看最新公告', '#showNotice', {
+                        layer.tips('查看最新消息', '#showMessage', {
                             tips: 3
                         });
                     })
+
                 }
             }
         });
     }
 
-   /* //判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
+    layui.use('layer', function(){
+        var layer = layui.layer;
+
+
+    });
+ /*   layer.open({
+
+        title:'新消息提醒',
+        content:'<div id="message" style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p id="newMessage"></p></div>',
+
+        }
+
+    )*/
+
+/*
+
+
+    setTimeout(function(){
+        Push(num);
+    },200);
+ setInterval(function(){
+        Push(num);
+    },10000);
+*/
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://localhost:8080/stone/websocket");
+    }
+    else {
+        alert('当前浏览器 Not support websocket')
+    }
+    window.onbeforeunload = function(){ websocket.close(); }
+    //连接发生错误的回调方法
+
+    websocket.onerror = function () {
+        setMessageInnerHTML("WebSocket连接发生错误");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function () {
+        setMessageInnerHTML("WebSocket连接成功");
+    }
+
+    //接收到消息的回调方法
+    websocket.onmessage = function (event) {
+        console.log("收到消息"+event.data)
+        /*Push();*/
+        show(event.data);
+        setMessageInnerHTML(event.data);
+
+
+    }
+  /*  function Push() {
+
+        $api.getNewMessage(null, function (res) {
+            var uMessage =res.data
+            /!*  $("#val_sg_num").val(res.data);*!/
+            if(uMessage>0){
+                layer.tips('你收到了' + uMessage + '新信息！请在信箱查看', '#shownewmessageinfo', {
+                    tips: [1, '#3595CC'],
+                    time: 5000
+
+                });
+            }
+           /!* document.getElementById("unreadMessage").innerHTML=uMessage*!/
+            alert(uMessage)
+        });
+
+    }*/
+
+
+    function show(event){
+        var show =event;
+        layer.tips( '您好'+ show + '请在邮箱中查收' ,'#shownewmessageinfo', {
+            tips: [1, '#3595CC'],
+            time: 5000
+
+        });
+
+    }
+    //连接关闭的回调方法
+    websocket.onclose = function () {
+        setMessageInnerHTML("WebSocket连接关闭");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        closeWebSocket();
+    }
+
+
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+
+
+    }
+
+    //关闭WebSocket连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        var message = document.getElementById('text').value;
+        websocket.send(message);
+    }
+
+
+
+
+function showmessage() {
+    layer.tips('你收到了新信息！请在信箱查看', '#shownewmessageinfo', {
+        tips: [1, '#3595CC'],
+        time: 5000
+
+    });
+
+}
+
+
+
+    setTimeout(function(){
+        Push();
+    },200);
+       /* setInterval(function(){
+            Push();
+        },2000);*/
+
+
+function Push() {
+
+    $api.getNewMessage(null, function (res) {
+        var unreadMessage =res.data
+
+        if(unreadMessage>0){
+         /*   layer.tips('你收到了' + data + '新信息！请在信箱查看', '#shownewmessageinfo', {
+                tips: [1, '#3595CC'],
+                time: 5000
+
+            });
+*/      document.getElementById("unreadMessage").innerHTML=unreadMessage
+        }
+
+
+
+    });
+
+}
+
+
+
+
+
+    //判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
     if (window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true") {
         showNotice();
     }
     $(".showNotice").on("click", function () {
         showNotice();
-    });*/
+    });
 
     //刷新后还原打开的窗口
     if (window.sessionStorage.getItem("menu") != null) {

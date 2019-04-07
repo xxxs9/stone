@@ -70,14 +70,14 @@
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# } else if(d.state=="提交审核中"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" id="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# } else if(d.state=="审核通过"){ }}
     <label>审核已通过</label>
     {{# } else if(d.state=="审核未通过"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="look"><i class="layui-icon">&#xe702;</i>查看</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit1"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" id="del1"><i class="layui-icon">&#xe640;</i>删除</a>
     {{# } }}
 </script>
 

@@ -18,6 +18,7 @@ layui.config({
         //初始化下拉框
       /*  initParentMenu();*/
 
+        initGoodsProduct();
     }
 
     init();
@@ -39,6 +40,20 @@ layui.config({
         });
     }
 */
+    function initGoodsProduct() {
+        $api.getUnProduce(null,function (res) {
+            var data = res.data;
+            console.log(data);
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].pname + '">'+ data[i].bianhao + '---' + data[i].pname + '</option>';
+                }
+                $('#productName1').append($(html));
+                form.render();
+            }
+        });
+    }
     $('#canSold').val(window.sessionStorage.getItem('sysUser'));
     /**
      * 监听radio选择

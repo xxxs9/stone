@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysFinanceChargeOffMapper" >
+
+    <resultMap id="chargeOffMapper" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="accountPayable" column="ACCOUNT_PAYABLE" jdbcType="VARCHAR"/>
+        <result property="actualPayment" column="ACTUAL_PAYMENT" jdbcType="VARCHAR"/>
+        <result property="arrears" column="ARREARS" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--TODO...优化-->
+    <!--获取所有  getAll-->
+    <select id="getAll" resultMap="chargeOffMapper">
+      select
+        c.ID,c.PAY_ID,c.ACCOUNT_PAYABLE,c.ACTUAL_PAYMENT,c.ARREARS
+      from
+        a_charge_off c,
+        a_purchase_bills_payable p,
+        a_sale_bills_payable s
+      where
+        c.PAY_ID = p.ID
+      or
+        c.PAY_ID = s.ID
+    </select>
+
+
+    <!--TODO...优化-->
+    <!--获取条件查询总条数  int getCount-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1)
+        from
+        a_charge_off
+    </select>
+
+    <!--添加 add()-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
+        insert into a_charge_off
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="payId != null and payId != ''">
+                PAY_ID,
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                SHOULD_PAY,
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+                ACTUAL_PAY,
+            </if>
+            <if test="arreara != null and arreara != ''">
+                ARREARA,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="payId != null and payId != ''">
+                #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                #{shouldPay,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+                #{actualPay,jdbcType=VARCHAR},
+            </if>
+            <if test="arreara != null and arreara != ''">
+                #{arreara,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改 update()-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
+        update a_charge_off
+        <set>
+            <if test="payId != null and payId != ''">
+                PAY_ID = #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="shouldPay != null and shouldPay != ''">
+                SHOULD_PAY = #{shouldPay,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPay != null and actualPay != ''">
+               ACTUAL_PAY =  #{actualPay,jdbcType=VARCHAR},
+            </if>
+            <if test="arreara != null and arreara != ''">
+                ARREARA = #{arreara,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{ID,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--删除   delete()-->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from a_charge_off
+        <where>
+            <if test="id != null and id != ''">
+                and id = = #{ID,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+</mapper>

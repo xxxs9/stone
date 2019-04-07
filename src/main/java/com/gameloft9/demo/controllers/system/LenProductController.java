@@ -181,14 +181,14 @@ public class LenProductController {
     @ResponseBody
     public IResult managerAudi(String id) {
 
-        if (Constants.lennonPDAudi() == 1) {
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
             if (service.changeProState(Constants.productState.REACH_UNFENPEI, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
                 return new ResultBean<String>("401","操作失败");
             }
         } else {
-            return new ResultBean<String>("401","操作失败");
+            return new ResultBean<String>("401",">>>权限不足<<<");
         }
     }
 
@@ -393,5 +393,16 @@ public class LenProductController {
         return new ResultBean<Boolean>(service.insertSupportPrice(supportPrice, id));
     }
 
+    @RequestMapping("/produceMaterial")
+    @ResponseBody
+    public IResult insertSupportPrice(){
+        return new ResultBean<List>(service.getAllMaterial());
+    }
+
+   /* @RequestMapping("/getProduceMaterialById")
+    @ResponseBody
+    public IResult getProduceMaterialById(String id){
+        return new ResultBean<SysMaterial>(service.getMaterilaById(id));
+    }*/
 
 }

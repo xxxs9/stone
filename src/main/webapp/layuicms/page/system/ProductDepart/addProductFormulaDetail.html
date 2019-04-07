@@ -29,52 +29,45 @@
 <form class="layui-form" style="width:80%;">
 
     </br>
-    <div class="layui-form-item">
-        <label class="layui-form-label">产品编号</label>
-        <div class="layui-input-block">
-            <select name="productId" lay-verify="required" id="productId" >
 
-            </select>
-        </div>
-    </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">配方类型</label>
+        <label class="layui-form-label">配方编号</label>
         <div class="layui-input-block ">
-            <select name="formulaType" lay-verify="required">
-                <option value="">---请选择---</option>
-                <option value="0">1.类型Ⅰ</option>
-                <option value="1">2.类型Ⅱ</option>
-                <option value="2">3.类型Ⅲ</option>
-                <option value="3">4.类型Ⅳ</option>
+            <select name="produceFormulaId" lay-verify="required" id="produceFormulaId">
+
 
             </select>
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">配方数量</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="formulaNumber" lay-verify="required" placeholder="请输入配方数量">
-        </div>
-    </div>
-    <!--根据登陆自动生-->
-    <div class="layui-form-item">
-        <label class="layui-form-label">创建者</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="createUser" lay-verify="required" placeholder="请输入创建者姓名">
+        <label class="layui-form-label">原料编号</label>
+        <div class="layui-input-block ">
+            <select name="materialId" lay-verify="required" id="materialId">
+
+            </select>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">创建时间</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="createTime" lay-verify="required" id="test1">
+        <label class="layui-form-label">原料数量</label>
+        <div class="layui-input-block ">
+            <input type="text" class="layui-input" name="materialNumber" lay-verify="number" placeholder="请输入原料数量">
         </div>
     </div>
 
+    <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">仓库编号</label>
+        <div class="layui-input-block">
+            <select name="depotId" id="depotId" >
+                    <option value="0" ></option>
+            </select>
+        </div>
+    </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="add">提交审核</button>
+            <button class="layui-btn" lay-submit="" lay-filter="add">确认</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

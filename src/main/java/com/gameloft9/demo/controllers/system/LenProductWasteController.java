@@ -4,7 +4,6 @@ import com.gameloft9.demo.dataaccess.model.system.LenProductWaste;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
-import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.api.system.LenProductWasteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

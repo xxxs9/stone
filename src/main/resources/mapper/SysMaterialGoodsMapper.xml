@@ -15,8 +15,8 @@
     </sql>
 
     <select id="getByIds" resultMap="BaseResultMap" >
-        select ID,SUPPLIER_ID,MATERIAL_ID,GOODS_PRICE,GOODS_ORIGIN_PLACE,IMAGE_URL
-        from sys_material_goods t
+        SELECT ID,SUPPLIER_ID,MATERIAL_ID,GOODS_PRICE,GOODS_ORIGIN_PLACE,IMAGE_URL
+        FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -25,7 +25,7 @@
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="getBySupplierIds" resultType="java.lang.String" >
-        select t.ID from sys_material_goods t
+        SELECT t.ID FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.SUPPLIER_ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -33,7 +33,7 @@
         </where>
     </select>
     <select id="getByMaterialIds" resultType="java.lang.String" >
-        select t.ID from sys_material_goods t
+        SELECT t.ID FROM sys_material_goods t
         <where>
             <foreach collection="ids" item="id" open="t.MATERIAL_ID in(" close=")" separator=",">
                 #{id,jdbcType=VARCHAR}
@@ -84,6 +84,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods" >
+
         update sys_material_goods
         <set >
             <if test="supplierId != null and supplierId != '' " >
@@ -105,7 +106,7 @@
         where ID = #{id,jdbcType=VARCHAR}
     </update>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from sys_material_goods
+        delete from SYS_MATERIAL_GOODS
         where ID = #{id,jdbcType=VARCHAR}
     </delete>
     <select id="selectByMaterialId" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -117,13 +118,13 @@
     <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from sys_material_goods t
+        from SYS_MATERIAL_GOODS t
         where t.ID = #{id,jdbcType=VARCHAR}
     </select>
     <select id="getByOtherId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from sys_material_goods t
+        from SYS_MATERIAL_GOODS t
         where t.SUPPLIER_ID = #{supplierId,jdbcType=VARCHAR} and  t.MATERIAL_ID = #{materialId,jdbcType=VARCHAR}
    </select>
     <select id="getMaterialGoodsId"  resultType="java.lang.String">

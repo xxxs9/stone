@@ -7,6 +7,7 @@ import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
 import com.gameloft9.demo.dataaccess.model.system.SysRoleTest;
 import com.gameloft9.demo.service.api.system.SysUserService;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
+import com.gameloft9.demo.service.api.system.SysUserService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;

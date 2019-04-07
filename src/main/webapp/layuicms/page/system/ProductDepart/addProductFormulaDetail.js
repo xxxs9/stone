@@ -32,17 +32,32 @@ layui.config({
      * 初始化页面
      * */
     function init() {
-        $api.getAllProduct(null,function (res) {
+        $api.getAllFormula(null,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].id+'---'+data[i].productName+'</option>';
+                    html += '<option value="'+data[i].id+'">'+data[i].other1+'</option>';
                 }
-                $('#productId').append($(html));
+                $('#produceFormulaId').append($(html));
                 form.render();
             }
         });
+
+        $api.produceMaterial(null,function (res) {
+            var data2= res.data;
+            if(data2.length > 0){
+                var html = '<option value="">--请选择--</option>';
+                for(var i=0;i<data2.length;i++){
+                    html += '<option value="'+data2[i].id+'">'+data2[i].id+'---'+data2[i].goodsName+'</option>';
+                }
+                $('#materialId').append($(html));
+                form.render();
+            }
+
+        });
+
+
 
     }
     init();
@@ -111,35 +126,23 @@ layui.config({
 
     form.on("submit(add)", function (data) {
 
-        var productId = data.field.productId;
-        var formulaType = data.field.formulaType;
-        var formulaNumber = data.field.formulaNumber;
-        var createUser = data.field.reachUser;
-        var createTime = data.field.createTime;
+        var produceFormulaId = data.field.produceFormulaId;
+        var materialId = data.field.materialId;
+        var materialNumber = data.field.materialNumber;
+        var depotId = data.field.depotId;
 
-        /*var sort = data.field.sort;
-        var idList = new Array();*/
-
-        //获取选中的角色列表
-        /*for(var i=0;i<roleIdList.length;i++){
-            if(data.field[roleIdList[i]] === 'on'){
-               idList.push(roleIdList[i]);
-            }
-        }
-*/
         //请求
-        var url = $tool.getContext()+'/formula/add';
+        var url = $tool.getContext()+'detail/add';
         var req = {
 
-            productId:productId,
-            formulaType:formulaType,
-            formulaNumber:formulaNumber,
-            createUser:createUser,
-            createTime:createTime
+            produceFormulaId:produceFormulaId,
+            materialId:materialId,
+            materialNumber:materialNumber,
+            depotId:depotId
 
         };
 
-        $api.addFormula(req,function (data) {
+        $api.addProduceFormulaDetail(req,function (data) {
             layer.msg("增加成功！",{time:1000},function () {
                 layer.closeAll("iframe");
                 //刷新父页面

@@ -180,6 +180,21 @@ layui.define(['$tool','jquery'], function (exports) {
             doComplexPost($tool.getContext() + 'personCenter/update.do',req,config,successCallback,errorCallback);
         },
 
+        addSysNotify:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'sysNotify/add.do',req,successCallback,errorCallback);
+        },
+        getmessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getmessage.do', req, successCallback, errorCallback);
+        },
+        getSendMessageInfo:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getSendMessageInfo.do', req, successCallback, errorCallback);
+        },
+        getNewMessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getNewMessage.do', req, successCallback, errorCallback);
+        },
+        updatestate:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/updatestate.do', req, successCallback, errorCallback);
+        },
         //purOrder 采购订单管理purchase_order
         //初始化GoodsId下拉框
         getListGoods:function(req,config,successCallback,errorCallback){
@@ -312,10 +327,9 @@ layui.define(['$tool','jquery'], function (exports) {
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
-
-        //阿发包 接口
-        afabaoDo:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
+        //四月采购图表-柱状图
+        selectChartByApril:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/selectChartByApril.do',req,config,successCallback,errorCallback);
         },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
@@ -555,7 +569,25 @@ layui.define(['$tool','jquery'], function (exports) {
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
-
+        //添加产品api
+        addGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/add',req,successCallback,errorCallback);
+        },
+        getGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/get',req,successCallback,errorCallback);
+        },
+        updGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/upd',req,successCallback,errorCallback);
+        },
+        delGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/del',req,successCallback,errorCallback);
+        },
+        selectGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/list',req,successCallback,errorCallback);
+        },
+        getUnProduce:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'goodsProduct/getUnProduce',req,successCallback,errorCallback);
+        },
 
 
 
@@ -592,7 +624,10 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         completeProduce1:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/completeProduce',req,successCallback,errorCallback);
-    },
+        },
+        produceMaterial:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/produceMaterial',req,successCallback,errorCallback);
+        },
         unIntodepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
@@ -759,6 +794,12 @@ layui.define(['$tool','jquery'], function (exports) {
         getProduceFormulaDetailById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/get',req,successCallback,errorCallback);
         },
+        addProduceFormulaDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'detail/add',req,successCallback,errorCallback);
+        },
+        updProduceFormulaDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'detail/upd',req,successCallback,errorCallback);
+        },
         getProduceFormulaDetailByFormulaId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/getDetailByFormulaId',req,successCallback,errorCallback);
         },
@@ -787,7 +828,24 @@ layui.define(['$tool','jquery'], function (exports) {
         DelsDepotPersonnel:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotPersonnel/dels.do',req,successCallback,errorCallback);
         },
-
+        addSysNotify:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'sysNotify/add.do',req,successCallback,errorCallback);
+        },
+        getmessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getmessage.do', req, successCallback, errorCallback);
+        },
+        getSendMessageInfo:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getSendMessageInfo.do', req, successCallback, errorCallback);
+        },
+        getNewMessage:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/getNewMessage.do', req, successCallback, errorCallback);
+        },
+        updatestate:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/updatestate.do', req, successCallback, errorCallback);
+        },
+        findAll:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysUser/findAll.do', req, successCallback, errorCallback);
+        },
 
         GetGoodsType:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getGoodsType.do',req,successCallback,errorCallback);
@@ -929,6 +987,9 @@ layui.define(['$tool','jquery'], function (exports) {
             doGet($tool.getContext() + 'bill/exportTimeReport.do',req,successCallback,errorCallback);
         },
 
+        findAll:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysUser/findAll.do', req, successCallback, errorCallback);
+        },
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },

@@ -34,7 +34,7 @@ layui.config({
             if (data2.length > 0) {
                 var html = '';
                 for (var i = 0; i < data2.length; i++) {
-                    html += '<option value="' + data2[i].id + '">' + data2[i].id + '-------' + data2[i].productName+ '</option>>';
+                    html += '<option value="' + data2[i].id + '">' + data2[i].other1 + '-------' + data2[i].productName+ '</option>>';
                 }
                 $('#parentMenu').append($(html));
                /* $('#parentMenu').val(hh);*/
@@ -84,7 +84,7 @@ layui.config({
 
            /*select1(data.productType);*/
              /*$("[name='productId']").val(data.productId);*/
-            /*todo(取不到值)*/
+
             $("[name='formulaType']").val(data.formulaType);
             $("[name='formulaNumber']").val(data.formulaNumber);
             $("[name='createUser']").val(data.createUser);

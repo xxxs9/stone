@@ -54,7 +54,7 @@ public class SysSupplierController {
         @ResponseBody
         public IResult getSupplierList(String page, String limit, String supplierName, String supplierDescribe,String chargeName, String phone, String email){
             //返回json至前端的均返回ResultBean或者PageResultBean
-            return new PageResultBean<Collection<SysSupplier>>(sysSupplierServiceImpl.getAll(page,limit,supplierName,supplierDescribe,chargeName,phone,email),sysSupplierServiceImpl.countGetAll(supplierName,supplierDescribe,chargeName,phone,email));
+            return new PageResultBean<Collection<SysSupplier>>(sysSupplierServiceImpl.getAll(page,limit,supplierName,chargeName,supplierDescribe,phone,email),sysSupplierServiceImpl.countGetAll(supplierName,supplierDescribe,chargeName,phone,email));
         }
 
         /**

@@ -6,7 +6,6 @@ import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FileUtil;
 import com.gameloft9.demo.utils.PropertyUtil;
 import com.gameloft9.demo.utils.QinniuUtil;
-import com.qiniu.util.Auth;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

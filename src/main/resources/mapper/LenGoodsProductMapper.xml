@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenGoodsProductMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenGoodsProduct">
+        <id column="ID" property="id"/>
+        <result column="PNAME" property="pname"/>
+        <result column="PPRICE" property="pprice"/>
+        <result column="STYLE1" property="style1"/>
+        <result column="BIANHAO" property="bianhao"/>
+        <result column="PICIHAO" property="picihao"/>
+        <result column="CAIZHI" property="caizhi"/>
+        <result column="XINGHAO" property="xinghao"/>
+        <result column="CHANGDI" property="changdi"/>
+        <result column="YANSE" property="yanse"/>
+        <result column="LEIXING" property="leixing"/>
+        <result column="CHICHUN" property="chichun"/>
+        <result column="ZHUANGTAI" property="zhuangtai"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3
+     </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select   ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3 from l_GoodsProduct
+    </select>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" >
+        select
+         ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3
+        from l_GoodsProduct
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--mysql版本/分页查询-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select
+        ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+        YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+        XINGHAO,OTHER1,OTHER2,OTHER3
+         from l_Goodsproduct t
+        where 1=1
+        <if test="pname != null and pname != ''">
+            and t.PNAME = #{pname,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>-->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_GoodsProduct
+        <!--where 1=1
+        <if test="productState != null and productState != ''">
+            and t.PRODUCT_STATE = #{productState,jdbcType=VARCHAR}
+        </if>-->
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_GoodsProduct
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenGoodsProduct">
+    insert into l_Goodsproduct (
+    ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,XINGHAO,
+    OTHER1,OTHER2,OTHER3)
+    values (
+    #{id},
+   #{pname},
+   #{pprice},
+   #{style1},
+   #{bianhao},
+   #{picihao},
+   #{caizhi},
+   #{changdi},
+   #{yanse},
+   #{leixing},
+   #{chichun},
+   #{zhuangtai},
+   #{xinghao},
+   #{other1},
+   #{other2},
+   #{other3}
+    )
+  </insert>
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenGoodsProduct">
+    update l_Goodsproduct
+    set
+      PNAME=#{pname},
+      PPRICE=#{pprice},
+      STYLE1=#{style1},
+      BIANHAO=#{bianhao},
+      PICIHAO=#{picihao},
+      CAIZHI=#{caizhi},
+      XINGHAO=#{xinghao},
+      CHANGDI=#{changdi},
+      YANSE=#{yanse},
+      LEIXING=#{leixing},
+      CHICHUN=#{chichun},
+      ZHUANGTAI=#{zhuangtai},
+     OTHER1=#{other1},
+     OTHER2=#{other2},
+     OTHER3=#{other3}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <update id="changeState" parameterType="String">
+        update l_Goodsproduct set ZHUANGTAI=#{zhuangtai} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByState"  resultMap="BaseResultMap">
+        select
+         ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3
+        from l_Goodsproduct where ZHUANGTAI=#{zhuangtai};
+    </select>
+    <select id="selectByUnProduce"  resultMap="BaseResultMap">
+        select
+         ID,PNAME,PPRICE,STYLE1,BIANHAO,PICIHAO,CAIZHI,CHANGDI,
+      YANSE,LEIXING,CHICHUN,ZHUANGTAI,
+      XINGHAO,OTHER1,OTHER2,OTHER3
+        from l_Goodsproduct where ZHUANGTAI='未生产';
+    </select>
+
+
+
+
+
+
+<!--    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        insert into l_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                canSold,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="productState != null">
+                PRODUCT_STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productNumber != null">
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="canSold != null">
+                #{canSold,jdbcType=VARCHAR},
+            </if>
+            <if test="supportPrice != null">
+                #{supportPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="productDescribe != null">
+                #{productDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR}
+            </if>
+        </trim>
+
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        update l_product
+        <set>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                CAN_SOLD,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>-->
+
+</mapper>
+
