@@ -30,7 +30,7 @@ layui.config({
         $api.selectRole(null,function (res) {
             var data = res.data;
                 for(var i=0;i<data.length;i++) {
-                    if (data[i] = '采购部门员工') {
+                    if (data[i] = 'admin') {
                         //超级管理员，显示所有表格
                         $('#messageShow').show();
                         $('#supplierShow').show();

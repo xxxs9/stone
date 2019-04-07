@@ -25,7 +25,7 @@ layui.config({
             datasets: [{
                 label: '# of Votes',
                 //线的颜色
-                strokeColor: "CCFFCC",
+                strokeColor: "#CCFFCC",
                 //点的填充颜色
                 fillColor: "#CCCCFF",
                 //与x轴对应的数据，写死做测试
@@ -72,10 +72,9 @@ layui.config({
 
     //四月份采购报表
     var data1;
-
     function selectChartByApril() {
         $api.selectChartByApril(null, function (res) {
-            console.log(res, data);
+            console.log(res.data);
             data1 = res.data;
         });
     }
@@ -85,11 +84,12 @@ layui.config({
     var myChart1 = new Chart(chart, {
         type: 'bar',
         data: {
+            //X轴数据
             labels: ['芝麻白花岗石', '樱桃红花岗石', '汉白玉', '云浮大理石', '白色细砂石', '彩色砂石', '雪花白大理石', '黑色板岩',
                 '黄木纹板岩', '意大利木纹大理石', '象牙米黄'],
             datasets: [{
                 label: '采购数量',
-                data: data1,
+                data: data1,/*[12, 19, 3, 5, 4, 24, 6, 9, 10, 4, 6],*/
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',

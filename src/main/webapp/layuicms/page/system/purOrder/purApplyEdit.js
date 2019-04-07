@@ -128,17 +128,17 @@ layui.config({
     form.verify({
         //数量goodsNumber
         actualBalance:function (value) {
-            //对数量进行判断，只能有数字并且保留两位小数
-            var number =/^[0-9]+([.]{1}[0-9]+){0,1}$/;
+            //对数量进行判断，只能整数
+            var number =/^[1-9]\d*$/;
             var btn = document.getElementById("number").value;
             if(!number.test(btn)){
-                return ("请输入数字!")
+                return ("输入有误，请重新输入!")
             }
 
             //对数量进行判断，只允许输入正数。
-            if(value==0){
+           /* if(value==0){
                 return '请输入数量!';
-            } /*else if (value<0){
+            } else if (value<0){
                 return '数量不能为负数!';
             }*/
         },

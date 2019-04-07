@@ -323,13 +323,13 @@ layui.define(['$tool','jquery'], function (exports) {
         commitPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/commit.do',req,config,successCallback,errorCallback);
         },
-        //撤回bacl
+        //撤回back
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
         //四月采购图表-柱状图
-        selectChartByApril:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/selectChartByApril.do',req,config,successCallback,errorCallback);
+        selectChartByApril:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
         //四月采购图表-饼状图
 
