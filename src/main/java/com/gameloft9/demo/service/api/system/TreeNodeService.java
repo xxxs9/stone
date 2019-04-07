@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.Perms;
 import com.gameloft9.demo.dataaccess.model.system.TreeNode;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,14 @@ public interface TreeNodeService {
     /**
      * 获取所有的父节点
      * */
-    List<TreeNode> getAllNode();
+    List<TreeNode> getAllNode(String page,String limit,String belongToName);
+
+    /**
+     * 总条数
+     * @param belongToName
+     * @return
+     */
+    int getCount(String belongToName);
 
     /**
      * 初始化所属资源

@@ -1,9 +1,11 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceBill;
+import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,5 +37,56 @@ public interface FinanceBillService {
      * 导出数据
      */
     void export(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 日报表
+     */
+    List<SysFinanceBill> getDayBill();
+
+    /**
+     * 周报表
+     */
+    List<SysFinanceBill> getWeekBill();
+
+    /**
+     * 月报表
+     */
+    List<SysFinanceBill> getMonthBill();
+
+    /**
+     * 年报表
+     */
+    List<SysFinanceBill> getYearBill();
+
+    /**
+     * 导出日报表
+     */
+    void exportDailyReport(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 导出周报表
+     */
+    void exportWeeklyReport(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 导出月报表
+     */
+    void exportMonthlyReport(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 导出年报表
+     */
+    void exportAnnualReport(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 导出时间报表
+     */
+    void exportTimeReport(HttpServletRequest request, HttpServletResponse response,String startTime,String endTime);
+
+    /**
+     * 时间报表
+     */
+    List<SysFinanceBill> getTimeBill(String startTime, String endTime);
+
 
 }

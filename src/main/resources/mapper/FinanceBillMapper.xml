@@ -65,7 +65,8 @@
     List<SysFinanceBill> getDayBill();-->
     <select id="getDayBill" resultMap="billMap">
         select * from a_bill
-        where to_days(BILL_TIME) = to_days(now());
+        where to_days(BILL_TIME) = to_days(now())
+        ORDER BY BILL_TIME desc
     </select>
 
     <!--/**
@@ -74,7 +75,8 @@
     List<SysFinanceBill> getWeekBill(); 这周日开始-->
     <select id="getWeekBill" resultMap="billMap">
         SELECT * FROM a_bill
-        WHERE YEARWEEK(DATE_FORMAT(BILL_TIME,'%Y-%m-%d')) = YEARWEEK(NOW());
+        WHERE YEARWEEK(DATE_FORMAT(BILL_TIME,'%Y-%m-%d')) = YEARWEEK(NOW())
+        ORDER BY BILL_TIME desc
     </select>
 
     <!--/**
@@ -84,6 +86,34 @@
     <select id="getMonthBill" resultMap="billMap">
         SELECT * FROM a_bill
         WHERE DATE_FORMAT( BILL_TIME, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        ORDER BY BILL_TIME desc
     </select>
+
+    <!--/**
+    * 年报表
+    */
+   List<SysFinanceBill> getYearBill();-->
+    <select id="getYearBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE YEAR(  BILL_TIME ) = YEAR( NOW( ) )
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--/**
+    * \时间报表
+    */
+   List<SysFinanceBill> getYearBill();-->
+    <select id="getTimeBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        <where>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+                and BILL_TIME between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        ORDER BY BILL_TIME desc
+    </select>
+
+
+
 
 </mapper>

@@ -14,7 +14,20 @@ public interface TreeNodeMapper {
     /**
      * 获取所有的父节点
      * */
-    List<TreeNode> getAllNode();
+    List<TreeNode> getAllNode(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("belongToName") String belongToName
+    );
+
+    /**
+     * 总条数
+     */
+    int getCount(
+            @Param("belongToName") String belongToName
+    );
+
+
 
     /**
      * 获取所有的子节点

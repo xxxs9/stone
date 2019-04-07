@@ -2,19 +2,19 @@ package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.Perms;
 import com.gameloft9.demo.dataaccess.model.system.TreeNode;
-import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
-import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
+import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.TreeNodeService;
-import com.gameloft9.demo.service.beans.system.MenuUpdateRequest;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -30,8 +30,8 @@ public class TreeNodeController {
 
     @RequestMapping(value = "/treeNode",method = RequestMethod.POST)
     @ResponseBody
-    public IResult treeNode(){
-        return new ResultBean<Collection<TreeNode>>(treeNodeService.getAllNode());
+    public IResult treeNode(String page,String limit,String belongToName){
+        return new PageResultBean<Collection<TreeNode>>(treeNodeService.getAllNode(page,limit,belongToName),treeNodeService.getCount(belongToName));
     }
 
     @RequestMapping(value = "/initBelongTo", method = RequestMethod.POST)

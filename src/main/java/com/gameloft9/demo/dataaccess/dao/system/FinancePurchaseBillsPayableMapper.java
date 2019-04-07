@@ -1,5 +1,6 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
+import com.gameloft9.demo.dataaccess.model.system.Num;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import org.apache.ibatis.annotations.Param;

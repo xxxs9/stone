@@ -9,6 +9,7 @@ import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
 import com.gameloft9.demo.dataaccess.model.system.TreeNode;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.TreeNodeService;
+import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,15 @@ public class TreeNodeServiceImpl implements TreeNodeService {
     SysMenuRoleTestMapper menuRoleTestMapper;
 
     @Override
-    public List<TreeNode> getAllNode() {
-        return treeNodeMapper.getAllNode();
+    public List<TreeNode> getAllNode(String page,String limit, String belongToName) {
+        PageRange pageRange = new PageRange(page,limit);
+        return treeNodeMapper.getAllNode(pageRange.getStart(),pageRange.getEnd(),belongToName);
+    }
+
+
+    @Override
+    public int getCount(String belongToName) {
+        return treeNodeMapper.getCount(belongToName);
     }
 
     @Override

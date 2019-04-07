@@ -924,6 +924,10 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
         },
+        /*导出时间报表*/
+        timeReport:function(req,successCallback,errorCallback){
+            doGet($tool.getContext() + 'bill/exportTimeReport.do',req,successCallback,errorCallback);
+        },
 
         getAllProduct:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);

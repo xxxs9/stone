@@ -24,8 +24,13 @@
     List<TreeNode> getAllNode();-->
     <select id="getAllNode" resultMap="treeNodeMap">
         select * from tree_node
-        where PARENT_ID not in ("0")
+        where 1=1
+        and PARENT_ID not in ("0")
+        <if test="belongToName != null and belongToName != ''">
+            and PARENT_ID = #{belongToName,jdbcType=VARCHAR}
+        </if>
         order by NAME desc
+        limit #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
     </select>
 
     <!--/**
@@ -36,6 +41,18 @@
         select * from tree_node
         where PARENT_ID=#{pid}
         order by NAME desc
+    </select>
+
+    <!-- int getCount(
+            @Param("belongToName") String belongToName
+    );-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1) from tree_node
+        where 1=1
+        and PARENT_ID not in ("0")
+            <if test="belongToName != null and belongToName != ''">
+                and ID = #{belongToName,jdbcType=VARCHAR}
+            </if>
     </select>
 
     <!--初始化所属资源public List<TreeNode> initBelongTo();-->

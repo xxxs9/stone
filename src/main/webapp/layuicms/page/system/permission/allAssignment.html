@@ -18,25 +18,13 @@
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
         <div class="layui-inline">
-            <label class="layui-form-label">父菜单</label>
+            <label class="layui-form-label">所属资源</label>
             <div class="layui-input-block">
-                <select id="parentMenu" name="parentMenuId"></select>
+                <select id="belongToName" name="belongToName"></select>
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">菜单名称</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuName" placeholder="请输入菜单名称">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">菜单编码</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="menuCode" placeholder="请输入菜单编码">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryParent">查询</a>
         </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal permsAdd_btn">添加菜单</a>

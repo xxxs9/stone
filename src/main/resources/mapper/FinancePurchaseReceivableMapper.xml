@@ -211,12 +211,30 @@
 
     <!--List<String> getPurchaseReceiveChart();-->
     <select id="getPurchaseReceiveChart" resultType="java.lang.String">
-        SELECT
-        SUM(ACTUAL_BALANCE)
-        FROM a_purchase_receivable
-        WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
-        AND AUDIT_STATE=3
-        GROUP BY ACTUAL_BALANCE
-        ORDER BY AUDIT_TIME
+        select b.actualBalance FROM
+         (SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'01') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'02') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'03') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'04') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'05') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'06') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'07') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'08') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'09') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'10') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'11') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'12') as mon from  DUAL )a
+        LEFT JOIN
+        (SELECT
+          DATE_FORMAT(AUDIT_TIME,'%Y%m') smon,
+        IFNULL(sum(s.ACTUAL_BALANCE),0) as actualBalance
+        FROM
+            a_purchase_receivable s
+        where
+            AUDIT_STATE=3
+        GROUP BY
+            DATE_FORMAT(AUDIT_TIME,'%Y%m')) b
+         on a.mon = b.smon
+         ORDER BY mon
     </select>
 </mapper>

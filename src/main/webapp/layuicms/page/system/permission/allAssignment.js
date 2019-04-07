@@ -18,22 +18,23 @@ layui.config({
     /**
      * 页面初始化
      * */
-    function init() {
-
-        //初始化下拉框
-        $api.GetFirstClassMenus(null,function (res) {
+    /**
+     * 初始化下拉框
+     * */
+    function initParentMenu() {
+        $api.initBelongTo(null,function (res) {
             var data = res.data;
-            if(data.length > 0){
+            if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].name + '</option>>';
                 }
-                $('#parentMenu').append($(html));
+                $('#belongToName').append($(html));
                 form.render();
             }
         });
     }
-    init();
+    initParentMenu()
 
 
     /**
@@ -43,7 +44,7 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
+            , height: 500
             , url: $tool.getContext() + 'node/treeNode.do' //数据接口
             , method: 'post'
             , page:true //开启分页
@@ -80,17 +81,12 @@ layui.config({
 
 
     //查询
-    form.on("submit(queryMenu)", function (data) {
-        var parentMenuId = data.field.parentMenuId;
-        var menuName = data.field.menuName;
-        var menuCode = data.field.menuCode;
-
+    form.on("submit(queryParent)", function (data) {
+        var belongToName = data.field.belongToName;
         //表格重新加载
         tableIns.reload({
             where:{
-                parentMenuId:parentMenuId,
-                menuName:menuName,
-                menuCode:menuCode
+                belongToName:belongToName,
             }
         });
 
