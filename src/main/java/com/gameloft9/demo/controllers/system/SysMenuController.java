@@ -13,8 +13,6 @@ import com.gameloft9.demo.service.beans.system.MenuUpdateRequest;
 import com.gameloft9.demo.service.beans.system.SysMenuTestExtend;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
