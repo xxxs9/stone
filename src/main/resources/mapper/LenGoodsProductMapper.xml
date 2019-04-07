@@ -142,7 +142,7 @@
 
 
     <update id="changeState" parameterType="String">
-        update l_Goodsproduct set ZHUANGTAI=#{zhuangtai} where ID = #{id,jdbcType=VARCHAR}
+        update l_Goodsproduct set ZHUANGTAI=#{zhuangtai} where BIANHAO = #{bianhao,jdbcType=VARCHAR}
     </update>
 
     <select id="selectByState"  resultMap="BaseResultMap">

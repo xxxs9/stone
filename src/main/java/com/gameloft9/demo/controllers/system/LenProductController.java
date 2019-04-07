@@ -63,7 +63,8 @@ public class LenProductController {
         LenProduct product = service.getByPrimaryKey(id);
         String productOther2 = product.getCanSold();
         String sysUser = (String) SecurityUtils.getSubject().getSession().getAttribute("sysUser");
-        if (productOther2.equals(sysUser)){
+        boolean role = SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN);
+        if (productOther2.equals(sysUser)||role){
             if (service.delete(id)){
                 return new ResultBean<Boolean>(true);
 
@@ -145,7 +146,7 @@ public class LenProductController {
     @ResponseBody
     public IResult stepBack(String id) {
 
-        if (Constants.lennonPDAudi() == 1) {
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
 
             if (service.changeProState(Constants.productState.TIJIAO_UNAUDI, id)) {
                 return new ResultBean<Boolean>(true);

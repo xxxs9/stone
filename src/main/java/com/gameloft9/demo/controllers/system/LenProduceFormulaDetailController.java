@@ -71,4 +71,5 @@ public class LenProduceFormulaDetailController {
         return  new ResultBean<List>(service.getByFormulaId(id));
     }
 
+
 }

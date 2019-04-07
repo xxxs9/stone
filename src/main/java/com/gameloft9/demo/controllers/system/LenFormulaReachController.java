@@ -28,6 +28,7 @@ public class LenFormulaReachController {
     @Autowired
     LenFormulaReachService service;
 
+
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectAll(){
@@ -42,11 +43,11 @@ public class LenFormulaReachController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1){
-        if (service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime,other1)){
+    public IResult add(String id, String productId, String produceFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1 ,String other2){
+        if (service.insert(id, productId, produceFormulaId, produceFormulaDetailId, depotAudi, formulaBack, state, reachUser, reachTime,other1,other2)){
             return new ResultBean<Boolean>(true);
         }else {
-            throw new RuntimeException(">>>>>>>权限不足<<<<<<<");
+           return new ResultBean<String>("4011",">>>>>权限不足<<<<<");
         }
 
     }
@@ -82,9 +83,9 @@ public class LenFormulaReachController {
         if(service.stopProduct(id)){
             return new ResultBean<Boolean>(flag);
         }else{
-          new RuntimeException("操作失败");
+            return new ResultBean<String>("4011",">>>>>操作失败<<<<<");
         }
-        return new ResultBean<Boolean>(flag);
+
     }
 
     @RequestMapping(value = "/goOn",method = RequestMethod.POST)

@@ -648,6 +648,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getAllFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
         },
+        getByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
+        },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/add',req,successCallback,errorCallback);
