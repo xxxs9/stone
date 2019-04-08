@@ -88,11 +88,11 @@ public class SysRoleController {
 
     /**
      * 返回session
-     * */
+     * *//*
     @RequestMapping(value = "/role.do",method = RequestMethod.POST)
     @ResponseBody
     public IResult getSession(HttpServletRequest request){
         List<String> roles = (List<String>) request.getSession().getAttribute("roles");
         return new ResultBean<Collection<String>>(roles);
-    }
+    }*/
 }

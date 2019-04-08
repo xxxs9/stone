@@ -44,7 +44,7 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 500
+            , height: 420
             , url: $tool.getContext() + 'node/treeNode.do' //数据接口
             , method: 'post'
             , page:true //开启分页
