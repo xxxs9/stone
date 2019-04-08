@@ -47,7 +47,7 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].pname + '">'+ data[i].bianhao + '---' + data[i].pname + '</option>';
+                    html += '<option value="' + data[i].bianhao + '">'+ data[i].bianhao + '---' + data[i].pname + '</option>';
                 }
                 $('#productName1').append($(html));
                 form.render();

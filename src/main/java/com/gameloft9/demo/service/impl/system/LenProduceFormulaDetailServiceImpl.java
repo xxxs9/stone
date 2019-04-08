@@ -31,6 +31,11 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         return mapper.selectAll();
     }
 
+    /**
+     * 通过formulaId查找
+     * @param formulaId
+     * @return
+     */
     public List<LenProduceFormulaDetail> getByFormulaId(String formulaId) {
         return mapper.getByFormulaId(formulaId);
     }
@@ -138,5 +143,16 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      */
     public boolean updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail) {
         return false;
+    }
+
+    /**
+     * 由formulaId找到formulaDetailID
+     *
+     * @param produceFormulaId
+     * @return
+     */
+    @Override
+    public String selectIdByFomulaId(String produceFormulaId) {
+        return mapper.selectFomulaId(produceFormulaId);
     }
 }

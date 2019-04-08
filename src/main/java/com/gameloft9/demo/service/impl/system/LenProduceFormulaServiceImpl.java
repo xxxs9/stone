@@ -100,4 +100,13 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     public boolean insertSelective(LenProduceFormula lenProduceFormula) {
         return false;
     }
+
+    /**
+     * 由productId查找
+     * @param productId
+     * @return
+     */
+    public List<LenProduceFormula> getByProductId(String productId){
+        return mapper.getByProductId(productId);
+    }
 }

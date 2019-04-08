@@ -27,10 +27,7 @@ layui.config({
     init();
 
     function selectRoles() {
-        $api.selectRole(null,function (res) {
-            var data = res.data;
-                for(var i=0;i<data.length;i++) {
-                    if (data[i] = 'admin') {
+
                         //超级管理员，显示所有表格
                         $('#messageShow').show();
                         $('#supplierShow').show();
@@ -182,7 +179,7 @@ layui.config({
 
                         financeTable();
 
-                    } /*else
+                    /*else
                     if (data[i] = '采购部门员工') {
                         //采购部门，只显示采购部和通知部内容
                         $('#messageShow').show();
@@ -229,8 +226,7 @@ layui.config({
                         proOrderTable();
                     }*/
 
-                }
-        });
+
     }
     selectRoles();
 
