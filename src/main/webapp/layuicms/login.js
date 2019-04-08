@@ -52,20 +52,20 @@ layui.config({
 
     /*    function Push() {*/
 /*   每次登录触发一次查询未读消息的方法 来获取未读消息条数 */
-            $api.getNewMessage(null, function (res) {
+          /*  $api.getNewMessage(null, function (res) {
                 var uMessage =res.data
 
-           /*     if(uMessage>0){
+                if(uMessage>0){
                     layer.tips('你收到了' + uMessage + '新信息！请在信箱查看', '#shownewmessageinfo', {
                         tips: [1, '#3595CC'],
                         time: 5000
 
                     });
-                }*/
-               /* document.getElementById("unreadMessage").innerHTML=uMessage*/
-               /* $("#unreadMessage").html(uMessage)*/
+                }
+                document.getElementById("unreadMessage").innerHTML=uMessage
+                $("#unreadMessage").html(uMessage)
 
-            });
+            });*/
 
       /*  }*/
 

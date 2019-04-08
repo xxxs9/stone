@@ -49,6 +49,7 @@ layui.config({
             , cols: [[ //表头
                 {type:'numbers',title:'',fixed: 'left',width: '2.5%'}
                 ,{type:'checkbox',title:'',fixed: 'left',width: '2.5%'}
+                ,{field: 'id', title: '订单编号', width: '10%'}
                 ,{field: 'goodsId', title: '货物编号', width: '10%'}
                 ,{field: 'type', title: '入库类型', width: '10%'}
                 , {field: 'goodsNumber', title: '货品数量', width: '10%'}

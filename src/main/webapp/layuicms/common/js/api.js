@@ -436,6 +436,9 @@ layui.define(['$tool','jquery'], function (exports) {
         isAuditPassOut:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotOrder/isAuditPassOut.do',req,successCallback,errorCallback);
         },
+        DeleteCheck:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotInventoryCheck/delete.do',req,successCallback,errorCallback);
+        },
 
 
 

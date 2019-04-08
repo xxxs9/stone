@@ -1,10 +1,10 @@
 
+‚squid:UselessImportCheck"RRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotOrder'.(í‚Í¦üÿÿÿÿ8ÚÆÓ•ž-
+msquid:S4488C"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(þþŽ¢ÿÿÿÿÿ8ÆÐÏ»ž-
+nsquid:UselessImportCheck"CRemove this unused import 'org.springframework.stereotype.Service'.(¼º¡Ú8ÆÐÏ»ž-
+|squid:UselessImportCheck"RRemove this unused import 'com.gameloft9.demo.mgrframework.annotation.BizOperLog'.(ôèŠn8ÆÐÏ»ž-
 hsquid:S4488+"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¡¡ô‘8ÚÆÓ•ž-
 msquid:S44886"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(•›Ó†øÿÿÿÿ8ÚÆÓ•ž-
 squid:UselessImportCheck"TRemove this unused import 'com.gameloft9.demo.mgrframework.beans.constant.OperType'.(ØÌØ§8ÆÐÏ»ž-
-nsquid:UselessImportCheck"CRemove this unused import 'org.springframework.stereotype.Service'.(¼º¡Ú8ÆÐÏ»ž-
-msquid:S4488C"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(þþŽ¢ÿÿÿÿÿ8ÆÐÏ»ž-
-‚squid:UselessImportCheck"RRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotOrder'.(í‚Í¦üÿÿÿÿ8ÚÆÓ•ž-
-|squid:UselessImportCheck"RRemove this unused import 'com.gameloft9.demo.mgrframework.annotation.BizOperLog'.(ôèŠn8ÆÐÏ»ž-
-jsquid:UselessImportCheck"?Remove this unused import 'com.gameloft9.demo.utils.Constants'.(‘âÓÄ8ÆÐÏ»ž-
 †squid:UselessImportCheck"VRemove this unused import 'com.gameloft9.demo.dataaccess.model.system.DepotPersonnel'.(²å‘‚ÿÿÿÿÿ8ÚÆÓ•ž-
+jsquid:UselessImportCheck"?Remove this unused import 'com.gameloft9.demo.utils.Constants'.(‘âÓÄ8ÆÐÏ»ž-
