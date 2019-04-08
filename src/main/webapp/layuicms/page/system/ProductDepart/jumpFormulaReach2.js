@@ -28,13 +28,16 @@ layui.config({
      * */
     function init() {
         //初始化下拉框
-        initMenuInfo()
+        initMenuInfo();
         selectProduct();
-        select4();
-        select5();
-        //select6();
-        // selectFormula()
+       // select4();
+        select7(productId);
+        //select5();
 
+        //select6( $("#produceFormulaId").val());
+
+        // selectFormula()
+        $("[name='reachUser']").val(window.sessionStorage.getItem('sysUser'));
     }
 
     init();
@@ -56,22 +59,46 @@ layui.config({
          });
      }
  */
+    form.on('select(menuTypeFilter1)', function (id4) {
+        //alert(id4.value);
+        console.log(id4.value);
+        var req = {
+            id: id4.value
+        }
+
+        $api.getProduceFormulaDetailByFormulaId(req, function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].other1 + '</option>';
+                    html2 = data[i].materialId;
+                }
+                $('#produceFormulaDetailId').append($(html));
+                // $('#produceFormulaDetailId').val(formulaId);
+                $('#other2').val(html2);
+                // $('#state').val(hh);
+                form.render();
+            }
+        });
+
+    });
 
 
     /**
      * 表单提交
      * */
-        //todo(产品类型)
+
 
     var wid = 0;
-
+    var productId;
     function selectProduct() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
         var req = {
             id: id
         }
-
+        productId=id;
         $('#productId').val(id)
         $api.getProducePlanById(req, function (res) {
 
@@ -80,7 +107,7 @@ layui.config({
 
 
             // $('#produceFormulaId1').val(hh);
-            $("[name='reachUser']").val(window.sessionStorage.getItem('sysUser'));
+
 
             function aa(wid) {
                 var reqs = {
@@ -141,7 +168,7 @@ layui.config({
             $("[name='state']").val(data.productState);
             $("[name='productName']").val(data.productName);
 
-            //todo(选项的值)
+
 
             form.render();//重新绘制表单，让修改生效
         });
@@ -149,7 +176,29 @@ layui.config({
 
     }
 
-    var formulaId;
+
+        function func(id4) {
+        alert(id4)
+            var req = {
+                id: id4
+            }
+
+            $api.getProduceFormulaDetailByFormulaId(req, function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].id + '">' + data[i].id + '</option>';
+                        html2 = data[i].materialId;
+                    }
+                    $('#produceFormulaDetailId').append($(html));
+                    // $('#produceFormulaDetailId').val(formulaId);
+                    $('#other2').val(html2);
+                    // $('#state').val(hh);
+                    form.render();
+                }
+            });
+        }
 
     function select4() {
         $api.getAllFormula(null, function (res) {
@@ -157,8 +206,8 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].id + '</option>';
-                    formulaId = data[i].id;
+                    html += '<option value="' + data[i].id + '">' + data[i].other1 + '</option>';
+
                 }
                 $('#produceFormulaId').append($(html));
                 // $('#state').val(hh);
@@ -175,34 +224,61 @@ layui.config({
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].id + '</option>';
+                    html += '<option value="' + data[i].id + '">' + data[i].other1 + '</option>';
+                    html2 = data[i].materialId;
+
+
                 }
                 $('#produceFormulaDetailId').append($(html));
+                $('#other2').val(html2);
                 // $('#state').val(hh);
                 form.render();
             }
 
         });
-
-
     }
 
+    //通过formulaId查找formulaDetail
     function select6(formulaId) {
         var req = {
-            formulaId: formulaId
+            id: formulaId
         }
+
         $api.getProduceFormulaDetailByFormulaId(req, function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i].id + '">' + data[i].id + '</option>';
+                    html2 = data[i].materialId;
                 }
                 $('#produceFormulaDetailId').append($(html));
+               // $('#produceFormulaDetailId').val(formulaId);
+                $('#other2').val(html2);
                 // $('#state').val(hh);
                 form.render();
             }
         });
+    }
+    function select7(id) {
+        var req={
+            id:id
+        }
+        $api.getByProductId(req,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].other1 + '</option>';
+
+                }
+                $('#produceFormulaId').append($(html));
+                // $('#state').val(hh);
+                form.render();
+            }
+
+        });
+
     }
 
     /**
@@ -231,10 +307,11 @@ layui.config({
     form.on("submit(addMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
-
+        var other2 = data.field.other2;
         var productId = data.field.productId;
         var produceFormulaId = data.field.produceFormulaId;
         var produceFormulaDetailId = data.field.produceFormulaDetailId;
+
         var depotAudi = data.field.depotAudi;
         var state = data.field.state;
         var formulaBack = data.field.formulaBack;
@@ -255,7 +332,8 @@ layui.config({
             formulaBack: formulaBack,
             reachUser: reachUser,
             reachTime: reachTime,
-            other1: reachNumber
+            other1: reachNumber,
+            other2:other2
         };
 
         id2 = productId;

@@ -212,5 +212,9 @@
         SELECT MATERIAL_NUMBER from l_produce_formula_detail
         where ID = #{id}
     </select>
+
+
+
+
 </mapper>
 

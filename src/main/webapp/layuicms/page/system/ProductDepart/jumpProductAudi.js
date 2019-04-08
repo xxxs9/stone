@@ -110,6 +110,23 @@ layui.config({
             return false;
         });
     });
+    var queryArgs = $tool.getQueryParam();//获取查询参数
+    var wid = queryArgs['id'];
+    var req={
+        id:wid
+    }
+    $('#audiNot').click(function () {
+        $api.audiNot(req,function (res) {
+            alert(req);
+            layer.msg(">>>审核未通过，已驳回<<<", {time: 1000}, function () {
+                layer.closeAll("iframe");
+                //刷新父页面
+                parent.location.reload();
+            });
+            return false;
+
+        })
+    });
 
     /**
      * 表单提交

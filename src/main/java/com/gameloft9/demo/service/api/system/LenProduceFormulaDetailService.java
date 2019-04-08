@@ -97,4 +97,11 @@ public interface LenProduceFormulaDetailService {
      * @return
      */
     List<LenProduceFormulaDetail> getByFormulaId(String formulaId);
+
+    /**
+     * 由formulaId找到formulaDetailID
+     * @param produceFormulaId
+     * @return
+     */
+    String selectIdByFomulaId( String produceFormulaId);
 }
