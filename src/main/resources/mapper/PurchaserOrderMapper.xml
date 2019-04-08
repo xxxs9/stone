@@ -508,7 +508,7 @@
         FROM
             t_purchase_order
         WHERE
-            GOODS_NAME='意大利木纹大理石'
+            GOODS_NAME=#{goodsName}
         AND
             DEPOT_STATE='审核通过'
         AND

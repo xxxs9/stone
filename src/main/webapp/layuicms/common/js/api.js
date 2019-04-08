@@ -323,13 +323,13 @@ layui.define(['$tool','jquery'], function (exports) {
         commitPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/commit.do',req,config,successCallback,errorCallback);
         },
-        //撤回bacl
+        //撤回back
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
         //四月采购图表-柱状图
-        selectChartByApril:function(req,config,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_order/selectChartByApril.do',req,config,successCallback,errorCallback);
+        selectChartByApril:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
@@ -592,7 +592,10 @@ layui.define(['$tool','jquery'], function (exports) {
 
 
 
-        //领料reach.do
+        //领料reach.do audiNot
+        audiNot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/audiNot',req,successCallback,errorCallback);
+        },
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
         },
@@ -646,6 +649,9 @@ layui.define(['$tool','jquery'], function (exports) {
         //列出配方表所有信息
         getAllFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
+        },
+        getByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
         },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
@@ -755,7 +761,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getreachList:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
-    },
+        },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);

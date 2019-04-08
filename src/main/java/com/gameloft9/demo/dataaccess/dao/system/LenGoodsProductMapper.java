@@ -35,10 +35,10 @@ public interface LenGoodsProductMapper {
     /**
      * 修改状态
      * @param zhuangtai
-     * @param id
+     * @param bianhao
      * @return
      */
-    int changeState(@Param("zhuangtai")String zhuangtai,@Param("id")String id);
+    int changeState(@Param("zhuangtai")String zhuangtai,@Param("bianhao")String bianhao);
 
     /**
      * 计数
