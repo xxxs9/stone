@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +165,7 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
 
         DepotInventory depotInventory = depotInventoryMapper.findOne(goodsId);
         depotInventory.setGoodsNumber(goodsNumber);
+        depotInventory.setSaleableNumber(String.valueOf(Integer.parseInt(depotInventory.getGoodsNumber())-Integer.parseInt(depotInventory.getShipmentsNumber())));
 
         depotInventoryMapper.updateByPrimaryKeySelective(depotInventory);
 

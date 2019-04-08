@@ -150,6 +150,7 @@ layui.config({
                     tableIns.reload();
                 });
             });
+
         });
     }
 
