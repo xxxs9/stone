@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.PurchaseReturnService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,7 @@ public class PurchaseReturnController {
      * 增加*/
     @RequestMapping(value = "/insert.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult insert(PurchaseReturn purchaseReturn){
         return new ResultBean<String>(service.insert(purchaseReturn));
     }
@@ -61,6 +63,7 @@ public class PurchaseReturnController {
      * 删除*/
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult deleteByPrimaryKey(String id){
         return new ResultBean<Boolean>(service.deleteByPrimaryKey(id));
     }
@@ -77,6 +80,7 @@ public class PurchaseReturnController {
      * 修改*/
     @RequestMapping(value = "/update.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult update(PurchaseReturn purchaseReturn){
         return new ResultBean<Boolean>(service.update(purchaseReturn));
     }
@@ -108,6 +112,7 @@ public class PurchaseReturnController {
      * 采购退货 提交*/
     @RequestMapping(value = "/commit.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult commitReUpdate(PurchaseReturn purchaseReturn){
         return new ResultBean<Boolean>(service.commitReUpdate(purchaseReturn));
     }
@@ -116,6 +121,7 @@ public class PurchaseReturnController {
      * 采购退货 撤回*/
     @RequestMapping(value = "/back.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult backReUpdate(PurchaseReturn purchaseReturn){
         return new ResultBean<Boolean>(service.backReUpdate(purchaseReturn));
     }

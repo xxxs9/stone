@@ -331,6 +331,10 @@ layui.define(['$tool','jquery'], function (exports) {
         selectChartByApril:function(req,successCallback,errorCallback){
             chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
+        //四月采购图表-柱状图 获取所有goodsName
+        selectGoodsNameAll:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'purchase_order/selectGoodsNameAll.do',req,successCallback,errorCallback);
+        },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
         financePurOrder:function(req,config,successCallback,errorCallback){

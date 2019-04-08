@@ -508,11 +508,19 @@
         FROM
             t_purchase_order
         WHERE
-            GOODS_NAME=#{goodsName}
-        AND
             DEPOT_STATE='审核通过'
         AND
             MONTH(DEPOT_TIME) = 4
+		GROUP BY
+		    GOODS_NAME
+    </select>
+
+    <!--报表获取goodsName-->
+    <select id="selectGoodsNameAll" resultType="java.lang.String">
+        SELECT DISTINCT
+            GOODS_NAME
+        FROM
+            t_purchase_order
     </select>
 
     <!--阿发包  财务管理人员  根据财务审核状态来获取内容,分页-->

@@ -8,7 +8,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-;
+
 
 
 
@@ -20,8 +20,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 @ServerEndpoint(value="/websocket",configurator=GetHttpSessionConfigurator.class)
 public class WebSocketTest {
-;
-
 
     /* MyThread thread1=new MyThread();
         Thread thread=new Thread(thread1);*/

@@ -368,7 +368,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**四月份报表 柱状图*/
-    public List<String> selectChartByApril(){
-        return dao.selectChartByApril();
+    public List<String> selectChartByApril(String goodsName){
+        return dao.selectChartByApril(goodsName);
+    }
+
+    /**报表 获取所有goodsName*/
+    public List<String> selectGoodsNameAll(){
+        return dao.selectGoodsNameAll();
     }
 }
