@@ -593,7 +593,10 @@ layui.define(['$tool','jquery'], function (exports) {
 
 
 
-        //领料reach.do
+        //领料reach.do audiNot
+        audiNot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/audiNot',req,successCallback,errorCallback);
+        },
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
         },
@@ -759,7 +762,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getreachList:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
-    },
+        },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
