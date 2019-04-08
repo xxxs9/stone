@@ -37,7 +37,7 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                 {type:'numbers',title:'',fixed: 'left',width: '2.5%'}
-                , {field: 'goodsId', title: '货物ID', width: '15%'}
+                , {field: 'goodsId', title: '货物编号', width: '15%'}
                 , {field: 'type', title: '货物类型', width: '15%'}
                 , {field: 'goodsName', title: '货物名称', width: '17.5%'}
                 , {field: 'goodsNumber', title: '货品数量', width: '15%'}
