@@ -65,11 +65,11 @@ layui.config({
             var uMessage =res.data
             /*  $("#val_sg_num").val(res.data);*/
             if(uMessage>0){
-                layer.tips('你收到了' + uMessage + '新信息！请在信箱查看', '#shownewmessageinfo', {
+              /*  layer.tips('你收到了' + uMessage + '新信息！请在信箱查看', '#shownewmessageinfo', {
                     tips: [1, '#3595CC'],
                     time: 5000
 
-                });
+                });*/
             }
             /*document.getElementById("unreadMessage").innerHTML=uMessage*/
 

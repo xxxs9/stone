@@ -94,7 +94,7 @@ layui.config({
         var index = layui.layer.open({
             title: "添加用户",
             type: 2,
-            content: "addNotify.html",
+            content: "replyNotify.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
