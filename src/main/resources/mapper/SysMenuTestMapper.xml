@@ -271,7 +271,7 @@
     select * from (
         select * from SYS_MENU_TEST t
         where 1=1
-        and t.HREF not in ("#")
+        and t.PERMS is null
         <if test="parentMenuId !=null and parentMenuId != ''">
             and t.parent_id = #{parentMenuId,jdbcType=VARCHAR}
         </if>

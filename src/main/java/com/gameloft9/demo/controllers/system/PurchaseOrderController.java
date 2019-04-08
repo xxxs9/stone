@@ -6,6 +6,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.PurchaseOrderService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -138,6 +139,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/commit.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult commitPurOrder(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.commitUpdate(purchaseOrder));
     }

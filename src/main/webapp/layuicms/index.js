@@ -298,9 +298,9 @@ layui.config({//基础目录
     };
 
     //连接成功建立的回调方法
-    websocket.onopen = function () {
+    /*websocket.onopen = function () {
         setMessageInnerHTML("WebSocket连接成功");
-    }
+    }*/
 
     //接收到消息的回调方法
     websocket.onmessage = function (event) {
@@ -416,12 +416,12 @@ function Push() {
 
 
     //判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
-    if (window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true") {
+    /*if (window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true") {
         showNotice();
     }
     $(".showNotice").on("click", function () {
         showNotice();
-    });
+    });*/
 
     //刷新后还原打开的窗口
     if (window.sessionStorage.getItem("menu") != null) {
