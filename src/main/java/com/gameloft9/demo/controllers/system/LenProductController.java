@@ -112,7 +112,7 @@ public class LenProductController {
         LenProduct product = service.getByPrimaryKey(id);
         String productOther2 = product.getCanSold();
         //实体内创建的用户和当前用户进比较 是否一致
-        if (productOther2.equals(currentUserId)){
+        if (productOther2.equals(currentUserId)||SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
             if (service.changeState(id)){
                 return new ResultBean(true);
             }else{
