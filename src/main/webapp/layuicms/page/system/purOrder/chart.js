@@ -17,7 +17,7 @@ layui.config({
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = document.getElementById('purChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    /*var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: ['芝麻白花岗石', '樱桃红花岗石', '汉白玉', '云浮大理石', '白色细砂石', '彩色砂石', '雪花白大理石', '黑色板岩',
@@ -58,7 +58,7 @@ layui.config({
                 ],
                 borderWidth: 1
             }]
-        }
+        }*/
         /*options: {
             scales: {
                 yAxes: [{
@@ -68,7 +68,7 @@ layui.config({
                 }]
             }
         }*/
-    });
+/*    });*/
 
     //四月份采购报表
     var data1;
@@ -81,15 +81,22 @@ layui.config({
 
     selectChartByApril();
 
-    var myChart1 = new Chart(chart, {
+    var data;
+    function selectGoodsNameAll(){
+        $api.selectGoodsNameAll(null, function (res) {
+            data = res.data;
+        });
+    }
+    selectGoodsNameAll();
+
+    var Chart1 = new Chart(chart, {
         type: 'bar',
         data: {
             //X轴数据
-            labels: ['芝麻白花岗石', '樱桃红花岗石', '汉白玉', '云浮大理石', '白色细砂石', '彩色砂石', '雪花白大理石', '黑色板岩',
-                '黄木纹板岩', '意大利木纹大理石', '象牙米黄'],
+            labels:data,
             datasets: [{
                 label: '采购数量',
-                data: /*data1,*/[12, 19, 3, 5, 4, 24, 6, 9, 10, 4, 6],
+                data:data1,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',

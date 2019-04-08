@@ -56,6 +56,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/insert.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult insert(PurchaseOrder purchaseOrder){
         return new ResultBean<String>(service.insert(purchaseOrder));
     }
@@ -65,6 +66,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult deleteByPrimaryKey(String id){
         return new ResultBean<Boolean>(service.deleteByPrimaryKey(id));
     }
@@ -74,6 +76,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/update.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult updateByPrimaryKey(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.updateByPrimaryKey(purchaseOrder));
     }
@@ -83,6 +86,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value ="/inspect.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("manager:add")
     public IResult inspectPurOrder(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.inspectUpdate(purchaseOrder));
     }
@@ -97,10 +101,11 @@ public class PurchaseOrderController {
     }
 
     /**
-     * 查看 look
+     * 查看审核失败原因 look
      */
     @RequestMapping(value = "/look.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult lookPurOrder(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
     }
@@ -149,6 +154,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/recall.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder：add")
     public IResult recallPurOrder(String id){
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
@@ -158,6 +164,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult selectAllByInOrder(String page,String limit,String goodsName,String depotState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInOrder(page,limit,
                 goodsName,depotState),service.countGetAllByInOrder(goodsName,depotState));
@@ -168,6 +175,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/bringIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult bringInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.bringInUpdate(purchaseOrder));
     }
@@ -177,6 +185,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/sureIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult sureInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.sureInUpdate(purchaseOrder));
     }
@@ -186,6 +195,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/commitIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult commitInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.commitInUpdate(purchaseOrder));
     }
@@ -195,6 +205,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/backIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult backInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.backInUpdate(purchaseOrder));
     }
@@ -204,6 +215,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/editIn.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult editInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.InUpdate(purchaseOrder));
     }
@@ -213,6 +225,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/lookIn.do")
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult lookInUpdate(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.lookUpdate(purchaseOrder));
     }
@@ -241,6 +254,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/search.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:add")
     public IResult selectAllBySearch(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.selectAllBySearch(purchaseOrder));
     }
@@ -259,7 +273,17 @@ public class PurchaseOrderController {
      * */
     @RequestMapping(value = "/selectChartByApril.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectChartByApril(){
-        return new ResultBean<Collection<String>>(service.selectChartByApril());
+    public IResult selectChartByApril(String goodsName){
+        return new ResultBean<Collection<String>>(service.selectChartByApril(goodsName));
     }
+
+    /**
+     * 报表 获取所有goodsName
+     * */
+    @RequestMapping(value = "/selectGoodsNameAll",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectGoodsNameAll(){
+        return new ResultBean<Collection<String>>(service.selectGoodsNameAll());
+    }
+
 }
