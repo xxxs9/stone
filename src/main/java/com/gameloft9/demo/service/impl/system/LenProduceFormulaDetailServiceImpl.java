@@ -4,6 +4,7 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail;
 import com.gameloft9.demo.service.api.system.LenProduceFormulaDetailService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         return mapper.selectAll();
     }
 
+    /**
+     * 通过formulaId查找
+     * @param formulaId
+     * @return
+     */
     public List<LenProduceFormulaDetail> getByFormulaId(String formulaId) {
         return mapper.getByFormulaId(formulaId);
     }
@@ -73,6 +79,7 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         len.setMaterialId(lenProduceFormulaDetail.getMaterialId());
         len.setMaterialNumber(lenProduceFormulaDetail.getMaterialNumber());
         len.setProduceFormulaId(lenProduceFormulaDetail.getProduceFormulaId());
+        len.setOther1(OrderUtil.lenOrderNumber("DE"));
         if (mapper.insert(len) > 0) {
             return true;
         } else {
@@ -136,5 +143,16 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      */
     public boolean updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail) {
         return false;
+    }
+
+    /**
+     * 由formulaId找到formulaDetailID
+     *
+     * @param produceFormulaId
+     * @return
+     */
+    @Override
+    public String selectIdByFomulaId(String produceFormulaId) {
+        return mapper.selectFomulaId(produceFormulaId);
     }
 }

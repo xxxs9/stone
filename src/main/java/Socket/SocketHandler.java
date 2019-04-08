@@ -24,6 +24,7 @@ public class SocketHandler implements WebSocketHandler {
 @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
 
+
     }
 @Override
     public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {

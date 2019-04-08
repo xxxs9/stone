@@ -210,6 +210,10 @@ public interface PurchaseOrderMapper {
      * */
     PurchaseOrder selectByOrderNumber(String orderNumber);
 
+    /**
+     * 四月份报表
+     * */
+    List<String> selectChartByApril();
 
 
 

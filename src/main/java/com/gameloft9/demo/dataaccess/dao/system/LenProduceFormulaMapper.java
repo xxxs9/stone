@@ -90,4 +90,11 @@ public interface LenProduceFormulaMapper {
      * @return
      */
     int insertSelective(LenProduceFormula lenProduceFormula);
+
+    /**
+     * 由productId找到LenProduceFormula
+     * @param productId
+     * @return
+     */
+    List<LenProduceFormula> getByProductId(@Param("productId")String productId);
 }

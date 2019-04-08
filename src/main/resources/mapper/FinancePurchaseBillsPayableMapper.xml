@@ -18,6 +18,12 @@
         <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap id="numMap" type="com.gameloft9.demo.dataaccess.model.system.Num">
+        <result column="mon" property="mon" jdbcType="VARCHAR"/>
+        <result column="smon" property="smon" jdbcType="VARCHAR"/>
+        <result column="ACTUAL_BALANCE" property="actualBalance" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <!--List<SysFinancePurchaseBillsPayable> getAll(
             @Param("start") int start,
             @Param("end") int end,
@@ -33,6 +39,7 @@
                 AUDIT_STATE = #{auditState,jdbcType=INTEGER}
             </if>
         </where>
+        order by DOCUMENT_MAKE_TIME DESC
         limit #{start},#{end}
     </select>
 
@@ -221,15 +228,40 @@
         </set>
     </update>
 
-    <!--List<String> getPurchasePayChart();-->
-    <select id="getPurchasePayChart" resultType="java.lang.String">
-        SELECT
+    <!--List<String> getPurchasePayChart();
+    /*SELECT
         SUM(ACTUAL_BALANCE)
         FROM a_purchase_bills_payable
         WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
         AND AUDIT_STATE=3
         GROUP BY ACTUAL_BALANCE
-        ORDER BY AUDIT_TIME
+        ORDER BY AUDIT_TIME*/-->
+    <select id="getPurchasePayChart" resultType="java.lang.String">
+        select b.actualBalance FROM
+         (SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'01') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'02') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'03') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'04') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'05') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'06') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'07') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'08') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'09') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'10') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'11') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'12') as mon from  DUAL )a
+        LEFT JOIN
+        (SELECT
+          DATE_FORMAT(AUDIT_TIME,'%Y%m') smon,
+        IFNULL(sum(s.ACTUAL_BALANCE),0) as actualBalance
+        FROM
+            a_purchase_bills_payable s
+        where
+            AUDIT_STATE=3
+        GROUP BY
+            DATE_FORMAT(AUDIT_TIME,'%Y%m')) b
+         on a.mon = b.smon
+         ORDER BY mon
     </select>
     
 

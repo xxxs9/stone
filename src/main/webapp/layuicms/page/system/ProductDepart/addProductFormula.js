@@ -37,12 +37,13 @@ layui.config({
             if(data.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].id+'---'+data[i].productName+'</option>';
+                    html += '<option value="'+data[i].id+'">'+data[i].other1+'---'+data[i].productName+'</option>';
                 }
                 $('#productId').append($(html));
                 form.render();
             }
         });
+        $('#creatUser').val(window.sessionStorage.getItem('sysUser'));
 
     }
     init();
@@ -114,7 +115,7 @@ layui.config({
         var productId = data.field.productId;
         var formulaType = data.field.formulaType;
         var formulaNumber = data.field.formulaNumber;
-        var createUser = data.field.reachUser;
+        var createUser = data.field.createUser;
         var createTime = data.field.createTime;
 
         /*var sort = data.field.sort;

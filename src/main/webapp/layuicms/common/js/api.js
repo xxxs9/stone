@@ -93,10 +93,10 @@ layui.define(['$tool','jquery'], function (exports) {
 
     // API列表,工程庞大臃肿后可以将API拆分到单独的模块中
     var API = {
-        //获取roles
+       /* //获取roles
         selectRole:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'role/role.do',req,successCallback,errorCallback);
-        },
+        },*/
 
         Login: function(req,successCallback,errorCallback){ // 登录
             doPost($tool.getContext() + "login",req,successCallback,errorCallback);
@@ -323,14 +323,13 @@ layui.define(['$tool','jquery'], function (exports) {
         commitPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/commit.do',req,config,successCallback,errorCallback);
         },
-        //撤回bacl
+        //撤回back
         backPurchaseReturn:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_return/back.do',req,config,successCallback,errorCallback);
         },
-
-        //阿发包 接口
-        afabaoDo:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'purchase_return/afabao.do',req,successCallback,errorCallback);
+        //四月采购图表-柱状图
+        selectChartByApril:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
@@ -570,12 +569,33 @@ layui.define(['$tool','jquery'], function (exports) {
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
         },
+        //添加产品api
+        addGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/add',req,successCallback,errorCallback);
+        },
+        getGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/get',req,successCallback,errorCallback);
+        },
+        updGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/upd',req,successCallback,errorCallback);
+        },
+        delGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/del',req,successCallback,errorCallback);
+        },
+        selectGoodsProduct:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'goodsProduct/list',req,successCallback,errorCallback);
+        },
+        getUnProduce:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'goodsProduct/getUnProduce',req,successCallback,errorCallback);
+        },
 
 
 
 
-
-        //领料reach.do
+        //领料reach.do audiNot
+        audiNot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/audiNot',req,successCallback,errorCallback);
+        },
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
         },
@@ -607,7 +627,10 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         completeProduce1:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/completeProduce',req,successCallback,errorCallback);
-    },
+        },
+        produceMaterial:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/produceMaterial',req,successCallback,errorCallback);
+        },
         unIntodepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
@@ -626,6 +649,9 @@ layui.define(['$tool','jquery'], function (exports) {
         //列出配方表所有信息
         getAllFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
+        },
+        getByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
         },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
@@ -735,7 +761,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getreachList:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
-    },
+        },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);
@@ -773,6 +799,12 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getProduceFormulaDetailById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/get',req,successCallback,errorCallback);
+        },
+        addProduceFormulaDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'detail/add',req,successCallback,errorCallback);
+        },
+        updProduceFormulaDetail:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'detail/upd',req,successCallback,errorCallback);
         },
         getProduceFormulaDetailByFormulaId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'detail/getDetailByFormulaId',req,successCallback,errorCallback);
@@ -956,6 +988,11 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'finance/getSalePayById.do',req,successCallback,errorCallback);
         },
+        /*导出时间报表*/
+        timeReport:function(req,successCallback,errorCallback){
+            doGet($tool.getContext() + 'bill/exportTimeReport.do',req,successCallback,errorCallback);
+        },
+
         findAll:function(req,successCallback,errorCallback) {
             doPost($tool.getContext() + 'sysUser/findAll.do', req, successCallback, errorCallback);
         },
@@ -1080,10 +1117,28 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'marker/fina',req,successCallback,errorCallback);
         },
 
-        //权限树
-        initTreeNode:function(req,successCallback,errorCallback){
-            treeNode($tool.getContext() + 'node/initTreeNode',req,successCallback,errorCallback);
-        }
+        //======权限=====//
+        //初始化所属权限
+        initBelongTo:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/initBelongTo',req,successCallback,errorCallback);
+        },
+        //添加权限
+        addPerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/addPerms.do',req,config,successCallback,errorCallback);
+        },
+        //根据id获取treeNode
+        getNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/get',req,successCallback,errorCallback);
+        },
+        //更改权限
+        UpdatePerms:function(req,config,successCallback,errorCallback){
+            doComplexPost($tool.getContext() + 'node/UpdatePerms.do',req,config,successCallback,errorCallback);
+        },
+        //删除权限
+        deleteNode:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'node/delete',req,successCallback,errorCallback);
+        },
+
     };
 
 

@@ -28,7 +28,7 @@ public class AllRole {
     private String saleId;
     private String applyUser;
     private String customer;
-    private String productId;
+    private String saleName;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
     /**采购部门*/
@@ -41,12 +41,10 @@ public class AllRole {
     private Date applyTime;
     /**仓库部门*/
     private String depotId;
-    private String depotType;
+    private String type;
     private String depotName;
     private String depotNumber;
-    private String depotOrderId;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date outInTime;
+    private String saleableNumber;
     /**生产部门*/
     private String productPlanId;
     private String productName;

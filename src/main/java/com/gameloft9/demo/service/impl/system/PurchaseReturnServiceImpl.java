@@ -6,6 +6,8 @@ import com.gameloft9.demo.dataaccess.dao.system.PurchaseReturnMapper;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.PurchaseReturnService;
@@ -107,6 +109,12 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     /**采购退货 撤回*/
     public boolean backReUpdate(PurchaseReturn purchaseReturn){
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
+        //添加一个判断，如果仓库已经审核，理应不可撤回。
+        String str = purchaseReturn.getDepotState();
+        String state = "审核通过";
+        if(str.equals(state)){
+            throw new BizException(AbstractResult.CHECK_FAIL,"已审核无法撤回,请刷新!");
+        }
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.updateTools(purchaseReturn);
         return true;
@@ -133,6 +141,12 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     public boolean depotState(String orderNumber){
         CheckUtil.notBlank(orderNumber,"订单编号为空");
         PurchaseReturn purchaseReturn = dao.selectByOrderNumber(orderNumber);
+        //添加判断，假如在仓库审核前，采购退货撤回了，理应不可以审核
+        String str = purchaseReturn.getDepotState();
+        String state = "提交审核中";
+        if(!str.equals(state)){
+            throw new BizException(AbstractResult.CHECK_FAIL,"退货单已撤回,请刷新!");
+        }
         purchaseReturn.setDepotState(Constants.DepotState.DEPOT_PASS);
         dao.updateTools(purchaseReturn);
         return true;

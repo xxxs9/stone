@@ -87,16 +87,16 @@
 
 
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
-    insert into l_produce_formula_detail ( ID,PRODUCT_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3)
+    insert into l_produce_formula_detail ( ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3)
     values (
     #{id},
-    #{productFormulaId},
+    #{produceFormulaId},
     #{materialId},
     #{materialNumber},
     #{depotId},
     #{other1},
     #{other2},
-    #{other3},
+    #{other3}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
@@ -193,9 +193,13 @@
 
     <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
     update l_produce_formula_detail
-    set PRODUCT_FORMULA_ID=#{productFormulaId},MATERIAL_ID=#{materialId},
-    MATERIAL_NUMBER=#{materialNumber},DEPOT_ID=#{depotId},
-    OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
+    set PRODUCE_FORMULA_ID=#{produceFormulaId},
+    MATERIAL_ID=#{materialId},
+    MATERIAL_NUMBER=#{materialNumber},
+    DEPOT_ID=#{depotId},
+    OTHER1=#{other1},
+    OTHER2=#{other2},
+    OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 
@@ -208,5 +212,9 @@
         SELECT MATERIAL_NUMBER from l_produce_formula_detail
         where ID = #{id}
     </select>
+
+
+
+
 </mapper>
 

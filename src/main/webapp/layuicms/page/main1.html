@@ -90,6 +90,33 @@
     <span>审核不通过</span>
     {{# } }}
 </script>
+<script id="productState" type="text/html">
+    {{#  if(d.productState == '1'){ }}
+    <span>未提交</span>
+    {{#  } else if(d.productState == '2'){ }}
+    <span>已提交,待审核</span>
+    {{#  } else if(d.productState == '3'){ }}
+    <span>已分配,待领料</span>
+    {{#  } else if(d.productState == '4'){ }}
+    <span>已审核,待分配</span>
+    {{#  } else if(d.productState == '5'){ }}
+    <span>已分配,开始生产</span>
+    {{#  } else if(d.productState == '6'){ }}
+    <span>生产暂停</span>
+    {{#  } else if(d.productState == '7'){ }}
+    <span>继续生产</span>
+    {{#  } else if(d.productState == '8'){ }}
+    <span>生产完成</span>
+    {{#  } else if(d.productState == '9'){ }}
+    <span>检验合格</span>
+    {{#  } else if(d.productState == '10'){ }}
+    <span>检验不合格</span>
+    {{#  } else if(d.productState == '11'){ }}
+    <span>检验合格待入库</span>
+    {{#  } else if(d.productState == '12'){ }}
+    <span>已入库</span>
+    {{#  } }}
+</script>
 
 <script type="text/javascript" src="../common/js/config.js"></script>
 <script type="text/javascript" src="../lib/layui/layui.js"></script>

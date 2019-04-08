@@ -50,7 +50,7 @@ layui.config({
                 , {field: 'applyTime', title: '申请时间', width:170,}
                 , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}
                 , {field: 'applyState', title: '申请状态', width:100,templet:'#applyState'}
-                , {field: 'applyMoney', title: '申请款', width:80,}
+                , {field: 'applyMoney', title: '申请款', width:100,}
                 , {fixed: 'right', title: '操作', width: 180, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调

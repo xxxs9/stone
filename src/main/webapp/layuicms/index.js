@@ -199,7 +199,7 @@ layui.config({//基础目录
     });
 
     //公告层
-    function showNotice() {
+    /*function showNotice() {
             layer.open({
                 type: 1,
                 title: "系统公告",
@@ -225,7 +225,7 @@ layui.config({//基础目录
                     }
                 }
             });
-    }
+    }*/
 
 
 

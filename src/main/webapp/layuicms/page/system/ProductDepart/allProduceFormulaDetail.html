@@ -17,7 +17,7 @@
 <!--搜索栏-->
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
-        <div class="layui-inline">
+        <div class="layui-inline" style="display: none">
             <label class="layui-form-label">原料编号</label>
             <div class="layui-input-block">
                 <select id="materialId" name="materialId">
@@ -25,25 +25,18 @@
                 </select>
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">仓库编号</label>
-            <div class="layui-input-block">
-                <select id="depotId" name="depotId">
 
-                </select>
 
-            </div>
-        </div>
-    &nbsp;&nbsp;&nbsp;
-        <div class="layui-inline">
+        <div class="layui-inline" style="display: none">
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
         </div>
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal usersAdd_btn">新增加工单</a>
+            <a class="layui-btn layui-btn-normal usersAdd_btn">新增</a>
         </div>
     </form>
 </blockquote>
-<!--表格区-->
+表格区
+
 <div class="layui-form users_list">
     <!--通过lay-filter区分toolbar事件容器-->
     <table id="menu-data" lay-filter="menuFilter" class="layui-table">
@@ -55,8 +48,11 @@
 
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
+    <!--<a class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe655;</i>新增</a>-->
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 
-    {{#  if(d.state == '0'){ }}
+<!--    {{#  if(d.state == '0'){ }}
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe643;</i>下单</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
@@ -69,7 +65,7 @@
     <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe655;</i>审核</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 
-    {{#  } }}
+    {{#  } }}-->
 </script>
 <script type="text/html" id="tmp">
 

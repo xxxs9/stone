@@ -1,7 +1,9 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysMaterialMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -27,6 +29,8 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Autowired
     LenProductMapper mapper;
+    @Autowired
+    SysMaterialMapper materialMapper;
 
 
     @Override
@@ -333,10 +337,34 @@ public class LenProductServiceImpl implements LenProductService {
         }
     }
 
-    //插入到仓库
+    /**
+     * 插入到仓库
+     * @param lenProduct
+     * @return
+     */
     @Override
     public boolean inssrDepot(LenProduct lenProduct) {
 
         return false;
     }
+
+    /**
+     * 查询所有原料
+     *
+     * @return
+     */
+    @Override
+    public List<SysMaterial> getAllMaterial() {
+        return materialMapper.getAll(0,99999,null,null,null);
+    }
+
+    /**
+     * 查询原料id
+     * @param id
+     * @return
+     */
+    public SysMaterial getMaterilaById(String id){
+        return materialMapper.getById(id);
+    }
+
 }

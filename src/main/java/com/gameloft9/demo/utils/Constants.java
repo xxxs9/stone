@@ -167,45 +167,45 @@ public class Constants {
     /**
      * 产品未提交
      */
-    public static final String UN_TIJIAO = "0";
+    public static  String UN_TIJIAO = "0";
     /**
      * 产品提交
      */
-    public static final String TIJIAO = "1";
+    public static  String TIJIAO = "1";
     /**
      * 产品未审核
      */
-    public static final String UN_AUDI = "2";
+    public static  String UN_AUDI = "2";
     /**
      * 产品审核
      */
-    public static final String ADUI = "3";
+    public static  String ADUI = "3";
     /**
      * 产品生产中
      */
-    public static final String PRODUCING = "4";
+    public static  String PRODUCING = "4";
     /**
      * 产品入库
      */
-    public static final String INTO_DEPOT = "5";
+    public static  String INTO_DEPOT = "5";
 
-    public static final String PRODUCE_ADMIN = "生产部主管";
+    public static  String PRODUCE_ADMIN = "生产部主管";
 
-    public static final String PRODUCE_STADFF = "生产部员工";
+    public static  String PRODUCE_STADFF = "生产部员工";
 
     /**
      * 仓库审核
      */
-    public static final String UN_PASS = "2";
+    public static  String UN_PASS = "2";
 
-    public static final String DEPOT_PASS = "1";
+    public static  String DEPOT_PASS = "1";
 
-    public static final String DEPOT_UN_AUDI = "0";
+    public static  String DEPOT_UN_AUDI = "0";
 
     /**
      * 领料单状态码
      */
-    public static final String JYWTG = "-1";
+    public static  String JYWTG = "-1";
     /**
      * 检验未通过
      */
@@ -213,28 +213,28 @@ public class Constants {
     /**
      * 等待审核
      */
-    public static final String DDSH = "0";
+    public static  String DDSH = "0";
 
     /**
      * 开始生产
      */
-    public static final String KSSC = "1";
+    public static  String KSSC = "1";
     /**
      * 生产暂停
      */
-    public static final String SCZT = "2";
+    public static  String SCZT = "2";
 
     /**
      * 生产完成
      */
-    public static final String SCWC = "3";
+    public static  String SCWC = "3";
     /**
      * 继续生产
      */
-    public static final String JXSC = "1-1";
+    public static  String JXSC = "1-1";
 
 
-    public static final String ZUOFEI = "-1";
+    public static  String ZUOFEI = "-1";
 
 
     /**
@@ -286,23 +286,26 @@ public class Constants {
 
     }
 
-        public static class productState {
+    /**
+     * 生产状态
+     */
+    public static class productState {
 
-
-            public static String UN_TIJIAO = "1";
-            public static String TIJIAO_UNAUDI = "2";
-            public static String AUDI_UNREACH = "3";
-            public static String REACH_UNFENPEI = "4";
-            public static String FENPEI_START_PRODUCE = "5";
-            public static String STOP_PRODUCE = "6";
-            public static String CONTINUE_PRODUCE = "7";
-            public static String COMPLETE_PRODUCE = "8";
-            public static String CHECK_GOOD = "9";
-            public static String CHECK_BAD = "10";
-            public static String UN_INTO_DEPOT = "11";
-            public static String INTO_DEPOT = "12";
-            //仓库发料
-            public static String DEPOT_OUT = "13";
+            public static  String YISHENGCHANG="已生产";
+            public static  String UNYISHENGCHANG="未生产";
+            public static  String UN_TIJIAO = "1";
+            public static  String TIJIAO_UNAUDI = "2";
+            public static  String AUDI_UNREACH = "3";
+            public static  String REACH_UNFENPEI = "4";
+            public static  String FENPEI_START_PRODUCE = "5";
+            public static  String STOP_PRODUCE = "6";
+            public static  String CONTINUE_PRODUCE = "7";
+            public static  String COMPLETE_PRODUCE = "8";
+            public static  String CHECK_GOOD = "9";
+            public static  String CHECK_BAD = "10";
+            public static  String UN_INTO_DEPOT = "11";
+            public static  String INTO_DEPOT = "12";
+            public static  String DEPOT_OUT = "13";
         }
         /**
          * 盘点单状态

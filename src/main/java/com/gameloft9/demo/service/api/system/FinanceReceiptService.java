@@ -1,6 +1,5 @@
 package com.gameloft9.demo.service.api.system;
 
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceReceipt;
 
 import java.util.List;

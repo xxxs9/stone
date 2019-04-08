@@ -51,26 +51,26 @@
     {{# if(d.financeState=="已付款" && d.depotState!="未提交" && d.depotState!="入库单审核中"
     && d.depotState!="审核通过" && d.depotState!="确认中" && d.depotState!="审核未通过"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="bring"><i class="layui-icon">&#xe857;</i>收货</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="sure"><i class="layui-icon">&#xe63f;</i>确认</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="sure"><i class="layui-icon">&#xe63f;</i>确认</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="已付款" && d.depotState=="确认中"){ }}
-    <a class="layui-btn layui-btn-sm layui-btn-warm layui-btn-disabled" lay-event="commit"><i class="layui-icon">&#xe643;</i>提交</a>
+    <a class="layui-btn layui-btn-sm layui-btn-warm layui-btn-disabled" id="commit"><i class="layui-icon">&#xe643;</i>提交</a>
     <a class="layui-btn layui-btn-sm layui-btn-normal"  lay-event="sure"><i class="layui-icon">&#xe63f;</i>确认</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="已付款" && d.depotState=="未提交"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="commit"><i class="layui-icon">&#xe643;</i>提交</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="sure "><i class="layui-icon">&#xe642;</i>确认</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="sure "><i class="layui-icon">&#xe642;</i>确认</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit1"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="已付款" && d.depotState=="入库单审核中"){ }}
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="sure"><i class="layui-icon">&#xe642;</i>确认</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="sure1"><i class="layui-icon">&#xe642;</i>确认</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit2"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="已付款" && d.depotState=="审核通过"){ }}
     <label>审核已通过，货品已入库</label>
     {{# } else if(d.financeState=="已付款" && d.depotState=="审核未通过"){ }}
-    <a class="layui-btn layui-btn-sm layui-btn-warm layui-btn-disabled" lay-event="commit"><i class="layui-icon">&#xe643;</i>提交</a>
+    <a class="layui-btn layui-btn-sm layui-btn-warm layui-btn-disabled" id="commit1"><i class="layui-icon">&#xe643;</i>提交</a>
     <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="look"><i class="layui-icon">&#xe702;</i>查看</a>
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit3"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="未通过"){ }}
     <label>财务未通过，请重新申请</label>
     {{# } }}

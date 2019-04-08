@@ -49,6 +49,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private ReturnGoodsOrderService returnGoodsOrderServiceImpl;
     @Autowired
     private LenFormulaReachService lenFormulaReachServiceImpl;
+    @Autowired
+    private  LenGoodsProductMapper lenGoodsProductMapper;
     /***
      * 啊发包
      */
@@ -552,6 +554,14 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产入库,更新沧海采购单状态
         if(current.getType().equals("生产入库")){
             //隆缘改变状态的方法
+            lenProductMapper.changeState(Constants.productState.INTO_DEPOT,id);
+            //改变产品goodsProduct的状态为已生产
+            LenProduct byPrimaryKey = lenProductMapper.getByPrimaryKey(id);
+            String id2 = byPrimaryKey.getProductName();
+            lenGoodsProductMapper.changeState(Constants.productState.YISHENGCHANG,id2);
+
+
+
 
         }
         //销售退货入库,更新锦祥退货单状态
