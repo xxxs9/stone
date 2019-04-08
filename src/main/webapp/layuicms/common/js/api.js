@@ -93,10 +93,10 @@ layui.define(['$tool','jquery'], function (exports) {
 
     // API列表,工程庞大臃肿后可以将API拆分到单独的模块中
     var API = {
-        //获取roles
+       /* //获取roles
         selectRole:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'role/role.do',req,successCallback,errorCallback);
-        },
+        },*/
 
         Login: function(req,successCallback,errorCallback){ // 登录
             doPost($tool.getContext() + "login",req,successCallback,errorCallback);
@@ -595,7 +595,10 @@ layui.define(['$tool','jquery'], function (exports) {
 
 
 
-        //领料reach.do
+        //领料reach.do audiNot
+        audiNot:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'product/audiNot',req,successCallback,errorCallback);
+        },
         productReachDo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/reach.do',req,successCallback,errorCallback);
         },
@@ -649,6 +652,9 @@ layui.define(['$tool','jquery'], function (exports) {
         //列出配方表所有信息
         getAllFormula:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'formula/list',req,successCallback,errorCallback);
+        },
+        getByProductId:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
         },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
@@ -758,7 +764,7 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         getreachList:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'pcr/reachList',req,successCallback,errorCallback);
-    },
+        },
         //-------------------------
         delCreateUserInfo:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'create/del',req,successCallback,errorCallback);

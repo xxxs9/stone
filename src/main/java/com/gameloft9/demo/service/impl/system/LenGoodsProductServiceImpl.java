@@ -126,27 +126,33 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
      */
     @Override
     public boolean insert(LenGoodsProduct lenGoodsProduct) {
-        String uuid = UUIDUtil.getUUID();
-        LenGoodsProduct product = new LenGoodsProduct();
-        product.setId(uuid);
-        product.setZhuangtai(Constants.productState.UNYISHENGCHANG);
-        product.setBianhao(OrderUtil.lenOrderNumber("L"));
-        product.setCaizhi(lenGoodsProduct.getCaizhi());
-        product.setChichun(lenGoodsProduct.getChichun());
-        product.setChangdi(lenGoodsProduct.getChangdi());
-        product.setLeixing(lenGoodsProduct.getLeixing());
-        product.setPname(lenGoodsProduct.getPname());
-        product.setPprice(lenGoodsProduct.getPprice());
-        product.setStyle1(lenGoodsProduct.getStyle1());
-        product.setPicihao(lenGoodsProduct.getPicihao());
-        product.setXinghao(lenGoodsProduct.getXinghao());
-        product.setYanse(lenGoodsProduct.getYanse());
-        product.setOther1(lenGoodsProduct.getOther1());
-        product.setOther3(lenGoodsProduct.getOther2());
-        product.setOther1(lenGoodsProduct.getOther3());
-        if (mapper.insert(product)>0){
-            return true;
-        }else {
+        //判断价格是否为负数
+        int anInt = Integer.parseInt(lenGoodsProduct.getPprice());
+        if(anInt>0) {
+            String uuid = UUIDUtil.getUUID();
+            LenGoodsProduct product = new LenGoodsProduct();
+            product.setId(uuid);
+            product.setZhuangtai(Constants.productState.UNYISHENGCHANG);
+            product.setBianhao(OrderUtil.lenOrderNumber("L"));
+            product.setCaizhi(lenGoodsProduct.getCaizhi());
+            product.setChichun(lenGoodsProduct.getChichun());
+            product.setChangdi(lenGoodsProduct.getChangdi());
+            product.setLeixing(lenGoodsProduct.getLeixing());
+            product.setPname(lenGoodsProduct.getPname());
+            product.setPprice(lenGoodsProduct.getPprice());
+            product.setStyle1(lenGoodsProduct.getStyle1());
+            product.setPicihao(lenGoodsProduct.getPicihao());
+            product.setXinghao(lenGoodsProduct.getXinghao());
+            product.setYanse(lenGoodsProduct.getYanse());
+            product.setOther1(lenGoodsProduct.getOther1());
+            product.setOther3(lenGoodsProduct.getOther2());
+            product.setOther1(lenGoodsProduct.getOther3());
+            if (mapper.insert(product) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     }
