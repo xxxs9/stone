@@ -59,6 +59,7 @@
     <select id="initBelongTo" resultMap="treeNodeMap">
         select * from tree_node
         where NOT_PARENT=true
+        order by NAME
     </select>
 
     <!--添加权限  void addPerms(TreeNode treeNode);-->

@@ -66,7 +66,9 @@ public class ExceptionHandler {
     public IResult handleException(AuthorizationException e, HttpServletRequest request,HttpServletResponse response){
         log.error("AuthorizationException:{"+ResultBean.SYSTEM_FAIL+","+e.getMessage()+"}",e);
         ResultBean<?> result = new ResultBean();
-        result.setMsg("sorry,您没有无权限！！！");
+        String[] split = e.getMessage().split("\\[");
+        String perms = split[1];
+        result.setMsg("sorry,您没有权限！！！["+perms);
         result.setCode(ResultBean.SYSTEM_FAIL);
         return result;
     }
