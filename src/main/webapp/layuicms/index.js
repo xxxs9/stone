@@ -304,8 +304,8 @@ layui.config({//基础目录
 
     //接收到消息的回调方法
     websocket.onmessage = function (event) {
-        console.log("收到消息"+event.data)
-        /*Push();*/
+        /*console.log("收到消息"+event.data)*/
+       /* Push();*/
         show(event.data);
         setMessageInnerHTML(event.data);
 
