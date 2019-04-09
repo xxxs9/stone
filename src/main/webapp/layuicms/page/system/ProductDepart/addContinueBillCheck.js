@@ -97,6 +97,7 @@ layui.config({
         var checkRemark = data.field.checkRemark;
         var checkUser = data.field.checkUser;
         var productName = data.field.productName;
+        var state=data.field.state;
 
 
         //请求
@@ -108,7 +109,8 @@ layui.config({
             productName:productName,
             productId:productId,
             checkNumber:checkNumber,
-            checkRemark:checkRemark
+            checkRemark:checkRemark,
+            state:state
 
 
 

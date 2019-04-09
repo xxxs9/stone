@@ -51,7 +51,7 @@ layui.config({
             , cols: [[ //表头
                 {type: 'numbers', title: '序号', fixed: 'left'}
                 , {field: 'bianhao', title: '产品编号'}
-                , {field: 'picihao', title: '产品批次号'}
+                /*, {field: 'picihao', title: '产品批次号'}*/
                 , {field: 'pname', title: '产品名称'}
                 , {field: 'chichun', title: '产品尺寸'/*,templet:'#cd'*/}
                 , {field: 'changdi', title: '产品产地'}

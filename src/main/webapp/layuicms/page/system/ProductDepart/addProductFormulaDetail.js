@@ -25,12 +25,41 @@ layui.config({
             format:'yyyy-MM-dd'
         });
     });
+//监听事件
+    var data1;
+    form.on('select(aaaa)', function (data) {
+        var value =$('#materialId option:selected').html();
+        var str = value.split("---");
+        console.log(value);
+        var req={
+            id:str[1]
+        }
+        $api.getProduceMaterialById(req,function (res) {
+             data1= res.data;
+            console.log(data1)
+        })
+        $('#materialName').val(data1.goodsName);
+    });
+        /*$api.GetMaterialGoods(req,function (res) {
+            var data=res.data;
+            console.log(data)
+        })*/
+     /*  $api.getMaterialGoodsById(req,function (res) {
+           var data=res.data;
+           alert(data.productId);
+       })*/
+       /* $api.getProduceMaterialById(req,function (res) {
+            var data = res.data;
+
+            $('#productName').val(data.productName);
+        });*/
 
 
 
     /**
      * 初始化页面
      * */
+
     function init() {
         $api.getAllFormula(null,function (res) {
             var data = res.data;
@@ -44,14 +73,18 @@ layui.config({
             }
         });
 
+
+        //获取materialGoods
         $api.produceMaterial(null,function (res) {
             var data2= res.data;
+            console.log(data2)
             if(data2.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data2.length;i++){
-                    html += '<option value="'+data2[i].id+'">'+data2[i].id+'---'+data2[i].goodsName+'</option>';
+                    html += '<option value="'+data2[i].id+'">'+data2[i].id+'---'+data2[i].materialId+'</option>';
                 }
                 $('#materialId').append($(html));
+
                 form.render();
             }
 
@@ -130,6 +163,7 @@ layui.config({
         var materialId = data.field.materialId;
         var materialNumber = data.field.materialNumber;
         var depotId = data.field.depotId;
+        var other2= data.field.materialName;
 
         //请求
         var url = $tool.getContext()+'detail/add';
@@ -138,7 +172,8 @@ layui.config({
             produceFormulaId:produceFormulaId,
             materialId:materialId,
             materialNumber:materialNumber,
-            depotId:depotId
+            depotId:depotId,
+            other2:other2
 
         };
 

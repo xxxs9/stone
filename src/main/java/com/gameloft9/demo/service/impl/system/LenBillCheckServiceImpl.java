@@ -50,7 +50,7 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
     }
 
     /**
-     *
+     * 生产时调用
      * @param id
      * @param productName
      * @param state
@@ -66,14 +66,17 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
     @Override
     public boolean finalInsert(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
         String uuid = UUIDUtil.getUUID();
-        Date date = DateUtil.str2Date(checkDate, "yyyy-MM-dd");
         LenBillCheck billCheck = new LenBillCheck();
         billCheck.setId(uuid);
         billCheck.setProductName(productName);
         billCheck.setState(state);
         billCheck.setCheckNumber(checkNumber);
-        billCheck.setCheckDate(date);
-
+        billCheck.setCheckDate(new Date());
+        billCheck.setCheckUser(checkUser);
+        billCheck.setReachId(reachId);
+        billCheck.setPlanId(planId);
+        billCheck.setCheckRemark(checkRemark);
+        billCheck.setProductId(productId);
         if (mapper.insert(billCheck)>0){
             return true;
         }else{
@@ -81,12 +84,25 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
         }
     }
 
+    /**
+     * 检验入库
+     * @param id
+     * @param productName
+     * @param state
+     * @param checkNumber
+     * @param checkDate
+     * @param checkUser
+     * @param checkRemark
+     * @param reachId
+     * @param productId
+     * @param planId
+     * @return
+     */
     @Override
     public boolean insert(String id,String productName , String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
         String uuid = UUIDUtil.getUUID();
         LenBillCheck billCheck = new LenBillCheck();
         billCheck.setId(uuid);
-       // billCheck.setState(Constants.productState.STOP_PRODUCE);
         billCheck.setState(state);
         billCheck.setCheckNumber(checkNumber);
         billCheck.setCheckDate(new Date());

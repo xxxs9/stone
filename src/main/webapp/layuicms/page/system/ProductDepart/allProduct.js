@@ -81,8 +81,8 @@ layui.config({
                 //do something
                 audi(row.id);
             }else if(layEvent==='intoDepot'){
-                intoDepot(row.id)
-            } else if (layEvent === 'stepBack1') {
+                intoDepot(row.id);
+            } else if (layEvent === 'stepBack') {
                 stepBack1(row.id);
 
             } else if (layEvent === 'plan') {

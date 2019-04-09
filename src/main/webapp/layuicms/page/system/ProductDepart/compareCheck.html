@@ -39,6 +39,13 @@
         </div>
     </div>
     <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">计划产量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="planNumber"  id="planNumber" readonly>
+        </div>
+    </div>
+    <br>
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label ">产品成本</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="supportPrice"  id="supportPrice" placeholder="单位：元">
@@ -51,28 +58,29 @@
             <input type="text" class="layui-input" name="productId" id="productId" readonly>
         </div>
     </div>
-    </br>
-    <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">计划产量</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="planNumber"  id="planNumber" readonly>
-        </div>
-    </div>
+
+
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">实际产量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="checkNumber" lay-verify="required" id="checkNumber" >
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">=破损率</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="brokenRate" value="" id="brokenRate" readonly>
         </div>
     </div>
+    <div class="layui-form-item layui-inline" >
+        <label class="layui-form-label">验收人</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="checkUser"  id="checkUser" placeholder="请输入验收人" readonly>
+        </div>
+    </div>
 
 </br>
-    <div class="layui-form-item ">
+    <div class="layui-form-item layui-inline">
         <label class="layui-form-label">检验</label>
         <div class="layui-input-block">
             <select name="state" lay-verify="required" id="state">
@@ -82,12 +90,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item layui-inline" >
-        <label class="layui-form-label">验收人</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="checkUser"  id="checkUser" placeholder="请输入验收人">
-        </div>
-    </div>
+
 
 
     <div class="layui-form-item">
