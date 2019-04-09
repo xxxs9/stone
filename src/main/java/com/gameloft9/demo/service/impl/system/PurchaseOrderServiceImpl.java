@@ -155,7 +155,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             financeApplyOrder.setApplyId(purchaseOrder.getId());
             BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
             decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getGoodsNumber());
+            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getPrice());
             decimal2.setScale(0);
             BigDecimal applyMoney = decimal1.multiply(decimal2);
             financeApplyOrder.setApplyMoney(applyMoney.toString());

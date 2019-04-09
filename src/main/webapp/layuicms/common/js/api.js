@@ -541,6 +541,14 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayChart:function(req,successCallback,errorCallback){
             chart($tool.getContext() + 'finance/getSalePayChart',req,successCallback,errorCallback);
         },
+        /*采购、销售总收入*/
+        getTotalReceive:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'bill/getTotalReceive',req,successCallback,errorCallback);
+        },
+        /*采购、销售总支出*/
+        getTotalPay:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'bill/getTotalPay',req,successCallback,errorCallback);
+        },
 
 
         /*啊发包-锦祥*/
