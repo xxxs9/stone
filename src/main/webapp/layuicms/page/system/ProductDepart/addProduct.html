@@ -33,7 +33,7 @@
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <select name="productName" lay-verify="required" id="productName1">
+            <select name="productName" lay-verify="required" id="productName1" lay-filter="aaaaa" onchange="func(this)">
 
             </select>
         </div>
@@ -45,6 +45,12 @@
             <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入订单数量">
         </div>
     </div>
+    <div class="layui-form-item layui-inline" style="display: none">
+        <label class="layui-form-label">订单数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="other2" id="other2">
+        </div>
+    </div>
 
     </br>
     <!--<div class="layui-form-item">
@@ -53,7 +59,12 @@
             <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
         </div>
     </div>-->
-
+    <div class="layui-form-item" style="display: none" >
+        <label class="layui-form-label">other3</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="other3" id="other3" >
+        </div>
+    </div>
 
     <div class="layui-form-item "style="display:none">
         <label class="layui-form-label">产品状态</label>

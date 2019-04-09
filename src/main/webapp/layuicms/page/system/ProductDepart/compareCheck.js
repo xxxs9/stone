@@ -47,7 +47,8 @@ layui.config({
             $("[name='productName']").val(data.productName);
             /*实际产量*/
             $("[name='checkNumber']").val(data.checkNumber);
-            $("[name='checkUser']").val(data.checkUser);
+
+            $("[name='checkUser']").val(window.sessionStorage.getItem('sysUser'));
             var planId = data.planId;
             console.log(planId);
             var req={

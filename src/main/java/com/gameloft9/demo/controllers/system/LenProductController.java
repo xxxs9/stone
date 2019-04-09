@@ -1,6 +1,8 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
@@ -148,13 +150,13 @@ public class LenProductController {
 
         if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
 
-            if (service.changeProState(Constants.productState.TIJIAO_UNAUDI, id)) {
+            if (service.changeProState(Constants.productState.UN_TIJIAO, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
                 return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
             }
         } else {
-            return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
+            return new ResultBean<String>("4011",">>>>>>>权限不足<<<<<<<");
         }
     }
 
@@ -372,10 +374,16 @@ public class LenProductController {
         return new ResultBean<List>(service.getAllMaterial());
     }
 
-   /* @RequestMapping("/getProduceMaterialById")
+    @RequestMapping("/getProduceMaterialById")
     @ResponseBody
     public IResult getProduceMaterialById(String id){
         return new ResultBean<SysMaterial>(service.getMaterilaById(id));
-    }*/
+    }
+
+    @RequestMapping("/getMaterialGoodsById")
+    @ResponseBody
+    public IResult getMaterialGoodsById(String id){
+        return new ResultBean<SysMaterialGoods>(service.getGoodsMaterialById(id));
+    }
 
 }

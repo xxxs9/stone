@@ -44,9 +44,17 @@
     <div class="layui-form-item">
         <label class="layui-form-label">原料编号</label>
         <div class="layui-input-block ">
-            <select name="materialId" lay-verify="required" id="materialId">
+            <select name="materialId" lay-verify="required" id="materialId"  lay-filter="aaaa" onchange="func(this)">
 
             </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">原料名称</label>
+        <div class="layui-input-block ">
+            <input type="text" class="layui-input" name="materialName"  id="materialName" readonly>
         </div>
     </div>
 

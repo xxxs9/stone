@@ -132,4 +132,8 @@
         t.ID
         from SYS_MATERIAL_GOODS t
     </select>
+    <select id="getMaterialGoodsAll" resultMap="BaseResultMap">
+        select *
+        from SYS_MATERIAL_GOODS t
+    </select>
 </mapper>

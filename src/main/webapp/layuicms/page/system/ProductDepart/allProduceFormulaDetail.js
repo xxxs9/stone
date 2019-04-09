@@ -52,8 +52,8 @@ layui.config({
                   {field: 'other1', title: '配方详情号'}
                /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
                 , {field: 'materialId', title: '原材料编号'}
+                ,{field: 'other2', title: '原料名称'}
                 , {field: 'materialNumber', title: '原材料数量'}
-                , {field: 'depotId', title: '仓库编号'}
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
