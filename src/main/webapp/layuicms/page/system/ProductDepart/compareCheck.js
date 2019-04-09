@@ -181,7 +181,7 @@ layui.config({
             checkRemark:checkRemark,
             state:state
         };
-
+        //todo(仓库入库)
         $api.addBillCheckNew(req,function (data) {
             changeProductState(productId);
             insertSupport();
