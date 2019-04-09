@@ -50,6 +50,12 @@ public class LenBillCheckController {
         return new ResultBean<Boolean>(service.insert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId));
     }
 
+    @RequestMapping(value = "/producingAdd", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult producingAdd(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
+        return new ResultBean<Boolean>(service.finalInsert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId));
+    }
+
     @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public IResult update(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {

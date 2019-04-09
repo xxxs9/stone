@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 
 import java.util.List;
 
@@ -163,14 +164,16 @@ public interface LenProductService {
      * 查询所有原料
      * @return
      */
-    List<SysMaterial> getAllMaterial();
+    List<SysMaterialGoods> getAllMaterial();
 
     /**
      * 根据id查询原料
      * @param id
      * @return
      */
-     SysMaterial getMaterilaById(String id);
+    SysMaterial getMaterilaById(String id);
+
+    SysMaterialGoods getGoodsMaterialById(String id);
 
 
 }

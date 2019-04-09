@@ -30,7 +30,7 @@
 
     </br>
     <div class="layui-form-item">
-        <label class="layui-form-label">生产单编号</label>
+        <label class="layui-form-label">产品编号</label>
         <div class="layui-input-block">
             <select name="productId" lay-verify="required" id="productId" >
 
@@ -43,10 +43,10 @@
         <div class="layui-input-block ">
             <select name="formulaType" lay-verify="required">
                 <option value="">---请选择---</option>
-                <option value="0">1.类型Ⅰ</option>
-                <option value="1">2.类型Ⅱ</option>
-                <option value="2">3.类型Ⅲ</option>
-                <option value="3">4.类型Ⅳ</option>
+                <option value="类型Ⅰ">1.类型Ⅰ</option>
+                <option value="类型Ⅱ">2.类型Ⅱ</option>
+                <option value="类型Ⅲ">3.类型Ⅲ</option>
+                <option value="类型Ⅳ">4.类型Ⅳ</option>
 
             </select>
         </div>
@@ -65,16 +65,16 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">创建时间</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="createTime" lay-verify="required" id="test1">
+            <input type="text" class="layui-input" name="createTime"  id="test1">
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="add">提交审核</button>
+            <button class="layui-btn" lay-submit="" lay-filter="add">确认</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

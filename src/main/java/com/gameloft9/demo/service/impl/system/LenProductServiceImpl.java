@@ -1,9 +1,11 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysMaterialGoodsMapper;
 import com.gameloft9.demo.dataaccess.dao.system.SysMaterialMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -29,6 +31,8 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Autowired
     LenProductMapper mapper;
+    @Autowired
+    SysMaterialGoodsMapper materialGoodsMapper;
     @Autowired
     SysMaterialMapper materialMapper;
 
@@ -64,6 +68,7 @@ public class LenProductServiceImpl implements LenProductService {
         product.setProductDescribe(lenProduct.getProductDescribe());
         product.setProductState(Constants.productState.UN_TIJIAO);
         product.setOther1(number);
+        product.setOther3(lenProduct.getOther3());
         if (mapper.insert(product) > 0) {
             return true;
         } else {
@@ -89,14 +94,12 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean delete(String id) {
-        if(Constants.lennonPDAudi()==1){
+
            if (mapper.delete(id)>0){
                return true;
-           }
-        }else {
-            return false;
-        }
-        return false;
+           }else{
+
+        return false;}
     }
 
     @Override
@@ -354,8 +357,8 @@ public class LenProductServiceImpl implements LenProductService {
      * @return
      */
     @Override
-    public List<SysMaterial> getAllMaterial() {
-        return materialMapper.getAll(0,99999,null,null,null);
+    public List<SysMaterialGoods> getAllMaterial() {
+        return materialGoodsMapper.getMaterialGoodsAll();
     }
 
     /**
@@ -367,4 +370,8 @@ public class LenProductServiceImpl implements LenProductService {
         return materialMapper.getById(id);
     }
 
+    @Override
+    public SysMaterialGoods getGoodsMaterialById(String id) {
+        return materialGoodsMapper.getById(id);
+    }
 }

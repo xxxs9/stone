@@ -579,7 +579,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
         getProductById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
+            chart($tool.getContext() + 'product/get',req,successCallback,errorCallback);
         },
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
@@ -646,6 +646,12 @@ layui.define(['$tool','jquery'], function (exports) {
         produceMaterial:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/produceMaterial',req,successCallback,errorCallback);
         },
+        getProduceMaterialById:function(req,successCallback,errorCallback){
+        chart($tool.getContext() + 'product/getProduceMaterialById',req,successCallback,errorCallback);
+        },
+        getMaterialGoodsById:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/getMaterialGoodsById',req,successCallback,errorCallback);
+    },
         unIntodepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
@@ -699,6 +705,9 @@ layui.define(['$tool','jquery'], function (exports) {
         //billCheck
         addBillCheckNew:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'billCheck/add',req,successCallback,errorCallback);
+        },
+        producingAdd:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'billCheck/producingAdd',req,successCallback,errorCallback);
         },
         getBillCheckById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'billCheck/get',req,successCallback,errorCallback);
