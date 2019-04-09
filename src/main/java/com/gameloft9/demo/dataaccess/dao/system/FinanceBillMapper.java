@@ -64,7 +64,15 @@ public interface FinanceBillMapper extends BaseMapper<SysFinanceBill>{
                                      @Param("endTime") Date endTime);
 
 
+    /**
+     * 获取总收入
+     */
+    List<String> getTotalReceive();
 
+    /**
+     * 获取总支出
+     */
+    List<String> getTotalPay();
 
 
 }

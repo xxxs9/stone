@@ -147,7 +147,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
             SysFinanceBill financeBill = new SysFinanceBill();
             financeBill.setId(UUIDUtil.getUUID());
             Integer balance = Integer.parseInt(saleReceivable.getActualBalance());
-            financeBill.setBalance(balance*(-1));
+            financeBill.setBalance(balance);
             financeBill.setBillTime(saleReceivable.getAuditTime());
             financeBill.setDepartment(Constants.Finance.SALE);
             //添加账单
