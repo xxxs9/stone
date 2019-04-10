@@ -34,14 +34,14 @@ layui.config({
                 form.render();
             }
         });
-        $api.GetProductId(null,function (res) {
+        $api.getAllProduct(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
                 }
-                $('#productId').append($(html));
+                $('#productName').append($(html));
                 form.render();
             }
         });
@@ -65,6 +65,18 @@ layui.config({
             $('.material-type').removeClass('layui-anim-up');
             $('.product-type').removeClass('layui-hide');
             $('.product-type').addClass('layui-anim-up');
+        }
+    });
+
+
+    /**
+     * 监听select选择
+     * */
+    form.on('select(productNameFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
+        var productName = data.value;
+        if(productName != null){
+            $("#productId").val(productName)
         }
     });
 
