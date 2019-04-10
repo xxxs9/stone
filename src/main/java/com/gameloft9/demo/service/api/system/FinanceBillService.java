@@ -88,5 +88,15 @@ public interface FinanceBillService {
      */
     List<SysFinanceBill> getTimeBill(String startTime, String endTime);
 
+    /**
+     * 获取总收入
+     */
+    List<String> getTotalReceive();
+
+    /**
+     * 获取总支出
+     */
+    List<String> getTotalPay();
+
 
 }

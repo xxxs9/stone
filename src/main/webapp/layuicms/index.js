@@ -32,6 +32,7 @@ layui.config({//基础目录
         //显示姓名
         $('.userName').text(window.sessionStorage.getItem('sysUser'));
         $('.cite-user-name').text(window.sessionStorage.getItem('sysUser'));
+
     }
 
     init();
@@ -199,7 +200,7 @@ layui.config({//基础目录
     });
 
     //公告层
-    /*function showNotice() {
+    function showNotice() {
             layer.open({
                 type: 1,
                 title: "系统公告",
@@ -209,7 +210,7 @@ layui.config({//基础目录
                 id: 'LAY_layuipro',
                 btn: ['好的'],
                 moveType: 1,
-                content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p>这是一个基于layui的带后台的CMS管理系统，已经集成了通用的功能，例如菜单、用户、角色、机构、日志管理，系统架构清晰，方便做二次开发。</p></div>',
+               /* content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p>这是一个基于layui的带后台的CMS管理系统，已经集成了通用的功能，例如菜单、用户、角色、机构、日志管理，系统架构清晰，方便做二次开发。</p></div>',*/
                 success: function (layero) {
                     var btn = layero.find('.layui-layer-btn');
                     btn.css('text-align', 'center');
@@ -225,7 +226,7 @@ layui.config({//基础目录
                     }
                 }
             });
-    }*/
+    }
 
 
 
@@ -298,9 +299,9 @@ layui.config({//基础目录
     };
 
     //连接成功建立的回调方法
-    websocket.onopen = function () {
+    /*websocket.onopen = function () {
         setMessageInnerHTML("WebSocket连接成功");
-    }
+    }*/
 
     //接收到消息的回调方法
     websocket.onmessage = function (event) {
@@ -416,12 +417,12 @@ function Push() {
 
 
     //判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
-    if (window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true") {
+    /*if (window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true") {
         showNotice();
     }
     $(".showNotice").on("click", function () {
         showNotice();
-    });
+    });*/
 
     //刷新后还原打开的窗口
     if (window.sessionStorage.getItem("menu") != null) {

@@ -128,6 +128,6 @@ public interface LenProductMapper {
      * @return
      */
 
-    String selectByOther1(@Param("other1")String other1);
+    LenProduct selectByOther1(@Param("other1")String other1);
 
 }

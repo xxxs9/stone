@@ -27,7 +27,7 @@ layui.config({
      * 页面初始化
      * */
     var idd;
-    function stoProduct(id) {
+    function contiProduct(id) {
         var req={
             id:id
         }
@@ -97,6 +97,7 @@ layui.config({
         var checkRemark = data.field.checkRemark;
         var checkUser = data.field.checkUser;
         var productName = data.field.productName;
+        var state=data.field.state;
 
 
         //请求
@@ -108,14 +109,15 @@ layui.config({
             productName:productName,
             productId:productId,
             checkNumber:checkNumber,
-            checkRemark:checkRemark
+            checkRemark:checkRemark,
+            state:state
 
 
 
         };
 
-        $api.addBillCheckNew(req,function (data) {
-            stoProduct(idd);
+        $api.producingAdd(req,function (data) {
+            contiProduct(idd);
             console.log(idd)
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
             layer.msg("记录单生成成功！", {time: 1000}, function () {

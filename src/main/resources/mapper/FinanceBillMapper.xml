@@ -113,6 +113,22 @@
         ORDER BY BILL_TIME desc
     </select>
 
+    <!--总收入   List<SysFinanceBill> getTotalReceive();-->
+    <select id="getTotalReceive" resultType="java.lang.String">
+        select sum(BALANCE)
+        from a_bill
+        where YEAR( BILL_TIME ) = YEAR( NOW( ) ) and BALANCE &gt; 0
+        GROUP BY DEPARTMENT ORDER BY DEPARTMENT DESC
+    </select>
+
+    <!--总支出   List<SysFinanceBill> getTotalPay();-->
+    <select id="getTotalPay" resultType="java.lang.String">
+        select -(sum(BALANCE))
+        from a_bill
+        where YEAR( BILL_TIME ) = YEAR( NOW( ) ) and BALANCE &lt; 0
+        GROUP BY DEPARTMENT ORDER BY DEPARTMENT DESC
+    </select>
+
 
 
 

@@ -126,4 +126,24 @@ public class FinanceBillController {
     public void exportTimeReport(HttpServletRequest request, HttpServletResponse response,String startTime,String endTime){
         billService.exportTimeReport(request,response,startTime,endTime);
     }
+
+    /**
+     * 当年总收入
+     *
+     */
+    @RequestMapping(value = "/getTotalReceive" ,method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getTotalReceive(){
+        return new ResultBean<Collection<String>>(billService.getTotalReceive());
+    }
+
+    /**
+     * 当年总收入
+     *
+     */
+    @RequestMapping(value = "/getTotalPay" ,method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getTotalPay(){
+        return new ResultBean<Collection<String>>(billService.getTotalPay());
+    }
 }

@@ -15,7 +15,51 @@ layui.config({
 
     var tableIns;//表格实例
 
+    //总支出
+    var data5;
+    function getTotalPay(){
+        $api.getTotalPay(null,function (res) {
+            data5 = res.data;
+        });
+    }
+    //总收入
+    var data6;
+    function getTotalReceive(){
+        $api.getTotalReceive(null,function (res) {
+            data6 = res.data;
+        });
+    }
 
+//采购收入
+    var data2;
+    function getPurchaseReceiveChart(){
+        $api.getPurchaseReceiveChart(null,function (res) {
+            data2 = res.data;
+        });
+    }
+
+    //销售支出
+    var data3;
+    function getSalePayChart(){
+        $api.getSalePayChart(null,function (res) {
+            data3 = res.data;
+        });
+    }
+
+    //销售收入
+    var data4;
+    function getSaleReceiveChart(){
+        $api.getSaleReceiveChart(null,function (res) {
+            data4 = res.data;
+        });
+    }
+
+    getPurchasePayChart();
+    getPurchaseReceiveChart();
+    getSalePayChart();
+    getSaleReceiveChart();
+    getTotalReceive();
+    getTotalPay();
 
 
 
@@ -26,12 +70,12 @@ layui.config({
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ["销售总支出","采购总支出"],
             datasets: [{
                 label: '# of Votes',
                 strokeColor: "#CCFFCC",
                 fillColor: "#CCCCFF",
-                data: [12, 19, 3, 5, 2, 3],
+                data: data5,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -65,12 +109,12 @@ layui.config({
     var myChart = new Chart(ctx1, {
         type: 'pie',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ["销售总收入","采购总收入"],
             datasets: [{
                 label: '# of Votes',
                 strokeColor: "#CCFFCC",
                 fillColor: "#CCCCFF",
-                data: [12, 19, 3, 5, 2, 3],
+                data: data6,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -90,15 +134,6 @@ layui.config({
                 borderWidth: 1
             }]
         },
-        /*options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }*/
     });
 
     //采购支出
@@ -109,37 +144,7 @@ layui.config({
             data1 = res.data;
         });
     }
-    //采购收入
-    var data2;
-    function getPurchaseReceiveChart(){
-        $api.getPurchaseReceiveChart(null,function (res) {
-            console.log(res.data)
-            data2 = res.data;
-        });
-    }
 
-    //销售支出
-    var data3;
-    function getSalePayChart(){
-        $api.getSalePayChart(null,function (res) {
-            console.log(res.data)
-            data3 = res.data;
-        });
-    }
-
-    //销售收入
-    var data4;
-    function getSaleReceiveChart(){
-        $api.getSaleReceiveChart(null,function (res) {
-            console.log(res.data);
-            data4 = res.data;
-        });
-    }
-
-    getPurchasePayChart();
-    getPurchaseReceiveChart();
-    getSalePayChart();
-    getSaleReceiveChart();
 
     var myChart1 = new Chart(chart, {
         type: 'bar',
@@ -177,7 +182,7 @@ layui.config({
                 borderWidth: 1
             },{
                 label: '销售支出',
-                data: data4,
+                data: data3,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -262,7 +267,7 @@ layui.config({
                 borderWidth: 1
             },{
                 label: '销售收入',
-                data: data3,
+                data: data4,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',

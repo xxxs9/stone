@@ -85,6 +85,16 @@ public class FinanceBillServiceImpl implements FinanceBillService {
         return billMapper.getTimeBill(startTime1,endTime1);
     }
 
+    @Override
+    public List<String> getTotalReceive() {
+        return billMapper.getTotalReceive();
+    }
+
+    @Override
+    public List<String> getTotalPay() {
+        return billMapper.getTotalPay();
+    }
+
     /**
      * 导出日报表
      * @param request

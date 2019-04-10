@@ -66,6 +66,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         BigDecimal bBD = new BigDecimal(goodsNumber).setScale(2);
         BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
                 java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setPrice(aBD.toString());
         purchaseOrder.setTotalPrice(resultBD.toString());
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
@@ -155,7 +156,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             financeApplyOrder.setApplyId(purchaseOrder.getId());
             BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
             decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getGoodsNumber());
+            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getPrice());
             decimal2.setScale(0);
             BigDecimal applyMoney = decimal1.multiply(decimal2);
             financeApplyOrder.setApplyMoney(applyMoney.toString());
@@ -368,7 +369,12 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     /**四月份报表 柱状图*/
-    public List<String> selectChartByApril(){
-        return dao.selectChartByApril();
+    public List<String> selectChartByApril(String goodsName){
+        return dao.selectChartByApril(goodsName);
+    }
+
+    /**报表 获取所有goodsName*/
+    public List<String> selectGoodsNameAll(){
+        return dao.selectGoodsNameAll();
     }
 }

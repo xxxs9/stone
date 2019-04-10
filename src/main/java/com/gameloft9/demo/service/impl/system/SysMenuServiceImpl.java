@@ -184,6 +184,9 @@ public class SysMenuServiceImpl implements SysMenuService {
             sysAccessPermissionTestMapper.updateByPrimaryKeySelective(sysAccessPermissionTest);
         }
 
+        //删除treeNode
+        treeNodeMapper.deletePerms(menuId);
+
         return true;
     }
 

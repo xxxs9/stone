@@ -81,8 +81,8 @@ layui.config({
                 //do something
                 audi(row.id);
             }else if(layEvent==='intoDepot'){
-                intoDepot(row.id)
-            } else if (layEvent === 'stepBack1') {
+                intoDepot(row.id);
+            } else if (layEvent === 'stepBack') {
                 stepBack1(row.id);
 
             } else if (layEvent === 'plan') {
@@ -91,29 +91,6 @@ layui.config({
                 //do something
                 ManagerAudi(row.id, row.other2);
             } else if (layEvent === 'fenPei') {
-               /* var flag;
-                var id = row.id;
-                var req = {
-                    productId: id
-                }
-                $api.getReachByProductId(req, function (res) {
-                    var data = res.data;
-                    flag = data;
-                    console.log(flag)
-                });
-                if (flag === null) {
-                    fenPei(row.id);
-                } else {
-
-                    //
-                    layer.msg(">>>>>等待仓库审核<<<<<", {time: 2000}, function () {
-                        //重新加载表格
-                        tableIns.reload();
-                    });
-
-                }
-
-*/
                 fenPei(row.id);
             } else if (layEvent === 'stopProduce') {//生产暂停
                 stopProduce(row.id);

@@ -111,7 +111,7 @@ layui.config({
 
         };
 
-        $api.addBillCheckNew(req,function (data) {
+        $api.producingAdd(req,function (data) {
             stoProduct(idd);
             console.log(idd)
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)

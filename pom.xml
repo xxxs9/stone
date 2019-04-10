@@ -254,6 +254,14 @@
       <artifactId>spring-websocket</artifactId>
       <version>4.1.9.RELEASE</version>
     </dependency>
+
+    <!--语音-->
+    <dependency>
+      <groupId>com.baidu.aip</groupId>
+      <artifactId>java-sdk</artifactId>
+      <version>4.11.0</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>manager</finalName>
