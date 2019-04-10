@@ -154,7 +154,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/recall.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder：add")
+    @RequiresPermissions("purOrder:add")
     public IResult recallPurOrder(String id){
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
@@ -254,7 +254,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/search.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder:add")
+    @RequiresPermissions("purOrder:all")
     public IResult selectAllBySearch(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.selectAllBySearch(purchaseOrder));
     }
@@ -273,6 +273,7 @@ public class PurchaseOrderController {
      * */
     @RequestMapping(value = "/selectChartByApril.do",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("purOrder:manager:add")
     public IResult selectChartByApril(String goodsName){
         return new ResultBean<Collection<String>>(service.selectChartByApril(goodsName));
     }

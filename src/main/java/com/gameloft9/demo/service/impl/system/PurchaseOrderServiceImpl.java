@@ -66,6 +66,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         BigDecimal bBD = new BigDecimal(goodsNumber).setScale(2);
         BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
                 java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setPrice(aBD.toString());
         purchaseOrder.setTotalPrice(resultBD.toString());
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
