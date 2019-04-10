@@ -16,6 +16,8 @@ layui.config({
 
     var tableIns; //表格实例
 
+    console.log(window.sessionStorage.getItem('roles'))
+
     /**
      * 业务初始化
      * */

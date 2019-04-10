@@ -32,6 +32,7 @@ layui.config({//基础目录
         //显示姓名
         $('.userName').text(window.sessionStorage.getItem('sysUser'));
         $('.cite-user-name').text(window.sessionStorage.getItem('sysUser'));
+
     }
 
     init();
