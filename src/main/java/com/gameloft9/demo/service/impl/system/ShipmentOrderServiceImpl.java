@@ -148,7 +148,7 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
     @Override
     public Boolean goods(ShipmentOrder shipmentOrder) {
         CheckUtil.notBlank(shipmentOrder.getId(),"订单id为空");
-        shipmentOrder.setState(StateUUtil.APPLY_goods);
+        shipmentOrder.setState(StateUUtil.APPLY_goodsss);
         shipmentOrderMapper.goods(shipmentOrder);
         return true;
     }

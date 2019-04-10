@@ -103,7 +103,7 @@
         </set>
         <where>
             <if test="goodsId != null and goodsId != ''">
-                 GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+                and GOODS_ID = #{goodsId,jdbcType=VARCHAR}
             </if>
         </where>
     </update>

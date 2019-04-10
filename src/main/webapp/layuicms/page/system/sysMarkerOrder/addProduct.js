@@ -18,9 +18,18 @@ layui.config({
         //初始化下拉框
       /*  initParentMenu();*/
 
+        initGoodsProduct();
     }
 
     init();
+
+    form.on('select(aaaaa)', function (data) {
+
+        var value =$('#productName1 option:selected').html();
+        var str = value.split("---");
+        $('#other3').val(str[0]);
+
+    });
 
     /**
      * 初始化下拉框
@@ -39,22 +48,33 @@ layui.config({
         });
     }
 */
+    function initGoodsProduct() {
+        $api.getUnProduce(null,function (res) {
+            var data = res.data;
+            console.log(data);
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].pname + '">'+ data[i].bianhao + '---' + data[i].pname + '</option>';
+                }
+                $('#productName1').append($(html));
+                form.render();
+            }
+        });
+    }
     $('#canSold').val(window.sessionStorage.getItem('sysUser'));
+
     /**
-     * 监听radio选择
+     * 监听select选择
      * */
-    /*form.on('radio(menuTypeFilter)', function (data) {
-        //console.log(data.elem); //得到radio原始DOM对象
-        var value = data.value;
-        if ('2' === value) {//二级菜单
-            $('.parent-menu').removeClass('layui-hide');
-            $('.parent-menu').addClass('layui-anim-up');
-        }else{
-            $('.parent-menu').addClass('layui-hide');
-            $('.parent-menu').removeClass('layui-anim-up');
-        }
+    form.on('select(aaaa)', function (data) {
+        var value =$('#productName1 option:selected').html();
+        var str = value.split("---");
+        console.log(value);
+        $('#other2').val(str[0]);
+
     });
-*/
+
     /**
      * 表单提交
      * */
@@ -72,6 +92,7 @@ layui.config({
         var other1 = data.field.other1;
         var other2 = data.field.other2;
         var other3 = data.field.other3;
+        console.log("...."+other3);
 
         //请求
         var req = {
