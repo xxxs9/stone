@@ -52,7 +52,6 @@ public class SysMenuController {
      * */
     @RequestMapping(value = "/firstClassMenus.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("sysy:aaaa")
     //@BizOperLog(operType = OperType.Query,memo = "获取所有一级菜单列表")
     public IResult getFirstMenuList(){
         //返回json至前端的均返回ResultBean或者PageResultBean
