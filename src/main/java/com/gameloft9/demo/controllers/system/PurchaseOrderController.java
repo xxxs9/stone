@@ -154,7 +154,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/recall.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder：add")
+    @RequiresPermissions("purOrder:add")
     public IResult recallPurOrder(String id){
         return new ResultBean<Boolean>(service.recallUpdate(id));
     }
