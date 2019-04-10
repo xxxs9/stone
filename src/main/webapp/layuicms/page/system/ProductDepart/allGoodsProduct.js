@@ -160,15 +160,15 @@ layui.config({
 
     //查询
     form.on("submit(queryMenu)", function (data) {
-        var productName = data.field.productName;
-        var productState = data.field.productState;
+        var pname = data.field.pname;
+
 
 
         //表格重新加载
         tableIns.reload({
             where: {
-                productName: productName,
-                productState: productState
+                pname: pname,
+
 
             }
         });

@@ -85,7 +85,7 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
     }
 
     /**
-     * 检验入库
+     * 生产完成并检验入库
      * @param id
      * @param productName
      * @param state
