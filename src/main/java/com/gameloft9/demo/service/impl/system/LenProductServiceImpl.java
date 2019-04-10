@@ -35,8 +35,6 @@ public class LenProductServiceImpl implements LenProductService {
     SysMaterialGoodsMapper materialGoodsMapper;
     @Autowired
     SysMaterialMapper materialMapper;
-
-
     @Override
     public List<LenProduct> selectAll() {
         return mapper.selectAll();

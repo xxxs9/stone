@@ -76,7 +76,8 @@ layui.config({
      * 更换验证码
      * */
     $('.code img').click(function () {
-        this.src = $tool.getContext() + 'getVCode';
+        //alert(1)
+        this.src = $tool.getContext() + 'getVCode.do' + new Date().getTime();
     });
 
     function init() {

@@ -66,6 +66,21 @@ public interface LenBillCheckService {
                     String productId,
                     String planId
     );
+
+    /**
+     * 只插入到billCheck表中
+     * @param id
+     * @param productName
+     * @param state
+     * @param checkNumber
+     * @param checkDate
+     * @param checkUser
+     * @param checkRemark
+     * @param reachId
+     * @param productId
+     * @param planId
+     * @return
+     */
     boolean finalInsert( String id,
                     String productName ,
                     String state,
