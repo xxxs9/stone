@@ -180,6 +180,11 @@ public class TreeNodeServiceImpl implements TreeNodeService {
         //更新菜单角色设置
         updateMenuRole(id, roleIdList);
 
+        //更新菜单perms
+        SysMenuTest menu = menuTestMapper.getMenuByMenuId(id);
+        menu.setPerms(perms);
+        menuTestMapper.updateByPrimaryKey(menu);
+
         return true;
     }
 

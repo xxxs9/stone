@@ -50,7 +50,7 @@ layui.config({
                 //alert(data.state())
 
                 //alert(financeState)
-                if(data.state != '等待仓库审核'){
+                if(data.state != '等待财务审核'){
                     $('#gnrt').css("display",'none');
                 }
 
