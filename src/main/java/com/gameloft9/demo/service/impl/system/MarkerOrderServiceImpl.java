@@ -198,7 +198,6 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
 
         CheckUtil.notBlank(markerOrderTest.getId(),"订单id为空");
         markerOrderTest.setState(StateUUtil.APPLY_finacc);
-        markerOrderTest.setState(StateUUtil.APPLY_fina_pass);
         markerOrderMapper.submit(markerOrderTest);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
         applyOrder.setId(UUIDUtil.getUUID());
