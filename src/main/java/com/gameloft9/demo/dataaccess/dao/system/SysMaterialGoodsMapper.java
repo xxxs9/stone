@@ -87,4 +87,10 @@ public interface SysMaterialGoodsMapper {
      * 根据获取原料商品id信息
      * */
     List<String> getMaterialGoodsId();
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<SysMaterialGoods> getMaterialGoodsAll();
 }

@@ -23,7 +23,10 @@
             AND t.TYPE =   #{type,jdbcType=VARCHAR}
         </if>
         <if test="goodsId !=null and goodsId != ''">
-            AND t.GOODS_ID =   #{goodsId,jdbcType=VARCHAR}
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
         </if>
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
@@ -35,7 +38,10 @@
             AND t.TYPE =   #{type,jdbcType=VARCHAR}
         </if>
         <if test="goodsId !=null and goodsId != ''">
-            AND t.GOODS_ID =   #{goodsId,jdbcType=VARCHAR}
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
         </if>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventory">

@@ -42,6 +42,10 @@
         select * from USER_TEST t WHERE
         t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
     </select>
+    <!--下拉框查询所有用户列表-->
+    <select id="findall" resultMap="BaseResultMap" parameterType="map">
+         select LOGIN_NAME,ID from USER_TEST
+    </select>
     <!--mysql版本-->
     <select id="getAll" resultMap="BaseResultMap">
         select * from USER_TEST t

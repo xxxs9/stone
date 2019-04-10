@@ -3,7 +3,6 @@ package com.gameloft9.demo.dataaccess.dao.system;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -211,8 +210,15 @@ public interface PurchaseOrderMapper {
      * */
     PurchaseOrder selectByOrderNumber(String orderNumber);
 
+    /**
+     * 四月份报表
+     * */
+    List<String> selectChartByApril(String goodsName);
 
-
+    /**
+     * 报表 获取所有goodsName
+     * */
+    List<String> selectGoodsNameAll();
 
 
 

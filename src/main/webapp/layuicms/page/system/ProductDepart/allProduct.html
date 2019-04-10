@@ -45,9 +45,9 @@
             <a class="layui-btn layui-btn-normal usersAdd_btn">新增加工单</a>
         </div>
         &nbsp;&nbsp;
-        <div class="layui-inline">
+        <!--<div class="layui-inline">
             <a class="layui-btn layui-btn-black "  lay-submit="" lay-filter="chart" id="chart">图表</a>
-        </div>
+        </div>-->
     </form>
 </blockquote>
 <!--表格区-->
@@ -104,9 +104,10 @@
     <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event=""><i class="layui-icon">&#xe643;</i>退回</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
     {{#  } else if(d.productState == '11'){ }}
-    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe642;</i>详情</a>
-    <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event=""><i class="layui-icon">&#xe643;</i>入库</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+   <!-- <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe642;</i>详情</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event="intoDepot"><i class="layui-icon">&#xe643;</i>入库</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    <span>等待仓库接受</span>
     {{#  } else if(d.productState == '12'){ }}
     <span>该产品已在仓库中</span>
     {{#  } }}

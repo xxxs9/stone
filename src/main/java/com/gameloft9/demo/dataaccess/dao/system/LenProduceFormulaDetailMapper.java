@@ -104,6 +104,8 @@ public interface LenProduceFormulaDetailMapper {
 
     String selectMaterialNumber(@Param("id")String id);
 
+    String selectFomulaId(@Param("produceFormulaId")  String produceFormulaId);
+
 
 
 }

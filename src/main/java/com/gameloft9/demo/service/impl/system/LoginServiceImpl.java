@@ -14,6 +14,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,7 @@ public class LoginServiceImpl implements LoginService{
         if(currentUser.isAuthenticated()){
             log.info("验证成功！");
             //还可以把用户信息放入session中
+
             request.getSession().setAttribute("sysUser",loginName);
             //根据登录名loginName获取对应的id
             String userId = userMapper.selectIdByLoginName(loginName);
@@ -96,6 +99,9 @@ public class LoginServiceImpl implements LoginService{
             //将遍历出来的值存入域roles中
             request.getSession().setAttribute("roles", list);
 
+            //连接websocket
+            System.out.println("连接websocket---------------");
+            request.getSession().setMaxInactiveInterval(30*60);//session超时30min
             //拼接返回信息
             UserTest userTest = userMapper.getByLoginName(loginName);
             loginResponse.setUserId(userTest.getId());

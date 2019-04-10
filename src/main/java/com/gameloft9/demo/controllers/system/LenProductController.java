@@ -1,6 +1,8 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
@@ -63,7 +65,8 @@ public class LenProductController {
         LenProduct product = service.getByPrimaryKey(id);
         String productOther2 = product.getCanSold();
         String sysUser = (String) SecurityUtils.getSubject().getSession().getAttribute("sysUser");
-        if (productOther2.equals(sysUser)){
+        boolean role = SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN);
+        if (productOther2.equals(sysUser)||role){
             if (service.delete(id)){
                 return new ResultBean<Boolean>(true);
 
@@ -111,7 +114,7 @@ public class LenProductController {
         LenProduct product = service.getByPrimaryKey(id);
         String productOther2 = product.getCanSold();
         //实体内创建的用户和当前用户进比较 是否一致
-        if (productOther2.equals(currentUserId)){
+        if (productOther2.equals(currentUserId)||SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
             if (service.changeState(id)){
                 return new ResultBean(true);
             }else{
@@ -145,15 +148,15 @@ public class LenProductController {
     @ResponseBody
     public IResult stepBack(String id) {
 
-        if (Constants.lennonPDAudi() == 1) {
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
 
-            if (service.changeProState(Constants.productState.TIJIAO_UNAUDI, id)) {
+            if (service.changeProState(Constants.productState.UN_TIJIAO, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
                 return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
             }
         } else {
-            return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
+            return new ResultBean<String>("4011",">>>>>>>权限不足<<<<<<<");
         }
     }
 
@@ -181,14 +184,28 @@ public class LenProductController {
     @ResponseBody
     public IResult managerAudi(String id) {
 
-        if (Constants.lennonPDAudi() == 1) {
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
             if (service.changeProState(Constants.productState.REACH_UNFENPEI, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
-                return new ResultBean<String>("401","操作失败");
+                return new ResultBean<String>("4011","操作失败");
             }
         } else {
-            return new ResultBean<String>("401","操作失败");
+            return new ResultBean<String>("4011",">>>权限不足<<<");
+        }
+    }
+    @RequestMapping(value = "/audiNot",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult audiNot(String id) {
+
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
+            if (service.changeProState(Constants.productState.UN_TIJIAO, id)) {
+                return new ResultBean<Boolean>(true);
+            } else {
+                return new ResultBean<String>("4011","操作失败");
+            }
+        } else {
+            return new ResultBean<String>("4011",">>>权限不足<<<");
         }
     }
 
@@ -204,10 +221,7 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.STOP_PRODUCE,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>>操作失败<<<<<");
             }
         }
 
@@ -223,10 +237,7 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.FENPEI_START_PRODUCE,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>>操作失败<<<<<");
             }
 
 
@@ -237,10 +248,7 @@ public class LenProductController {
         if (service.changeBehindState(Constants.productState.AUDI_UNREACH,id)){
             return new ResultBean<Boolean>(true);
         }else {
-            ResultBean<?> result = new ResultBean();
-            result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-            result.setCode(ResultBean.SYSTEM_FAIL);
-            return result;
+            return new ResultBean<String>("4011",">>>>>操作失败<<<<<");
         }
 
 
@@ -257,10 +265,7 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.COMPLETE_PRODUCE,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>数据库操作失败<<<<");
             }
         }
         ResultBean<?> result = new ResultBean();
@@ -279,16 +284,10 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.CONTINUE_PRODUCE,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>数据库操作失败<<<<");
             }
         }
-        ResultBean<?> result = new ResultBean();
-        result.setMsg(">>>>>>>操作无法完成<<<<<<<");
-        result.setCode(ResultBean.SYSTEM_FAIL);
-        return result;
+        return new ResultBean<String>("4011",">>>>操作失败<<<<");
     }
 
     /**
@@ -303,16 +302,10 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.CHECK_GOOD,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011","操作失败");
             }
         }
-        ResultBean<?> result = new ResultBean();
-        result.setMsg(">>>>>>>操作无法完成<<<<<<<");
-        result.setCode(ResultBean.SYSTEM_FAIL);
-        return result;
+        return new ResultBean<String>("4011","操作失败");
     }
 
     /**
@@ -327,16 +320,10 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.CHECK_BAD,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011",">>>>数据库操作失败<<<<");
             }
         }
-        ResultBean<?> result = new ResultBean();
-        result.setMsg(">>>>>>>操作无法完成<<<<<<<");
-        result.setCode(ResultBean.SYSTEM_FAIL);
-        return result;
+        return new ResultBean<String>("4011",">>>>操作失败<<<<");
     }
 
     /**
@@ -351,16 +338,10 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.UN_INTO_DEPOT,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011","操作失败");
             }
         }
-        ResultBean<?> result = new ResultBean();
-        result.setMsg(">>>>>>>操作无法完成<<<<<<<");
-        result.setCode(ResultBean.SYSTEM_FAIL);
-        return result;
+        return new ResultBean<String>("4011","操作失败");
     }
 
     /**
@@ -375,16 +356,10 @@ public class LenProductController {
             if (service.changeBehindState(Constants.productState.INTO_DEPOT,id)){
                 return new ResultBean<Boolean>(true);
             }else {
-                ResultBean<?> result = new ResultBean();
-                result.setMsg(">>>>>>>数据库操作失败<<<<<<<");
-                result.setCode(ResultBean.SYSTEM_FAIL);
-                return result;
+                return new ResultBean<String>("4011","操作失败");
             }
         }
-        ResultBean<?> result = new ResultBean();
-        result.setMsg(">>>>>>>操作无法完成<<<<<<<");
-        result.setCode(ResultBean.SYSTEM_FAIL);
-        return result;
+        return new ResultBean<String>("4011","操作失败");
     }
 
     @RequestMapping("/insertSupportPrice")
@@ -393,5 +368,22 @@ public class LenProductController {
         return new ResultBean<Boolean>(service.insertSupportPrice(supportPrice, id));
     }
 
+    @RequestMapping("/produceMaterial")
+    @ResponseBody
+    public IResult insertSupportPrice(){
+        return new ResultBean<List>(service.getAllMaterial());
+    }
+
+    @RequestMapping("/getProduceMaterialById")
+    @ResponseBody
+    public IResult getProduceMaterialById(String id){
+        return new ResultBean<SysMaterial>(service.getMaterilaById(id));
+    }
+
+    @RequestMapping("/getMaterialGoodsById")
+    @ResponseBody
+    public IResult getMaterialGoodsById(String id){
+        return new ResultBean<SysMaterialGoods>(service.getGoodsMaterialById(id));
+    }
 
 }

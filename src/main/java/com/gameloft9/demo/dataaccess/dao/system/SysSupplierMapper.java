@@ -20,21 +20,6 @@ public interface SysSupplierMapper {
     List<String> getSupplierName();
 
     /**
-     * 获取供应商个数
-     * @param supplierName      供应商名称
-     * @param supplierDescribe  供应商描述
-     * @param chargeName    联系人
-     * @param email     邮箱
-     * @param phone     电话
-     * @return
-     */
-    int countGetAll(@Param("supplierName") String supplierName,
-                    @Param("supplierDescribe") String supplierDescribe,
-                    @Param("chargeName") String chargeName,
-                    @Param("phone") String phone,
-                    @Param("email") String email);
-
-    /**
      *  分页获取供应商列表
      * @param start     记录行的偏移量
      * @param end       记录的最大数目
@@ -52,6 +37,21 @@ public interface SysSupplierMapper {
                              @Param("chargeName") String chargeName,
                              @Param("email") String email,
                              @Param("phone") String phone);
+
+    /**
+     * 获取供应商个数
+     * @param supplierName      供应商名称
+     * @param supplierDescribe  供应商描述
+     * @param chargeName    联系人
+     * @param email     邮箱
+     * @param phone     电话
+     * @return
+     */
+    int countGetAll(@Param("supplierName") String supplierName,
+                    @Param("supplierDescribe") String supplierDescribe,
+                    @Param("chargeName") String chargeName,
+                    @Param("email") String email,
+                    @Param("phone") String phone);
 
 
     /**

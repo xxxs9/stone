@@ -1,6 +1,5 @@
 package com.gameloft9.demo.dataaccess.dao.system;
 
-import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
 import org.apache.ibatis.annotations.Param;
 

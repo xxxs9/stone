@@ -206,7 +206,7 @@
     </select>
 
     <!--初始化goodsId下拉框-->
-    <select id="selectAllGoodsId" resultType="java.lang.String">
+    <select id="selectAllGoodsId" resultMap="purReturnMap">
         SELECT
             m.GOODS_NAME,
             g.ID

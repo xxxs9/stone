@@ -78,6 +78,17 @@ public class OrderUtil {
         return buffer.toString();
     }
 
+    public static String lenOrderNumber(String str){
+
+        DateFormat format = new SimpleDateFormat("MMdd");
+        Date date = new Date();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(str);
+        buffer.append(format.format(date));
+        buffer.append((date.getTime() + "").substring(9));
+        buffer.append(getRandNum(4));
+        return buffer.toString();
+    }
 
 
 

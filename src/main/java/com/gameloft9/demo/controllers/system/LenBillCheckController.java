@@ -50,6 +50,12 @@ public class LenBillCheckController {
         return new ResultBean<Boolean>(service.insert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId));
     }
 
+    @RequestMapping(value = "/producingAdd", method = RequestMethod.POST)
+    @ResponseBody
+    public IResult producingAdd(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
+        return new ResultBean<Boolean>(service.finalInsert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId));
+    }
+
     @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public IResult update(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
@@ -63,10 +69,7 @@ public class LenBillCheckController {
             Boolean flag = true;
             return new ResultBean(flag);
         } else {
-            ResultBean<?> result = new ResultBean();
-            result.setMsg("权限不足！");
-            result.setCode(ResultBean.SYSTEM_FAIL);
-            return result;
+            return new ResultBean<String>("4011",">>>>>>>权限不足<<<<<<<");
         }
 
     }
@@ -89,7 +92,7 @@ public class LenBillCheckController {
         if (service.changeState(Constants.productState.COMPLETE_PRODUCE, id)) {
             return new ResultBean<Boolean>(true);
         }
-        throw new RuntimeException("操作失败");
+        return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
     }
 
     @RequestMapping(value = "/notOk", method = RequestMethod.POST)
@@ -99,7 +102,7 @@ public class LenBillCheckController {
         if (service.changeState(Constants.SCZT, id)) {
             return new ResultBean<Boolean>(true);
         }
-        throw new RuntimeException("操作失败");
+        return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
     }
 
     @RequestMapping(value = "/stepBack", method = RequestMethod.POST)
@@ -109,7 +112,7 @@ public class LenBillCheckController {
         if (service.changeState(Constants.UN_TIJIAO, id)) {
             return new ResultBean<Boolean>(true);
         }
-        throw new RuntimeException("操作失败");
+        return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
     }
 
     @RequestMapping(value = "/intoDepot", method = RequestMethod.POST)
@@ -119,7 +122,7 @@ public class LenBillCheckController {
         if (service.changeState(Constants.SCWC, id)) {
             return new ResultBean<Boolean>(true);
         }
-        throw new RuntimeException("操作失败");
+        return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
     }
 
     @RequestMapping(value = "/selectByProductId", method = RequestMethod.POST)

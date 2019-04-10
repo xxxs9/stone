@@ -91,7 +91,7 @@ public class DateUtil {
      */
     public static Date ifNull(String time){
         Date time1 = null;
-        if(time != null){
+        if(time != null && !"".equals(time)){
             time1 = str2Date(time);
         }
         return time1;

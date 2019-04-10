@@ -86,7 +86,7 @@ layui.config({
             limit:10
         };
 
-        $api.listPurOrder(req,function (res) {
+        /*$api.listPurOrder(req,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var depotHtml = "";
@@ -102,7 +102,7 @@ layui.config({
                 $('.role-check-list').append($(depotHtml));
                 form.render();//重新绘制表单，让修改生效
             }
-        });
+        });*/
     }
 
 

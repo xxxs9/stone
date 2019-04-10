@@ -30,8 +30,9 @@ layui.config({
      */
     form.verify({
         actualBalance: function(value){
-            if(value<0){
-                return '实际价格要大于0';
+            var re = /^[0-9]+.?[0-9]*/;
+            if(!re.test(value)){
+                return '请输入正整数';
             }
         },
         auditDescribe: function(value){

@@ -3,6 +3,7 @@ package com.gameloft9.demo.service.impl.system;
 import com.gameloft9.demo.dataaccess.dao.system.LenFormulaReachMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProducePlanMapper;
+import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenFormulaReach;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenFormulaReachService;
@@ -10,6 +11,7 @@ import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.DateUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,8 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
     @Autowired
     LenProduceFormulaDetailMapper detailMapper;
+    @Autowired
+    LenProductMapper lenProductMapper;
 
     @Override
     public List<LenFormulaReach> selectAll() {
@@ -88,14 +92,13 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
     }
 
     @Override
-    public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1) {
+    public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1,String other2) {
 
-        if (Constants.lennonPDAudi() == 1) {
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
             LenFormulaReach reach = new LenFormulaReach();
-            Date date = DateUtil.str2Date(reachTime, "yyyy-MM-dd");
             String uuid = UUIDUtil.getUUID();
             reach.setId(uuid);
-            reach.setReachTime(date);
+            reach.setReachTime(new Date());
             reach.setProductId(productId);
             reach.setProduceFormulaId(productFormulaId);
             reach.setProduceFormulaDetailId(produceFormulaDetailId);
@@ -111,6 +114,7 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
             String goodsNumber = String.valueOf(goodsNumbers);
 
             if (mapper.insert(reach) > 0) {
+                //添加到仓库模块
                 depotOrderService.addProduceDepotOrderOut(uuid,materialId,goodsNumber,reachUser);
                 return true;
             } else {

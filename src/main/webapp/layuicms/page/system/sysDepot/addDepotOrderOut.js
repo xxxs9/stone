@@ -34,14 +34,14 @@ layui.config({
                 form.render();
             }
         });
-        $api.GetProductId(null,function (res) {
+        $api.getAllProduct(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
                 }
-                $('#productId').append($(html));
+                $('#productName').append($(html));
                 form.render();
             }
         });
@@ -68,13 +68,15 @@ layui.config({
         }
     });
 
-
     /**
      * 监听select选择
      * */
-    form.on('select(materialIdFilter)', function (data) {
-        //console.log(data.elem); //得到select原始DOM对象
+    form.on('select(productNameFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
         var goodsId = data.value;
+        if(goodsId != null){
+            $("#productId").val(goodsId)
+        }
         //请求
         var req = {
             goodsId:goodsId
@@ -91,12 +93,14 @@ layui.config({
             }
 
         });
+
     });
+
 
     /**
      * 监听select选择
      * */
-    form.on('select(productIdFilter)', function (data) {
+    form.on('select(materialIdFilter)', function (data) {
         //console.log(data.elem); //得到select原始DOM对象
         var goodsId = data.value;
         //请求

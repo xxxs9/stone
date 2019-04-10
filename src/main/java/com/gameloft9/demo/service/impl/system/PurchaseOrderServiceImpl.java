@@ -66,6 +66,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         BigDecimal bBD = new BigDecimal(goodsNumber).setScale(2);
         BigDecimal resultBD = aBD.multiply(bBD).setScale(2,
                 java.math.BigDecimal.ROUND_HALF_UP);
+        purchaseOrder.setPrice(aBD.toString());
         purchaseOrder.setTotalPrice(resultBD.toString());
         dao.insert(purchaseOrder);
         return purchaseOrder.getId();
@@ -134,7 +135,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         String st = purchaseOrder1.getState();
         String s = "提交审核中";
         if(!st.equals(s)) {
-            throw new BizException(AbstractResult.CHECK_FAIL,"订单被撤回，无法审核");
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单已被撤回，请刷新！");
         }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
@@ -155,7 +156,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             financeApplyOrder.setApplyId(purchaseOrder.getId());
             BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
             decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
-            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getGoodsNumber());
+            BigDecimal decimal2 = new BigDecimal(purchaseOrder.getPrice());
             decimal2.setScale(0);
             BigDecimal applyMoney = decimal1.multiply(decimal2);
             financeApplyOrder.setApplyMoney(applyMoney.toString());
@@ -228,6 +229,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public boolean recallUpdate(String  id) {
         CheckUtil.notBlank(id,"订单id为空");
         PurchaseOrder purchaseOrder = dao.selectByPrimaryKey(id);
+        //审核前判断state是否为提交审核中（避免撤回后还能审核）
+        /*PurchaseOrder purchaseOrder1 = dao.selectByPrimaryKey(purchaseOrder.getId());*/
+        String st = purchaseOrder.getState();
+        String s = "审核通过";
+        String t = "审核未通过";
+        if(st.equals(s) || st.equals(t)) {
+            throw new BizException(AbstractResult.CHECK_FAIL,"订单已审核，请刷新！");
+        }
         //Constants  APPLY_NO_SUBMIT定义'未提交'
         purchaseOrder.setState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.recallUpdate(purchaseOrder);
@@ -284,6 +293,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         CheckUtil.notBlank(orderNumber,"订单编号为空");
         PurchaseOrder purchaseOrder = dao.selectByOrderNumber(orderNumber);
         purchaseOrder.setDepotState(Constants.DepotState.DEPOT_PASS);
+        //审核通过后添加一个当下时间
+        purchaseOrder.setDepotTime(new Date());
         dao.toolsUpdate(purchaseOrder);
         return true;
     }
@@ -355,5 +366,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**根据id获取*/
     public PurchaseOrder selectByOrderNumber(String orderNumber) {
         return dao.selectByOrderNumber(orderNumber);
+    }
+
+    /**四月份报表 柱状图*/
+    public List<String> selectChartByApril(String goodsName){
+        return dao.selectChartByApril(goodsName);
+    }
+
+    /**报表 获取所有goodsName*/
+    public List<String> selectGoodsNameAll(){
+        return dao.selectGoodsNameAll();
     }
 }

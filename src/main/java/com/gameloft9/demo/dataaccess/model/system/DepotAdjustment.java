@@ -1,7 +1,6 @@
 package com.gameloft9.demo.dataaccess.model.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import lombok.Data;
 
 import java.io.Serializable;

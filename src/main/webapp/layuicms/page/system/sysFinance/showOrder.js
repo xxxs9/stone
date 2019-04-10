@@ -29,7 +29,7 @@ layui.config({
         };
 
         //沧海的getPurOrder
-        if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+        if(queryArgs.applyType == 1 ){
             $api.getPurOrder(req,function (res) {
                 var data = res.data;
                 $('#id').val(id);
@@ -39,7 +39,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);*/
-                $("[name='goodsId']").html(data.goodsId);
+                $("[name='goodsId']").html(data.goodsName);
                 $("[name='goodsNumber']").html(data.goodsNumber);
                 $("[name='price']").html(data.price);
                 $("[name='applyUser']").html(data.applyUser);
@@ -58,18 +58,20 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         } else if(queryArgs.applyType == 2){
-            $api.GetShipmentOrder(req,function (res) {
+            $api.GetMarkerOrder(req,function (res) {
                 var data = res.data;
-                var goodsAmount = data.goodsAmount;
-                var goodsNumber = data.goodsNumber;
+                var goodsAmount = data.acceptedAmount;
+                var goodsNumber = data.deliverNumber;
                 var unitPrice = goodsAmount/goodsNumber;
                 $('#id').val(id);
-                $("[name='goodsId']").val(data.goodsName);
-                $("[name='goodsNumber']").val(data.goodsNumber);
-                $("[name='price']").val(unitPrice);
-                $("[name='applyUser']").val(data.applyUser);
-                $("[name='applyTime']").val(data.applyTime);
-                $("[name='applyDescribe']").val(data.applyDescribe);
+                /*console.log(data)
+                alert(data.orderId)*/
+                $("[name='goodsId']").html("q");
+                $("[name='goodsNumber']").html(data.deliverNumber);
+                $("[name='price']").html(unitPrice);
+                $("[name='applyUser']").html(data.applyUser);
+                $("[name='applyTime']").html(data.orderTime);
+                $("[name='applyDescribe']").html(data.applyDescribe);
                 //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
                 //加载角色列表
                 //loadRoleList();
@@ -89,12 +91,40 @@ layui.config({
                 var goodsNumber = data.goodsNumber;
                 var unitPrice = goodsAmount/goodsNumber;
                 $('#id').val(id);
-                $("[name='goodsId']").val(data.goodsName);
+                $("[name='goodsId']").html(data.goodsName);
+                $("[name='goodsNumber']").html(data.goodsNumber);
+                $("[name='price']").html(unitPrice);
+                $("[name='applyUser']").html(data.applyUser);
+                $("[name='applyTime']").html(data.applyTime);
+                $("[name='applyDescribe']").html(data.applyDescribe);
+                //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
+                //加载角色列表
+                //loadRoleList();
+
+
+                if(queryArgs.applyType == 1 || queryArgs.applyType==3){
+                    $('#apply').text('采购订单申请');
+                } else if(queryArgs.applyType == 2 || queryArgs.applyType==4){
+                    $('#apply').text('销售订单申请');
+                }
+                form.render();//重新绘制表单，让修改生效
+            });
+        }if( queryArgs.applyType==3){
+            $api.getPurchaseReturn(req,function (res) {
+                var data = res.data;
+                $('#id').val(id);
+                /*$("[name='goodsId']").val(data.goodsId);
                 $("[name='goodsNumber']").val(data.goodsNumber);
-                $("[name='price']").val(unitPrice);
+                $("[name='price']").val(data.price);
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
-                $("[name='applyDescribe']").val(data.applyDescribe);
+                $("[name='applyDescribe']").val(data.applyDescribe);*/
+                $("[name='goodsId']").html(data.goodsName);
+                $("[name='goodsNumber']").html(data.goodsNumber);
+                $("[name='price']").html(data.price);
+                $("[name='applyUser']").html(data.applyUser);
+                $("[name='applyTime']").html(data.applyTime);
+                $("[name='applyDescribe']").html(data.applyDescribe);
                 //menu_roleIds = data.roleIdList;//保存菜单所属角色id列表，初始化选中时用
                 //加载角色列表
                 //loadRoleList();

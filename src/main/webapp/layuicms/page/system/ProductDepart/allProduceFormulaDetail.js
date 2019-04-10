@@ -49,11 +49,12 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'produceFormulaId', title: '生产配方编号'}
+                  {field: 'other1', title: '配方详情号'}
+               /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
                 , {field: 'materialId', title: '原材料编号'}
+                ,{field: 'other2', title: '原料名称'}
                 , {field: 'materialNumber', title: '原材料数量'}
-                , {field: 'depotId', title: '仓库编号'}
-                , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -72,6 +73,8 @@ layui.config({
             } else if (layEvent === 'edit') { //编辑
                 //do something
                 editMenu(row.id);
+            }else if (layEvent==='add'){
+                addDetail();
             }
         });
     }
@@ -101,7 +104,7 @@ layui.config({
         var index = layui.layer.open({
             title: "添加",
             type: 2,
-            content: "addProduceFormulaDetail.html",
+            content: "addProductFormulaDetail.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -117,7 +120,26 @@ layui.config({
         });
         layui.layer.full(index);
     });
+    function addDetail() {
+        var index = layui.layer.open({
+            title: "添加",
+            type: 2,
+            content: "addProductFormulaDetail.html",
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
 
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+    }
     //删除
     function delMenu(id){
         layer.confirm('确认删除吗？', function (confirmIndex) {

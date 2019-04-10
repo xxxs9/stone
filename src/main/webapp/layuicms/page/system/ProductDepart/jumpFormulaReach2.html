@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>添加废料</title>
+    <title> </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -27,7 +27,7 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;" id="myform">
-    <h2>仓库审核单详情</h2>
+
     </br>
 
     <div class="layui-form-item" style="display: none">
@@ -56,12 +56,13 @@
         </div>
     </div>
     </br>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">领料时间</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="reachTime"  placeholder="请选择领料时间" id="reachTime">
         </div>
     </div>
+
     <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">仓库审核</label>
         <div class="layui-input-block">
@@ -70,10 +71,11 @@
     </div>
 
     </br>
+  <!--  onchange="func(this.options[this.options.selectedIndex].value);-->
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">配方列表</label>
         <div class="layui-input-block">
-            <select name="produceFormulaId" lay-verify="required" id="produceFormulaId" r>
+            <select lay-filter="menuTypeFilter1" name="produceFormulaId" lay-verify="required" id="produceFormulaId" onchange="func(this.value);">
 
             </select>
         </div>
@@ -85,6 +87,16 @@
             <select name="produceFormulaDetailId" lay-verify="required" id="produceFormulaDetailId" >
 
             </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline" style="display: none">
+        <label class="layui-form-label">other2</label>
+        <div class="layui-input-block">
+            <!--<select name="other2"  id="other2" >
+
+            </select>-->
+
+            <input type="text" class="layui-input" name="other2"  id="other2">
         </div>
     </div>
     </br>

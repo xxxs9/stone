@@ -1,25 +1,18 @@
 package com.gameloft9.demo.service.impl.system;
 
-import com.alibaba.druid.sql.visitor.functions.If;
 import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
-import com.gameloft9.demo.mgrframework.beans.response.IResult;
-import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.*;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.UUIDUtil;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +47,10 @@ public class DepotOrderServiceImpl implements DepotOrderService {
     private PurchaseReturnService purchaseReturnServiceImpl;
     @Autowired
     private ReturnGoodsOrderService returnGoodsOrderServiceImpl;
+    @Autowired
+    private LenFormulaReachService lenFormulaReachServiceImpl;
+    @Autowired
+    private  LenGoodsProductMapper lenGoodsProductMapper;
     /***
      * 啊发包
      */
@@ -557,6 +554,11 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产入库,更新沧海采购单状态
         if(current.getType().equals("生产入库")){
             //隆缘改变状态的方法
+            lenProductMapper.changeState(Constants.productState.INTO_DEPOT,id);
+            //更改goodsProduct状态
+            LenProduct byPrimaryKey = lenProductMapper.selectByOther1(id);
+            String bianhao = byPrimaryKey.getOther3();
+            lenGoodsProductMapper.changeState(Constants.productState.YISHENGCHANG,bianhao);
         }
         //销售退货入库,更新锦祥退货单状态
         if(current.getType().equals("销售退货")){
@@ -622,6 +624,13 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
 
+        if(depotOrderMapper.getById(id).getType().equals("生产领料")){
+            LenFormulaReach lenFormulaReach = lenFormulaReachServiceImpl.getByPrimaryKey(id);
+            String productId = lenFormulaReach.getProductId();
+            lenProductMapper.changeState(Constants.productState.FENPEI_START_PRODUCE,productId);
+        }
+
+
         //出库单要出库的数量
         String goodsNumberOut = depotOrderMapper.getById(id).getGoodsNumber();
         //库存中的数量
@@ -637,7 +646,8 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         System.out.println(depotInventory);
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),depotInventory.getType(),depotInventory.getGoodsId(),depotInventory.getGoodsNumber(),depotInventory.getShipmentsNumber(),depotInventory.getSaleableNumber());
 
-
+        //采购退货财务插入申请单
+        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
         //啊发包
         PurchaseReturn purchaseReturn = purchaseReturnMapper.selectReturnByOrderNumber(id);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
@@ -657,7 +667,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         applyOrder.setApplyMoney(purchaseReturn.getTotalPrice());
         //插入申请单
         applyOrderMapper.add(applyOrder);
-
+        }
         return true;
     }
 

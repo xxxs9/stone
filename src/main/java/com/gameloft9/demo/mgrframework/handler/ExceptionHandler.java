@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.exceptions.CheckException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +57,18 @@ public class ExceptionHandler {
         log.error("Throwable:{"+ResultBean.SYSTEM_FAIL+","+e.getMessage()+"}",e);
         ResultBean<?> result = new ResultBean();
         result.setMsg(e.getMessage());
+        result.setCode(ResultBean.SYSTEM_FAIL);
+        return result;
+    }
+    /*//===========无权限============//*/
+    @org.springframework.web.bind.annotation.ExceptionHandler(AuthorizationException.class)
+    @ResponseBody
+    public IResult handleException(AuthorizationException e, HttpServletRequest request,HttpServletResponse response){
+        log.error("AuthorizationException:{"+ResultBean.SYSTEM_FAIL+","+e.getMessage()+"}",e);
+        ResultBean<?> result = new ResultBean();
+        String[] split = e.getMessage().split("\\[");
+        String perms = split[1];
+        result.setMsg("sorry,您没有权限！！！["+perms);
         result.setCode(ResultBean.SYSTEM_FAIL);
         return result;
     }

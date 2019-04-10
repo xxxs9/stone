@@ -4,20 +4,15 @@ import com.gameloft9.demo.dataaccess.dao.system.FinanceBillMapper;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceBill;
 import com.gameloft9.demo.service.api.system.FinanceBillService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.FileUtils;
+import com.gameloft9.demo.utils.DateUtil;
+import com.gameloft9.demo.utils.ExportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,52 +54,110 @@ public class FinanceBillServiceImpl implements FinanceBillService {
     public void export(HttpServletRequest request, HttpServletResponse response) {
         //查找所有的对账
         List<SysFinanceBill> billList = billMapper.getAllBill();
-        //使用poi将数据写到excel中
-        //在内存中创建一个Excel文件
-        HSSFWorkbook workbook =new HSSFWorkbook();
-        //创建一个sheet标签页
-        HSSFSheet sheet = workbook.createSheet("数据报表");
-        sheet.autoSizeColumn(2);
-        //创建标题行
-        HSSFRow headRow = sheet.createRow(0);
-        headRow.createCell(0).setCellValue("部门");
-        headRow.createCell(1).setCellValue("款额");
-        headRow.createCell(2).setCellValue("时间");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:mm");
-        for (SysFinanceBill bill : billList) {
-            HSSFRow dateRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            dateRow.createCell(0).setCellValue(bill.getDepartment());
-            dateRow.createCell(1).setCellValue(bill.getBalance());
-            String time = format.format(bill.getBillTime());
-            dateRow.createCell(2).setCellValue(time);
-        }
-
-        //使用输出流进行文件下载（一个流，两个头）
-        String fileName = "财务报表.xls";
-        String contentType = request.getServletContext().getMimeType(fileName);
-        ServletOutputStream outputStream = null;
-        try {
-            outputStream = response.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        response.setContentType(contentType);
-
-        //获取客户端浏览器类型
-        String agent = request.getHeader("User-Agent");
-        try {
-            fileName = FileUtils.encodeDownloadFilename(fileName,agent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        response.setHeader("content-disposition","attachment;filename="+fileName);
-        try {
-            workbook.write(outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ExportUtil.exprotData(request,response,billList,"财务报表.xls");
 
     }
+
+    @Override
+    public List<SysFinanceBill> getDayBill() {
+        return billMapper.getDayBill();
+    }
+
+    @Override
+    public List<SysFinanceBill> getWeekBill() {
+        return billMapper.getWeekBill();
+    }
+
+    @Override
+    public List<SysFinanceBill> getMonthBill() {
+        return billMapper.getMonthBill();
+    }
+
+    @Override
+    public List<SysFinanceBill> getYearBill() {
+        return billMapper.getYearBill();
+    }
+
+    @Override
+    public List<SysFinanceBill> getTimeBill(String startTime, String endTime) {
+        Date startTime1 = DateUtil.ifNull(startTime);
+        Date endTime1 = DateUtil.ifNull(endTime);
+        return billMapper.getTimeBill(startTime1,endTime1);
+    }
+
+    @Override
+    public List<String> getTotalReceive() {
+        return billMapper.getTotalReceive();
+    }
+
+    @Override
+    public List<String> getTotalPay() {
+        return billMapper.getTotalPay();
+    }
+
+    /**
+     * 导出日报表
+     * @param request
+     * @param response
+     */
+    @Override
+    public void exportDailyReport(HttpServletRequest request, HttpServletResponse response) {
+        String fileName = "财务日报表.xls";
+        List<SysFinanceBill> billList = getDayBill();
+        ExportUtil.exprotData(request,response,billList,fileName);
+    }
+
+    /**
+     * 导出周报表
+     * @param request
+     * @param response
+     */
+    @Override
+    public void exportWeeklyReport(HttpServletRequest request, HttpServletResponse response) {
+        String fileName = "财务周报表.xls";
+        List<SysFinanceBill> billList = getWeekBill();
+        ExportUtil.exprotData(request,response,billList,fileName);
+    }
+
+    /**
+     * 导出月报表
+     * @param request
+     * @param response
+     */
+    @Override
+    public void exportMonthlyReport(HttpServletRequest request, HttpServletResponse response) {
+        String fileName = "财务月报表.xls";
+        List<SysFinanceBill> billList = getMonthBill();
+        ExportUtil.exprotData(request,response,billList,fileName);
+    }
+
+    /**
+     * 导出年报表
+     * @param request
+     * @param response
+     */
+    @Override
+    public void exportAnnualReport(HttpServletRequest request, HttpServletResponse response) {
+        String fileName = "财务年报表.xls";
+        List<SysFinanceBill> billList = getYearBill();
+        ExportUtil.exprotData(request,response,billList,fileName);
+    }
+
+    /**
+     * 导出时间报表
+     * @param request
+     * @param response
+     * @param startTime
+     * @param endTime
+     */
+    @Override
+    public void exportTimeReport(HttpServletRequest request, HttpServletResponse response, String startTime, String endTime) {
+        String fileName = "财务时间报表.xls";
+        List<SysFinanceBill> billList = getTimeBill(startTime,endTime);
+        ExportUtil.exprotData(request,response,billList,fileName);
+    }
+
+
 
 
 }

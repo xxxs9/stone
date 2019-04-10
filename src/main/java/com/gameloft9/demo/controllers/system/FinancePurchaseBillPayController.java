@@ -1,7 +1,7 @@
+
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
-import com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder;
 import com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -9,18 +9,18 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.Request;
 
 import java.util.Collection;
+
 
 /**
  * @author: 啊发包
  * @Date: 2019/03/19 2019-03-19
  */
+
 
 
 @Controller
@@ -30,6 +30,7 @@ public class FinancePurchaseBillPayController {
     @Autowired
     FinancePurchaseBillPayService purchaseBillPayService;
 
+
     /**
      *  分页查询销售
      *
@@ -38,6 +39,7 @@ public class FinancePurchaseBillPayController {
      * @param auditState 申请状态
      * @return jason
      */
+
     @RequestMapping(value = "/purchasePayList" ,method = RequestMethod.POST)
     @ResponseBody
     public IResult billPayList(String page, String limit, String auditState){
@@ -45,17 +47,20 @@ public class FinancePurchaseBillPayController {
         return new PageResultBean<Collection<SysFinancePurchaseBillsPayable>>(purchaseBillPayService.getAll(page,limit,auditState), purchaseBillPayService.getCount(auditState));
     }
 
+
     /**
      * 添加采购应付单
      *
      * @param purchaseBillsPayable
      * @return
      */
+
     @RequestMapping(value = "/addPurchasePay", method = RequestMethod.POST)
     @ResponseBody
     public IResult addPurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable){
         return new ResultBean<String>(purchaseBillPayService.addPurchasePay(purchaseBillsPayable));
     }
+
 
     /**
      * 根据id获取应付单
@@ -63,6 +68,7 @@ public class FinancePurchaseBillPayController {
      * @param purchaseOrderId id
      * @return 应付单信息
      */
+
     @RequestMapping(value = "/getPurchasePay", method = RequestMethod.POST)
     @ResponseBody
     public IResult getPurchasePay(String purchaseOrderId){
@@ -76,17 +82,20 @@ public class FinancePurchaseBillPayController {
         return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder,id1));
     }
 
+
     /**
      * 根据ID获取
      * @param id id
      * @return
      *  json
      */
+
     @RequestMapping(value = "/getPurchasePayById",method = RequestMethod.POST)
     @ResponseBody
     public IResult getPurchasePayById(String id){
         return new ResultBean<SysFinancePurchaseBillsPayable>(purchaseBillPayService.getPurchasePayById(id));
     }
+
 
     /**
      * 审核
@@ -97,6 +106,7 @@ public class FinancePurchaseBillPayController {
      * @param auditDescribe q
      * @return q
      */
+
     @RequestMapping(value = "/purchaseOrderPayPass", method = RequestMethod.POST)
     @ResponseBody
     public IResult purchaseOrderPayPass(String attitude,String purchaseOrderId,String auditType,String actualPrice,String auditDescribe){

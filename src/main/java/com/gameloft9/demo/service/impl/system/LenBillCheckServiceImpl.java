@@ -1,7 +1,10 @@
 package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenBillCheckMapper;
+import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenBillCheck;
+import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenBillCheckService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.DateUtil;
@@ -24,6 +27,10 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
 
     @Autowired
     LenBillCheckMapper mapper;
+    @Autowired
+    DepotOrderService depotOrderService;
+    @Autowired
+    LenProductMapper lenProductMapper;
 
     @Override
     public List<LenBillCheck> selectAll() {
@@ -43,7 +50,7 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
     }
 
     /**
-     *
+     * 生产时调用
      * @param id
      * @param productName
      * @param state
@@ -59,14 +66,17 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
     @Override
     public boolean finalInsert(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
         String uuid = UUIDUtil.getUUID();
-        Date date = DateUtil.str2Date(checkDate, "yyyy-MM-dd");
         LenBillCheck billCheck = new LenBillCheck();
         billCheck.setId(uuid);
         billCheck.setProductName(productName);
         billCheck.setState(state);
         billCheck.setCheckNumber(checkNumber);
-        billCheck.setCheckDate(date);
-
+        billCheck.setCheckDate(new Date());
+        billCheck.setCheckUser(checkUser);
+        billCheck.setReachId(reachId);
+        billCheck.setPlanId(planId);
+        billCheck.setCheckRemark(checkRemark);
+        billCheck.setProductId(productId);
         if (mapper.insert(billCheck)>0){
             return true;
         }else{
@@ -74,12 +84,25 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
         }
     }
 
+    /**
+     * 生产完成并检验入库
+     * @param id
+     * @param productName
+     * @param state
+     * @param checkNumber
+     * @param checkDate
+     * @param checkUser
+     * @param checkRemark
+     * @param reachId
+     * @param productId
+     * @param planId
+     * @return
+     */
     @Override
     public boolean insert(String id,String productName , String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
         String uuid = UUIDUtil.getUUID();
         LenBillCheck billCheck = new LenBillCheck();
         billCheck.setId(uuid);
-       // billCheck.setState(Constants.productState.STOP_PRODUCE);
         billCheck.setState(state);
         billCheck.setCheckNumber(checkNumber);
         billCheck.setCheckDate(new Date());
@@ -90,6 +113,11 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
         billCheck.setProductId(productId);
         billCheck.setProductName(productName);
         if (mapper.insert(billCheck)>0){
+            LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
+            String productId1 = billCheck1.getProductId();
+            LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
+            String other1 = lenProduct.getOther1();
+            depotOrderService.addProduceDepotOrderIn(other1,productId1,checkNumber,checkUser);
             return true;
         }else{
             return false;

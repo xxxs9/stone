@@ -3,6 +3,7 @@ package com.gameloft9.demo.dataaccess.dao.system;
 import com.gameloft9.demo.dataaccess.model.system.SysFinanceBill;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,5 +36,43 @@ public interface FinanceBillMapper extends BaseMapper<SysFinanceBill>{
      *      bill集合
      */
     List<SysFinanceBill> getAllBill();
+
+    /**
+     * 日报表
+     */
+    List<SysFinanceBill> getDayBill();
+
+    /**
+     * 周报表
+     */
+    List<SysFinanceBill> getWeekBill();
+
+    /**
+     * 月报表
+     */
+    List<SysFinanceBill> getMonthBill();
+
+    /**
+     * 年报表
+     */
+    List<SysFinanceBill> getYearBill();
+
+    /**
+     * 时间报表
+     */
+    List<SysFinanceBill> getTimeBill(@Param("startTime") Date startTime,
+                                     @Param("endTime") Date endTime);
+
+
+    /**
+     * 获取总收入
+     */
+    List<String> getTotalReceive();
+
+    /**
+     * 获取总支出
+     */
+    List<String> getTotalPay();
+
 
 }

@@ -28,7 +28,7 @@ layui.config({
 
       });
     }
-    initTestarea()
+    initTestarea();
     function init() {
         //初始化商品名称下拉框
         initGoodsId();
@@ -85,7 +85,7 @@ layui.config({
     /**
      * 加载申请单列表
      * */
-    function loadRoleList() {
+   /* function loadRoleList() {
         //var url = $tool.getContext()+'purchase_order/list.do';
         var req =  {
             page:1,
@@ -111,7 +111,49 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             }
         });
-    }
+    }*/
+
+    //对数量、价格进行判断，不能为零或负数
+    form.verify({
+        //数量goodsNumber
+        actualBalance:function (value) {
+            //对数量进行判断，只能整数
+            var number =/^[1-9]\d*$/;
+            var btn = document.getElementById("number").value;
+            if(!number.test(btn)){
+                return ("输入有误，请重新输入!")
+            }
+
+            //对数量进行判断，只允许输入正数。
+            /*if(value==0){
+                return '请输入数量!';
+            } else if (value<0){
+                return '数量不能为负数!';
+            }*/
+        },
+
+        //价格price
+        actualPrice:function (value) {
+            //对单价进行判断，只能有数字并且保留两位小数
+            //reg是判断只能输入数字，不能输入中文、英文或其他符号
+            //reg2是判断小数点只能两位
+            var reg =/^[0-9]+([.]{1}[0-9]+){0,1}$/;
+            var reg2 = /^\d{0,8}\.{0,1}(\d{1,2})?$/;
+            var btn = document.getElementById("price").value;
+            if(!reg.test(btn)){
+                return ("请输入数字!")
+            } else if(!reg2.test(btn)){
+                return ("小数只能两位!")
+            }
+
+            //对输入的数字进行判断，只允许输入正数。
+            if(value==0){
+                return '请输入价格!';
+            } else if (value<0){
+                return '价格不能为负数!';
+            }
+        }
+    });
 
     //计算总金额 数量goodsNumber*价格price
     $(function(){

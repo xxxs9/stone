@@ -36,7 +36,6 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                 {type:'numbers',title:'',fixed: 'left',width: '2.5%'}
-                ,{type:'checkbox',title:'',fixed: 'left',width: '2.5%'}
                 ,{field: 'checkType', title: '盘点类型', width: '10%'}
                 , {field: 'sourceUser', title: '发起人', width: '10%'}
                 , {field: 'sourceTime', title: '发起时间', width: '10%'}
@@ -61,6 +60,9 @@ layui.config({
             } else if (layEvent === 'audit') { //审核
                 //do something
                 auditDepotInventoryCheck(row.id);
+            } else if (layEvent === 'del') { //审核
+                //do something
+                delDepotInventoryCheck(row.id);
             }
         });
     }
@@ -107,39 +109,7 @@ layui.config({
         layui.layer.full(index);
     });
 
-    //批量删除
-    $(".usersDels_btn").click(function () {
-        //利用layui的table组件完成数据的获取
-        var check = table.checkStatus('testReload'); //testReload 即为动态table的 id 对应的值
-        //如果数据总长度为0说明没有选择数据则提示用户先选择数据
-        if(check.data.length==0){
-            layer.msg('请先选择数据',{icon:5,time:2000});
-        }else{
-            //否则就是有数据则提示用户是否确定删除这些信息
-            layer.confirm('确定删除这些?',function(index){
-                // check.data是获取到所选中行的所有信息,多余信息比较多所以要进行处理只要id
-                var ids='';//先定义一个要拼接的字符串
-                //遍历所有信息
-                for(var i=0;i<check.data.length;i++){
-                    ids=ids+check.data[i].id+',';//进行字符串拼接 每个id之间用,隔开
-                }
-                //向服务端发送批量删除指令
-                var req = {
-                    ids: ids
-                };
 
-                $api.DelsDepot(req,function (data) {
-                    layer.msg("删除成功",{time:1000},function(){
-                        //obj.del(); //删除对应行（tr）的DOM结构
-                        //重新加载表格
-                        tableIns.reload();
-                    });
-                });
-                //最后关闭确认框
-                layer.close(index);
-            });
-        }
-    });
 
     //审核
     function auditDepotInventoryCheck(id){
@@ -183,5 +153,24 @@ layui.config({
             layui.layer.full(index);
         });
         layui.layer.full(index);
+    }
+
+    //删除
+    function delDepotInventoryCheck(id){
+        layer.confirm('确认删除吗？', function (confirmIndex) {
+            layer.close(confirmIndex);//关闭confirm
+            //向服务端发送删除指令
+            var req = {
+                id: id
+            };
+
+            $api.DeleteCheck(req,function (data) {
+                layer.msg("删除成功",{time:1000},function(){
+                    //obj.del(); //删除对应行（tr）的DOM结构
+                    //重新加载表格
+                    tableIns.reload();
+                });
+            });
+        });
     }
 });

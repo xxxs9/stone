@@ -59,7 +59,7 @@ public interface LenFormulaReachService {
      * @return
      */
     boolean insert(String id,String productId,String productFormulaId,String ProductFormulaDetailId,
-               String depotAudi,String formulaBack,String state,String reachUser,String reachTime ,String other1 );
+               String depotAudi,String formulaBack,String state,String reachUser,String reachTime ,String other1,String other2 );
 
     /**
      * 修改

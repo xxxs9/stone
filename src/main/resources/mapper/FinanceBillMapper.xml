@@ -45,6 +45,7 @@
     <!--列表   List<SysFinanceBill> getAll(int start,int end);-->
     <select id="getAll" resultMap="billMap">
         select * from a_bill
+        order by BILL_TIME DESC
         limit #{start},#{end}
     </select>
 
@@ -57,5 +58,78 @@
     <select id="getAllBill" resultMap="billMap">
         select * from a_bill
     </select>
+
+    <!--/**
+     * 日报表
+     */
+    List<SysFinanceBill> getDayBill();-->
+    <select id="getDayBill" resultMap="billMap">
+        select * from a_bill
+        where to_days(BILL_TIME) = to_days(now())
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--/**
+    * 月报表
+    */
+    List<SysFinanceBill> getWeekBill(); 这周日开始-->
+    <select id="getWeekBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE YEARWEEK(DATE_FORMAT(BILL_TIME,'%Y-%m-%d')) = YEARWEEK(NOW())
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--/**
+     * 月报表
+     */
+    List<SysFinanceBill> getMonthBill();-->
+    <select id="getMonthBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE DATE_FORMAT( BILL_TIME, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--/**
+    * 年报表
+    */
+   List<SysFinanceBill> getYearBill();-->
+    <select id="getYearBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        WHERE YEAR(  BILL_TIME ) = YEAR( NOW( ) )
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--/**
+    * \时间报表
+    */
+   List<SysFinanceBill> getYearBill();-->
+    <select id="getTimeBill" resultMap="billMap">
+        SELECT * FROM a_bill
+        <where>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+                and BILL_TIME between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        ORDER BY BILL_TIME desc
+    </select>
+
+    <!--总收入   List<SysFinanceBill> getTotalReceive();-->
+    <select id="getTotalReceive" resultType="java.lang.String">
+        select sum(BALANCE)
+        from a_bill
+        where YEAR( BILL_TIME ) = YEAR( NOW( ) ) and BALANCE &gt; 0
+        GROUP BY DEPARTMENT ORDER BY DEPARTMENT DESC
+    </select>
+
+    <!--总支出   List<SysFinanceBill> getTotalPay();-->
+    <select id="getTotalPay" resultType="java.lang.String">
+        select -(sum(BALANCE))
+        from a_bill
+        where YEAR( BILL_TIME ) = YEAR( NOW( ) ) and BALANCE &lt; 0
+        GROUP BY DEPARTMENT ORDER BY DEPARTMENT DESC
+    </select>
+
+
+
 
 </mapper>

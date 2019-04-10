@@ -201,6 +201,16 @@ public interface PurchaseOrderService {
      * 提供接口 华锋 改变depotState
      * */
     boolean depotState(String orderNumber);
+
+    /**
+     * 四月份采购图表 柱状图
+     * */
+    List<String> selectChartByApril(String goodsName);
+
+    /**
+     * 报表 获取所有goodsName
+     * */
+    List<String> selectGoodsNameAll();
 }
 
 

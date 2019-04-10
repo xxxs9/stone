@@ -209,5 +209,9 @@
     OTHER3#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+    <select id="getByProductId" resultMap="BaseResultMap">
+        select * from  l_produce_formula  where PRODUCT_ID=#{productId}
+    </select>
 </mapper>
 

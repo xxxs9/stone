@@ -60,13 +60,22 @@ layui.config({
 
     //对数量进行判断，不能为零或负数
     form.verify({
-       actualBalance:function (value) {
-           if(value<0){
-               return '数量不能为负数!';
-           } else if (value==0){
-               return '请输入数量!';
-           }
-       }
+        //数量goodsNumber
+        actualBalance:function (value) {
+            //对数量进行判断，只能整数
+            var number =/^[1-9]\d*$/;
+            var btn = document.getElementById("number").value;
+            if(!number.test(btn)){
+                return ("输入有误，请重新输入!")
+            }
+
+            //对数量进行判断，只允许输入正数。
+            /*if(value==0){
+                return '请输入数量!';
+            } else if (value<0){
+                return '数量不能为负数!';
+            }*/
+        },
     });
 
     //计算总金额 数量goodsNumber*价格price
@@ -105,10 +114,10 @@ layui.config({
         //请求
         var req = {
             //id:id,
-            orderNumber:orderNumber,
-            goodsId:goodsId,
             goodsName:goodsName,
             supplierName:supplierName,
+            orderNumber:orderNumber,
+            goodsId:goodsId,
             goodsNumber: goodsNumber,
             price: price,
             totalPrice:totalPrice,
