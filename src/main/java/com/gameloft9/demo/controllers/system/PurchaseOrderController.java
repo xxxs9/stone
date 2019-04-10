@@ -164,7 +164,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/listIn.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder:all")
+    @RequiresPermissions("purOrder:add")
     public IResult selectAllByInOrder(String page,String limit,String goodsName,String depotState){
         return new PageResultBean<Collection<PurchaseOrder>>(service.selectAllByInOrder(page,limit,
                 goodsName,depotState),service.countGetAllByInOrder(goodsName,depotState));
@@ -254,7 +254,7 @@ public class PurchaseOrderController {
      */
     @RequestMapping(value = "/search.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder:add")
+    @RequiresPermissions("purOrder:all")
     public IResult selectAllBySearch(PurchaseOrder purchaseOrder){
         return new ResultBean<Boolean>(service.selectAllBySearch(purchaseOrder));
     }
