@@ -52,7 +52,6 @@ public class SysMenuController {
      * */
     @RequestMapping(value = "/firstClassMenus.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("sysy:aaaa")
     //@BizOperLog(operType = OperType.Query,memo = "获取所有一级菜单列表")
     public IResult getFirstMenuList(){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -87,6 +86,7 @@ public class SysMenuController {
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.DELETE,memo = "删除菜单")
+    @RequiresPermissions("sys:menu:delete")
     public IResult deleteMenu(String menuId){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysMenuServiceImpl.deleteMenu(menuId));

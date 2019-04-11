@@ -230,4 +230,16 @@ public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
     public List<String> getMaterialGoodsId() {
         return sysMaterialGoodsMapper.getMaterialGoodsId();
     }
+
+    /**
+     * 根据供应商名称和原料名称获取原料商品id
+     * @param goodsName 原料名称
+     * @param supplierName 供应商名称
+     */
+    @Override
+    public List<String> getIdByName(String goodsName, String supplierName) {
+        CheckUtil.notBlank(supplierName, "供应商名称为空");
+        CheckUtil.notBlank(goodsName, "货物名称为空");
+        return sysMaterialGoodsMapper.getIdByGoodsNameAndSupplierName(goodsName,supplierName);
+    }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -77,11 +78,13 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         purchaseReceivable.setId(UUIDUtil.getUUID());
         purchaseReceivable.setPurchaseOrderRejectedId(purchaseOrder.getId());
         purchaseReceivable.setAuditType(purchaseOrder.getAuditType());
-        int price = NumberUtil.strToInt(purchaseOrder.getPrice());
-        int goodsNumber = NumberUtil.strToInt(purchaseOrder.getGoodsNumber());
+        BigDecimal price = new BigDecimal(purchaseOrder.getPrice());
+        price = price.setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal goodsNumber = new BigDecimal(purchaseOrder.getGoodsNumber());
+        goodsNumber = goodsNumber.setScale(2,BigDecimal.ROUND_HALF_UP);
         purchaseReceivable.setUnitPrice(purchaseOrder.getPrice());
         purchaseReceivable.setRejectedNumber(purchaseOrder.getGoodsNumber());
-        purchaseReceivable.setTotalPrice(price*goodsNumber+"");
+        purchaseReceivable.setTotalPrice(price.multiply(goodsNumber).setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         purchaseReceivable.setDocumentMaker(documentMaker);
         purchaseReceivable.setDocumentMakeTime(new Date());

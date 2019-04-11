@@ -157,5 +157,19 @@ public class SysMaterialGoodsController {
         return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getMaterialGoodsId());
     }
 
+    /**
+     * 根据供应商名称和原料名称获取原料商品id
+     * @param goodsName 原料名称
+     * @param supplierName 供应商名称
+     */
+    @RequestMapping(value = "/getByName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getIdByName(String goodsName, String supplierName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getIdByName(goodsName,supplierName));
+    }
+
+
+
 
 }

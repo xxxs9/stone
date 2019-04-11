@@ -8,6 +8,7 @@ import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.service.api.system.LoginService;
 import com.gameloft9.demo.service.beans.system.LoginResponse;
+import com.gameloft9.demo.utils.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -122,7 +123,10 @@ public class LoginServiceImpl implements LoginService{
     public String logout(){
         SecurityUtils.getSubject().logout();//登出
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String loginName = (String) request.getSession().getAttribute("sysUser");
+        CacheUtil.getInstance().removeCacheData(loginName);
         request.getSession().removeAttribute("sysUser");//清理session
+
         return null;
     }
 }
