@@ -23,14 +23,25 @@ layui.config({
 
 
     function initGoodsId() {
-        $api.GetMaterialGoodsId(null,function (res) {
+        $api.GetGoodsName(null,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="" selected="selected">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                }
+                $('#goodsName').append($(html));
+                form.render();
+            }
+        });
+        $api.GetSupplierName(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#materialId').append($(html));
+                $('#supplierName').append($(html));
                 form.render();
             }
         });
@@ -68,6 +79,55 @@ layui.config({
         }
     });
 
+
+    /**
+     * 监听select选择
+     * */
+    form.on('select(productNameFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
+        var productName = data.value;
+        if(productName != null){
+            $("#productId").val(productName)
+        }
+    });
+
+    /**
+     * 监听select选择
+     * */
+    form.on('select(materialFilter)', function(data){
+        console.log(data.elem); //得到select原始DOM对象
+        /*console.log(data.value); //得到被选中的值
+          console.log(data.othis); //得到美化后的DOM对象*/
+        var goodsName = $("#goodsName").val()
+        var supplierName = $("#supplierName").val()
+        if( goodsName !='' && supplierName!=''){
+            var req = {
+                goodsName:goodsName,
+                supplierName:supplierName,
+            }
+            $api.GetMaterialGoodsIdByName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    $("#materialId").val(data)
+                }else{
+                    $("#materialId").val('')
+                    $("#supplierName").empty();
+                    $api.GetSupplierName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#supplierName').append($(html));
+                            form.render();
+                        }
+                    });
+                    layer.msg("该供应商不提供此原料!");
+                }
+            });
+        }
+    });
 
     /**
      * 监听select选择

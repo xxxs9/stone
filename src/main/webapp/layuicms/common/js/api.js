@@ -928,6 +928,9 @@ layui.define(['$tool','jquery'], function (exports) {
         GetMaterialGoodsId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/getId.do',req,successCallback,errorCallback);
         },
+        GetMaterialGoodsIdByName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getByName.do',req,successCallback,errorCallback);
+        },
         UpdateMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);
         },

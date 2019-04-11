@@ -235,6 +235,9 @@
     <update id="changeState" parameterType="String">
         update l_product set PRODUCT_STATE=#{productState} where ID = #{id,jdbcType=VARCHAR}
     </update>
+    <update id="changeStateByOther1" parameterType="String">
+        update l_product set PRODUCT_STATE=#{productState} where other1 = #{other1,jdbcType=VARCHAR}
+    </update>
 
     <select id="selectByState"  resultMap="BaseResultMap">
         select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
