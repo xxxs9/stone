@@ -61,6 +61,7 @@ layui.config({
             $api.getProductById(req2,function (res) {
                 var data2 = res.data;
                 $("[name='productName']").val(data2.productName);
+                $("[name='productId2']").val(data2.other1);
 
 
                 var  req3 = {

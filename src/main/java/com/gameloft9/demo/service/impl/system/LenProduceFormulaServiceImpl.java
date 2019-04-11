@@ -50,7 +50,6 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
         formula.setFormulaType(formulaType);
         formula.setFormulaNumber(formulaNumber);
         formula.setCreateUser(createUser);
-        //Date date = DateUtil.str2Date(createTime,"yyyy-MM-dd");
         formula.setCreateTime(new Date());
         String fm = OrderUtil.lenOrderNumber("FM");
         formula.setOther1(fm);

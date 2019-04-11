@@ -26,31 +26,39 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
-<h2>生产暂停记录单</h2>
+
     </br>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 83.5%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productName"  id="productName" disabled>
+            <input type="text" class="layui-input" name="productName"  id="productName" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">领料流水号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="reachId" lay-verify="required" id="reachId" disabled>
+            <input type="text" class="layui-input" name="reachId" lay-verify="required" id="reachId" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">生产计划</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="planId" lay-verify="required" id="planId" disabled>
+            <input type="text" class="layui-input" name="planId" lay-verify="required" id="planId" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">产品编号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productId" id="productId" disabled>
+            <input type="text" class="layui-input" name="productId" id="productId" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item" style="width: 83.5%">
+        <label class="layui-form-label">产品编号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="productId2" id="productId2" readonly>
         </div>
     </div>
     <div class="layui-form-item layui-inline">
@@ -62,18 +70,18 @@
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="state"  id="state" value="暂停生产" disabled>
+            <input type="text" class="layui-input" name="state"  id="state" value="暂停生产" readonly>
         </div>
     </div>
     <div class="layui-form-item layui-inline" >
         <label class="layui-form-label">操作人</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="checkUser"  id="checkUser" disabled>
+            <input type="text" class="layui-input" name="checkUser"  id="checkUser" readonly>
         </div>
     </div>
 
 
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item layui-form-text" style="width: 83.5%">
         <label class="layui-form-label">产品描述</label>
         <div class="layui-input-block">
             <textarea name="checkRemark" placeholder="请输入描述" class="layui-textarea"></textarea>
@@ -86,7 +94,7 @@
         </div>
     </div>
 </form>
-
+</div>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

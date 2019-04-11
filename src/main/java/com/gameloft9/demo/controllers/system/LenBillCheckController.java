@@ -47,7 +47,12 @@ public class LenBillCheckController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public IResult add(String id, String productName, String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
-        return new ResultBean<Boolean>(service.insert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId));
+        boolean flag = service.insert(id, productName, state, checkNumber, checkDate, checkUser, checkRemark, reachId, productId, planId);
+    if (flag){
+        return new ResultBean<Boolean>();}
+    else{
+         return new ResultBean<String>("4011",">>>>>权限不足<<<<<");
+        }
     }
 
     @RequestMapping(value = "/producingAdd", method = RequestMethod.POST)
