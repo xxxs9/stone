@@ -53,7 +53,6 @@ public class LoginController {
      * */
     @RequestMapping(value = "/401", method = RequestMethod.GET)
     @ResponseBody
-    @RequiresPermissions("sys:delete")
     public IResult unauthorization(HttpServletResponse response){
         //前端通过http状态判断
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
