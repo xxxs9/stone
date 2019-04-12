@@ -694,6 +694,12 @@ layui.define(['$tool','jquery'], function (exports) {
         addProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/add',req,successCallback,errorCallback);
         },
+        getProductNameChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'product/getProductNameChart',req,successCallback,errorCallback);
+        },
+        getProductNumberChart:function(req,successCallback,errorCallback){
+        chart($tool.getContext() + 'product/getProductNumberChart',req,successCallback,errorCallback);
+         },
         changeOther1:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/cho',req,successCallback,errorCallback);
         },

@@ -53,6 +53,23 @@ layui.config({
             data4 = res.data;
         });
     }
+    var productName;
+    function getProductName() {
+        $api.getProductNameChart(null,function (res) {
+            productName= res.data;
+            console.log(productName);
+        })
+
+    }
+    var productNumber;
+    function getProductNumber() {
+        $api.getProductNumberChart(null,function (res) {
+            productNumber= res.data;
+            console.log(productNumber);
+        })
+
+    }
+
 
     //getPurchasePayChart();
     getPurchaseReceiveChart();
@@ -61,6 +78,8 @@ layui.config({
     getTotalReceive();
     getTotalPay();
     getProductChart();
+    getProductNumber();
+    getProductName();
 
 
 
@@ -148,7 +167,7 @@ layui.config({
     var data1;
     function getProductChart(){
         $api.getAllProduct(null,function (res) {
-            console.log(res.data)
+            //console.log(res.data)
             data1 = res.data;
         });
     }
@@ -157,10 +176,10 @@ layui.config({
     var myChart1 = new Chart(chart, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            labels: productName,
             datasets: [{
-                label: '采购支出',
-                data: data1,
+                label: '生产数量',
+                data: productNumber,
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -188,7 +207,7 @@ layui.config({
                     'rgba(54, 162, 235, 0.2)'
                 ],
                 borderWidth: 1
-            },{
+            },/*{
                 label: '销售支出',
                 data: data3,
                 backgroundColor: [
@@ -222,7 +241,7 @@ layui.config({
 
                 ],
                 borderWidth: 1
-            }]
+            }*/]
         },
         options: {
             scales: {
