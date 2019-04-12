@@ -50,9 +50,9 @@ layui.config({
             , page: true //开启分页
             , cols: [[ //表头
                 {type: 'numbers', title: '序号', fixed: 'left'}
-                , {field: 'other1', title: '产品流水号'}
-                , {field: 'productName', title: '产品名称'}
-                , {field: 'productNumber', title: '产品数量'}
+                , {field: 'other1', title: '产品流水号', width:180,sort:true}
+                , {field: 'productName', title: '产品名称',width:180}
+                , {field: 'productNumber', title: '产品数量',width:100}
                 , {field: 'canSold', title: '订单来源'/*,templet:'#cd'*/}
                 , {field: 'productType', title: '产品类型', templet: '#tmp'}
                 , {field: 'productState', title: '产品状态', templet: '#tmpe'}

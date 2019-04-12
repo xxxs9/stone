@@ -18,7 +18,7 @@ public class LenProduceFormula  {
     private String formulaType;
     private String formulaNumber;
     private String createUser;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
     private String other1;
     private String other2;

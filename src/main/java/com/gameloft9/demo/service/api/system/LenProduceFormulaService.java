@@ -1,7 +1,6 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormula;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public interface LenProduceFormulaService {
      * @param createTime
      * @return
      */
-    boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime);
+    boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other3);
 
     /**
      * 增加

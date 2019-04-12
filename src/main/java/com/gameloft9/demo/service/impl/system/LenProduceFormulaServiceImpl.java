@@ -42,7 +42,7 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     }
 
     @Override
-    public boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime) {
+    public boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other3) {
         String uuid = UUIDUtil.getUUID();
         LenProduceFormula formula = new LenProduceFormula();
         formula.setId(uuid);
@@ -51,6 +51,7 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
         formula.setFormulaNumber(formulaNumber);
         formula.setCreateUser(createUser);
         formula.setCreateTime(new Date());
+        formula.setOther3(other3);
         String fm = OrderUtil.lenOrderNumber("FM");
         formula.setOther1(fm);
         if (mapper.insert(formula) > 0) {

@@ -26,19 +26,20 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
 
     </br>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width:60%;">
         <label class="layui-form-label">产品编号</label>
         <div class="layui-input-block">
-            <select name="productId" lay-verify="required" id="productId" >
+            <select name="productId" lay-verify="required" id="productId" lay-filter="aa" onchange="func(this);">
 
             </select>
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width:60%;">
         <label class="layui-form-label">配方类型</label>
         <div class="layui-input-block ">
             <select name="formulaType" lay-verify="required">
@@ -51,15 +52,15 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width:60%;">
         <label class="layui-form-label">配方数量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="formulaNumber" lay-verify="required" placeholder="请输入配方数量">
         </div>
     </div>
     <!--根据登陆自动生-->
-    <div class="layui-form-item">
-        <label class="layui-form-label">创建者</label>
+    <div class="layui-form-item" style="width:60%;">
+        <label class="layui-form-label" >创建者</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="createUser" lay-verify="required" placeholder="请输入创建者姓名" id="creatUser">
         </div>
@@ -80,7 +81,7 @@
     </div>
 </form>
 
-
+</div>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

@@ -40,8 +40,8 @@ public class LenProduceFormulaController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(String productId,String formulaType ,String formulaNumber,String createUser,String createTime){
-        return new ResultBean<Boolean>(service.insert(productId, formulaType, formulaNumber, createUser, createTime));
+    public IResult add(String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other3){
+        return new ResultBean<Boolean>(service.insert(productId, formulaType, formulaNumber, createUser, createTime,other3));
     }
 
     @RequestMapping(value = "/upd",method = RequestMethod.POST)

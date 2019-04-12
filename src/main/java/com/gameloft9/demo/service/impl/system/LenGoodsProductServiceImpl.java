@@ -179,4 +179,15 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
     public List<LenGoodsProduct> selectByUnProduce() {
         return mapper.selectByUnProduce();
     }
+
+    /**
+     * 通过编号查询
+     *
+     * @param bianhao
+     * @return
+     */
+    @Override
+    public LenGoodsProduct getByBH(String bianhao) {
+        return mapper.getByBH(bianhao);
+    }
 }

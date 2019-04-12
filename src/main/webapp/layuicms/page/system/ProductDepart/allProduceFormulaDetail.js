@@ -43,18 +43,19 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
+
             , url: $tool.getContext() + 'detail/pageList' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'other1', title: '配方详情号'}
+                {field: 'other3', title: '配方号',width:180},
+                  {field: 'other1', title: '详情号',width:180}
                /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
-                , {field: 'materialId', title: '原材料编号'}
+                , {field: 'materialId', title: '原材料编号',width:180}
                 ,{field: 'other2', title: '原料名称'}
-                , {field: 'materialNumber', title: '原材料数量'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'materialNumber', title: '数量',width:180}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo',width:200} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码

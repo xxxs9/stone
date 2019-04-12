@@ -10,7 +10,7 @@ import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.DocumentNumberUtil;
+import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -56,7 +56,7 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean insert(LenProduct lenProduct) {
-        String number = DocumentNumberUtil.getDocumentNumber("P");
+        String number = OrderUtil.lenOrderNumber("P");
         String uuid = UUIDUtil.getUUID();
         LenProduct product = new LenProduct();
         product.setId(uuid);
