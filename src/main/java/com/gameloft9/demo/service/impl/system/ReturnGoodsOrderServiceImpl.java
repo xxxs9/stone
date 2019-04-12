@@ -119,8 +119,6 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         shipmentOrder.setState(StateUUtil.APPLY_director);
         shipmentOrder.setApplyUser(username);
         returnGoodsOrderMapper.audit(shipmentOrder);
-
-
         return true;
     }
     /**
