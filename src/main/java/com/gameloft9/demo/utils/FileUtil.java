@@ -1,6 +1,7 @@
 package com.gameloft9.demo.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.UUID;
@@ -217,6 +218,19 @@ public class FileUtil {
         String savedPath = fileRootPath + fileSavedPath;
 
         return savedPath;
+    }
+
+    /**
+     * 将 org.springframework.web.multipart.MultipartFile 类型的文件转换为 java.io.File 类型的文件
+     *
+     * @param multipartFile org.springframework.web.multipart.MultipartFile 类型的文件
+     * @return 返回转换后的 java.io.File 类型的文件
+     * @throws IOException IOException
+     */
+    public static File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+        File convertedFile = new File(multipartFile.getOriginalFilename());
+        multipartFile.transferTo(convertedFile);
+        return convertedFile;
     }
 
 }

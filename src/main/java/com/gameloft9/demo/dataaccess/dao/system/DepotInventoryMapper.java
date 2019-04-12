@@ -64,4 +64,10 @@ public interface DepotInventoryMapper {
      * @param goodsId               原料/成品ID
      * */
     DepotInventory findOne(@Param("goodsId")String goodsId);
+
+    /**
+     * 根据ids查询库存信息
+     * @param ids 库存ids
+     * */
+    List<DepotInventory> getByIds(@Param("ids")List<String> ids);
 }

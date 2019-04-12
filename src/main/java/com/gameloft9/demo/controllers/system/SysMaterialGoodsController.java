@@ -169,7 +169,27 @@ public class SysMaterialGoodsController {
         return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getIdByName(goodsName,supplierName));
     }
 
+    /**
+     * 根据供应商名称获取该供应商提供原料商品名称
+     * @param supplierName 供应商名称
+     */
+    @RequestMapping(value = "/getGoodsNameBySupplierName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getGoodsNameBySupplierName(String supplierName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getGoodsNameBySupplierName(supplierName));
+    }
 
 
+    /**
+     * 根据原料商品名称获取该原料商品的供应商名称
+     * @param goodsName 原料商品名称
+     */
+    @RequestMapping(value = "/getSupplierNameByGoodsName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getSupplierNameByGoodsName(String goodsName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<List<String>>(sysMaterialGoodsServiceImpl.getSupplierNameByGoodsName(goodsName));
+    }
 
 }

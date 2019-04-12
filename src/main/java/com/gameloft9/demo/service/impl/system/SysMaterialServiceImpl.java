@@ -157,4 +157,5 @@ public class SysMaterialServiceImpl implements SysMaterialService {
     public SysMaterial getByGoodsName(String goodsName) {
         return sysMaterialMapper.getByGoodsName(goodsName);
     }
+
 }

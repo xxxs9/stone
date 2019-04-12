@@ -45,12 +45,12 @@ layui.config({
                 form.render();
             }
         });
-        $api.getAllProduct(null,function (res) {
+        $api.selectGoodsProduct(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
+                    html += '<option value="' + data[i].bianhao + '">' + data[i].pname + '</option>>';
                 }
                 $('#productName').append($(html));
                 form.render();
@@ -95,9 +95,6 @@ layui.config({
      * 监听select选择
      * */
     form.on('select(materialFilter)', function(data){
-        console.log(data.elem); //得到select原始DOM对象
-        /*console.log(data.value); //得到被选中的值
-          console.log(data.othis); //得到美化后的DOM对象*/
         var goodsName = $("#goodsName").val()
         var supplierName = $("#supplierName").val()
         if( goodsName !='' && supplierName!=''){
@@ -110,8 +107,19 @@ layui.config({
                 if (data.length > 0) {
                     $("#materialId").val(data)
                 }else{
-                    $("#materialId").val('')
                     $("#supplierName").empty();
+                    $("#goodsName").empty();
+                    $api.GetGoodsName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="" selected="selected">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#goodsName').append($(html));
+                            form.render();
+                        }
+                    });
                     $api.GetSupplierName(null,function (res) {
                         var data = res.data;
                         if (data.length > 0) {
@@ -123,7 +131,64 @@ layui.config({
                             form.render();
                         }
                     });
-                    layer.msg("该供应商不提供此原料!");
+                    layer.msg("该供应关系不存在!请重新选择！");
+                }
+            });
+        }else if(goodsName !='' && supplierName ==''){
+            $("#supplierName").empty();
+            var req ={
+                goodsName:goodsName,
+            }
+            $api.GetSupplierNameByGoodsName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
+                }
+            });
+        }else if(goodsName =='' && supplierName !=''){
+            $("#goodsName").empty();
+            var req ={
+                supplierName:supplierName,
+            }
+            $api.GetGoodsNameBySupplierName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
+                }
+            });
+        }else{
+            $("#supplierName").empty();
+            $("#goodsName").empty();
+            $api.GetGoodsName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="" selected="selected">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
+                }
+            });
+            $api.GetSupplierName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
                 }
             });
         }

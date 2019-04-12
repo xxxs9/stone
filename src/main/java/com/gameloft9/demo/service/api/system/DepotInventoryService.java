@@ -2,8 +2,11 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotAdjustment;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public interface DepotInventoryService {
     /**
@@ -71,4 +74,27 @@ public interface DepotInventoryService {
      * @param goodsNumber           货物数量
      * */
     Boolean updateGoodsNumber(String id,String goodsId, String goodsNumber);
+
+    /**
+     * 根据ids查询库存信息
+     * @param ids 库存ids
+     * */
+    List<DepotInventory> getByIds(String ids);
+
+    /**
+     * 导出库存记录或模版
+     *
+     * @param inventorys 保存有库存记录的List
+     * @return excel 文件
+     */
+    File exportInventory(List<DepotInventory> inventorys);
+
+    /**
+     * 导入库存记录
+     *
+     * @param file 保存有的库存记录的文件
+     * @return 返回一个Map，其中：key为total代表导入的总记录数，key为available代表有效导入的记录数
+     */
+    Map<String, Object> importInventory(MultipartFile file);
+
 }

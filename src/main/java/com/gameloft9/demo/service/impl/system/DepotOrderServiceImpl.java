@@ -576,7 +576,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         String type = null;
         String goodsId = current.getGoodsId();
 
-        if(lenProductMapper.getByPrimaryKey(goodsId) !=null){
+        if(lenGoodsProductMapper.getByBH(goodsId) !=null){
             type = Constants.PRODUCT;
         }
         if(sysMaterialGoodsMapper.getById(goodsId) !=null){

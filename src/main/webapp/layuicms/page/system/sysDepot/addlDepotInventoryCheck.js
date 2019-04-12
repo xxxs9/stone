@@ -56,7 +56,7 @@ layui.config({
         tableIns2 = table.render({
             id: 'testReload2'//配置动态表格id以便于执行重载操作
             ,elem: '#depotInventory-data2'
-            , height: '250'
+            , height: 'auto'
             , limit: '5'
             , url: $tool.getContext() + 'depotInventory/depotInventoryList.do' //数据接口
             , method: 'post'
