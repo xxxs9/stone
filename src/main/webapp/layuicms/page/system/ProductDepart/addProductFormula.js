@@ -31,6 +31,8 @@ layui.config({
     /**
      * 初始化页面
      * */
+    var other32;
+
     function init() {
        /* $api.getAllProduct(null,function (res) {
             var data = res.data;
@@ -52,6 +54,7 @@ layui.config({
                     html += '<option value="'+data[i].bianhao+'">'+data[i].bianhao+'---'+data[i].pname+'</option>';
                 }
                 $('#productId').append($(html));
+
                 form.render();
             }
         });
@@ -59,7 +62,12 @@ layui.config({
 
     }
     init();
-
+        form.on('select(aa)',function qqq() {
+            var value =$('#productId option:selected').html();
+            var str=value.split("---");
+            other32 = str[1];
+            console.log(other32);
+    });
     /**
      * 初始化菜单信息
      * */
@@ -129,6 +137,7 @@ layui.config({
         var formulaNumber = data.field.formulaNumber;
         var createUser = data.field.createUser;
         var createTime = data.field.createTime;
+        var other3 = other32;
 
         /*var sort = data.field.sort;
         var idList = new Array();*/
@@ -148,7 +157,8 @@ layui.config({
             formulaType:formulaType,
             formulaNumber:formulaNumber,
             createUser:createUser,
-            createTime:createTime
+            createTime:createTime,
+            other3:other3
 
         };
 

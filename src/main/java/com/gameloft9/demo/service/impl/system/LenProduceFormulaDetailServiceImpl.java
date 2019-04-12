@@ -81,6 +81,7 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         len.setProduceFormulaId(lenProduceFormulaDetail.getProduceFormulaId());
         len.setOther1(OrderUtil.lenOrderNumber("DE"));
         len.setOther2(lenProduceFormulaDetail.getOther2());
+        len.setOther3(lenProduceFormulaDetail.getOther3());
         if (mapper.insert(len) > 0) {
             return true;
         } else {
