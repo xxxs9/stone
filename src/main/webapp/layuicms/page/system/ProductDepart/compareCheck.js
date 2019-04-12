@@ -45,6 +45,7 @@ layui.config({
             console.log(data);
             $("[name='productId']").val(id);
             $("[name='productName']").val(data.productName);
+            $("[name='productId2']").val(data.other1);
             /*实际产量*/
             $("[name='checkNumber']").val(data.checkNumber);
 
@@ -181,12 +182,12 @@ layui.config({
             checkRemark:checkRemark,
             state:state
         };
-        //todo(仓库入库)
+
         $api.addBillCheckNew(req,function (data) {
             changeProductState(productId);
             insertSupport();
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-            layer.msg("检验单提交成功！", {time: 1000}, function () {
+            layer.msg("检验单提交成功！", {time: 2000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();

@@ -5,9 +5,9 @@ import com.gameloft9.demo.dataaccess.dao.system.SysUserRoleTestMapper;
 import com.gameloft9.demo.dataaccess.model.system.SysMenuRoleTest;
 import com.gameloft9.demo.dataaccess.model.system.SysMenuTest;
 import com.gameloft9.demo.dataaccess.model.system.SysRoleTest;
-import com.gameloft9.demo.service.api.system.SysUserService;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import com.gameloft9.demo.service.api.system.SysUserService;
+import com.gameloft9.demo.utils.CacheUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +20,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ import java.util.List;
  */
 @Slf4j
 @Data
-public class ShiroRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm{
 
 	/**
 	 * 通过setter注入,这里没有通过@Autowired注入
@@ -39,9 +40,6 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Autowired
 	SysMenuTestMapper menuTestMapper;
 
-	/**
-	 * 获取授权信息方法，返回用户角色信息
-	 * */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 
@@ -50,28 +48,13 @@ public class ShiroRealm extends AuthorizingRealm {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}
 
-		List<String> prems = new ArrayList<String>();
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
+		List<String> cacheData = CacheUtil.getInstance().getCacheData(user.getLoginName());
+		List<String> rolesList = CacheUtil.getInstance().getCacheData("roles");
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if (user != null) {
-			//根据用户获取角色列表
-			List<SysRoleTest> roles = userRoleTestMapper.getRolesByUserId(user.getId());
-			//循环获取权限
-			for (SysRoleTest role : roles) {
-				info.addRole(role.getRoleName());
-
-				List<SysMenuRoleTest> menuRoles = menuTestMapper.getMenuRoleByRoleId(role.getId());
-				for (SysMenuRoleTest menuRole : menuRoles) {
-					//根据角色获取资源列表
-					SysMenuTest menu = menuTestMapper.getMenuByMenuId(menuRole.getMenuId());
-					//权限不为null并且不为空串才存
-					if(menu.getPerms() != null && menu.getPerms() != ""){
-						prems.add(menu.getPerms());
-						info.addStringPermission(menu.getPerms());
-					}
-
-				}
-			}
+			info.setRoles(new HashSet<String>(rolesList));
+			info.setStringPermissions((new HashSet<String>(cacheData)));
 		} else {
 			SecurityUtils.getSubject().logout();
 		}
@@ -88,11 +71,36 @@ public class ShiroRealm extends AuthorizingRealm {
 			AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		UserTest user = userServiceImpl.getByLoginName(token.getUsername());
-
 		if (user == null) {
 			//用户不存在
 			throw new UnknownAccountException();
 		}
+		//创建一个list存放角色列表
+		List<String> rolesList = new ArrayList<String>();
+		//创建一个list存放权限集合
+		List<String> perms = new ArrayList<String>();
+		//根据用户获取角色列表
+		List<SysRoleTest> roles = userRoleTestMapper.getRolesByUserId(user.getId());
+		//循环获取权限
+		for (SysRoleTest role : roles) {
+			//获取角色列表
+			rolesList.add(role.getRoleName());
+			List<SysMenuRoleTest> menuRoles = menuTestMapper.getMenuRoleByRoleId(role.getId());
+			for (SysMenuRoleTest menuRole : menuRoles) {
+				//根据角色获取资源列表
+				SysMenuTest menu = menuTestMapper.getMenuByMenuId(menuRole.getMenuId());
+				//权限不为null并且不为空串才存
+				if(menu.getPerms() != null && menu.getPerms() != ""){
+					perms.add(menu.getPerms());
+				}
+
+			}
+		}
+
+		//将权限和角色存放到map缓存中
+		CacheUtil cacheUtil = CacheUtil.getInstance();
+		cacheUtil.addCacheData(user.getLoginName(),perms);
+		cacheUtil.addCacheData("roles",rolesList);
 
 		//构造一个用户认证信息并返回，后面会通过这个和token的pwd进行对比。
 		return new SimpleAuthenticationInfo(user,user.getPassword(),user.getRealName());

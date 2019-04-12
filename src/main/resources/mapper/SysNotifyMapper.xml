@@ -37,7 +37,24 @@
             <result column="NOTIFY_TYPE" property="notifyType" jdbcType="VARCHAR"/>
 
         </association>
+
     </resultMap>
+<!--查看所有的消息列表-->
+    <resultMap id="findAllMessage"  type="com.gameloft9.demo.dataaccess.model.system.SysNotify">
+        <id property="id" column="ID"></id>
+        <result column="RECEIVER_ID" property="receiverId" jdbcType="VARCHAR"/>
+        <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP"/>
+        <result column="STATE" property="state" jdbcType="VARCHAR"/>
+        <result column="SENDER_ID" property="senderId" jdbcType="VARCHAR"/>
+        <association property="sysNotifyInfo" javaType="com.gameloft9.demo.dataaccess.model.system.SysNotifyInfo">
+            <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+            <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+            <result column="NOTIFY_TYPE" property="notifyType" jdbcType="VARCHAR"/>
+
+        </association>
+
+    </resultMap>
+
     <resultMap id="outbox"  type="com.gameloft9.demo.dataaccess.model.system.SysNotify">
         <id property="id" column="ID"></id>
         <result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP"/>
@@ -122,6 +139,14 @@
         </if>
         order by n.id desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--收件箱分页-->
+    <select id="outBoxCountGetAll" parameterType="map" resultType="Integer">
+        select count(1) from notify n
+        where SENDER_ID=  #{loginName,jdbcType=VARCHAR}
+
+
     </select>
 
 <!--分页-->
@@ -276,8 +301,15 @@
     where ID = #{id,jdbcType=VARCHAR}
 
   </update>
-<select id="findOutBox" resultMap="outbox">
+<select id="findAllMessage" resultMap="findmessage">
+      SELECT notify.*,notify_info.TITLE,notify_info.NOTIFY_TYPE,notify_info.CONTENT FROM notify LEFT JOIN notify_info ON notify.NOTIFY_INFO_ID = notify_info.ID
+       ORDER BY notify.SEND_TIME DESC
+
+</select>
+    <select id="findOutBox" resultMap="outbox">
       SELECT notify.*,notify_info.TARGET_ID,notify_info.TITLE,notify_info.NOTIFY_TYPE,notify_info.CONTENT FROM notify LEFT JOIN notify_info ON notify.NOTIFY_INFO_ID = notify_info.ID  where  SENDER_ID= #{loginName,jdbcType=VARCHAR}
+       ORDER BY notify.SEND_TIME DESC
+       limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
 </select>
 
 

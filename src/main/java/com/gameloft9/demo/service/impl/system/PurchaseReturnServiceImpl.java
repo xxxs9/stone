@@ -142,11 +142,11 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         CheckUtil.notBlank(orderNumber,"订单编号为空");
         PurchaseReturn purchaseReturn = dao.selectByOrderNumber(orderNumber);
         //添加判断，假如在仓库审核前，采购退货撤回了，理应不可以审核
-        String str = purchaseReturn.getDepotState();
+        /*String str = purchaseReturn.getDepotState();
         String state = "提交审核中";
         if(!str.equals(state)){
             throw new BizException(AbstractResult.CHECK_FAIL,"退货单已撤回,请刷新!");
-        }
+        }*/
         purchaseReturn.setDepotState(Constants.DepotState.DEPOT_PASS);
         dao.updateTools(purchaseReturn);
         return true;

@@ -26,33 +26,41 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
 
     </br>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 50%">
         <label class="layui-form-label">产品名称</label>
-        <div class="layui-input-block">
+        <div class="layui-input-block" >
             <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item"style="width: 50%">
         <label class="layui-form-label">产品数量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入产品数量">
         </div>
     </div>
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item "style="width: 50%">
         <label class="layui-form-label">订单来源</label>
         <div class="layui-input-block ">
             <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
         </div>
     </div>
+    <div class="layui-form-item "style="display: none">
+        <label class="layui-form-label">订单来源</label>
+        <div class="layui-input-block ">
+            <input type="text" class="layui-input" name="other1" id="other1" readonly>
+        </div>
+    </div>
 
-    <div class="layui-form-item ">
+
+    <div class="layui-form-item "style="width: 50%">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
-            <select name="productState" lay-verify="required" id="productState" readonly="">
+            <select name="productState" lay-verify="required" id="productState">
                 <option value="1" selected>1.未提交</option>
 
             </select>
@@ -60,7 +68,7 @@
     </div>
 
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item "style="width: 50%">
         <label class="layui-form-label">产品类型</label>
         <div class="layui-input-block">
             <select name="productType" lay-verify="required" id="productType" >
@@ -76,7 +84,7 @@
     </div>
 
 
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item layui-form-text" style="width: 50%">
         <label class="layui-form-label">产品描述</label>
         <div class="layui-input-block">
             <textarea name="productDescribe" placeholder="请输入描述" class="layui-textarea"></textarea>
@@ -90,6 +98,7 @@
         </div>
     </div>
 </form>
+</div>
 <!--<script type="text/html" id="tmp">
 
     {{#  if(d.productType == '0'){ }}

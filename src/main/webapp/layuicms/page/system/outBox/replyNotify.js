@@ -126,7 +126,7 @@ layui.config({
         var senderId =data.field.senderId
         var receiverId =  data.field.receiverId;
         var targetId = data.field.targetId;
-        var notifyType = data.field.notifyType;
+        var notifyType = '个人信件';
         var title = data.field.title;
         var content = data.field.content;
         alert(senderId)

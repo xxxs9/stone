@@ -35,11 +35,18 @@
         </div>
     </div>
     <div class="layui-form-item layui-hide material-type">
-        <label class="layui-form-label">原料编号</label>
+        <label class="layui-form-label">原料名称</label>
         <div class="layui-input-block">
-            <select id="materialId" name="materialId"></select>
+            <select id="goodsName" name="goodsName" lay-filter="materialFilter"></select>
         </div>
     </div>
+    <div class="layui-form-item layui-hide material-type">
+        <label class="layui-form-label">供应商名称</label>
+        <div class="layui-input-block">
+            <select id="supplierName" name="supplierName" lay-filter="materialFilter"></select>
+        </div>
+    </div>
+    <input type="hidden" id="materialId" name="materialId">
     <div class="layui-form-item  product-type">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">

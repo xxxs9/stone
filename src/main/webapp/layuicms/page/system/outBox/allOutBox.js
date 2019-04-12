@@ -87,7 +87,25 @@ layui.config({
 
         return false;
     });
-
+/*系统广播*/
+   $(".notice_btn").click(function () {
+        var index = layui.layer.open({
+            title: "广播",
+            type: 2,
+            content: "Notice.html",
+            success: function (layero, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
+        });
+       $(window).resize(function () {
+           layui.layer.full(index);
+       });
+       layui.layer.full(index);
+   });
     //添加用户
     $(".add_btn").click(function () {
         var index = layui.layer.open({

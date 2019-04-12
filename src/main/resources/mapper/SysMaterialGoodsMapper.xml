@@ -136,4 +136,22 @@
         select *
         from SYS_MATERIAL_GOODS t
     </select>
+    <!--根据供应商名称和原料名称获取原料商品id-->
+    <select id="getIdByGoodsNameAndSupplierName" parameterType="map" resultType="java.lang.String">
+        SELECT
+        a.ID
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        <if test="goodsName !=null and goodsName != ''">
+            AND b.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+        </if>
+        <if test="supplierName !=null and supplierName != ''">
+            AND c.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
+        </if>
+    </select>
 </mapper>
