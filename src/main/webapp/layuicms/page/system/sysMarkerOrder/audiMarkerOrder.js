@@ -138,7 +138,7 @@ layui.config({
                 var queryArgs = $tool.getQueryParam();//获取查询参数
                 var id = queryArgs['id'];
                 console.log(data)
-              //  var id = data.field.id;
+
                 var orderId = data.field.orderId;
                 var orderTime = data.field.orderTime;
                 var customer = data.field.customer;
@@ -152,17 +152,7 @@ layui.config({
                 var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
                 var remarks = data.field.remarks
-                /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
-                    layer.msg("请选择所属组织机构");
-                    return false;
-                }*/
 
-                //获取选中的产品列表
-               /* for (var i = 0; i < roleIdList.length; i++) {
-                    if (data.field[roleIdList[i]] === 'on') {
-                        idList.push(roleIdList[i]);
-                    }
-                }*/
 
                 //请求
                 var req = {

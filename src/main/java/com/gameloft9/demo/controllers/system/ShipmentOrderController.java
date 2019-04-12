@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.ShipmentOrderService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -84,6 +85,7 @@ public class ShipmentOrderController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("goods:add")
     public IResult add(ShipmentOrder shipmentOrder, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
         System.out.println(shipmentOrder);

@@ -8,6 +8,7 @@ import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.ReturnGoodsOrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -114,6 +115,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/audit",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("return:goods")
     public IResult audit(ShipmentOrder shipmentOrder){
        return new ResultBean<Boolean>(returnGoodsOrderService.audit(shipmentOrder));
     }
@@ -125,6 +127,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/depot",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("return:goods")
     public IResult depot(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.depot(shipmentOrder));
     }
@@ -135,6 +138,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/finance",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("return:goods")
     public IResult finance(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.finance(shipmentOrder));
     }

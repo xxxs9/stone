@@ -53,7 +53,9 @@ layui.config({
 
         $api.getAllProduct(null,function (res) {
             var data = res.data;
-            console.log(data)
+            console.log(JSON.stringify(data))
+            /*JSON.stringify(data)*/
+
             if(data.length > 0){
                 var html = '<option value="">--请填写--</option>';
                 for(var i=0;i<data.length;i++){
@@ -69,10 +71,11 @@ layui.config({
      * 表单提交
      * */
     form.on("submit(addMarkerOrder)", function (data) {
+        var name = $('#productId option:selected').text();
         var id = data.field.id;
         var orderId = data.field.orderId;
         var orderTime = data.field.orderTime;
-        var productId = data.field.productId;
+        var productId = name;
         var customer = data.field.customer;
         var deliverNumber = data.field.deliverNumber;
         var plannedNumber = data.field.plannedNumber;
@@ -82,20 +85,7 @@ layui.config({
         var orderAuditUser = data.field.orderAuditUser;
         var orderAuditDepot = data.field.orderAuditDepot;
         var remarks = data.field.remarks
-      /*  var idList = new Array();
 
-        if($tool.isBlank(orgId)||$tool.isBlank(orgName)){
-            layer.msg("请选择所属组织机构");
-            return false;
-        }
-
-        //获取选中的产品列表
-        for (var i = 0; i < roleIdList.length; i++) {
-            if (data.field[roleIdList[i]] === 'on') {
-                idList.push(roleIdList[i]);
-            }
-        }
-*/
         //请求
         var req = {
             id: id,
@@ -122,7 +112,6 @@ layui.config({
                 parent.location.reload();
             });
         });
-
         return false;
     })
 

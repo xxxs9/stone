@@ -15,14 +15,15 @@ public interface MarkerOrderService {
      * @param productId
      * @return
      */
-    List<MarkerOrderTest> findAll(String page, String limit, String productId);
+    List<MarkerOrderTest> findAll(String page, String limit, String productId,String applyUser);
 
     /**
      * 获取所有销售订单个数
      * @param productId
+     * @param applyUser
      * @return
      */
-    int countGetAll(String productId);
+    int countGetAll(String productId,String applyUser);
 
     /**
      * 通过ID删除销售订单信息
