@@ -5,8 +5,11 @@
     <resultMap id="billMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceBill">
         <id property="id" column="ID" jdbcType="VARCHAR"/>
         <result property="department" column="DEPARTMENT" jdbcType="VARCHAR"/>
-        <result property="balance" column="BALANCE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
         <result property="billTime" column="BILL_TIME" jdbcType="TIMESTAMP"/>
+        <result property="applyUser" column="APPLY_USER" jdbcType="VARCHAR"/>
+        <result property="goodsName" column="GOODS_NAME" jdbcType="VARCHAR"/>
+        <result property="balanceType" column="BALANCE_TYPE" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--add-->
@@ -25,6 +28,15 @@
             <if test="billTime != null and billTime != ''">
                 BILL_TIME,
             </if>
+            <if test="applyUser != null and applyUser != ''">
+                APPLY_USER,
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                GOODS_NAME,
+            </if>
+            <if test="balanceType != null and balanceType != ''">
+                BALANCE_TYPE,
+            </if>
         </trim>
         <trim prefix=" value(" suffix=")" suffixOverrides=",">
             <if test="id != null and id != ''">
@@ -38,6 +50,15 @@
             </if>
             <if test="billTime != null and billTime != ''">
                 #{billTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="applyUser != null and applyUser != ''">
+                #{applyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="balanceType != null and balanceType != ''">
+                #{balanceType,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
