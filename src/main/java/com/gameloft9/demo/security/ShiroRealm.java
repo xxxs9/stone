@@ -49,12 +49,12 @@ public class ShiroRealm extends AuthorizingRealm{
 		}
 
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		List<String> cacheData = CacheUtil.getInstance().getCacheData(user.getLoginName());
 		List<String> rolesList = CacheUtil.getInstance().getCacheData("roles");
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if (user != null) {
-			info.setRoles(new HashSet<String>(roleList));
-			info.setStringPermissions((new HashSet<String>(cacheData)));
 			info.setRoles(new HashSet<String>(rolesList));
+			info.setStringPermissions((new HashSet<String>(cacheData)));
 		} else {
 			SecurityUtils.getSubject().logout();
 		}
