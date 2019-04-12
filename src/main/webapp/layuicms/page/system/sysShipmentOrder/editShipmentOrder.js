@@ -74,7 +74,7 @@ layui.config({
                     $("[name='state']").val(data.state);
                     $("[name='auditUser']").val(data.auditUser);
                     $("[name='auditType']").val(data.auditType);
-                    $("[name='remarks']").val(data.remarks)
+                    $("[name='remarks']").val(data.remarks);
 
 
                     /*orgId = data.orgId;
@@ -94,9 +94,9 @@ layui.config({
                 var id = queryArgs['id'];
                 console.log(data)
               //  var id = data.field.id;
-                var name = $('#productId option:selected').text();
+               // var name = $('#productId option:selected').text();
                 var goodsId = data.field.goodsId;
-                var productId = name;
+                var productId = data.field.productId;
                 var goodsName = data.field.goodsName;
                 var customer = data.field.customer;
                 var goodsNumber = data.field.goodsNumber;
@@ -106,7 +106,7 @@ layui.config({
                 var state = data.field.state;
                 var auditUser = data.field.auditUser;
                 var auditType = data.field.auditType;
-                var remarks = data.field.remarks
+                var remarks = data.field.remarks;
                 /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
                     layer.msg("请选择所属组织机构");
                     return false;
