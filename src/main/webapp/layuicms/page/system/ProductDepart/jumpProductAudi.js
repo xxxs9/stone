@@ -115,7 +115,7 @@ layui.config({
 
             }
 
-            layer.msg(">>>>>>>审核完成<<<<<<<", {time: 1000}, function () {
+            layer.msg(">>>>>>>审核完成<<<<<<<", {time: 1500}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
@@ -130,8 +130,7 @@ layui.config({
     }
     $('#audiNot').click(function () {
         $api.audiNot(req,function (res) {
-            alert(req);
-            layer.msg(">>>审核未通过，已驳回<<<", {time: 1000}, function () {
+            layer.msg(">>>审核未通过，已驳回<<<", {time: 1500}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
