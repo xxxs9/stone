@@ -75,7 +75,7 @@ public class LenGoodsProductController {
 
     @RequestMapping(value = "/getbyBH", method = RequestMethod.POST)
     @ResponseBody
-    public IResult getUnProduce(String bianhao) {
+    public IResult getbyBH(String bianhao) {
         return new ResultBean<LenGoodsProduct>(service.getByBH(bianhao));
     }
 
