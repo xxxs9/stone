@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenOperatorMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenOperator">
+            <id column="ID" property="id"/>
+            <result  column="OPERATOR_NO" property="operatorNo"/>
+            <result  column="OPERATOR_USER" property="operatorUser"/>
+            <result  column="OPERATOR_TYPE" property="operatorType"/>
+            <result  column="OPERATOR_REMARK" property="operatorRemark"/>
+            <result  column="OPERATOR_TIME" property="operatorTime" jdbcType="TIMESTAMP"/>
+            <result column="OTHER1" property="other1"/>
+            <result column="OTHER2" property="other2"/>
+            <result column="OTHER3" property="other3"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ID,OPERATOR_NO,OPERATOR_USER,OPERATOR_TYPE,OPERATOR_REMARK,OPERATOR_TIME,OTHER1,OTHER2,OTHER3
+     </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select <include refid="Base_Column_List"/> from l_operator
+    </select>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from l_operator
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--mysql版本/分页查询-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from l_operator t
+        where 1=1
+        <if test="operatorType != null and operatorType != ''">
+            and t.OPERATOR_TYPE = #{operatorType,jdbcType=VARCHAR}
+        </if>
+        <if test="operatorUser != null and operatorUser != ''">
+            and t.OPERATOR_USER = #{operatorUser,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_operator t
+        where 1=1
+        <if test="operatorType != null and operatorType != ''">
+            and t.OPERATOR_TYPE = #{operatorType,jdbcType=VARCHAR}
+        </if>
+        <if test="operatorUser != null and operatorUser != ''">
+            and t.OPERATOR_USER = #{operatorUser,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        insert into l_operator
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="operatorNo != null">
+                OPERATOR_NO,
+            </if>
+            <if test="operatorUser != null">
+                OPERATOR_USER,
+            </if>
+            <if test="operatorType != null">
+                OPERATOR_TYPE,
+            </if>
+            <if test="operatorRemark != null">
+                OPERATOR_REMARK,
+            </if>
+            <if test="operatorTime != null">
+                OPERATOR_TIME,
+            </if>
+
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorNo != null">
+                #{operatorNo,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorUser != null">
+                #{operatorUser,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorType != null">
+                #{operatorType,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorRemark != null">
+                #{operatorRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorTime != null">
+                #{operatorTime,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--
+        <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
+        insert into l_product ( ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3)
+        values (
+        #{id},
+        #{productName},
+        #{productType},
+        #{productNumber},
+        #{productState},
+        #{canSold},
+        #{supportPrice},
+        #{productDescribe},
+        #{other1},
+        #{other2},
+        #{other3}
+        )
+      </insert>-->
+
+
+</mapper>
+

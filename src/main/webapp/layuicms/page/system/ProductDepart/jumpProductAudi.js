@@ -66,7 +66,17 @@ layui.config({
         });
 
     }
+    var cs;
+    var ot1;
+    function opera() {
+        req={
+            operatorUser:cs,
+            operatorRemark:ot1
+        }
+        $api.prodSHOperator(req,function (res) {
 
+        })
+    }
     function initMenuInfo() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var wid = queryArgs['id'];
@@ -78,6 +88,8 @@ layui.config({
 
         $api.getProductById(req, function (res) {
             var data6 = res.data;
+            cs=data6.canSold;
+            ot1= data6.other1;
             $("[name='productName']").val(data6.productName);
             $("[name='productNumber']").val(data6.productNumber);
             $('#canSold').val(data6.canSold);
@@ -95,8 +107,9 @@ layui.config({
         id:wid
     }
     $('#audiOk').click(function () {
+
         $api.managerAudi(req,function (res) {
-       
+            opera();
             if(res.code==='401'){
                 window.location.href = $tool.getResUrl()+"layuicms/page/system/401.html";
 

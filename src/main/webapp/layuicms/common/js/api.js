@@ -674,6 +674,25 @@ layui.define(['$tool','jquery'], function (exports) {
         getByProductId:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
         },
+        //添加操作记录
+        addOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/add',req,successCallback,errorCallback);
+        },
+        prodDelOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodDel',req,successCallback,errorCallback);
+        },
+        prodTJOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodTJ',req,successCallback,errorCallback);
+        },
+        prodSHOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodSH',req,successCallback,errorCallback);
+        },
+        prodSBOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodSB',req,successCallback,errorCallback);
+        },
+        prodEditOperator:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'opera/prodEdit',req,successCallback,errorCallback);
+         },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/add',req,successCallback,errorCallback);

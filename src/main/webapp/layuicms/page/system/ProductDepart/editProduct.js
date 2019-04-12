@@ -82,8 +82,11 @@ layui.config({
 
             $("[name='productName']").val(data.productName);
             $("[name='productNumber']").val(data.productNumber);
+            $("[name='other1']").val(data.other1);
+
             $("[name='supportPrice']").val(data.supportPrice);
             $('#canSold').val(data.canSold);
+
 
             select2(data.productType);
             select(data.state);
@@ -105,6 +108,17 @@ layui.config({
     /**
      * 表单提交
      * */
+    var cs;
+    var oth1;
+    function editOpera(){
+        var req={
+            operatorUser:cs,
+            operatorRemark:oth1
+        }
+        $api.prodEditOperator(req,function (res) {
+
+        });
+    }
     form.on("submit(editMenu)", function (data) {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         console.log(queryArgs)
@@ -114,6 +128,9 @@ layui.config({
         var productNumber = data.field.productNumber;
         var supportPrice = data.field.supportPrice;
         var canSold = data.field.canSold;
+         cs = data.field.canSold;
+        var other1 = data.field.other1;
+         oth1 = data.field.other1;
         var productDescribe = data.field.productDescribe;
 
 
@@ -128,11 +145,13 @@ layui.config({
             supportPrice:supportPrice,
             productNumber:productNumber,
             productDescribe: productDescribe,
+            other1:other1
 
 
         };
 
         $api.updateProduct(req, function (data) {
+            editOpera();
             layer.msg("修改成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面

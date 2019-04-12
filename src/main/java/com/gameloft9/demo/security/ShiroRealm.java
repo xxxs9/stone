@@ -61,9 +61,10 @@ public class ShiroRealm extends AuthorizingRealm{
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
 		List<String> cacheData = CacheUtil.getInstance().getCacheData(user.getLoginName());
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
+		List<String> rolesList = CacheUtil.getInstance().getCacheData("roles");
 		if (user != null) {
 			info.setStringPermissions((new HashSet<String>(cacheData)));
+			info.setRoles(new HashSet<String>(rolesList));
 		} else {
 			SecurityUtils.getSubject().logout();
 		}
@@ -84,12 +85,15 @@ public class ShiroRealm extends AuthorizingRealm{
 			//用户不存在
 			throw new UnknownAccountException();
 		}
+		//创建一个list存放roles
+		List<String> rolesList = new ArrayList<String>();
 		//创建一个list存放权限集合
 		List<String> perms = new ArrayList<String>();
 		//根据用户获取角色列表
 		List<SysRoleTest> roles = userRoleTestMapper.getRolesByUserId(user.getId());
 		//循环获取权限
 		for (SysRoleTest role : roles) {
+			rolesList.add(role.getRoleName());
 			List<SysMenuRoleTest> menuRoles = menuTestMapper.getMenuRoleByRoleId(role.getId());
 			for (SysMenuRoleTest menuRole : menuRoles) {
 				//根据角色获取资源列表
@@ -105,6 +109,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		//将权限存放到map缓存中
 		CacheUtil cacheUtil = CacheUtil.getInstance();
 		cacheUtil.addCacheData(user.getLoginName(),perms);
+		cacheUtil.addCacheData("roles",rolesList);
 
 		//构造一个用户认证信息并返回，后面会通过这个和token的pwd进行对比。
 		return new SimpleAuthenticationInfo(user,user.getPassword(),user.getRealName());

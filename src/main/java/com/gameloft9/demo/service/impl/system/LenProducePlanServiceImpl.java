@@ -2,7 +2,10 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.LenProducePlanMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProducePlan;
+import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProducePlanService;
+import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.DateUtil;
@@ -24,6 +27,12 @@ public class LenProducePlanServiceImpl implements LenProducePlanService {
 
     @Autowired
     LenProducePlanMapper mapper;
+    @Autowired
+    LenOperatorService lenOperatorService;
+    @Autowired
+    LenProductService lenProductService;
+
+
 
     @Override
     public List<LenProducePlan> selectAll() {
@@ -63,7 +72,11 @@ public class LenProducePlanServiceImpl implements LenProducePlanService {
         plan.setOther1(other1);
         plan.setOther2(other2);
         plan.setOther3(other3);
+        LenProduct product = lenProductService.getByPrimaryKey(productId);
+        String other12 = product.getOther1();
+        String canSold2 = product.getCanSold();
         if (mapper.insert(plan)>0){
+            lenOperatorService.insertSelective1(canSold2,Constants.operatorState.PLAN_ADD,other12,null,null,null);
             return  true;
         } else {
             return false;
