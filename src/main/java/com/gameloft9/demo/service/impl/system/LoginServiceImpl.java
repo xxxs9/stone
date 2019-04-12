@@ -124,7 +124,9 @@ public class LoginServiceImpl implements LoginService{
         SecurityUtils.getSubject().logout();//登出
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String loginName = (String) request.getSession().getAttribute("sysUser");
+        //情况map缓存
         CacheUtil.getInstance().removeCacheData(loginName);
+        CacheUtil.getInstance().removeCacheData("roles");
         request.getSession().removeAttribute("sysUser");//清理session
 
         return null;
