@@ -6,6 +6,7 @@ import com.gameloft9.demo.dataaccess.dao.system.SysMaterialMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
+import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
@@ -28,7 +29,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class LenProductServiceImpl implements LenProductService {
-
+    @Autowired
+    LenOperatorService lenOperatorService;
     @Autowired
     LenProductMapper mapper;
     @Autowired
@@ -68,6 +70,8 @@ public class LenProductServiceImpl implements LenProductService {
         product.setOther1(number);
         product.setOther3(lenProduct.getOther3());
         if (mapper.insert(product) > 0) {
+        //添加记录
+            lenOperatorService.insertSelective1(lenProduct.getCanSold(),Constants.operatorState.PRODUCT_ADD,number,null,null,null);
             return true;
         } else {
             return false;
@@ -80,6 +84,7 @@ public class LenProductServiceImpl implements LenProductService {
         if(lenProduct.getCanSold().equals(sysUser)){
         lenProduct.setProductState(Constants.productState.UN_TIJIAO);
         if (mapper.update(lenProduct) > 0) {
+            lenOperatorService.insertSelective1(lenProduct.getCanSold(),Constants.operatorState.PRODUCT_UPD, lenProduct.getOther1(),null,null,null);
             return true;
         } else {
             throw new RuntimeException(">>>>>>>数据库操作失败<<<<<<<");
@@ -371,5 +376,12 @@ public class LenProductServiceImpl implements LenProductService {
     @Override
     public SysMaterialGoods getGoodsMaterialById(String id) {
         return materialGoodsMapper.getById(id);
+    }
+
+    public List<String> getProductName(){
+        return  mapper.getProductName();
+    }
+    public List<String> getProductNumber(){
+        return mapper.getProductNumber();
     }
 }

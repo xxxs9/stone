@@ -72,23 +72,23 @@ layui.config({
 
             //区分事件
             if (layEvent === 'del') { //删除
-                delMenu(row.id, row.other2);
+                delMenu(row.id,row.canSold,row.other1);
             } else if (layEvent === 'edit') {
                 //do something
                 editMenu(row.id);
 
-            } else if (layEvent === 'audi') { //编辑
-                //do something
-                audi(row.id);
+            } else if (layEvent === 'audi') {
+                //提交
+                audi(row.id,row.canSold,row.other1);
             }else if(layEvent==='intoDepot'){
-                intoDepot(row.id);
+                //intoDepot(row.id);
             } else if (layEvent === 'stepBack') {
-                stepBack1(row.id);
+                stepBack1(row.id,row.canSold,row.other1);
 
             } else if (layEvent === 'plan') {
                 plan(row.id);
-            } else if (layEvent === 'ManagerAudi') { //编辑
-                //do something
+            } else if (layEvent === 'ManagerAudi') {
+                //审核
                 ManagerAudi(row.id, row.other2);
             } else if (layEvent === 'fenPei') {
                 fenPei(row.id);
@@ -259,7 +259,7 @@ layui.config({
     }
 
     //删除
-    function delMenu(id) {
+    function delMenu(id,canSold,other1) {
         layer.confirm('确认删除吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -268,6 +268,7 @@ layui.config({
             };
 
             $api.delProduct(req, function (data) {
+                delOP();
                 layer.msg("删除成功", {time: 1000}, function () {
                     //obj.del(); //删除对应行（tr）的DOM结构
                     //重新加载表格
@@ -276,7 +277,18 @@ layui.config({
                 return false;
             });
 
+
+
         });
+        function delOP() {
+            var   req2={
+                operatorUser:canSold,
+                operatorRemark:other1
+            }
+            $api.prodDelOperator(req2,function (res) {
+
+            })
+        }
     }
 
     //编辑
@@ -346,7 +358,9 @@ layui.config({
     }
 
 
-    function audi(id) {
+
+
+    function audi(id,canSold,other1) {
         layer.confirm('请确认操作', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -356,6 +370,7 @@ layui.config({
             };
 
             $api.changProductState(req, function (data) {
+                opera();
                 layer.msg("操作成功", {time: 1000}, function () {
                     //重新加载表格
                     tableIns.reload();
@@ -363,6 +378,15 @@ layui.config({
             });
             return false;
         });
+        function opera() {
+            var req2 ={
+                operatorUser:canSold,
+                operatorRemark:other1
+            }
+            $api.prodTJOperator(req2,function (res) {
+
+            })
+        }
     }
 
     /*主管审核*/
@@ -388,8 +412,9 @@ layui.config({
 
     }
 
-    function stepBack1(id) {
+    function stepBack1(id,canSold,other1) {
         layer.confirm('确定撤回吗？', function (confirmIndex) {
+            operaSB();
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
             var req = {
@@ -397,6 +422,7 @@ layui.config({
             };
 
             $api.stepBack1(req, function (data) {
+
                 layer.msg("操作成功", {time: 1000}, function () {
                     //重新加载表格
                     tableIns.reload();
@@ -405,6 +431,15 @@ layui.config({
             return false;
         });
 
+        function operaSB() {
+            var req1={
+                operatorUser:canSold,
+                operatorRemark:other1
+            }
+            $api.prodSBOperator(req1,function (res) {
+
+            })
+        }
     }
 
     function fenPei(id) {

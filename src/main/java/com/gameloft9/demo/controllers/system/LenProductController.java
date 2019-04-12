@@ -6,6 +6,7 @@ import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
+import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.utils.Constants;
 import org.apache.shiro.SecurityUtils;
@@ -29,6 +30,9 @@ import java.util.List;
 public class LenProductController {
     @Autowired
     LenProductService service;
+    @Autowired
+    LenOperatorService lenOperatorService;
+
     /**
      * 分页模糊查询
      * @param page
@@ -158,13 +162,15 @@ public class LenProductController {
     @RequestMapping(value = "/sb",method = RequestMethod.POST)
     @ResponseBody
     public IResult stepBack(String id) {
-
-        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
+        Subject subject = SecurityUtils.getSubject();
+        String currentUserId = (String)subject.getSession().getAttribute("sysUser");
+        String canSold = service.getByPrimaryKey(id).getCanSold();
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)||canSold.equals(currentUserId)) {
 
             if (service.changeProState(Constants.productState.UN_TIJIAO, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
-                return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
+                return new ResultBean<String>("4011",">>>>>>>操作失败<<<<<<<");
             }
         } else {
             return new ResultBean<String>("4011",">>>>>>>权限不足<<<<<<<");
@@ -194,7 +200,6 @@ public class LenProductController {
     @RequestMapping(value = "/managerAudi",method = RequestMethod.POST)
     @ResponseBody
     public IResult managerAudi(String id) {
-
         if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
             if (service.changeProState(Constants.productState.REACH_UNFENPEI, id)) {
                 return new ResultBean<Boolean>(true);
@@ -228,9 +233,15 @@ public class LenProductController {
     @RequestMapping("/stopProduce")
     @ResponseBody
     public IResult stopProduce(String id){
+        LenProduct byPrimaryKey = service.getByPrimaryKey(id);
+        String other1 = byPrimaryKey.getOther1();
+        String canSold = byPrimaryKey.getCanSold();
+        if (service.changeBehindState(Constants.productState.STOP_PRODUCE,id)){
+            //添加操作记录
+            lenOperatorService.insertSelective1(canSold,Constants.operatorState.PRODUCT_STOP,other1,null,null,null);
 
-            if (service.changeBehindState(Constants.productState.STOP_PRODUCE,id)){
-                return new ResultBean<Boolean>(true);
+            return new ResultBean<Boolean>(true);
+
             }else {
                 return new ResultBean<String>("4011",">>>>>操作失败<<<<<");
             }
@@ -272,8 +283,13 @@ public class LenProductController {
     @RequestMapping("/completeProduce")
     @ResponseBody
     public IResult completeProduce(String id){
+        LenProduct byPrimaryKey = service.getByPrimaryKey(id);
+        String other1 = byPrimaryKey.getOther1();
+        String canSold = byPrimaryKey.getCanSold();
         if(SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
             if (service.changeBehindState(Constants.productState.COMPLETE_PRODUCE,id)){
+                lenOperatorService.insertSelective1(canSold,Constants.operatorState.PRODUCT_COMPLETE,other1,null,null,null);
+
                 return new ResultBean<Boolean>(true);
             }else {
                 return new ResultBean<String>("4011",">>>>数据库操作失败<<<<");
@@ -291,8 +307,13 @@ public class LenProductController {
     @RequestMapping("/continueProduce")
     @ResponseBody
     public IResult continueProduce(String id){
+        LenProduct byPrimaryKey = service.getByPrimaryKey(id);
+        String other1 = byPrimaryKey.getOther1();
+        String canSold = byPrimaryKey.getCanSold();
         if(SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
             if (service.changeBehindState(Constants.productState.CONTINUE_PRODUCE,id)){
+                lenOperatorService.insertSelective1(canSold,Constants.operatorState.PRODUCT_CONTINUE,other1,null,null,null);
+
                 return new ResultBean<Boolean>(true);
             }else {
                 return new ResultBean<String>("4011",">>>>数据库操作失败<<<<");
@@ -309,8 +330,13 @@ public class LenProductController {
     @RequestMapping("/checkOk")
     @ResponseBody
     public IResult checkOk(String id){
+        LenProduct byPrimaryKey = service.getByPrimaryKey(id);
+        String other1 = byPrimaryKey.getOther1();
+        String canSold = byPrimaryKey.getCanSold();
         if(SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
             if (service.changeBehindState(Constants.productState.CHECK_GOOD,id)){
+                lenOperatorService.insertSelective1(canSold,Constants.operatorState.CHECK_OK,other1,null,null,null);
+
                 return new ResultBean<Boolean>(true);
             }else {
                 return new ResultBean<String>("4011","操作失败");
@@ -400,6 +426,18 @@ public class LenProductController {
     @ResponseBody
     public IResult selectAll(){
         return new ResultBean<List>( service.selectAll());
+    }
+
+    @RequestMapping(value = "/getProductNameChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getProductNameChart(){
+        return new ResultBean<List>( service.getProductName());
+    }
+
+    @RequestMapping(value = "/getProductNumberChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getProductNumberChart(){
+        return new ResultBean<List>( service.getProductNumber());
     }
 
 }

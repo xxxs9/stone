@@ -48,9 +48,9 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @return
      */
     @Override
-    public List<MarkerOrderTest> findAll(String page, String limit, String productId) {
+    public List<MarkerOrderTest> findAll(String page, String limit, String productId,String applyUser) {
         PageRange pageRange = new PageRange(page,limit);
-        return markerOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId);
+        return markerOrderMapper.findAll(pageRange.getStart(),pageRange.getEnd(),productId,applyUser);
     }
 
     /**
@@ -59,8 +59,8 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
      * @return
      */
     @Override
-    public int countGetAll(String productId ) {
-        return markerOrderMapper.countGetAll(productId);
+    public int countGetAll(String productId,String applyUser ) {
+        return markerOrderMapper.countGetAll(productId,applyUser);
     }
 
     /**

@@ -93,10 +93,7 @@ layui.define(['$tool','jquery'], function (exports) {
 
     // API列表,工程庞大臃肿后可以将API拆分到单独的模块中
     var API = {
-       /* //获取roles
-        selectRole:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'role/role.do',req,successCallback,errorCallback);
-        },*/
+
 
         Login: function(req,successCallback,errorCallback){ // 登录
             doPost($tool.getContext() + "login",req,successCallback,errorCallback);
@@ -674,10 +671,35 @@ layui.define(['$tool','jquery'], function (exports) {
         getByProductId:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'formula/getByProductId',req,successCallback,errorCallback);
         },
+        //添加操作记录
+        addOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/add',req,successCallback,errorCallback);
+        },
+        prodDelOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodDel',req,successCallback,errorCallback);
+        },
+        prodTJOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodTJ',req,successCallback,errorCallback);
+        },
+        prodSHOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodSH',req,successCallback,errorCallback);
+        },
+        prodSBOperator:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'opera/prodSB',req,successCallback,errorCallback);
+        },
+        prodEditOperator:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'opera/prodEdit',req,successCallback,errorCallback);
+         },
         //生产计划_lennon
         addProducePlan:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/add',req,successCallback,errorCallback);
         },
+        getProductNameChart:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'product/getProductNameChart',req,successCallback,errorCallback);
+        },
+        getProductNumberChart:function(req,successCallback,errorCallback){
+        chart($tool.getContext() + 'product/getProductNumberChart',req,successCallback,errorCallback);
+         },
         changeOther1:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'plan/cho',req,successCallback,errorCallback);
         },
@@ -913,6 +935,8 @@ layui.define(['$tool','jquery'], function (exports) {
         DeleteMaterial:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/delete.do',req,successCallback,errorCallback);
         },
+
+
         AddMaterial:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/add.do',req,successCallback,errorCallback);
         },
@@ -1018,6 +1042,10 @@ layui.define(['$tool','jquery'], function (exports) {
         /*导出时间报表*/
         timeReport:function(req,successCallback,errorCallback){
             doGet($tool.getContext() + 'bill/exportTimeReport.do',req,successCallback,errorCallback);
+        },
+        /*查看所有消息*/
+        findAllMeaasge:function(req,successCallback,errorCallback) {
+            doPost($tool.getContext() + 'sysNotify/findAllMeaasge.do', req, successCallback, errorCallback);
         },
 
         findAll:function(req,successCallback,errorCallback) {

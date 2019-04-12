@@ -24,6 +24,7 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
 
     @Autowired
     LenGoodsProductMapper mapper;
+
     /**
      * 查询所有
      *
@@ -112,6 +113,7 @@ public class LenGoodsProductServiceImpl implements LenGoodsProductService {
     @Override
     public boolean update(LenGoodsProduct lenGoodsProduct) {
         if (mapper.update(lenGoodsProduct)>0){
+
             return true;
         }else {
             return false;

@@ -33,7 +33,9 @@ layui.config({
 
         $api.getAllProduct(null,function (res) {
             var data = res.data;
-            console.log(data)
+            console.log(JSON.stringify(data))
+
+
             if(data.length > 0){
                 var html = '<option value="">--请填写--</option>';
                 for(var i=0;i<data.length;i++){
@@ -92,6 +94,7 @@ layui.config({
                 var id = queryArgs['id'];
                 console.log(data)
               //  var id = data.field.id;
+               // var name = $('#productId option:selected').text();
                 var orderId = data.field.orderId;
                 var orderTime = data.field.orderTime;
                 var productId = data.field.productId;
@@ -100,21 +103,12 @@ layui.config({
                 var plannedNumber = data.field.plannedNumber;
                 var acceptedAmount = data.field.acceptedAmount;
                 var applyUser = data.field.applyUser;
+                var state = data.field.state;
                 var orderAuditUser = data.field.orderAuditUser;
                 var orderAuditDepot = data.field.orderAuditDepot;
                 var remarks = data.field.remarks;
                 var depotRemarks = data.field.depotRemarks;
-                /*if ($tool.isBlank(orgId) || $tool.isBlank(orgName)) {
-                    layer.msg("请选择所属组织机构");
-                    return false;
-                }*/
 
-                //获取选中的产品列表
-               /* for (var i = 0; i < roleIdList.length; i++) {
-                    if (data.field[roleIdList[i]] === 'on') {
-                        idList.push(roleIdList[i]);
-                    }
-                }*/
 
                 //请求
                 var req = {
@@ -127,6 +121,7 @@ layui.config({
                     plannedNumber: plannedNumber,
                     acceptedAmount: acceptedAmount,
                     applyUser: applyUser,
+                    state: state,
                     orderAuditUser: orderAuditUser,
                     orderAuditDepot: orderAuditDepot,
                     remarks: remarks,

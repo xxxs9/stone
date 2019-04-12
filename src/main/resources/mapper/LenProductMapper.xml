@@ -257,5 +257,13 @@
     <select id="selectByOther1" resultMap="BaseResultMap">
         select * FROM l_product where OTHER1=#{other1}
     </select>
+
+    <select id="getProductName" resultType="java.lang.String">
+        select PRODUCT_NAME from l_product
+    </select>
+    <select id="getProductNumber" resultType="java.lang.String">
+        select PRODUCT_NUMBER from l_product
+    </select>
+
 </mapper>
 

@@ -130,4 +130,16 @@ public interface LenProductMapper {
 
     LenProduct selectByOther1(@Param("other1")String other1);
 
+    /**
+     * 获取产品名称
+     * @return
+     */
+    List<String> getProductName();
+
+    /**
+     * 获取产品数量
+     * @return
+     */
+    List<String> getProductNumber();
+
 }

@@ -36,6 +36,7 @@ layui.config({
             , cols: [[ //表头
                   {field: 'sendTime', title: '发送时间', width: '10%'}
                 , {field: 'senderId', title: '发送人', width: '10%'}
+                , {field: 'notifyType', title: '信息类别', width: '10%',templet:'<div>{{d.sysNotifyInfo.notifyType}}</div>'}
                 , {field: 'state', title: '状态', width: '10%',templet: '#stateInfo1'}
                 , {field: 'title', title: '标题', width: '10%',templet:'<div>{{d.sysNotifyInfo.title}}</div>'}
                /* , {field: 'content', title: '内容', width: '10%',templet: '<div>{{d.sysNotifyInfo.content}}</div>'}*/

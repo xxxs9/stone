@@ -157,8 +157,31 @@ public class Constants {
         public static final String APPLY_FAIL = "审核未通过";
     }
 
+    public static class operatorState{
+        public static final String PRODUCT_ADD="添加加工单操作";
+        public static final String PLAN_ADD="添加加工计划操作";
+        public static final String PRODUCT_UPD="修改加工单操作";
+        public static final String PRODUCT_DEL="删除加工单操作";
+        public static final String PRODUCT_TJ="提交加工单操作";
+        public static final String PRODUCT_SH="审核加工单操作";
+        public static final String PRODUCT_SB="撤回加工单操作";
+        public static final String PRODUCT_STOP="生产暂停操作";
+        public static final String PRODUCT_CONTINUE="生产恢复操作";
+        public static final String PRODUCT_COMPLETE="生产完成操作";
+        public static final String CHECK_OK="检测合格操作";
+        public static final String CHECK_INTO_DEPOT="申请入库操作";
+        public static final String GOODS_PRODUCT_UPD="修改产品操作";
+        public static final String GOODS_PRODUCT_DEL="删除产品操作";
+        public static final String FORMULA_ADD="增加配方操作";
+        public static final String FORMULA_UPD="修改配方操作";
+        public static final String FORMULA_DEL="删除配方操作";
+        public static final String FORMULA_DETAIL_ADD="增加配方详情操作";
+        public static final String FORMULA_DETAIL_UPD="修改配方详情操作";
+        public static final String FORMULA_DETAIL_DEl="删除配方详情操作";
+        public static final String REACH_ADD="添加领料单操作";
 
-    //    TODO(stateCode)
+    }
+
     /**
      * lennon_product_STATECODE
      */

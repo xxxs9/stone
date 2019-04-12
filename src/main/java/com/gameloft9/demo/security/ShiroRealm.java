@@ -49,12 +49,11 @@ public class ShiroRealm extends AuthorizingRealm{
 		}
 
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		//从缓存中取出角色列表和权限列表
 		List<String> cacheData = CacheUtil.getInstance().getCacheData(user.getLoginName());
-		List<String> roleList = CacheUtil.getInstance().getCacheData("roles");
+		List<String> rolesList = CacheUtil.getInstance().getCacheData("roles");
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if (user != null) {
-			info.setRoles(new HashSet<String>(roleList));
+			info.setRoles(new HashSet<String>(rolesList));
 			info.setStringPermissions((new HashSet<String>(cacheData)));
 		} else {
 			SecurityUtils.getSubject().logout();

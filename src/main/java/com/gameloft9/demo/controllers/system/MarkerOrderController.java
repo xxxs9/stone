@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.MarkerOrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -53,9 +54,9 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public IResult findAll(String page, String limit, String productId){
-        List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, productId);
-        return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(productId));
+    public IResult findAll(String page, String limit, String productId,String applyUser){
+        List<MarkerOrderTest> list = markerOrderService.findAll(page, limit, productId,applyUser);
+        return new PageResultBean<Collection<MarkerOrderTest>>(list,markerOrderService.countGetAll(productId,applyUser));
     }
 
     /**
@@ -99,6 +100,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("sale:add")
     public IResult add(MarkerOrderTest markerOrderTest, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
         System.out.println(markerOrderTest);
@@ -121,6 +123,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/audi",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("sale:add")
     public IResult audiUpdate(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.audiUpdate(markerOrderTest));
     }
@@ -132,6 +135,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/back",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("sale:add")
     public IResult backUpdate(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.backUpdate(markerOrderTest));
     }

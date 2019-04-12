@@ -5,8 +5,10 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProducePlanMapper;
 import com.gameloft9.demo.dataaccess.dao.system.LenProductMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenFormulaReach;
+import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenFormulaReachService;
+import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.DateUtil;
@@ -41,6 +43,9 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
     LenProduceFormulaDetailMapper detailMapper;
     @Autowired
     LenProductMapper lenProductMapper;
+
+    @Autowired
+    LenOperatorService lenOperatorService;
 
     @Override
     public List<LenFormulaReach> selectAll() {
@@ -112,9 +117,12 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
             int i1 = Integer.parseInt(materialNumber);
             int goodsNumbers = i*i1;
             String goodsNumber = String.valueOf(goodsNumbers);
-
+            LenProduct product1 = lenProductMapper.getByPrimaryKey(productId);
+            String other11 = product1.getOther1();
+            String canSold1 = product1.getCanSold();
             if (mapper.insert(reach) > 0) {
                 //添加到仓库模块
+                lenOperatorService.insertSelective1(canSold1,Constants.operatorState.REACH_ADD,other11,null,null,null);
                 depotOrderService.addProduceDepotOrderOut(uuid,materialId,goodsNumber,reachUser);
                 return true;
             } else {
