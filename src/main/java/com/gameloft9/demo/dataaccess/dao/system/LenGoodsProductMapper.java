@@ -86,5 +86,12 @@ public interface LenGoodsProductMapper {
      */
      List<LenGoodsProduct> selectByUnProduce();
 
+    /**
+     * 通过编号查询
+     * @param bianhao
+     * @return
+     */
+     LenGoodsProduct getByBH(@Param("bianhao")String bianhao);
+
 
 }

@@ -59,14 +59,20 @@ layui.config({
     /**
      * 初始化页面
      * */
-
+    var  other33;
+    form.on("select(abb)",function (res) {
+        var value= $('#produceFormulaId option:selected').html();
+        console.log(value)
+        var str=value.split("---");
+        other33 = str[0];
+    })
     function init() {
         $api.getAllFormula(null,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].other1+'</option>';
+                    html += '<option value="'+data[i].id+'">'+data[i].other1+'---'+data[i].other3+'</option>';
                 }
                 $('#produceFormulaId').append($(html));
                 form.render();
@@ -164,6 +170,7 @@ layui.config({
         var materialNumber = data.field.materialNumber;
         var depotId = data.field.depotId;
         var other2= data.field.materialName;
+        var other3 = other33
 
         //请求
         var url = $tool.getContext()+'detail/add';
@@ -173,7 +180,8 @@ layui.config({
             materialId:materialId,
             materialNumber:materialNumber,
             depotId:depotId,
-            other2:other2
+            other2:other2,
+            other3:other3
 
         };
 

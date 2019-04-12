@@ -600,7 +600,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getUnProduce:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'goodsProduct/getUnProduce',req,successCallback,errorCallback);
         },
-
+        getGoodsProductByBH:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'goodsProduct/getbyBH',req,successCallback,errorCallback);
+        },
 
 
 

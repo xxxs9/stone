@@ -80,4 +80,11 @@ public interface LenGoodsProductService {
      * @return
      */
     List<LenGoodsProduct> selectByUnProduce();
+
+    /**
+     * 通过编号查询
+     * @param bianhao
+     * @return
+     */
+    LenGoodsProduct getByBH(String bianhao);
 }
