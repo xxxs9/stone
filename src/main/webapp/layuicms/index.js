@@ -352,7 +352,7 @@ layui.config({//基础目录
 
 
     //将消息显示在网页上
-    /*function setMessageInnerHTML(innerHTML) {
+  /*  function setMessageInnerHTML(innerHTML) {
         document.getElementById('message').innerHTML += innerHTML + '<br/>';
 
 

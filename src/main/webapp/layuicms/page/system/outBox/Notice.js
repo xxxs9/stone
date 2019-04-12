@@ -25,7 +25,7 @@ layui.config({
         //加载角色列表
         loadRoleList();
         finsenderId();
-        initselectUsers();
+      /*  initselectUsers();*/
 
     }
 
@@ -34,7 +34,7 @@ layui.config({
     init();
 
 
-    function initselectUsers() {
+    /*function initselectUsers() {
         $api.findAll(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
@@ -46,7 +46,7 @@ layui.config({
                 form.render();
             }
         });
-    }
+    }*/
 
     $("[name='senderId']").val(window.sessionStorage.getItem('sysUser'));
     /**
@@ -124,9 +124,9 @@ layui.config({
     form.on("submit(addMessage)", function (data) {
         var creater =data.field.creater
         var senderId =data.field.senderId
-        var receiverId =  data.field.receiverId;
+        var receiverId =  '0';
         var targetId = data.field.targetId;
-        var notifyType = '个人信件';
+        var notifyType = '系统广播';
         var title = data.field.title;
         var content = data.field.content;
         alert(senderId)

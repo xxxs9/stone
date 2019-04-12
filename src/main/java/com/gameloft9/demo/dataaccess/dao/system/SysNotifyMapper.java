@@ -4,6 +4,7 @@ import com.gameloft9.demo.dataaccess.model.system.SysNotify;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import org.apache.ibatis.annotations.Param;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -20,8 +21,12 @@ public interface SysNotifyMapper {
 
     int updateByPrimaryKey(SysNotify sysnotify);
     int hideForByPrimaryKey(String id);
+    List<SysNotify> findAllMessage();
 
-    List<SysNotify> findOutBox(String loginName);
+    List<SysNotify> findOutBox(  @Param("start") int start,
+                                 @Param("end") int end,
+                                 @Param("loginName") String loginName);
+
     List<SysNotify> findSysNofiyForAll(String loginName);
     List<SysNotify> findAllReply();
     SysNotify replyMessage(String id);
@@ -61,4 +66,6 @@ public interface SysNotifyMapper {
     int countGetAll(@Param("creater") String creater,
                     @Param("receiverId") String receiverId,
                     @Param("state") String state);
+
+    int outBoxCountGetAll(@PathParam("loginName") String loginName);
 }

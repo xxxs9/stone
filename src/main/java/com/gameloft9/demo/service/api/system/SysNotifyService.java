@@ -20,9 +20,10 @@ public interface SysNotifyService {
 
 
     List<SysNotify> getAll(String  page, String limit, String creater, String receiverId, String state);
-    List<SysNotify>findOutBox(@Param("loginName") String loginName);
+    List<SysNotify>findOutBox( String loginName ,String page,String limit);
     List<SysNotify>findSysNofiyForAll(@Param("loginName") String loginName);
     List<SysNotify>findAllReply();
+    List<SysNotify>findAllMessage();
     int  getNewMessage(@Param("loginName") String loginName);
     SysNotify findMessage(String id);
     SysNotify sendmessage(String id);
@@ -31,7 +32,7 @@ public interface SysNotifyService {
      SysNotify selectByPrimaryKey(String id);
 
     int countGetAll(String creater, String receiverId, String status);
-
+    int outBoxCountGetAll(String loginName);
     int hideForByPrimaryKey(String id);
 
     /**
