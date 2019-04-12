@@ -377,4 +377,11 @@ public class LenProductServiceImpl implements LenProductService {
     public SysMaterialGoods getGoodsMaterialById(String id) {
         return materialGoodsMapper.getById(id);
     }
+
+    public List<String> getProductName(){
+        return  mapper.getProductName();
+    }
+    public List<String> getProductNumber(){
+        return mapper.getProductNumber();
+    }
 }

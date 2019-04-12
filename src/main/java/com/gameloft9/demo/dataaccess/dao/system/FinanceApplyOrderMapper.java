@@ -33,7 +33,8 @@ public interface FinanceApplyOrderMapper extends BaseMapper<SysFinanceApplyOrder
             @Param("applyType") int applyType,
             @Param("applyState") int applyState,
             @Param("startTime") Date startTime,
-            @Param("endTime") Date endTime);
+            @Param("endTime") Date endTime,
+            @Param("applyUser") String applyUser);
 
     /**
      * 条件查询总条数
@@ -48,7 +49,8 @@ public interface FinanceApplyOrderMapper extends BaseMapper<SysFinanceApplyOrder
             @Param("applyType") int applyType,
             @Param("applyState") int applyState,
             @Param("startTime") Date startTime,
-            @Param("endTime") Date endTime);
+            @Param("endTime") Date endTime,
+            @Param("applyUser") String applyUser);
 
     /**
      * 根据id获取applyOrder

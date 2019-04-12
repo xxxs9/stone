@@ -12,11 +12,13 @@ public interface MarkerOrderMapper {
      * @param start
      * @param end
      * @param productId
+     * @param applyUser
      * @return
      */
     List<MarkerOrderTest> findAll(
             @Param("start") int start,
             @Param("end") int end,
+            @Param("applyUser") String applyUser,
             @Param("productId") String productId);
 
     /**
@@ -24,7 +26,9 @@ public interface MarkerOrderMapper {
      * @param productId
      * @return
      */
-    int countGetAll( @Param("productId") String productId);
+    int countGetAll(
+            @Param("productId") String productId,
+            @Param("applyUser") String applyUser);
 
     /**
      * 通过ID删除销售订单信息

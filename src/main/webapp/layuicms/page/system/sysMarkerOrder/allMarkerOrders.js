@@ -16,27 +16,21 @@ layui.config({
 
     var tableIns;//表格实例
 
+
     /**
      * 页面初始化
-     * */
+     */
     function init() {
-
-        //初始化下拉框
-      /*  $api. GetFirstProductFormula(null,function (res) {
-            var data = res.data;
-            if(data.length > 0){
-                var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
-                }
-                $('#parentMenu').append($(html));
-                form.render();
-            }
-        });*/
-
-
+        //初始化机构树
+        //initOrgTree();
+        //加载角色列表
+        //loadProductIdList();
     }
+
     init();
+
+
+
 
     $("#addProduct").click(function addProduct() {
         var index = layui.layer.open({

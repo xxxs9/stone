@@ -175,5 +175,9 @@ public interface LenProductService {
 
     SysMaterialGoods getGoodsMaterialById(String id);
 
+    List<String> getProductName();
+
+    List<String> getProductNumber();
+
 
 }

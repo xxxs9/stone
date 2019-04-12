@@ -139,8 +139,9 @@ layui.config({
                 var id = queryArgs['id'];
                 console.log(data)
               //  var id = data.field.id;
+                var name = $('#productId option:selected').text();
                 var goodsId = data.field.goodsId;
-                var productId = data.field.productId;
+                var productId = name;
                 var goodsName = data.field.goodsName;
                 var customer = data.field.customer;
                 var goodsNumber = data.field.goodsNumber;

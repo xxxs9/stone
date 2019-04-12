@@ -32,6 +32,7 @@ public class LenProductController {
     LenProductService service;
     @Autowired
     LenOperatorService lenOperatorService;
+
     /**
      * 分页模糊查询
      * @param page
@@ -425,6 +426,18 @@ public class LenProductController {
     @ResponseBody
     public IResult selectAll(){
         return new ResultBean<List>( service.selectAll());
+    }
+
+    @RequestMapping(value = "/getProductNameChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getProductNameChart(){
+        return new ResultBean<List>( service.getProductName());
+    }
+
+    @RequestMapping(value = "/getProductNumberChart",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getProductNumberChart(){
+        return new ResultBean<List>( service.getProductNumber());
     }
 
 }

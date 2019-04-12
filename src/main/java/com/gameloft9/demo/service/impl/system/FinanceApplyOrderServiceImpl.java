@@ -54,10 +54,10 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
      * @param endTime 结束时间
      * @return
      */
-    public List<SysFinanceApplyOrder> getAll(String page, String limit, String applyType, String applyState, String startTime, String endTime) {
+    public List<SysFinanceApplyOrder> getAll(String page, String limit, String applyType, String applyState, String startTime, String endTime,String applyUser) {
         PageRange pageRange = new PageRange(page,limit);
         format(applyType,applyState,startTime,endTime);
-        return applyOrderMapper.getAll(pageRange.getStart(),pageRange.getEnd(),applyType1,applyState1,startTime1,endTime1);
+        return applyOrderMapper.getAll(pageRange.getStart(),pageRange.getEnd(),applyType1,applyState1,startTime1,endTime1,applyUser);
     }
 
     /**
@@ -68,9 +68,9 @@ public class FinanceApplyOrderServiceImpl implements FinanceApplyOrderService {
      * @param endTime 结束时间
      * @return
      */
-    public int getCount(String applyType, String applyState, String startTime, String endTime) {
+    public int getCount(String applyType, String applyState, String startTime, String endTime,String applyUser) {
         format(applyType,applyState,startTime,endTime);
-        return applyOrderMapper.getCount(applyType1,applyState1,startTime1,endTime1);
+        return applyOrderMapper.getCount(applyType1,applyState1,startTime1,endTime1,applyUser);
     }
 
     /**
