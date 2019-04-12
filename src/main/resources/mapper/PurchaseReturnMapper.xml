@@ -223,12 +223,18 @@
             t_purchase_return
         <set>
             <if test="depotState != null and depotState != ''">
-                DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
+                DEPOT_STATE = #{depotState,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
             </if>
         </set>
         <where>
             <if test="orderNumber != null and orderNumber != ''">
                 ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null and id != ''">
+                ID = #{id,jdbcType=VARCHAR}
             </if>
         </where>
     </update>

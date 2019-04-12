@@ -59,10 +59,12 @@
     <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="back"><i class="layui-icon">&#xe65c;</i>撤回</a>
     <button class="layui-btn layui-btn-sm layui-btn-disabled"  id="edit"><i class="layui-icon">&#xe642;</i>编辑</button>
     <button class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" id="del"><i class="layui-icon">&#xe640;</i>删除</button>
-    {{# } else if(d.depotState=="审核通过" && d.financeState!="已收款"){ }}
-    <label>审核已通过，待退款</label>
+    {{# } else if(d.depotState=="审核通过" && d.financeState==null){ }}
+    <label>仓库审核已通过，待财务收款</label>
+    {{# } else if(d.depotState=="审核通过" && d.financeState=="未通过"){ }}
+    <label>财务审核未通过，请重新申请</label>
     {{# } else if(d.depotState=="审核通过" && d.financeState=="已收款"){ }}
-    <label>已退款，退货完成</label>
+    <label>所有审核均通过，退货完成</label>
     {{# } }}
 </script>
 
