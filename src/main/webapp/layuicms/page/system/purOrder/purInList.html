@@ -66,11 +66,11 @@
     <a class="layui-btn layui-btn-sm layui-btn-disabled" id="sure1"><i class="layui-icon">&#xe642;</i>确认</a>
     <a class="layui-btn layui-btn-sm layui-btn-disabled" id="edit2"><i class="layui-icon">&#xe642;</i>编辑</a>
     {{# } else if(d.financeState=="已付款" && d.depotState=="审核通过"){ }}
-    <label>审核已通过，货品已入库</label>
+    <label>所有审核均已通过，货品已入库</label>
     {{# } else if(d.financeState=="已付款" && d.depotState=="审核未通过"){ }}
     <label>仓库审核未通过，请重新申请</label>
     {{# } else if(d.financeState=="未通过"){ }}
-    <label>财务审核未通过，请重新申请</label>
+    <label>财务未付款，请重新申请</label>
     {{# } }}
 </script>
 

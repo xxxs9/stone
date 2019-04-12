@@ -81,8 +81,8 @@ layui.config({
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
                 {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
-                , {field: 'goodsName', title: '商品名称', width:120}
-                , {field: 'supplierName', title: '供销商', width:180}
+                , {field: 'goodsName', title: '商品名称', width:150}
+                , {field: 'supplierName', title: '供销商', width:220}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品单价', width:100}
                 , {field: 'totalPrice', title: '商品总价', width:100}
