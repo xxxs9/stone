@@ -53,8 +53,8 @@ layui.config({
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                {field: 'id', title: 'ID' ,fixed:'left'}
                 , {field: 'goodsId', title: '发货单号'}
-                , {field: 'productId', title: '货品ID'}
-                , {field: 'goodsName', title: '货品名称' }
+                , {field: 'productId', title: '货品名称'}
+                , {field: 'goodsName', title: '产品名称' }
                 , {field: 'customer', title: '购买客户' }
                 , {field: 'goodsNumber', title: '发货数量'}
                 , {field: 'goodsAmount', title: '货品金额' }
@@ -69,6 +69,7 @@ layui.config({
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
                 $("[data-field='id']").css('display','none');
+                $("[data-field='goodsName']").css('display','none');
 
             }
         });

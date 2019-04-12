@@ -26,6 +26,7 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
 
     </br>
@@ -38,13 +39,13 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productName" id="productName" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item"style="width: 60%">
         <label class="layui-form-label">计划产量</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="planNumber" lay-verify="number" placeholder="请输入计划产量数量">
@@ -57,26 +58,26 @@
         </div>
     </div>-->
     <!--todo(等待仓库获取)-->
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">现有库存</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="goodNumber"  lay-verify="number" value="0" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">投产日期</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="produceDate"  placeholder="请选择投产日期" id="produceDate">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">完成日期</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="finishDate"  placeholder="请选完成产日期" id="finishDate">
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">订单日期</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="billDate"  placeholder="请选择订单日期" id="billDate">
@@ -90,7 +91,7 @@
     </div>-->
 
 
-    <div class="layui-form-item ">
+    <div class="layui-form-item " style="width: 60%">
         <label class="layui-form-label">生产方式</label>
         <div class="layui-input-block">
             <select name="state" lay-verify="required" >
@@ -105,20 +106,21 @@
 
 
 
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">生产备注</label>
+    <div class="layui-form-item layui-form-text" style="width: 60%">
+        <label class="layui-form-label">计划备注</label>
         <div class="layui-input-block">
-            <textarea name="planRemark" placeholder="输入备注（可不填）" class="layui-textarea"></textarea>
+            <textarea name="planRemark" placeholder="输入备注（选填）" class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addMenu">确认生产</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addMenu">确认</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
+</div>
 <!--<script type="text/html" id="tmp">
 
     {{#  if(d.productType == '0'){ }}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>添加新工单</title>
@@ -26,45 +26,23 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
     </br></br>
-    <h2>产品加工单</h2>
+    <label class="layui-form-label" style="width: 55%"><h2>产品加工单</h2></label>
+
     </br>
-    <div class="layui-form-item layui-inline">
+    <br>
+    <br>
+    <div class="layui-form-item " style="width: 60%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <select name="productName" lay-verify="required" id="productName1">
+            <select name="productName" lay-verify="required" id="productName1" lay-filter="aaaaa" onchange="func(this)">
 
             </select>
         </div>
     </div>
-
-    <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">订单数量</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入订单数量">
-        </div>
-    </div>
-
-    </br>
-    <!--<div class="layui-form-item">
-        <label class="layui-form-label">产品成本</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
-        </div>
-    </div>-->
-
-
-    <div class="layui-form-item "style="display:none">
-        <label class="layui-form-label">产品状态</label>
-        <div class="layui-input-block">
-            <select name="productState" lay-verify="required" id="productState">
-                <option value="1" selected >1.未提交</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item "style="width: 60%">
         <label class="layui-form-label">产品类型</label>
         <div class="layui-input-block">
             <select name="productType" lay-verify="required" id="productType" >
@@ -78,7 +56,15 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+
+    <div class="layui-form-item layui-inline" style="width: 30%">
+        <label class="layui-form-label">订单数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入订单数量">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline" style="width: 30%">
         <label class="layui-form-label">订单来源</label>
         <div class="layui-input-block ">
 
@@ -86,9 +72,41 @@
 
         </div>
     </div>
+    <div class="layui-form-item layui-inline" style="display: none">
+        <label class="layui-form-label">订单数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="other2" id="other2">
+        </div>
+    </div>
+
+    </br>
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">产品成本</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
+        </div>
+    </div>-->
+    <div class="layui-form-item" style="display: none" >
+        <label class="layui-form-label">other3</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="other3" id="other3" >
+        </div>
+    </div>
+
+    <div class="layui-form-item "style="display:none">
+        <label class="layui-form-label">产品状态</label>
+        <div class="layui-input-block">
+            <select name="productState" lay-verify="required" id="productState">
+                <option value="1" selected >1.未提交</option>
+            </select>
+        </div>
+    </div>
 
 
-    <div class="layui-form-item layui-form-text">
+
+
+
+    <div class="layui-form-item layui-form-text" style="width: 60%">
         <label class="layui-form-label">产品描述</label>
         <div class="layui-input-block">
             <textarea name="productDescribe" placeholder="请输入描述" class="layui-textarea"></textarea>
@@ -97,12 +115,12 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addMenu">确认下单</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addMenu">确认</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
-
+</div>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

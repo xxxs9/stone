@@ -101,11 +101,13 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         purchaseBillsPayable.setId(UUIDUtil.getUUID());
         purchaseBillsPayable.setPurchaseOrderId(purchaseOrder.getId());
         purchaseBillsPayable.setAuditType(purchaseOrder.getAuditType());
-        int price = NumberUtil.strToInt(purchaseOrder.getPrice());
-        int goodsNumber = NumberUtil.strToInt(purchaseOrder.getGoodsNumber());
-        purchaseBillsPayable.setUnitPrice(purchaseOrder.getPrice());
+        BigDecimal price = new BigDecimal(purchaseOrder.getPrice());
+        price = price.setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal goodsNumber = new BigDecimal(purchaseOrder.getGoodsNumber());
+        goodsNumber = goodsNumber.setScale(2,BigDecimal.ROUND_HALF_UP);
+        purchaseBillsPayable.setUnitPrice(price.toString());
         purchaseBillsPayable.setGoodsNumber(purchaseOrder.getGoodsNumber());
-        purchaseBillsPayable.setTotalPrice(price*goodsNumber+"");
+        purchaseBillsPayable.setTotalPrice(price.multiply(goodsNumber).setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         purchaseBillsPayable.setDocumentMaker(documentMaker);
         purchaseBillsPayable.setDocumentMakeTime(new Date());

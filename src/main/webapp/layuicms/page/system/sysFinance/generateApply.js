@@ -47,10 +47,10 @@ layui.config({
                 $("[name='applyTime']").val(data.orderTime);
                 $("[name='applyDescribe']").val(data.remarks);
 
-                alert(data.state())
+                //alert(data.state())
 
                 //alert(financeState)
-                if(data.state != '等待仓库审核'){
+                if(data.state != '等待财务审核'){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -86,7 +86,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-                alert(data.state())
+                //alert(data.state())
                 if(data.state != '等待财务查收'){
                     $('#gnrt').css("display",'none');
                 }
@@ -273,7 +273,7 @@ layui.config({
             var auditType = $('[name=auditType]').val();
             var totalPrice = $('[name=totalPrice]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
-            alert(totalPrice)
+            //alert(totalPrice)
             var req = {
                 id1:id1,
                 id:payId,

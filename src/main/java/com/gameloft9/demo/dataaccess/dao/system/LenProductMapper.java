@@ -85,7 +85,7 @@ public interface LenProductMapper {
      * @return
      */
     int changeState(@Param("productState")String productState,@Param("id")String id);
-
+    int changeStateByOther1(@Param("productState")String productState,@Param("other1")String other1);
     /**
      * 选择修改
      *
@@ -128,6 +128,6 @@ public interface LenProductMapper {
      * @return
      */
 
-    String selectByOther1(@Param("other1")String other1);
+    LenProduct selectByOther1(@Param("other1")String other1);
 
 }

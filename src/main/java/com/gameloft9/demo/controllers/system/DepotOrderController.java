@@ -9,6 +9,7 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +72,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/addIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增入库单")
+    @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderIn(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String applyUser = (String) request.getSession().getAttribute("sysUser");
@@ -88,6 +90,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/addPurorder.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增采购入库单")
+    @RequiresPermissions("depotOrder:add")
     public IResult addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String type = "采购入库";
@@ -105,6 +108,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/addMarket.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
+    @RequiresPermissions("depotOrder:add")
     public IResult addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String type = "销售出库";
@@ -123,6 +127,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/addOut.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.ADD,memo = "新增出库单")
+    @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderOut(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String applyUser = (String) request.getSession().getAttribute("sysUser");
@@ -194,6 +199,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/auditPassIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "入库单审核通过")
+    @RequiresPermissions("depotOrder:audit")
     public IResult auditPassDepotOrderIn(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
@@ -209,6 +215,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/auditPassOut.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "出库单审核通过")
+    @RequiresPermissions("depotOrder:audit")
     public IResult auditPassDepotOrderOut(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
@@ -224,6 +231,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/auditRejectIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "驳回入库单")
+    @RequiresPermissions("depotOrder:audit")
     public IResult auditRejectDepotOrderIn(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
@@ -239,6 +247,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/auditRejectOut.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "驳回出库单")
+    @RequiresPermissions("depotOrder:audit")
     public IResult auditRejectDepotOrderOut(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
@@ -253,6 +262,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/storageIn.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "货物入库")
+    @RequiresPermissions("depotOrder:storageInOut")
     public IResult storageDepotOrderIn(String id,String state){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotOrderServiceImpl.storageInDepotOrderIn(id,state));
@@ -266,6 +276,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/storageOut.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.UPDATE,memo = "货物出库")
+    @RequiresPermissions("depotOrder:storageInOut")
     public IResult storageDepotOrderOut(String id,String state){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotOrderServiceImpl.storageInDepotOrderOut(id,state));
@@ -277,6 +288,7 @@ public class DepotOrderController {
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.DELETE,memo = "删除仓库单")
+    @RequiresPermissions("depotOrder:delete")
     public IResult deleteDepotOrder(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotOrderServiceImpl.deleteDepotOrder(id));
@@ -285,9 +297,11 @@ public class DepotOrderController {
     /**
      * 批量删除仓库单
      * */
+
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.DELETE,memo = "批量删除仓库单")
+    @RequiresPermissions("depotOrder:delete")
     public IResult delsDepotOrder(String ids){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotOrderServiceImpl.delsDepotOrder(ids));
@@ -314,7 +328,5 @@ public class DepotOrderController {
         String orderType = Constants.Depot.ORDER_OUT;
         return new ResultBean<List<String>>(depotOrderServiceImpl.getDepotOrderInType(orderType));
     }
-
-
 
 }

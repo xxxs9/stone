@@ -554,7 +554,14 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //生产入库,更新沧海采购单状态
         if(current.getType().equals("生产入库")){
             //隆缘改变状态的方法
-
+            if (lenProductMapper.changeStateByOther1(Constants.productState.INTO_DEPOT,id)>0) {
+                //更改goodsProduct状态
+                LenProduct byPrimaryKey = lenProductMapper.selectByOther1(id);
+                String bianhao = byPrimaryKey.getOther3();
+                lenGoodsProductMapper.changeState(Constants.productState.YISHENGCHANG, bianhao);
+            }else{
+                System.out.println("状态修改失败");
+            }
         }
         //销售退货入库,更新锦祥退货单状态
         if(current.getType().equals("销售退货")){

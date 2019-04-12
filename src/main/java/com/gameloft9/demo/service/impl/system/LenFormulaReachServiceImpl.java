@@ -95,15 +95,10 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
     public boolean insert(String id, String productId, String productFormulaId, String produceFormulaDetailId, String depotAudi, String formulaBack, String state, String reachUser, String reachTime,String other1,String other2) {
 
         if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
-            //由productId找goodsProduct
-            //LenProduct byPrimaryKey = lenProductMapper.getByPrimaryKey(id);
-            //goodsProduct的编号
-            //String productName = byPrimaryKey.getProductName();
             LenFormulaReach reach = new LenFormulaReach();
-            Date date = DateUtil.str2Date(reachTime, "yyyy-MM-dd");
             String uuid = UUIDUtil.getUUID();
             reach.setId(uuid);
-            reach.setReachTime(date);
+            reach.setReachTime(new Date());
             reach.setProductId(productId);
             reach.setProduceFormulaId(productFormulaId);
             reach.setProduceFormulaDetailId(produceFormulaDetailId);
@@ -120,7 +115,6 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
             if (mapper.insert(reach) > 0) {
                 //添加到仓库模块
-                //todo(添加数据到仓库)
                 depotOrderService.addProduceDepotOrderOut(uuid,materialId,goodsNumber,reachUser);
                 return true;
             } else {

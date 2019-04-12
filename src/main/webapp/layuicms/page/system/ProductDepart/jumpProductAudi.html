@@ -26,29 +26,27 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
 
     </br>
-    <div class="layui-form-item layui-inline">
+    </br>
+
+    <div class="layui-form-item layui-inline" style="width: 31%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productName" lay-verify="required" placeholder="请输入产品名称">
+            <input type="text" class="layui-input" name="productName" lay-verify="required" readonly>
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline"style="width: 31%">
         <label class="layui-form-label">产品数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="productNumber" lay-verify="number" placeholder="请输入产品数量">
+            <input type="text" class="layui-input" name="productNumber" lay-verify="number" readonly>
         </div>
     </div>
 </br>
-    <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">订单来源</label>
-        <div class="layui-input-block ">
-            <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
-        </div>
-    </div>
-</br>
+
+
     <div class="layui-form-item layui-inline">
         <label class="layui-form-label">产品状态</label>
         <div class="layui-input-block">
@@ -76,7 +74,18 @@
     </div>
 
 </br>
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item layui-inline" style="width: 31%;">
+        <label class="layui-form-label">订单来源</label>
+        <div class="layui-input-block ">
+            <input type="text" class="layui-input" name="canSold" id="canSold" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline" style="width: 31%;">
+
+    </div>
+    <br>
+
+    <div class="layui-form-item layui-form-text" style="width: 63%">
         <label class="layui-form-label">产品描述</label>
         <div class="layui-input-block">
             <textarea name="productDescribe" placeholder="请输入描述" class="layui-textarea"></textarea>
@@ -85,12 +94,14 @@
 
 
 </form>
+
 <div class="layui-form-item">
     <div class="layui-input-block">
         <button class="layui-btn" lay-submit="" lay-filter="editMenu" id="audiOk">审核通过</button>
         <button class="layui-btn" lay-submit="" lay-filter="uneditMenu" id="audiNot">审核不通过</button>
         <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
     </div>
+</div>
 </div>
 <!--<script type="text/html" id="tmp">
 

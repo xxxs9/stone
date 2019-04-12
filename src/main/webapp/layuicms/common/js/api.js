@@ -328,6 +328,10 @@ layui.define(['$tool','jquery'], function (exports) {
         selectChartByApril:function(req,successCallback,errorCallback){
             chart($tool.getContext() + 'purchase_order/selectChartByApril.do',req,successCallback,errorCallback);
         },
+        //四月采购图表-柱状图 获取所有goodsName
+        selectGoodsNameAll:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'purchase_order/selectGoodsNameAll.do',req,successCallback,errorCallback);
+        },
         //采购订单管理  接口
         //阿发包 财务审核人员获取财务审核状态为待审核的信息
         financePurOrder:function(req,config,successCallback,errorCallback){
@@ -534,6 +538,14 @@ layui.define(['$tool','jquery'], function (exports) {
         getSalePayChart:function(req,successCallback,errorCallback){
             chart($tool.getContext() + 'finance/getSalePayChart',req,successCallback,errorCallback);
         },
+        /*采购、销售总收入*/
+        getTotalReceive:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'bill/getTotalReceive',req,successCallback,errorCallback);
+        },
+        /*采购、销售总支出*/
+        getTotalPay:function(req,successCallback,errorCallback){
+            chart($tool.getContext() + 'bill/getTotalPay',req,successCallback,errorCallback);
+        },
 
 
         /*啊发包-锦祥*/
@@ -564,7 +576,7 @@ layui.define(['$tool','jquery'], function (exports) {
             doPost($tool.getContext() + 'product/list',req,successCallback,errorCallback);
         },
         getProductById:function(req,successCallback,errorCallback){
-            doPost($tool.getContext() + 'product/get',req,successCallback,errorCallback);
+            chart($tool.getContext() + 'product/get',req,successCallback,errorCallback);
         },
         getProductByState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/gbs',req,successCallback,errorCallback);
@@ -631,6 +643,12 @@ layui.define(['$tool','jquery'], function (exports) {
         produceMaterial:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/produceMaterial',req,successCallback,errorCallback);
         },
+        getProduceMaterialById:function(req,successCallback,errorCallback){
+        chart($tool.getContext() + 'product/getProduceMaterialById',req,successCallback,errorCallback);
+        },
+        getMaterialGoodsById:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'product/getMaterialGoodsById',req,successCallback,errorCallback);
+    },
         unIntodepot:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/unIntoDepot',req,successCallback,errorCallback);
         },
@@ -684,6 +702,9 @@ layui.define(['$tool','jquery'], function (exports) {
         //billCheck
         addBillCheckNew:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'billCheck/add',req,successCallback,errorCallback);
+        },
+        producingAdd:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'billCheck/producingAdd',req,successCallback,errorCallback);
         },
         getBillCheckById:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'billCheck/get',req,successCallback,errorCallback);
@@ -905,6 +926,9 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         GetMaterialGoodsId:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/getId.do',req,successCallback,errorCallback);
+        },
+        GetMaterialGoodsIdByName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getByName.do',req,successCallback,errorCallback);
         },
         UpdateMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);

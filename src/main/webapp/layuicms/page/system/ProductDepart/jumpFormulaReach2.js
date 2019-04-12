@@ -26,12 +26,15 @@ layui.config({
     /**
      * 页面初始化
      * */
+
+
     function init() {
         //初始化下拉框
         initMenuInfo();
         selectProduct();
        // select4();
-        select7(productId);
+        select7(oth);
+
         //select5();
 
         //select6( $("#produceFormulaId").val());
@@ -99,6 +102,7 @@ layui.config({
             id: id
         }
         productId=id;
+
         $('#productId').val(id)
         $api.getProducePlanById(req, function (res) {
 
@@ -107,6 +111,7 @@ layui.config({
 
 
             // $('#produceFormulaId1').val(hh);
+
 
 
             function aa(wid) {
@@ -118,6 +123,7 @@ layui.config({
                     var data3 = res2.data
 
                     $('#productName').val(data3.productName)
+
                 });
 
                 /*  $api.ProductInfoById(reqs,function(res2){
@@ -154,6 +160,8 @@ layui.config({
          });
 
      }*/
+    var oth;
+
     function initMenuInfo() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var id = queryArgs['id'];
@@ -167,6 +175,10 @@ layui.config({
             var data = res.data;
             $("[name='state']").val(data.productState);
             $("[name='productName']").val(data.productName);
+            $("[name='pId']").val(data.other1);
+
+            oth=data.other3;
+
 
 
 
@@ -175,6 +187,8 @@ layui.config({
 
 
     }
+   //获取produceFormulaId
+   // select7(oth);
 
 
         function func(id4) {
@@ -261,11 +275,13 @@ layui.config({
         });
     }
     function select7(id) {
+
         var req={
             id:id
         }
         $api.getByProductId(req,function (res) {
             var data = res.data;
+
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {

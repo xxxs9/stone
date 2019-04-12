@@ -213,9 +213,12 @@ public interface PurchaseOrderMapper {
     /**
      * 四月份报表
      * */
-    List<String> selectChartByApril();
+    List<String> selectChartByApril(String goodsName);
 
-
+    /**
+     * 报表 获取所有goodsName
+     * */
+    List<String> selectGoodsNameAll();
 
 
 

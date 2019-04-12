@@ -1,6 +1,8 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.LenProduct;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
@@ -20,32 +22,43 @@ import java.util.List;
  * @packageName: com.gameloft9.demo.controllers.system
  * @author: Lennon_Yuan
  * @time: 2019/3/19 0019 - 下午 3:24
- * @description:
+ * @description:加工单控制层
  */
 @Controller
 @RequestMapping("/product")
 public class LenProductController {
     @Autowired
     LenProductService service;
-
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult selectAll(){
-       return new ResultBean<List>( service.selectAll());
-    }
-
+    /**
+     * 分页模糊查询
+     * @param page
+     * @param limit
+     * @param productName
+     * @param state
+     * @return
+     */
     @RequestMapping(value = "/pageList",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectAllByPage(String page, String limit, String productName, String state){
         return new PageResultBean<List>(service.selectByPage(page,limit,productName,state),service.dataCount(state));
     }
 
+    /**
+     * 增加加工单
+     * @param lenProduct
+     * @return
+     */
     @RequestMapping("/add")
     @ResponseBody
     public IResult add(LenProduct lenProduct){
         return new ResultBean<Boolean>(service.insert(lenProduct));
     }
 
+    /**
+     * 修改加工单
+     * @param lenProduct
+     * @return
+     */
     @RequestMapping("/upd")
     @ResponseBody
     public IResult update(LenProduct lenProduct){
@@ -148,13 +161,13 @@ public class LenProductController {
 
         if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
 
-            if (service.changeProState(Constants.productState.TIJIAO_UNAUDI, id)) {
+            if (service.changeProState(Constants.productState.UN_TIJIAO, id)) {
                 return new ResultBean<Boolean>(true);
             } else {
                 return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
             }
         } else {
-            return new ResultBean<String>("4011",">>>>>>>操作不允许<<<<<<<");
+            return new ResultBean<String>("4011",">>>>>>>权限不足<<<<<<<");
         }
     }
 
@@ -372,10 +385,21 @@ public class LenProductController {
         return new ResultBean<List>(service.getAllMaterial());
     }
 
-   /* @RequestMapping("/getProduceMaterialById")
+    @RequestMapping("/getProduceMaterialById")
     @ResponseBody
     public IResult getProduceMaterialById(String id){
         return new ResultBean<SysMaterial>(service.getMaterilaById(id));
-    }*/
+    }
+
+    @RequestMapping("/getMaterialGoodsById")
+    @ResponseBody
+    public IResult getMaterialGoodsById(String id){
+        return new ResultBean<SysMaterialGoods>(service.getGoodsMaterialById(id));
+    }
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAll(){
+        return new ResultBean<List>( service.selectAll());
+    }
 
 }

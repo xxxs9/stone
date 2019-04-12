@@ -32,12 +32,24 @@ layui.config({
      * 初始化页面
      * */
     function init() {
-        $api.getAllProduct(null,function (res) {
+       /* $api.getAllProduct(null,function (res) {
             var data = res.data;
             if(data.length > 0){
                 var html = '<option value="">--请选择--</option>';
                 for(var i=0;i<data.length;i++){
                     html += '<option value="'+data[i].id+'">'+data[i].other1+'---'+data[i].productName+'</option>';
+                }
+                $('#productId').append($(html));
+                form.render();
+            }
+        });*/
+
+        $api.selectGoodsProduct(null,function (res) {
+            var data = res.data;
+            if(data.length > 0){
+                var html = '<option value="">--请选择--</option>';
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i].bianhao+'">'+data[i].bianhao+'---'+data[i].pname+'</option>';
                 }
                 $('#productId').append($(html));
                 form.render();

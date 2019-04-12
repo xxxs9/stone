@@ -54,11 +54,11 @@ layui.config({
                 ,{field: 'type', title: '入库类型', width: '10%'}
                 , {field: 'goodsNumber', title: '货品数量', width: '10%'}
                 , {field: 'applyUser', title: '申请人', width: '10%'}
-                , {field: 'applyTime', title: '申请时间', width: '20%'}
-                , {field: 'orderAuditUser', title: '审核人', width: '25%'}
-                , {field: 'orderAuditTime', title: '审核时间', width: '25%'}
-                , {field: 'auditDescribe', title: '审核描述', width: '20 %'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo', width: '25%'} //这里的toolbar值是模板元素的选择器
+                , {field: 'applyTime', title: '申请时间', width: '15%',sort:'true'}
+                , {field: 'orderAuditUser', title: '审核人', width: '10%'}
+                , {field: 'orderAuditTime', title: '审核时间', width: '15%'}
+                , {field: 'auditDescribe', title: '审核描述', width: '10%'}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo', width: '20%'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码

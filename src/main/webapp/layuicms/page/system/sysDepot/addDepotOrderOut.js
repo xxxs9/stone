@@ -23,25 +23,36 @@ layui.config({
 
 
     function initGoodsId() {
-        $api.GetMaterialGoodsId(null,function (res) {
+        $api.GetGoodsName(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#materialId').append($(html));
+                $('#goodsName').append($(html));
                 form.render();
             }
         });
-        $api.GetProductId(null,function (res) {
+        $api.GetSupplierName(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#productId').append($(html));
+                $('#supplierName').append($(html));
+                form.render();
+            }
+        });
+        $api.getAllProduct(null,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
+                }
+                $('#productName').append($(html));
                 form.render();
             }
         });
@@ -68,13 +79,69 @@ layui.config({
         }
     });
 
+    /**
+     * 监听select选择
+     * */
+    form.on('select(materialFilter)', function(data){
+        var goodsName = $("#goodsName").val()
+        var supplierName = $("#supplierName").val()
+        if( goodsName !='' && supplierName!=''){
+            var req = {
+                goodsName:goodsName,
+                supplierName:supplierName,
+            }
+            $api.GetMaterialGoodsIdByName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    $("#materialId").val(data[0])
+                    var goodsId = data[0]
+                    var req1 = {
+                        goodsId:goodsId,
+                    }
+                    $api.GetDepotInventoryByGoodsId(req1,function (res) {
+                        var result = res.data;
+                        if(result == null){
+                            $("#saleableNumber").html("无库存");
+                            $("#shipmentsNumber").html("无库存");
+                        }else{
+                            $("#saleableNumber").html(result.saleableNumber);
+                            $("#shipmentsNumber").html(result.shipmentsNumber);
+                        }
+                    });
+                }else{
+                    $("#materialId").val('')
+                    $("#saleableNumber").html("");
+                    $("#shipmentsNumber").html("");
+                    $("#supplierName").empty();
+                    $api.GetSupplierName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#supplierName').append($(html));
+                            form.render();
+                        }
+                    });
+                    layer.msg("该供应商不提供此原料!");
+                }
+            });
+        }else{
+            $("#saleableNumber").html('');
+            $("#shipmentsNumber").html('');
+        }
+    });
 
     /**
      * 监听select选择
      * */
-    form.on('select(materialIdFilter)', function (data) {
-        //console.log(data.elem); //得到select原始DOM对象
+    form.on('select(productNameFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
         var goodsId = data.value;
+        if(goodsId != null){
+            $("#productId").val(goodsId)
+        }
         //请求
         var req = {
             goodsId:goodsId
@@ -91,32 +158,8 @@ layui.config({
             }
 
         });
+
     });
-
-    /**
-     * 监听select选择
-     * */
-    form.on('select(productIdFilter)', function (data) {
-        //console.log(data.elem); //得到select原始DOM对象
-        var goodsId = data.value;
-        //请求
-        var req = {
-            goodsId:goodsId
-        };
-
-        $api.GetDepotInventoryByGoodsId(req,function (res) {
-            var data = res.data;
-            if(data == null){
-                $("#saleableNumber").html("无库存");
-                $("#shipmentsNumber").html("无库存");
-            }else{
-                $("#saleableNumber").html(data.saleableNumber);
-                $("#shipmentsNumber").html(data.shipmentsNumber);
-            }
-
-        });
-    });
-
 
     /**
      * 表单提交

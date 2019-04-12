@@ -7,6 +7,7 @@ public class StateUUtil {
     public static final String APPLY_depot = "等待仓库审核";
     public static final String APPLY_finance = "等待财务查收";
     public static final String APPLY_goods ="等待仓库发货";
+    public static final String APPLY_goodsss ="仓库已发货";
     public static final String APPLY_sub ="提交财务成功";
     public static final String APPLY_submit ="等待仓库审核";
     public static final String APPLY_ware ="仓库审核通过";

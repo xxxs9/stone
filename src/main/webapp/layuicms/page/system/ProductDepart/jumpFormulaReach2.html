@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>添加废料</title>
+    <title> </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,8 +26,9 @@
     </style>
 </head>
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;" id="myform">
-    <h2>仓库审核单详情</h2>
+
     </br>
 
     <div class="layui-form-item" style="display: none">
@@ -36,27 +37,33 @@
             <input type="text" class="layui-input" name="productId" id="productId" >
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="productName" id="productName" readonly>
         </div>
     </div>
+    <div class="layui-form-item"style="width: 60%">
+        <label class="layui-form-label">产品编号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="pId" id="pId" >
+        </div>
+    </div>
     </br>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">领料人</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="reachUser" >
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">领料数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="reachNumber" id="reachNumber" >
+            <input type="text" class="layui-input" name="reachNumber" id="reachNumber" placeholder="请填写领料数量" lay-verify="number">
         </div>
     </div>
     </br>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">领料时间</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="reachTime"  placeholder="请选择领料时间" id="reachTime">
@@ -72,7 +79,7 @@
 
     </br>
   <!--  onchange="func(this.options[this.options.selectedIndex].value);-->
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">配方列表</label>
         <div class="layui-input-block">
             <select lay-filter="menuTypeFilter1" name="produceFormulaId" lay-verify="required" id="produceFormulaId" onchange="func(this.value);">
@@ -81,7 +88,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">配方详情</label>
         <div class="layui-input-block">
             <select name="produceFormulaDetailId" lay-verify="required" id="produceFormulaDetailId" >
@@ -133,7 +140,7 @@
         </div>
     </div>
 </form>
-
+</div>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

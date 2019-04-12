@@ -35,19 +35,7 @@ public class LenProductPlanReachCheckServiceImpl implements LenProductPlanReachC
          * 仓库的状态为 0 未审核| 1已通过
          * 如果仓库未1 则 开始生产
          */
-      /*  for (LenProductPlanReachCheck len : list) {
-            System.out.println(len);
-            *//*如果仓库审核通过，则自动开始生产*//*
-            if (Constants.DEPOT_PASS.equals(len.getDepotAudi())) {
-                String reachId = len.getReachId();
-                fr.changeState(Constants.KSSC,reachId);
-            }else{
-                return list;
-            }
-        }
 
-        List<LenProductPlanReachCheck> list2 = mapper.selectReach(pageRange.getStart(), pageRange.getEnd(), productId, reachUser);
-        return list2;*/
         return list;
     }
 

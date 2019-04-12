@@ -54,20 +54,21 @@ layui.config({
         });
     }
 
-    getPurchasePayChart();
+    //getPurchasePayChart();
     getPurchaseReceiveChart();
     getSalePayChart();
     getSaleReceiveChart();
     getTotalReceive();
     getTotalPay();
+    getProductChart();
 
 
 
-    var ctx = document.getElementById('myChart').getContext('2d');
+  //  var ctx = document.getElementById('myChart').getContext('2d');
     var chart = document.getElementById('financeChart').getContext('2d');
-    var ctx1 = document.getElementById('myChart1').getContext('2d');
-    var chart2 = document.getElementById('financeChart1').getContext('2d');
-    var myChart = new Chart(ctx, {
+   // var ctx1 = document.getElementById('myChart1').getContext('2d');
+   // var chart2 = document.getElementById('financeChart1').getContext('2d');
+  /*  var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: ["销售总支出","采购总支出"],
@@ -95,7 +96,7 @@ layui.config({
                 borderWidth: 1
             }]
         }
-        /*options: {
+        /!*options: {
             scales: {
                 yAxes: [{
                     ticks: {
@@ -103,10 +104,10 @@ layui.config({
                     }
                 }]
             }
-        }*/
-    });
+        }*!/
+    });*/
 
-    var myChart = new Chart(ctx1, {
+   /* var myChart = new Chart(ctx1, {
         type: 'pie',
         data: {
             labels: ["销售总收入","采购总收入"],
@@ -134,12 +135,19 @@ layui.config({
                 borderWidth: 1
             }]
         },
-    });
+    });*/
 
     //采购支出
-    var data1;
+  /*  var data1;
     function getPurchasePayChart(){
         $api.getPurchasePayChart(null,function (res) {
+            console.log(res.data)
+            data1 = res.data;
+        });
+    }*/
+    var data1;
+    function getProductChart(){
+        $api.getAllProduct(null,function (res) {
             console.log(res.data)
             data1 = res.data;
         });
@@ -228,7 +236,7 @@ layui.config({
     });
 
 
-    var myChart2 = new Chart(chart2, {
+    /*var myChart2 = new Chart(chart2, {
         type: 'bar',
         data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -310,5 +318,5 @@ layui.config({
                 }]
             }
         }
-    });
+    });*/
 });

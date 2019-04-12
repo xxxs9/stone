@@ -60,7 +60,9 @@ layui.config({
 
             $api.getProductById(req2,function (res) {
                 var data2 = res.data;
+                console.log(data2)
                 $("[name='productName']").val(data2.productName);
+                $("[name='productId2']").val(data2.other1);
 
 
                 var  req3 = {
@@ -111,7 +113,7 @@ layui.config({
 
         };
 
-        $api.addBillCheckNew(req,function (data) {
+        $api.producingAdd(req,function (data) {
             stoProduct(idd);
             console.log(idd)
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)

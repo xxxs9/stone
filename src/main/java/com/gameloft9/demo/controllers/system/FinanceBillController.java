@@ -5,6 +5,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinanceBillService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -125,5 +126,25 @@ public class FinanceBillController {
     @RequestMapping(value = "/exportTimeReport" ,method = RequestMethod.GET)
     public void exportTimeReport(HttpServletRequest request, HttpServletResponse response,String startTime,String endTime){
         billService.exportTimeReport(request,response,startTime,endTime);
+    }
+
+    /**
+     * 当年总收入
+     *
+     */
+    @RequestMapping(value = "/getTotalReceive" ,method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getTotalReceive(){
+        return new ResultBean<Collection<String>>(billService.getTotalReceive());
+    }
+
+    /**
+     * 当年总收入
+     *
+     */
+    @RequestMapping(value = "/getTotalPay" ,method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getTotalPay(){
+        return new ResultBean<Collection<String>>(billService.getTotalPay());
     }
 }
