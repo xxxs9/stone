@@ -120,18 +120,7 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         shipmentOrder.setApplyUser(username);
         returnGoodsOrderMapper.audit(shipmentOrder);
 
-        //阿发包
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String applyUser = (String) request.getSession().getAttribute("sysUser");
-        SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
-        applyOrder.setId(UUIDUtil.getUUID());
-        applyOrder.setApplyId(shipmentOrder.getId());
-        applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
-        applyOrder.setApplyType(4);
-        applyOrder.setApplyUser(applyUser);
-        applyOrder.setApplyTime(new Date());
-        applyOrder.setApplyMoney(shipmentOrder.getGoodsAmount());
-        applyOrderMapper.add(applyOrder);
+
         return true;
     }
     /**

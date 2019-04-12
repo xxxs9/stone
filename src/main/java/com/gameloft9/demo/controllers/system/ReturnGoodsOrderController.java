@@ -115,7 +115,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/audit",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("return:goods")
+
     public IResult audit(ShipmentOrder shipmentOrder){
        return new ResultBean<Boolean>(returnGoodsOrderService.audit(shipmentOrder));
     }
@@ -127,7 +127,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/depot",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("return:goods")
+
     public IResult depot(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.depot(shipmentOrder));
     }
@@ -138,7 +138,7 @@ public class ReturnGoodsOrderController {
      */
     @RequestMapping(value = "/finance",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("return:goods")
+
     public IResult finance(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(returnGoodsOrderService.finance(shipmentOrder));
     }
