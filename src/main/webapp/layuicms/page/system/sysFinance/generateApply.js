@@ -79,7 +79,7 @@ layui.config({
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsId);
                 $("[name='goodsId']").val(data.id);
-                $("[name='auditType']").val(data.auditType);
+                $("[name='auditType']").val(4);
                 $("[name='goodsNumber']").val(goodsNumber);
                 $("[name='price']").val(price);
                 $("[name='totalPrice']").val(totalPrice);
