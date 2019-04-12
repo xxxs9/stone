@@ -43,9 +43,11 @@ public class SysNotifyServiceImpl  implements SysNotifyService {
     }
 
     @Override
-    public List<SysNotify> findOutBox(String loginName) {
-        return dao.findOutBox(loginName);
+    public List<SysNotify> findOutBox(String loginName, String page, String limit) {
+        PageRange pageRange = new PageRange(page, limit);
+        return dao.findOutBox(pageRange.getStart(), pageRange.getEnd(), loginName);
     }
+
 
     public List<SysNotify> findSysNofiyForAll(String loginName) {
         return dao.findSysNofiyForAll(loginName);
@@ -54,6 +56,11 @@ public class SysNotifyServiceImpl  implements SysNotifyService {
 
     public List<SysNotify> findAllReply() {
         return dao.findAllReply();
+    }
+
+    @Override
+    public List<SysNotify> findAllMessage() {
+        return dao.findAllMessage();
     }
 
     public int getNewMessage(String loginName) {
@@ -78,6 +85,14 @@ public class SysNotifyServiceImpl  implements SysNotifyService {
     public int countGetAll(String creater, String receiverId, String status) {
         return dao.countGetAll(creater,receiverId,status);
     }
+
+    @Override
+    public int outBoxCountGetAll(String loginName) {
+        return dao.outBoxCountGetAll(loginName);
+    }
+
+
+
 
     public int hideForByPrimaryKey(String id) {
 
@@ -115,6 +130,7 @@ public class SysNotifyServiceImpl  implements SysNotifyService {
             sysNotifyInfo.setId(sysNotify.getNotifyInfoId());
             sysNotifyInfo.setTitle(whatever.getTitle());
             sysNotifyInfo.setContent(whatever.getContent());
+            sysNotifyInfo.setNotifyType(whatever.getNotifyType());
             String senderId =sysNotify.getSenderId();
             String receiverId =sysNotify.getReceiverId();
             dao.insert(sysNotify);

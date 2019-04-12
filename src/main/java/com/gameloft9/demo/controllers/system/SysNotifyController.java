@@ -52,6 +52,13 @@ public class SysNotifyController {
         return new ResultBean<Integer>(SysNotifyServiceImpl.getNewMessage(loginName));
     }
 
+    @RequestMapping(value = "/findAllMeaasge.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findAllMeaasge() throws Exception{
+
+       return new ResultBean<Collection<SysNotify>>(SysNotifyServiceImpl.findAllMessage());
+    }
+
 
     @RequestMapping(value = "/NotifyList.do",method = RequestMethod.POST)
     @ResponseBody
@@ -77,12 +84,13 @@ public class SysNotifyController {
 /* 发件箱的控制层*/
 @RequestMapping(value = "/allOutBox.do",method = RequestMethod.POST)
 @ResponseBody
-    public IResult findBoxOut(SysNotify sysNotify ){
+    public IResult findBoxOut(SysNotify sysNotify ,String page, String limit){
         //返回json至前端的均返回ResultBean或者PageResultBean
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String loginName =(String) request.getSession().getAttribute("sysUser");
         System.out.println(loginName);
-        return new ResultBean<Collection<SysNotify>>(SysNotifyServiceImpl.findOutBox(loginName));
+        /*return new ResultBean<Collection<SysNotify>>(SysNotifyServiceImpl.findOutBox(loginName));*/
+    return new PageResultBean<Collection<SysNotify>>(SysNotifyServiceImpl.findOutBox(loginName,page,limit),SysNotifyServiceImpl.outBoxCountGetAll(loginName));
     }
     /**
      * 添加用户

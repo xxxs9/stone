@@ -23,6 +23,7 @@ layui.config({
     }
     init();
 
+
     /**
      * 定义表格
      * */
@@ -30,15 +31,19 @@ layui.config({
         tableIns = table.render({
             elem: '#user-data'
             , height: 415
-            , url: $tool.getContext() + 'sysNotify/allOutBox.do' //数据接口
+            , url: $tool.getContext() + 'sysNotify/findAllMeaasge.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {field: 'title', title: '标题', width: '10%',templet:'<div>{{d.sysNotifyInfo.title}}</div>'}
-                , {field: 'receiverId', title: '收件人', width: '10%'}
-                , {field: 'state', title: '状态', width: '10%',templet: '#stateInfo1'},
-                  {field: 'sendTime', title: '发送时间', width: '10%'}
-               /* , {fixed: 'right', title: '操作', width: 300, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器*/
+
+                {field: 'sendTime', title: '发送时间', width: '10%'}
+                , {field: 'senderId', title: '发送者', width: '10%'}
+                , {field: 'notifyType', title: '信息类别', width: '10%',templet:'<div>{{d.sysNotifyInfo.notifyType}}</div>'}
+                , {field: 'receiverId', title: '接收人', width: '10%' ,templet: '#receiver'}
+             /*   , {field: 'state', title: '状态', width: '10%' ,templet: '#stateInfo'}*/
+                , {field: 'title', title: '标题', width: '10%',templet:'<div>{{d.sysNotifyInfo.title}}</div>'}
+                , {field: 'content', title: '内容', width: '10%',templet: '<div>{{d.sysNotifyInfo.content}}</div>'}
+                , {fixed: 'right', title: '操作', width: 300, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -56,12 +61,8 @@ layui.config({
                 delUser(row.id);
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                editMessage(row.id);
-            }else if (layEvent === 'reply') { //编辑
-                //do something
-                replyMessage(row.id);
-            }
-            else if(layEvent === 'initPwd'){//密码初始化
+                editNotify(row.id);
+            }else if(layEvent === 'initPwd'){//密码初始化
                 initPwd(row.id);
             }
         });
@@ -87,25 +88,7 @@ layui.config({
 
         return false;
     });
-/*系统广播*/
-   $(".notice_btn").click(function () {
-        var index = layui.layer.open({
-            title: "广播",
-            type: 2,
-            content: "Notice.html",
-            success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500)
-            }
-        });
-       $(window).resize(function () {
-           layui.layer.full(index);
-       });
-       layui.layer.full(index);
-   });
+
     //添加用户
     $(".add_btn").click(function () {
         var index = layui.layer.open({
@@ -167,11 +150,11 @@ layui.config({
     }
 
     //编辑
-    function editMessage(id){
+    function editNotify(id){
         var index = layui.layer.open({
             title: "编辑用户",
             type: 2,
-            content: "findMessage.html?id="+id,
+            content: "findNotifyController.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
@@ -187,28 +170,4 @@ layui.config({
         });
         layui.layer.full(index);
     }
-    function replyMessage(id){
-        var index = layui.layer.open({
-            title: "编辑用户",
-            type: 2,
-            content: "sendMessage.html?id="+id,
-            success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500)
-            }
-        });
-
-
-
-
-        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        $(window).resize(function () {
-            layui.layer.full(index);
-        });
-        layui.layer.full(index);
-    }
-
 });

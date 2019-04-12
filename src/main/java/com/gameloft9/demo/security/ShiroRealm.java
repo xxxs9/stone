@@ -15,12 +15,10 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -42,14 +40,6 @@ public class ShiroRealm extends AuthorizingRealm{
 	@Autowired
 	SysMenuTestMapper menuTestMapper;
 
-	/**
-	 * 获取授权信息方法，返回用户角色信息
-	 * */
-	public String[] getAnnotationValue(Annotation a) {
-		RequiresPermissions rpAnnotation = (RequiresPermissions)a;
-		return rpAnnotation.value();
-	}
-
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 
@@ -59,10 +49,10 @@ public class ShiroRealm extends AuthorizingRealm{
 		}
 
 		UserTest user = (UserTest) principals.getPrimaryPrincipal();
-		List<String> cacheData = CacheUtil.getInstance().getCacheData(user.getLoginName());
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		List<String> rolesList = CacheUtil.getInstance().getCacheData("roles");
 		if (user != null) {
+			info.setRoles(new HashSet<String>(roleList));
 			info.setStringPermissions((new HashSet<String>(cacheData)));
 			info.setRoles(new HashSet<String>(rolesList));
 		} else {
@@ -85,7 +75,7 @@ public class ShiroRealm extends AuthorizingRealm{
 			//用户不存在
 			throw new UnknownAccountException();
 		}
-		//创建一个list存放roles
+		//创建一个list存放角色列表
 		List<String> rolesList = new ArrayList<String>();
 		//创建一个list存放权限集合
 		List<String> perms = new ArrayList<String>();
@@ -93,6 +83,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		List<SysRoleTest> roles = userRoleTestMapper.getRolesByUserId(user.getId());
 		//循环获取权限
 		for (SysRoleTest role : roles) {
+			//获取角色列表
 			rolesList.add(role.getRoleName());
 			List<SysMenuRoleTest> menuRoles = menuTestMapper.getMenuRoleByRoleId(role.getId());
 			for (SysMenuRoleTest menuRole : menuRoles) {
@@ -106,7 +97,7 @@ public class ShiroRealm extends AuthorizingRealm{
 			}
 		}
 
-		//将权限存放到map缓存中
+		//将权限和角色存放到map缓存中
 		CacheUtil cacheUtil = CacheUtil.getInstance();
 		cacheUtil.addCacheData(user.getLoginName(),perms);
 		cacheUtil.addCacheData("roles",rolesList);
