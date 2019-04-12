@@ -37,9 +37,11 @@ public class FinanceApplyOrderController {
      */
     @RequestMapping(value = "applyList", method = RequestMethod.POST)
     @ResponseBody
-    public IResult applyList(String page,String limit,String applyType,String applyState,String startTime,String endTime){
-        return new PageResultBean<Collection<SysFinanceApplyOrder>>(applyOrderService.getAll(page,limit,applyType,applyState,startTime,endTime),
-                applyOrderService.getCount(applyType,applyState,startTime,endTime));
+    public IResult applyList(String page,String limit,String applyType,String applyState,String startTime,String endTime,String applyUser){
+        return new PageResultBean<Collection<SysFinanceApplyOrder>>(applyOrderService.getAll(page,limit,applyType,applyState,startTime,endTime,applyUser),
+                applyOrderService.getCount(applyType,applyState,startTime,endTime,applyUser));
+
+
     }
 
 

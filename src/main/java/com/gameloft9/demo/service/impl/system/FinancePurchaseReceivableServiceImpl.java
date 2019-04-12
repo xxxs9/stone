@@ -156,11 +156,15 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
             receiptMapper.add(receipt);
             //生成账单
             SysFinanceBill financeBill = new SysFinanceBill();
-            Integer balance = Integer.parseInt(purchaseReceivable.getActualBalance());
+            BigDecimal balance = new BigDecimal(purchaseReceivable.getActualBalance());
+            balance = balance.setScale(2,BigDecimal.ROUND_HALF_UP);
             financeBill.setId(UUIDUtil.getUUID());
-            financeBill.setBalance(balance);
+            financeBill.setBalance(balance.toString());
             financeBill.setBillTime(purchaseReceivable.getAuditTime());
             financeBill.setDepartment(Constants.Finance.PURCHASE);
+            financeBill.setApplyUser(purchaseReturn.getApplyUser());
+            financeBill.setGoodsName(purchaseReturn.getGoodsName());
+            financeBill.setBalanceType(purchaseReturn.getAuditType());
             //添加账单
             billMapper.add(financeBill);
         }

@@ -84,6 +84,7 @@ layui.config({
         var applyState = data.field.applyState;
         var applyType = data.field.applyType;
         var applyTime = data.field.applyTime;
+        var applyUser = data.field.applyUser;
         var startTime = applyTime.split("&")[0];
         var endTime = applyTime.split("&")[1];
         //表格重新加载
@@ -93,6 +94,7 @@ layui.config({
                 applyType:applyType,
                 startTime:startTime,
                 endTime:endTime,
+                applyUser:applyUser
             }
         });
 
