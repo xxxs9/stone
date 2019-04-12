@@ -20,8 +20,8 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-        initGoods();  //初始化货品名称
-        initState();  //初始化订单状态
+        initGoods();    //初始化货品名称
+        initState();    //初始化订单状态
     }
 
     init();
@@ -34,7 +34,6 @@ layui.config({
         html1 += '<option value="未提交">未提交</option>>';
         html1 += '<option value="提交审核中">提交审核中</option>>';
         html1 += '<option value="审核通过">审核通过</option>>';
-        html1 += '<option value="审核结束">审核结束</option>>';
         $('#depotState').append($(html1));
         form.render();
     }
@@ -69,7 +68,7 @@ layui.config({
             , cols: [[ //表头
                 //{type:'id',field: 'id', title: '采购单号',fixed: 'left', width:100}
                 {field: 'orderNumber', title: '订单单号',fixed: 'left',width:180}
-                , {field: 'goodsName', title: '商品名称', width:120}
+                , {field: 'goodsName', title: '商品名称', width:150}
                 , {field: 'goodsNumber', title: '商品数量', width:100}
                 , {field: 'price', title: '商品单价', width:100}
                 , {field: 'totalPrice', title: '商品总价', width:140}
