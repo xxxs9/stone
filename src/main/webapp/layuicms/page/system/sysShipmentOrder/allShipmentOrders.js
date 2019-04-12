@@ -50,27 +50,29 @@ layui.config({
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                 /* {type:'numbers',title:'序号',fixed: 'left'}*/
-               {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'goodsId', title: '发货单号'}
-                , {field: 'productId', title: '货品名称'}
-                , {field: 'goodsName', title: '产品名称' }
-                , {field: 'customer', title: '购买客户' }
-                , {field: 'goodsNumber', title: '发货数量'}
-                , {field: 'goodsAmount', title: '货品金额' }
-                , {field: 'applyUser', title: '申请人' }
-                , {field: 'applyTime', title: '申请时间' }
-                , {field: 'state', title: '发货状态 '}
-                , {field: 'auditUser', title: '审核人' }
-                , {field: 'auditType', title: '订单类型' }
-                , {field: 'remarks', title: '备注' }
+                /* {type:'numbers',title:'序号',fixed: 'left'}*/
+                {field: 'id', title: 'ID' ,fixed:'left',width:140}
+                , {field: 'goodsId', title: '发货单号',width:140}
+                , {field: 'productId', title: '货品名称',width:140}
+
+                , {field: 'customer', title: '购买客户' ,width:140}
+                , {field: 'goodsNumber', title: '发货数量',width:140}
+                , {field: 'goodsAmount', title: '货品金额' ,width:140}
+                , {field: 'auditType', title: '收货地址' ,width:140}
+                , {field: 'goodsName', title: '收货电话' ,width:140}
+                , {field: 'applyUser', title: '申请人' ,width:140}
+                , {field: 'applyTime', title: '申请时间' ,width:140}
+                , {field: 'state', title: '订单状态 ',width:140}
+                , {field: 'auditUser', title: '审核人' ,width:140}
+                , {field: 'remarks', title: '备注' ,width:140}
                 , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
                 $("[data-field='id']").css('display','none');
-                $("[data-field='goodsName']").css('display','none');
 
+                $("[data-field='auditUser']").css('display','none');
+                $("[data-field='applyUser']").css('display','none');
             }
         });
 
@@ -108,15 +110,17 @@ layui.config({
         var id=data.field.id;
         var goodsId = data.field.goodsId;
         var productId = data.field.productId;
-        var goodsName = data.field.goodsName;
+
         var customer = data.field.customer;
         var goodsNumber = data.field.goodsNumber;
         var goodsAmount = data.field.goodsAmount;
+        var auditType = data.field.auditType;
+        var goodsName = data.field.goodsName;
         var applyUser = data.field.applyUser;
         var applyTime = data.field.applyTime;
         var state = data.field.state;
         var auditUser = data.field.auditUser;
-        var auditType = data.field.auditType;
+
         var remarks = data.field.remarks;
         //表格重新加载
         tableIns.reload({
@@ -125,15 +129,17 @@ layui.config({
                 id:id,
                 goodsId:goodsId,
                 productId:productId,
-                goodsName:goodsName,
+
                 customer:customer,
                 goodsNumber:goodsNumber,
                 goodsAmount:goodsAmount,
+                auditType:auditType,
+                goodsName:goodsName,
                 applyUser:applyUser,
                 applyTime:applyTime,
                 state :state ,
                 auditUser:auditUser,
-                auditType:auditType,
+
                 remarks:remarks
             }
         });

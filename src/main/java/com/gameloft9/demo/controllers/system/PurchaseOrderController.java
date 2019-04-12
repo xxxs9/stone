@@ -273,7 +273,7 @@ public class PurchaseOrderController {
      * */
     @RequestMapping(value = "/selectChartByApril.do",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("purOrder:manager:add")
+    @RequiresPermissions("purOrder:all")
     public IResult selectChartByApril(String goodsName){
         return new ResultBean<Collection<String>>(service.selectChartByApril(goodsName));
     }

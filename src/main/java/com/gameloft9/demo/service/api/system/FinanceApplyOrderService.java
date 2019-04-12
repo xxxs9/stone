@@ -31,7 +31,8 @@ public interface FinanceApplyOrderService {
             String applyType,
             String applyState,
             String startTime,
-            String endTime);
+            String endTime,
+            String applyUser);
 
     /**
      * 条件查询总条数
@@ -46,7 +47,8 @@ public interface FinanceApplyOrderService {
             String applyType,
             String applyState,
             String startTime,
-            String endTime);
+            String endTime,
+            String applyUser);
 
     /**
      * 根据主键查找applyOrder

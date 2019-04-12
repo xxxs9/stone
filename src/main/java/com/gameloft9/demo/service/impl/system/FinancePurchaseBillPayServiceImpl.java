@@ -152,6 +152,8 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         if(auditDescribe == null || "".equals(auditDescribe)){
             throw new BizException(AbstractResult.BIZ_FAIL,"审核内容为空");
         }
+        BigDecimal actualPrice1 = new BigDecimal(actualPrice);
+        actualPrice1 = actualPrice1.setScale(2,BigDecimal.ROUND_HALF_UP);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
@@ -178,7 +180,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         purchaseOrder.setFinanceAuditDescribe(auditDescribe);
 
         financePurchaseBillsPayable.setAuditUser(auditUser);
-        financePurchaseBillsPayable.setActualBalance(actualPrice);
+        financePurchaseBillsPayable.setActualBalance(actualPrice1.toString());
         financePurchaseBillsPayable.setAuditTime(new Date());
         financePurchaseBillsPayable.setAuditDescribe(auditDescribe);
 
@@ -186,7 +188,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
             //生成付款单
             SysFinancePayment payment = new SysFinancePayment();
             payment.setId(UUIDUtil.getUUID());
-            payment.setBalance(actualPrice);
+            payment.setBalance(actualPrice1.toString());
             payment.setDocumentMaker(purchaseOrder.getFinanceAuditUser());
             payment.setDocumentMakeTime(purchaseOrder.getFinanceAuditTime());
             payment.setPayId(financePurchaseBillsPayable.getId());
@@ -197,10 +199,14 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
             //生成账单
             SysFinanceBill financeBill = new SysFinanceBill();
             financeBill.setId(UUIDUtil.getUUID());
-            Integer balance = Integer.parseInt(financePurchaseBillsPayable.getActualBalance());
-            financeBill.setBalance(balance*(-1));
+            BigDecimal balance = new BigDecimal(financePurchaseBillsPayable.getActualBalance());
+            balance = balance.setScale(2,BigDecimal.ROUND_HALF_UP);
+            financeBill.setBalance((balance.multiply(new BigDecimal(-1))).toString());
             financeBill.setBillTime(financePurchaseBillsPayable.getAuditTime());
             financeBill.setDepartment(Constants.Finance.PURCHASE);
+            financeBill.setApplyUser(purchaseOrder.getApplyUser());
+            financeBill.setGoodsName(purchaseOrder.getGoodsName());
+            financeBill.setBalanceType(purchaseOrder.getAuditType());
             //添加账单
             billMapper.add(financeBill);
 

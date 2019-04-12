@@ -15,7 +15,7 @@ layui.config({
 
     var tableIns;//表格实例
 
-    var ctx = document.getElementById('myChart').getContext('2d');
+    /*var ctx = document.getElementById('myChart').getContext('2d');*/
     var chart = document.getElementById('purChart').getContext('2d');
     /*var myChart = new Chart(ctx, {
         type: 'pie',

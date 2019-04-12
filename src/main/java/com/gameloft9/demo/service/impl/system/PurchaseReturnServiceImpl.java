@@ -110,11 +110,11 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
     public boolean backReUpdate(PurchaseReturn purchaseReturn){
         CheckUtil.notBlank(purchaseReturn.getId(),"订单id为空");
         //添加一个判断，如果仓库已经审核，理应不可撤回。
-        String str = purchaseReturn.getDepotState();
+       /* String str = purchaseReturn.getDepotState();
         String state = "审核通过";
         if(str.equals(state)){
             throw new BizException(AbstractResult.CHECK_FAIL,"已审核无法撤回,请刷新!");
-        }
+        }*/
         purchaseReturn.setDepotState(Constants.PurchaseState.APPLY_NO_SUBMIT);
         dao.updateTools(purchaseReturn);
         return true;

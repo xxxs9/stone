@@ -20,9 +20,19 @@ public class SysFinanceBill {
     private String department;
 
     /**款*/
-    private Integer balance;
+    private String balance;
 
     /**时间*/
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date billTime;
+
+    /**姓名*/
+    private String applyUser;
+
+    /**货品名称*/
+    private String goodsName;
+
+    /**货款类型*/
+    private Integer balanceType;
+
 }

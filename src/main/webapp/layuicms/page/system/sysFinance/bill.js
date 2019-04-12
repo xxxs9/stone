@@ -39,8 +39,12 @@ layui.config({
         cols:[[
             {type:'numbers',title:'序号',fixed: 'left'}
             , {field: 'department', title: '部门',width:100}
-            , {field: 'balance', title: '款', width:120}
-            , {field: 'billTime', title: '时间', width:170}
+            , {field: 'applyUser', title: '申请人',width:100}
+            , {field: 'billTime', title: '申请时间', width:170}
+            , {field: 'goodsName', title: '货品名称', width:170}
+            , {field: 'balanceType', title: '货款类型', width:170}
+            , {field: 'balance', title: '款额', width:120}
+
         ]],
         url:$tool.getContext() + 'bill/dailyReport.do',
         method:'post',
@@ -68,6 +72,10 @@ layui.config({
             , {field: 'department', title: '部门',width:100}
             , {field: 'balance', title: '款', width:120}
             , {field: 'billTime', title: '时间', width:170}
+            , {field: 'goodsName', title: '货品名称', width:170}
+            , {field: 'balanceType', title: '货款类型', width:170}
+            , {field: 'balance', title: '款额', width:120}
+
         ]],
         url:$tool.getContext() + 'bill/weeklyReport.do',
         method:'post',
@@ -94,6 +102,10 @@ layui.config({
             , {field: 'department', title: '部门',width:100}
             , {field: 'balance', title: '款', width:120}
             , {field: 'billTime', title: '时间', width:170}
+            , {field: 'goodsName', title: '货品名称', width:170}
+            , {field: 'balanceType', title: '货款类型', width:170}
+            , {field: 'balance', title: '款额', width:120}
+
         ]],
         url:$tool.getContext() + 'bill/monthlyReport.do',
         method:'post',
@@ -120,6 +132,10 @@ layui.config({
             , {field: 'department', title: '部门',width:100}
             , {field: 'balance', title: '款', width:120}
             , {field: 'billTime', title: '时间', width:170}
+            , {field: 'goodsName', title: '货品名称', width:170}
+            , {field: 'balanceType', title: '货款类型', width:170}
+            , {field: 'balance', title: '款额', width:120}
+
         ]],
         url:$tool.getContext() + 'bill/annualReport.do',
         method:'post',
@@ -146,6 +162,10 @@ layui.config({
             , {field: 'department', title: '部门',width:100}
             , {field: 'balance', title: '款', width:120}
             , {field: 'billTime', title: '时间', width:170}
+            , {field: 'goodsName', title: '货品名称', width:170}
+            , {field: 'balanceType', title: '货款类型', width:170}
+            , {field: 'balance', title: '款额', width:120}
+
         ]],
         url:$tool.getContext() + 'bill/timeReport.do',
         method:'post',

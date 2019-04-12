@@ -16,27 +16,21 @@ layui.config({
 
     var tableIns;//表格实例
 
+
     /**
      * 页面初始化
-     * */
+     */
     function init() {
-
-        //初始化下拉框
-      /*  $api. GetFirstProductFormula(null,function (res) {
-            var data = res.data;
-            if(data.length > 0){
-                var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
-                }
-                $('#parentMenu').append($(html));
-                form.render();
-            }
-        });*/
-
-
+        //初始化机构树
+        //initOrgTree();
+        //加载角色列表
+        //loadProductIdList();
     }
+
     init();
+
+
+
 
     $("#addProduct").click(function addProduct() {
         var index = layui.layer.open({
@@ -72,22 +66,22 @@ layui.config({
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                  {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'orderId', title: '订单编号' }
-                , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品名' }
-                , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '销售数量' }
+                , {field: 'orderId', title: '订单编号',width:140 }
+                , {field: 'orderTime', title: '订单日期' ,width:140}
+                , {field: 'productId', title: '产品名' ,width:140}
+                , {field: 'customer', title: '购买客户',width:140}
+                , {field: 'deliverNumber', title: '销售数量' ,width:140}
 
-                , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '总金额' }
+                , {field: 'plannedNumber', title: '产品单价',width:140 }
+                , {field: 'acceptedAmount', title: '总金额' ,width:140}
 
-                , {field: 'applyUser', title: '申请人' }
-                , {field: 'state', title: '订单状态' }
-                , {field: 'orderAuditUser', title: '订单审核人' }
-                , {field: 'orderAuditDepot', title: '仓库审核人' }
-                , {field: 'remarks', title: '备注' }
-                , {field: 'depotRemarks', title: '仓库审核人备注' }
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'applyUser', title: '申请人',width:140 }
+                , {field: 'state', title: '订单状态',width:140 }
+                , {field: 'orderAuditUser', title: '订单审核人',width:140}
+                , {field: 'orderAuditDepot', title: '仓库审核人' ,width:140}
+                , {field: 'remarks', title: '备注' ,width:140}
+                , {field: 'depotRemarks', title: '仓库审核人备注' ,width:140}
+                , {fixed: 'right', title: '操作',  width: 280,align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码

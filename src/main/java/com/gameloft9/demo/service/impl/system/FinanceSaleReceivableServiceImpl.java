@@ -77,9 +77,10 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleReceivable.setAuditType(auditType);
         BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
-        BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
-
-        saleReceivable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
+        //BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
+        String goodsNumber = shipmentOrder.getGoodsNumber();
+        totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
+        saleReceivable.setUnitPrice(totalPrice.divide(new BigDecimal(goodsNumber))+"");
         saleReceivable.setProductNumber(shipmentOrder.getGoodsNumber());
         saleReceivable.setTotalPrice(totalPrice+"");
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
@@ -146,10 +147,14 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
             //生成账单
             SysFinanceBill financeBill = new SysFinanceBill();
             financeBill.setId(UUIDUtil.getUUID());
-            Integer balance = Integer.parseInt(saleReceivable.getActualBalance());
-            financeBill.setBalance(balance);
+            BigDecimal balance = new BigDecimal(saleReceivable.getActualBalance());
+            balance = balance.setScale(2,BigDecimal.ROUND_HALF_UP);
+            financeBill.setBalance(balance.toString());
             financeBill.setBillTime(saleReceivable.getAuditTime());
             financeBill.setDepartment(Constants.Finance.SALE);
+            financeBill.setApplyUser(markerOrderTest.getApplyUser());
+            financeBill.setGoodsName(markerOrderTest.getProductId());
+            financeBill.setBalanceType(2);
             //添加账单
             billMapper.add(financeBill);
 

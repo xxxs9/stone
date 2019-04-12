@@ -51,9 +51,10 @@ layui.config({
      * 表单提交
      * */
     form.on("submit(addShipmentOrder)", function (data) {
+        var name = $('#productId option:selected').text();
         var id = data.field.id;
         var goodsId = data.field.goodsId;
-        var productId = data.field.productId;
+        var productId = name;
         var goodsName = data.field.goodsName;
         var customer = data.field.customer;
         var goodsNumber = data.field.goodsNumber;

@@ -153,10 +153,14 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
             //生成账单
             SysFinanceBill financeBill = new SysFinanceBill();
             financeBill.setId(UUIDUtil.getUUID());
-            Integer balance = Integer.parseInt(saleBillsPayable.getActualBalance());
-            financeBill.setBalance(balance*(-1));
+            BigDecimal balance = new BigDecimal(saleBillsPayable.getActualBalance());
+            balance = balance.setScale(2,BigDecimal.ROUND_HALF_UP);
+            financeBill.setBalance(balance.multiply(new BigDecimal(-1)).toString());
             financeBill.setBillTime(saleBillsPayable.getAuditTime());
             financeBill.setDepartment(Constants.Finance.SALE);
+            financeBill.setApplyUser(shipmentOrder.getApplyUser());
+            financeBill.setGoodsName(shipmentOrder.getGoodsName());
+            financeBill.setBalanceType(4);
             //添加账单
             billMapper.add(financeBill);
 

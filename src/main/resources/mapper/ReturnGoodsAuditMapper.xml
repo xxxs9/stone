@@ -155,7 +155,7 @@
                 and GOODS_NAME = #{goodsName,jdbcType=DATE}
             </if>
             w_shipment_order.STATE != "收货成功" and w_shipment_order.STATE != "等待收货" and w_shipment_order.STATE != "等待发货"
-            and w_shipment_order.STATE != "提交财务成功" and w_shipment_order.STATE != "退货"
+            and w_shipment_order.STATE != "提交财务成功" and w_shipment_order.STATE != "退货" and w_shipment_order.STATE != "仓库已发货"
         </where>
 
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
