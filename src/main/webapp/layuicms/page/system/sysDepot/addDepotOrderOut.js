@@ -45,12 +45,12 @@ layui.config({
                 form.render();
             }
         });
-        $api.getAllProduct(null,function (res) {
+        $api.selectGoodsProduct(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
+                    html += '<option value="' + data[i].bianhao + '">' + data[i].pname + '</option>>';
                 }
                 $('#productName').append($(html));
                 form.render();
@@ -113,6 +113,18 @@ layui.config({
                     $("#saleableNumber").html("");
                     $("#shipmentsNumber").html("");
                     $("#supplierName").empty();
+                    $("#goodsName").empty();
+                    $api.GetGoodsName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="" selected="selected">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#goodsName').append($(html));
+                            form.render();
+                        }
+                    });
                     $api.GetSupplierName(null,function (res) {
                         var data = res.data;
                         if (data.length > 0) {
@@ -124,12 +136,72 @@ layui.config({
                             form.render();
                         }
                     });
-                    layer.msg("该供应商不提供此原料!");
+                    layer.msg("该供应关系不存在!请重新选择！");
+                }
+            });
+        }else if(goodsName !='' && supplierName ==''){
+            $("#saleableNumber").html('');
+            $("#shipmentsNumber").html('');
+            $("#supplierName").empty();
+            var req ={
+                goodsName:goodsName,
+            }
+            $api.GetSupplierNameByGoodsName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
+                }
+            });
+        }else if(goodsName =='' && supplierName !=''){
+            $("#saleableNumber").html('');
+            $("#shipmentsNumber").html('');
+            $("#goodsName").empty();
+            var req ={
+                supplierName:supplierName,
+            }
+            $api.GetGoodsNameBySupplierName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
                 }
             });
         }else{
             $("#saleableNumber").html('');
             $("#shipmentsNumber").html('');
+            $("#supplierName").empty();
+            $("#goodsName").empty();
+            $api.GetGoodsName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="" selected="selected">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
+                }
+            });
+            $api.GetSupplierName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
+                }
+            });
         }
     });
 
