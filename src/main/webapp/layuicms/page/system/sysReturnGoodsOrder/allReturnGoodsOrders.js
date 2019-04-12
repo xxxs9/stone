@@ -51,20 +51,20 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                 /* {type:'numbers',title:'序号',fixed: 'left'}*/
-                {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'goodsId', title: '发货单号'}
-                , {field: 'productId', title: '货品名称'}
+                {field: 'id', title: 'ID' ,fixed:'left',width:140}
+                , {field: 'goodsId', title: '发货单号',width:140}
+                , {field: 'productId', title: '货品名称',width:140}
 
-                , {field: 'customer', title: '购买客户' }
-                , {field: 'goodsNumber', title: '发货数量'}
-                , {field: 'goodsAmount', title: '货品金额' }
-                , {field: 'auditType', title: '收货地址' }
-                , {field: 'goodsName', title: '收货电话' }
-                , {field: 'applyUser', title: '申请人' }
-                , {field: 'applyTime', title: '申请时间' }
-                , {field: 'state', title: '订单状态 '}
-                , {field: 'auditUser', title: '审核人' }
-                , {field: 'remarks', title: '备注' }
+                , {field: 'customer', title: '购买客户' ,width:140}
+                , {field: 'goodsNumber', title: '发货数量',width:140}
+                , {field: 'goodsAmount', title: '货品金额' ,width:140}
+                , {field: 'auditType', title: '收货地址' ,width:140}
+                , {field: 'goodsName', title: '收货电话' ,width:140}
+                , {field: 'applyUser', title: '申请人' ,width:140}
+                , {field: 'applyTime', title: '申请时间' ,width:140}
+                , {field: 'state', title: '订单状态 ',width:140}
+                , {field: 'auditUser', title: '审核人' ,width:140}
+                , {field: 'remarks', title: '备注' ,width:140}
                 , {fixed: 'right', title: '操作', width: 280, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -89,7 +89,6 @@ layui.config({
                 //do something
                 editMarkerOrder(row.id);
             }else if (layEvent === 'audit'){//提交
-                alert(row.goodsAmount)
                 audit(row.id,row.goodsAmount);
             }else if (layEvent === 'depot') {//提交仓库
                 depot(row.id);
