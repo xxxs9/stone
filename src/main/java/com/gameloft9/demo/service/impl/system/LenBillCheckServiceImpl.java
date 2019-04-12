@@ -7,8 +7,10 @@ import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.service.api.system.LenBillCheckService;
 import com.gameloft9.demo.service.beans.system.PageRange;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.DateUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,28 +102,32 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
      */
     @Override
     public boolean insert(String id,String productName , String state, String checkNumber, String checkDate, String checkUser, String checkRemark, String reachId, String productId, String planId) {
-        String uuid = UUIDUtil.getUUID();
-        LenBillCheck billCheck = new LenBillCheck();
-        billCheck.setId(uuid);
-        billCheck.setState(state);
-        billCheck.setCheckNumber(checkNumber);
-        billCheck.setCheckDate(new Date());
-        billCheck.setCheckUser(checkUser);
-        billCheck.setCheckRemark(checkRemark);
-        billCheck.setReachId(reachId);
-        billCheck.setPlanId(planId);
-        billCheck.setProductId(productId);
-        billCheck.setProductName(productName);
-        if (mapper.insert(billCheck)>0){
-            LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
-            String productId1 = billCheck1.getProductId();
-            LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
-            String other1 = lenProduct.getOther1();
-            depotOrderService.addProduceDepotOrderIn(other1,productId1,checkNumber,checkUser);
-            return true;
-        }else{
-            return false;
-        }
+        if (SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)) {
+            String uuid = UUIDUtil.getUUID();
+            LenBillCheck billCheck = new LenBillCheck();
+            billCheck.setId(uuid);
+            billCheck.setState(state);
+            billCheck.setCheckNumber(checkNumber);
+            billCheck.setCheckDate(new Date());
+            billCheck.setCheckUser(checkUser);
+            billCheck.setCheckRemark(checkRemark);
+            billCheck.setReachId(reachId);
+            billCheck.setPlanId(planId);
+            billCheck.setProductId(productId);
+            billCheck.setProductName(productName);
+            if (mapper.insert(billCheck) > 0) {
+                LenBillCheck billCheck1 = mapper.getByPrimaryKey(uuid);
+                String productId1 = billCheck1.getProductId();
+                LenProduct lenProduct = lenProductMapper.getByPrimaryKey(productId1);
+                String other1 = lenProduct.getOther1();
+                depotOrderService.addProduceDepotOrderIn(other1, productId1, checkNumber, checkUser);
+                return true;
+            } else {
+                return false;
+            }
+        }else {
+            return false;}
+
 
     }
 

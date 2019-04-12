@@ -49,7 +49,6 @@ public class LenCreateUserInfoServiceImpl implements LenCreateUserInfoService {
         Date date1 = DateUtil.str2Date(createTime,"yyyy-MM-dd");
         len1.setCreateTime(date1);
         len1.setEmployeeId(employeeId);
-
         if (mapper.insert(len1) > 0) {
             return true;
         } else {

@@ -410,7 +410,7 @@ layui.config({
     function fenPei(id) {
 
         var index = layui.layer.open({//添加到生产计划单
-            title: "加工单分配",
+            title: "生产计划分配",
             type: 2,
             content: "addProducePlan.html?id=" + id,
             success: function (layer, index) {

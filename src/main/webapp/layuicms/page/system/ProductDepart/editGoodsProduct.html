@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<div xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>添加新工单</title>
@@ -25,21 +25,29 @@
         }
     </style>
 </head>
+
 <body class="childrenBody">
+<div align="center">
 <form class="layui-form" style="width:80%;">
-    </br></br>
-    <h2>产品加工单</h2>
     </br>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline"style="width: 60%">
+        <label class="layui-form-label">产品编号</label>
+        <div class="layui-input-block ">
+
+            <input type="text" class="layui-input" name="bianhao" id="bianhao" >
+
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="pname" lay-verify="required" placeholder="请输入产品名称">
+            <input type="text" class="layui-input" name="pname" lay-verify="required" placeholder="请输入产品名称" >
         </div>
     </div>
     <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">批次号</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="picihao" lay-verify="number" placeholder="请输入产品批次号">
+            <input type="text" class="layui-input" name="picihao"  placeholder="请输入产品批次号">
         </div>
     </div>
     <div class="layui-form-item layui-inline" style="display: none">
@@ -50,25 +58,25 @@
     </div>
 
     </br>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品型号</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="xinghao"  placeholder="请输入产品型号">
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品颜色</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="yanse"  placeholder="请输入产品颜色">
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品尺寸</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="chichun"  placeholder="请输入产品尺寸">
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品风格</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="style1"  placeholder="请输入产品风格">
@@ -77,14 +85,14 @@
     <!--<div class="layui-form-item">
         <label class="layui-form-label">产品成本</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="supportPrice" lay-verify="number" placeholder="请输入产品成本">
+            <input type="text" class="layui-input" name="supportPrice"  placeholder="请输入产品成本">
         </div>
     </div>-->
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产品价格</label>
         <div class="layui-input-block ">
 
-            <input type="text" class="layui-input" name="pprice" id="pprice" >
+            <input type="text" class="layui-input" name="pprice" id="pprice" lay-verify="number" >
 
         </div>
     </div>
@@ -96,14 +104,7 @@
 
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">产品编号</label>
-        <div class="layui-input-block ">
 
-            <input type="text" class="layui-input" name="bianhao" id="bianhao" >
-
-        </div>
-    </div>
 <br>
     <div class="layui-form-item layui-inline" style="display: none">
         <label class="layui-form-label">产品类型</label>
@@ -116,7 +117,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item layui-inline">
+    <div class="layui-form-item layui-inline" style="width: 60%">
         <label class="layui-form-label">产地</label>
         <div class="layui-input-block">
                 <select name="changdi"  id="changdi">
@@ -139,7 +140,8 @@
         </div>
     </div>
 </form>
-
+</div>
+</div>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

@@ -58,6 +58,8 @@ layui.config({
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
+                console.log(res)
+
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
             }
         });

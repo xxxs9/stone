@@ -22,32 +22,43 @@ import java.util.List;
  * @packageName: com.gameloft9.demo.controllers.system
  * @author: Lennon_Yuan
  * @time: 2019/3/19 0019 - 下午 3:24
- * @description:
+ * @description:加工单控制层
  */
 @Controller
 @RequestMapping("/product")
 public class LenProductController {
     @Autowired
     LenProductService service;
-
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    @ResponseBody
-    public IResult selectAll(){
-       return new ResultBean<List>( service.selectAll());
-    }
-
+    /**
+     * 分页模糊查询
+     * @param page
+     * @param limit
+     * @param productName
+     * @param state
+     * @return
+     */
     @RequestMapping(value = "/pageList",method = RequestMethod.POST)
     @ResponseBody
     public IResult selectAllByPage(String page, String limit, String productName, String state){
         return new PageResultBean<List>(service.selectByPage(page,limit,productName,state),service.dataCount(state));
     }
 
+    /**
+     * 增加加工单
+     * @param lenProduct
+     * @return
+     */
     @RequestMapping("/add")
     @ResponseBody
     public IResult add(LenProduct lenProduct){
         return new ResultBean<Boolean>(service.insert(lenProduct));
     }
 
+    /**
+     * 修改加工单
+     * @param lenProduct
+     * @return
+     */
     @RequestMapping("/upd")
     @ResponseBody
     public IResult update(LenProduct lenProduct){
@@ -384,6 +395,11 @@ public class LenProductController {
     @ResponseBody
     public IResult getMaterialGoodsById(String id){
         return new ResultBean<SysMaterialGoods>(service.getGoodsMaterialById(id));
+    }
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult selectAll(){
+        return new ResultBean<List>( service.selectAll());
     }
 
 }

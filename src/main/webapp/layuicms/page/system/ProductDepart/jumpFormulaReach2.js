@@ -175,6 +175,7 @@ layui.config({
             var data = res.data;
             $("[name='state']").val(data.productState);
             $("[name='productName']").val(data.productName);
+            $("[name='pId']").val(data.other1);
 
             oth=data.other3;
 
