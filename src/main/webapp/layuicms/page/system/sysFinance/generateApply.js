@@ -20,13 +20,13 @@ layui.config({
     function init() {
         //初始化采购订单申请信息
         var queryArgs = $tool.getQueryParam();//获取查询参数
-        var id = queryArgs['applyId','applyType'];
+        var id = queryArgs['applyId','applyType','applyState'];
         var url = $tool.getContext()+'purchase_order/get.do';
+        var applyState = queryArgs.applyState
         var req = {
             id:queryArgs.applyId,
-            applyType:queryArgs.applyType
+            applyType:queryArgs.applyType,
         };
-
         //如果订单类型为3
         if(queryArgs.applyType == 2){
             $api.GetMarkerOrder(req,function (res) {
@@ -50,7 +50,7 @@ layui.config({
                 //alert(data.state())
 
                 //alert(financeState)
-                if(data.state != '等待财务审核'){
+                if( applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -79,7 +79,7 @@ layui.config({
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsId);
                 $("[name='goodsId']").val(data.id);
-                $("[name='auditType']").val(data.auditType);
+                $("[name='auditType']").val(4);
                 $("[name='goodsNumber']").val(goodsNumber);
                 $("[name='price']").val(price);
                 $("[name='totalPrice']").val(totalPrice);
@@ -87,7 +87,7 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
                 //alert(data.state())
-                if(data.state != '等待财务查收'){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -123,7 +123,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-                if(financeState != null){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
                 /*var f  = financeState != '待审核'
@@ -158,7 +158,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-                if(financeState != null){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
                 /*var f  = financeState != '待审核'

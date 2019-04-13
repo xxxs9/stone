@@ -142,7 +142,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         DepotOrder depotOrder= new DepotOrder();
         depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_IN);
-        depotOrder.setType("采购入库");
+        depotOrder.setType(Constants.Depot.PURCHASE_IN);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -171,7 +171,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
         DepotOrder depotOrder= depotOrderMapper.getById(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
-        depotOrder.setType("采购退货");
+        depotOrder.setType(Constants.Depot.PURCHASE_OUT);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -201,7 +201,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         DepotOrder depotOrder= new DepotOrder();
         depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
-        depotOrder.setType("销售出库");
+        depotOrder.setType(Constants.Depot.MARKET_OUT);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -231,7 +231,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         DepotOrder depotOrder= new DepotOrder();
         depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_OUT);
-        depotOrder.setType("生产领料");
+        depotOrder.setType(Constants.Depot.PRODUCE_OUT);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -261,7 +261,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         DepotOrder depotOrder= new DepotOrder();
         depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_IN);
-        depotOrder.setType("生产入库");
+        depotOrder.setType(Constants.Depot.PRODUCE_IN);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -292,7 +292,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         DepotOrder depotOrder= new DepotOrder();
         depotOrder.setId(orderNumber);
         depotOrder.setOrderType(Constants.Depot.ORDER_IN);
-        depotOrder.setType("销售退货");
+        depotOrder.setType(Constants.Depot.MARKET_IN);
         depotOrder.setGoodsId(goodsId);
         depotOrder.setGoodsNumber(goodsNumber);
         depotOrder.setApplyUser(applyUser);
@@ -375,11 +375,11 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         }else {
             CheckUtil.notBlank(null, "已审核或已入库");
         }
-        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
+        if(depotOrderMapper.getById(id).getType().equals(Constants.Depot.PURCHASE_OUT)){
             purchaseReturnServiceImpl.depotState(id);
         }
 
-        if(depotOrderMapper.getById(id).getType().equals("销售出库")){
+        if(depotOrderMapper.getById(id).getType().equals(Constants.Depot.MARKET_OUT)){
 
             OrderAuditBean orderAuditBean = orderAuditMapper.getByOrderId(id);
             orderAuditBean.setState("仓库通过审核");
@@ -548,11 +548,11 @@ public class DepotOrderServiceImpl implements DepotOrderService {
 
 
         //采购入库,更新沧海采购单状态
-        if(current.getType().equals("采购入库")){
+        if(current.getType().equals(Constants.Depot.PURCHASE_IN)){
             purchaseOrderServiceImpl.depotState(id);
         }
         //生产入库,更新沧海采购单状态
-        if(current.getType().equals("生产入库")){
+        if(current.getType().equals(Constants.Depot.PRODUCE_IN)){
             //隆缘改变状态的方法
             if (lenProductMapper.changeStateByOther1(Constants.productState.INTO_DEPOT,id)>0) {
                 //更改goodsProduct状态
@@ -564,7 +564,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
             }
         }
         //销售退货入库,更新锦祥退货单状态
-        if(current.getType().equals("销售退货")){
+        if(current.getType().equals(Constants.Depot.MARKET_IN)){
             ShipmentOrder shipmentOrder = new ShipmentOrder();
             shipmentOrder.setGoodsId(id);
             returnGoodsOrderServiceImpl.wareh(shipmentOrder);
@@ -576,7 +576,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         String type = null;
         String goodsId = current.getGoodsId();
 
-        if(lenProductMapper.getByPrimaryKey(goodsId) !=null){
+        if(lenGoodsProductMapper.getByBH(goodsId) !=null){
             type = Constants.PRODUCT;
         }
         if(sysMaterialGoodsMapper.getById(goodsId) !=null){
@@ -627,7 +627,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotOrderMapper.updateByPrimaryKeySelective(depotOrder);
 
 
-        if(depotOrderMapper.getById(id).getType().equals("生产领料")){
+        if(depotOrderMapper.getById(id).getType().equals(Constants.Depot.PRODUCE_OUT)){
             LenFormulaReach lenFormulaReach = lenFormulaReachServiceImpl.getByPrimaryKey(id);
             String productId = lenFormulaReach.getProductId();
             lenProductMapper.changeState(Constants.productState.FENPEI_START_PRODUCE,productId);
@@ -650,7 +650,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         depotInventoryServiceImpl.updateDepotInventory(depotInventory.getId(),depotInventory.getType(),depotInventory.getGoodsId(),depotInventory.getGoodsNumber(),depotInventory.getShipmentsNumber(),depotInventory.getSaleableNumber());
 
         //采购退货财务插入申请单
-        if(depotOrderMapper.getById(id).getType().equals("采购退货")){
+        if(depotOrderMapper.getById(id).getType().equals(Constants.Depot.PURCHASE_OUT)){
         //啊发包
         PurchaseReturn purchaseReturn = purchaseReturnMapper.selectReturnByOrderNumber(id);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();

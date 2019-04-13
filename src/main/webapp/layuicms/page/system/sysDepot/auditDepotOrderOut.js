@@ -38,6 +38,10 @@ layui.config({
         };
 
         var req2 = {
+            bianhao:goodsId
+        };
+
+        var req3 = {
             goodsId:goodsId
         };
 
@@ -48,14 +52,14 @@ layui.config({
             }
         });
 
-        $api.getProductById(req1,function (res) {
+        $api.getGoodsProductByBH(req2,function (res) {
             var data = res.data;
             if(data != null){
-                $("#goodsName").html(data.productName);
+                $("#goodsName").html(data.pname);
             }
         });
 
-        $api.GetDepotInventoryByGoodsId(req2,function (res) {
+        $api.GetDepotInventoryByGoodsId(req3,function (res) {
             var data = res.data;
             if(data == null){
                 $("#saleableNumber").html("0");
@@ -78,7 +82,7 @@ layui.config({
         var saleableNumber = parseInt($("#saleableNumber").html());
         var goodsNumber = parseInt($("#goodsNumber").html());
         //出库数量小于可销售数量
-        if(goodsNumber>=saleableNumber){
+        if(goodsNumber>saleableNumber){
             layer.open({
                 title: '提示'
                 ,content: '库存不足'

@@ -37,6 +37,7 @@ public class FinanceBillServiceImpl implements FinanceBillService {
     public List<SysFinanceBill> getAll(String page, String limit) {
         PageRange pageRange = new PageRange(page,limit);
         return billMapper.getAll(pageRange.getStart(),pageRange.getEnd());
+
     }
 
     /**

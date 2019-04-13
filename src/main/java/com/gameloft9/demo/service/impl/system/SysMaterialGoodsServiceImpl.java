@@ -242,4 +242,22 @@ public class SysMaterialGoodsServiceImpl implements SysMaterialGoodsService {
         CheckUtil.notBlank(goodsName, "货物名称为空");
         return sysMaterialGoodsMapper.getIdByGoodsNameAndSupplierName(goodsName,supplierName);
     }
+
+    /**
+     * 根据供应商名称获取该供应商提供原料商品名称
+     * @param supplierName 供应商名称
+     */
+    @Override
+    public List<String> getGoodsNameBySupplierName(String supplierName) {
+        return sysMaterialGoodsMapper.getGoodsNameBySupplierName(supplierName);
+    }
+
+    /**
+     * 根据原料商品名称获取该原料商品的供应商名称
+     * @param goodsName 原料商品名称
+     */
+    @Override
+    public List<String> getSupplierNameByGoodsName(String goodsName) {
+        return sysMaterialGoodsMapper.getSupplierNameByGoodsName(goodsName);
+    }
 }

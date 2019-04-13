@@ -31,6 +31,7 @@
         <if test="checkState !=null and checkState != ''">
             AND t.CHECK_STATE = #{checkState,jdbcType=VARCHAR}
         </if>
+        ORDER BY t.SOURCE_TIME DESC,t.ID
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="countGetAll" resultType="Integer" parameterType="map">

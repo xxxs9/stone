@@ -3,9 +3,11 @@ package com.gameloft9.demo.controllers.system;
 import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.service.api.system.DepotOrderService;
 import com.gameloft9.demo.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +77,10 @@ public class DepotOrderController {
     @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderIn(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
+        if(type.equals(Constants.Depot.PURCHASE_IN)||type.equals(Constants.Depot.MARKET_IN)||type.equals(Constants.Depot.PRODUCE_IN)){
+            String msg = type+"单只能由"+type.substring(0,2)+"部生成";
+            throw new BizException(AbstractResult.CHECK_FAIL,msg);
+        }
         String applyUser = (String) request.getSession().getAttribute("sysUser");
         String orderType = Constants.Depot.ORDER_IN;
         return new ResultBean<String>(depotOrderServiceImpl.addDepotOrder(orderType,type,goodsId,goodsNumber,applyUser));
@@ -93,7 +99,7 @@ public class DepotOrderController {
     @RequiresPermissions("depotOrder:add")
     public IResult addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        String type = "采购入库";
+        String type = Constants.Depot.PURCHASE_IN;
         String orderType = Constants.Depot.ORDER_IN;
         return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
     }
@@ -111,7 +117,7 @@ public class DepotOrderController {
     @RequiresPermissions("depotOrder:add")
     public IResult addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
-        String type = "销售出库";
+        String type = Constants.Depot.MARKET_OUT;
         String orderType = Constants.Depot.ORDER_OUT;
         return new ResultBean<String>(depotOrderServiceImpl.addSysDepotOrder(orderNumber,orderType,type,goodsId,goodsNumber,applyUser));
     }
@@ -130,6 +136,10 @@ public class DepotOrderController {
     @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderOut(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
+        if(type.equals(Constants.Depot.PURCHASE_OUT)||type.equals(Constants.Depot.MARKET_OUT)||type.equals(Constants.Depot.PRODUCE_OUT)){
+            String msg = type+"单只能由"+type.substring(0,2)+"部生成";
+            throw new BizException(AbstractResult.CHECK_FAIL,msg);
+        }
         String applyUser = (String) request.getSession().getAttribute("sysUser");
         String orderType = Constants.Depot.ORDER_OUT;
         return new ResultBean<String>(depotOrderServiceImpl.addDepotOrder(orderType,type,goodsId,goodsNumber,applyUser));
