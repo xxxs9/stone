@@ -80,9 +80,9 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         //BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
         String goodsNumber = shipmentOrder.getGoodsNumber();
         totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
-        saleReceivable.setUnitPrice(totalPrice.divide(new BigDecimal(goodsNumber))+"");
+        saleReceivable.setUnitPrice(totalPrice.divide(new BigDecimal(goodsNumber)).toString());
         saleReceivable.setProductNumber(shipmentOrder.getGoodsNumber());
-        saleReceivable.setTotalPrice(totalPrice+"");
+        saleReceivable.setTotalPrice(totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         saleReceivable.setDocumentMaker(documentMaker);
         saleReceivable.setDocumentMakeTime(new Date());

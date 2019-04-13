@@ -77,10 +77,9 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
         BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
         totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
         BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
-        goodsNumber.setScale(0);
-        saleBillsPayable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
+        saleBillsPayable.setUnitPrice((totalPrice.divide(goodsNumber).setScale(2,BigDecimal.ROUND_HALF_UP).toString()));
         saleBillsPayable.setRejectedNumber(shipmentOrder.getGoodsNumber());
-        saleBillsPayable.setTotalPrice(totalPrice+"");
+        saleBillsPayable.setTotalPrice(totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         saleBillsPayable.setDocumentMaker(documentMaker);
         saleBillsPayable.setDocumentMakeTime(new Date());

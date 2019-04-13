@@ -7,6 +7,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,7 @@ public class FinancePurchaseBillPayController {
 
     @RequestMapping(value = "/generatePurchasePay", method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("finance:generate")
     public IResult generatePurchasePay(PurchaseOrder purchaseOrder,String id1){
 
         return new ResultBean<String>(purchaseBillPayService.generatePurchasePay(purchaseOrder,id1));

@@ -6,6 +6,7 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.FinanceSaleBillPayService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,7 @@ public class FinanceSaleBillPayableController {
      */
     @RequestMapping(value = "/generateSalePay",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions("finance:generate")
     public IResult generateSalePay(ShipmentOrder shipmentOrder, String id1){
         return new ResultBean<String>(saleBillPayService.generateSalePay(shipmentOrder, id1));
     }
