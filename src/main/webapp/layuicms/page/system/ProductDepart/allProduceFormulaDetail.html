@@ -17,17 +17,23 @@
 <!--搜索栏-->
 <blockquote class="layui-elem-quote news_search">
     <form class="layui-form">
-        <div class="layui-inline" style="display: none">
-            <label class="layui-form-label">原料编号</label>
-            <div class="layui-input-block">
-                <select id="materialId" name="materialId">
 
-                </select>
+        <div class="layui-inline">
+            <label class="layui-form-label">原料名</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="other2" placeholder="请输入原料名">
             </div>
         </div>
 
 
-        <div class="layui-inline" style="display: none">
+        <div class="layui-inline">
+            <label class="layui-form-label">产品名称</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="depotId" placeholder="请输入产品名">
+            </div>
+        </div>
+
+        <div class="layui-inline" >
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
         </div>
         <div class="layui-inline">

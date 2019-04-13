@@ -58,10 +58,10 @@ public interface LenProductService {
     /**
      * 修改
      *
-     * @param lenProduct
+     * @param
      * @return
      */
-    boolean update(LenProduct lenProduct);
+    boolean update(String id,String productName,String productType,String state,String canSold,String supportPrice,String productNumber,String productDescribe,String other1,String other3,String other4);
 
     /**
      * 删除

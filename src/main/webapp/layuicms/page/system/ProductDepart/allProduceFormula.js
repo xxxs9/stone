@@ -48,13 +48,13 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field:'other1',title:'配方编号',width:180}
-                  ,{field: 'productId', title: '产品编号',width:180}
-                  ,{field: 'other3', title: '产品名称'}
-                , {field: 'formulaType', title: '类型',width:80}
-                , {field: 'formulaNumber', title: '数量',width:80}
-                , {field: 'createUser', title: '创建者',width:120}
-                , {field: 'createTime', title: '创建时间',sort:true,width:180}
+                  {field:'other1',title:'配方编号',width:"15%"}
+                  ,{field: 'productId', title: '产品编号',width:"15%"}
+                  ,{field: 'other3', title: '产品名称',width:"15%"}
+                , {field: 'formulaType', title: '类型',width:"10%"}
+                , {field: 'formulaNumber', title: '数量',width:"8%"}
+                , {field: 'createUser', title: '创建者',width:"12%"}
+                , {field: 'createTime', title: '创建时间',sort:true,width:"15%"}
 
                 , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]

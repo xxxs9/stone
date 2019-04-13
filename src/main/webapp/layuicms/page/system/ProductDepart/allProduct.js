@@ -18,21 +18,9 @@ layui.config({
     /**
      * 页面初始化
      * */
+    var operator =window.sessionStorage.getItem('sysUser');
     function init() {
 
-        //初始化下拉框
-        $api.GetFirstClassMenus(null, function (res) {
-            var data = res.data;
-            if (data.length > 0) {
-                var html = '<option value="">--请选择--</option>';
-                for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].title + '</option>>';
-                }
-                $('#parentMenu').append($(html));
-                form.render();
-            }
-        });
-        return false;
     }
 
     init();
@@ -41,6 +29,8 @@ layui.config({
     /**
      * 定义表格
      * */
+
+
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
@@ -50,12 +40,13 @@ layui.config({
             , page: true //开启分页
             , cols: [[ //表头
                 {type: 'numbers', title: '序号', fixed: 'left'}
-                , {field: 'other1', title: '产品流水号', width:180,sort:true}
-                , {field: 'productName', title: '产品名称',width:180}
-                , {field: 'productNumber', title: '产品数量',width:100}
-                , {field: 'canSold', title: '订单来源'/*,templet:'#cd'*/}
-                , {field: 'productType', title: '产品类型', templet: '#tmp'}
-                , {field: 'productState', title: '产品状态', templet: '#tmpe'}
+                , {field: 'other1', title: '产品流水号', width:"15%",sort:true}
+                , {field: 'productName', title: '产品名称',width:"15%"}
+                , {field: 'productNumber', title: '数量',width:"8%"}
+                , {field: 'canSold', title: '订单来源'/*,templet:'#cd'*/,width:"12%"}
+                , {field: 'productType', title: '类型', templet: '#tmp',width:"11%"}
+                , {field: 'productState', title: '产品状态', templet: '#tmpe',width:"15%"}
+                , {field: 'other4', title: '时间', width:"15%"}
                 , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -63,6 +54,8 @@ layui.config({
 
             }
         });
+
+
 
         //为toolbar添加事件响应
         table.on('tool(menuFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -124,13 +117,16 @@ layui.config({
 
             } else if (layEvent === 'continueProduce') {
                 continueProduce(row.id)
+            }else if (layEvent==='JFRDetail') {
+                JFRDetail(row.id);
             }
 
         });
+
+
     }
 
     defineTable();
-
 
     //查询
     form.on("submit(queryMenu)", function (data) {
@@ -379,7 +375,7 @@ layui.config({
             });
             return false;
         });
-         var operator =window.sessionStorage.getItem('sysUser');
+
         function opera() {
             var req2 ={
                 operatorUser:operator,
@@ -468,5 +464,27 @@ layui.config({
 
     }
 
+    function JFRDetail (id) {
 
+        var index = layui.layer.open({//添加到生产计划单
+            title: "生产计划分配",
+            type: 2,
+            content: "editFormulaReach.html?id=" + id,
+            success: function (layer, index) {
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+
+            }
+        });
+
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function () {
+            layui.layer.full(index);
+        });
+        layui.layer.full(index);
+
+    }
 });

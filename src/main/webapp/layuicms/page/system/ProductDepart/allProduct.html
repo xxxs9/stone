@@ -35,12 +35,11 @@
 
             </div>
         </div>
-    &nbsp;&nbsp;&nbsp;
+
 
         <div class="layui-inline">
             <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
         </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal usersAdd_btn">新增加工单</a>
         </div>
@@ -73,7 +72,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     {{#  } else if(d.productState == '3'){ }}
     <a class="layui-btn layui-btn-sm " lay-event="JFR"><i class="layui-icon">&#xe667;</i>领料</a>
-    <a class="layui-btn layui-btn-sm " lay-event="JFR1"><i class="layui-icon">&#xe667;</i>详情</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="JFRDetail1"><i class="layui-icon">&#xe667;</i>详情</a>
     <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="JFR1"><i class="layui-icon">&#xe667;</i>删除</a>
     {{#  } else if(d.productState == '4'){ }}
     <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edi"><i class="layui-icon">&#xe642;</i>更改</a>

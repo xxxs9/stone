@@ -66,6 +66,8 @@ layui.config({
         });
 
     }
+    var other44;
+    var other33;
 
     function initMenuInfo() {
         var queryArgs = $tool.getQueryParam();//获取查询参数
@@ -78,25 +80,19 @@ layui.config({
 
         $api.getProductById(req, function (res) {
             var data = res.data;
-
-
+            console.log(data);
             $("[name='productName']").val(data.productName);
             $("[name='productNumber']").val(data.productNumber);
-            $("[name='other1']").val(data.other1);
 
+            $("[name='other1']").val(data.other1);
+            $("[name='productState']").val(data.productState);
             $("[name='supportPrice']").val(data.supportPrice);
             $('#canSold').val(data.canSold);
-
-
             select2(data.productType);
-            select(data.state);
-
-
-
+            select(data.productState);
             $("[name='productDescribe']").val(data.productDescribe);
-
-
-
+            other44 = data.other4;
+            other33 = data.other3;
 
             form.render();//重新绘制表单，让修改生效
         });
@@ -132,6 +128,9 @@ layui.config({
         var other1 = data.field.other1;
          oth1 = data.field.other1;
         var productDescribe = data.field.productDescribe;
+        var other4=other44;
+        var other3=other33;
+
 
 
         //请求
@@ -145,7 +144,10 @@ layui.config({
             supportPrice:supportPrice,
             productNumber:productNumber,
             productDescribe: productDescribe,
-            other1:other1
+            other1:other1,
+            other4:other4,
+            other3:other3,
+
 
 
         };

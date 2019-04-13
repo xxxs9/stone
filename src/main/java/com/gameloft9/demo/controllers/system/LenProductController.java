@@ -60,13 +60,23 @@ public class LenProductController {
 
     /**
      * 修改加工单
-     * @param lenProduct
+     * @param id
+     * @param productName
+     * @param productType
+     * @param productState
+     * @param canSold
+     * @param supportPrice
+     * @param productNumber
+     * @param productDescribe
+     * @param other1
+     * @param other3
+     * @param other4
      * @return
      */
     @RequestMapping("/upd")
     @ResponseBody
-    public IResult update(LenProduct lenProduct){
-        return  new ResultBean<Boolean>(service.update(lenProduct));
+    public IResult update(String id,String productName,String productType,String productState,String canSold,String supportPrice,String productNumber,String productDescribe,String other1,String other3,String other4){
+        return  new ResultBean<Boolean>(service.update(id, productName, productType, productState, canSold, supportPrice, productNumber, productDescribe, other1, other3, other4));
     }
 
     /**

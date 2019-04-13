@@ -55,13 +55,13 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      *
      * @param page
      * @param limit
-     * @param materialId
+     * @param other2
      * @param depotId
      * @return
      */
-    public List<LenProduceFormulaDetail> selectByPage(String page, String limit, String materialId, String depotId) {
+    public List<LenProduceFormulaDetail> selectByPage(String page, String limit, String other2, String depotId) {
         PageRange pageRange = new PageRange(page, limit);
-        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), materialId, depotId);
+        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), other2, depotId);
 
     }
 
@@ -120,11 +120,10 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
     /**
      * 查询条数
      *
-     * @param depotId 仓库ID
      * @return
      */
-    public int dataCount(String depotId) {
-        return mapper.dataCount(depotId);
+    public int dataCount() {
+        return mapper.dataCount();
     }
 
     /**

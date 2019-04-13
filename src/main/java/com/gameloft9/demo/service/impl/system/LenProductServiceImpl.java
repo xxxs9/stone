@@ -9,15 +9,14 @@ import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.OrderUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,6 +68,7 @@ public class LenProductServiceImpl implements LenProductService {
         product.setProductState(Constants.productState.UN_TIJIAO);
         product.setOther1(number);
         product.setOther3(lenProduct.getOther3());
+        product.setOther4(new Date());
         if (mapper.insert(product) > 0) {
         //添加记录
             lenOperatorService.insertSelective1(lenProduct.getCanSold(),Constants.operatorState.PRODUCT_ADD,number,null,null,null);
@@ -79,19 +79,33 @@ public class LenProductServiceImpl implements LenProductService {
     }
 
     @Override
-    public boolean update(LenProduct lenProduct) {
+    public boolean update(String id,String productName,String productType,String productState,String canSold,String supportPrice,String productNumber,String productDescribe,String other1,String other3,String other4) {
+        LenProduct product = new LenProduct();
+        product.setId(id);
+        product.setProductName(productName);
+        product.setProductNumber(productNumber);
+        product.setCanSold(canSold);
+        product.setSupportPrice(supportPrice);
+        product.setProductType(productType);
+        product.setProductDescribe(productDescribe);
+        product.setProductState(productState);
+        product.setOther1(other1);
+        product.setOther3(other3);
+        Date date4 = DateUtil.str2Date(other4);
+
+        product.setOther4(date4);
         String sysUser = (String) SecurityUtils.getSubject().getSession().getAttribute("sysUser");
-        if(lenProduct.getCanSold().equals(sysUser)){
-        lenProduct.setProductState(Constants.productState.UN_TIJIAO);
-        if (mapper.update(lenProduct) > 0) {
-            lenOperatorService.insertSelective1(lenProduct.getCanSold(),Constants.operatorState.PRODUCT_UPD, lenProduct.getOther1(),null,null,null);
+        if(canSold.equals(sysUser)||SecurityUtils.getSubject().hasRole(Constants.PRODUCE_ADMIN)){
+
+        if (mapper.update(product) > 0) {
+            lenOperatorService.insertSelective1(canSold,Constants.operatorState.PRODUCT_UPD, other1,null,null,null);
             return true;
         } else {
             throw new RuntimeException(">>>>>>>数据库操作失败<<<<<<<");
         }
 
         }else{
-            throw new RuntimeException(">>>>>>>用户信息不匹配，不能操作<<<<<<<");
+            throw new RuntimeException(">>>>>>>用户信息不匹配禁止操作<<<<<<<");
         }
     }
 

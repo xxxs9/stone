@@ -43,7 +43,7 @@
         <if test="operatorUser != null and operatorUser != ''">
             and t.OPERATOR_USER = #{operatorUser,jdbcType=VARCHAR}
         </if>
-        order by t.id desc
+        order by t.OPERATOR_TIME desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
