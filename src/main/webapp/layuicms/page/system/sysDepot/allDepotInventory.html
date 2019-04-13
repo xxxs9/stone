@@ -21,7 +21,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">货物编号</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="goodsId" placeholder="请输入货物编号">
+                <input type="text" class="layui-input" name="goodsId" id="goodsId" value="" placeholder="请输入货物编号">
             </div>
         </div>
         <div class="layui-inline">
@@ -56,6 +56,12 @@
 <script type="text/html" id="barDemo">
     <!--通过lay-event定义事件-->
     <a class="layui-btn layui-btn-sm" lay-event="details"><i class="layui-icon">&#xe642;</i>详情</a>
+</script>
+<script type="text/html" id="toolbarDemo">
+    <!--通过lay-event定义事件-->
+    <a class="layui-btn layui-btn-radius usersTemplate_btn" >下载模版</a>
+    <a class="layui-btn layui-btn-radius usersExport_btn" >导出</a>
+   <a class="layui-btn layui-btn-radius usersImport_btn" id="usersImport_btn" >导入</a>
 </script>
 
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->

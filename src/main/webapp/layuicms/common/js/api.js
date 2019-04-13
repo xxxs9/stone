@@ -625,7 +625,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //检验时增加价格
         insertSupportPrice:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/insertSupportPrice',req,successCallback,errorCallback);
-    },
+        },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
@@ -959,6 +959,12 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         UpdateMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);
+        },
+        GetSupplierNameByGoodsName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getSupplierNameByGoodsName.do',req,successCallback,errorCallback);
+        },
+        GetGoodsNameBySupplierName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getGoodsNameBySupplierName.do',req,successCallback,errorCallback);
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);

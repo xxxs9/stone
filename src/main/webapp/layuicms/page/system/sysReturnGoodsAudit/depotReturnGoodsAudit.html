@@ -35,28 +35,17 @@
         </div>
     </div>-->
 
-    <div class="layui-form-item parent-menu">
-        <label class="layui-form-label">发货单号</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly="readonly" lay-verify="required" name="goodsId" placeholder="请输入发货编号">
-        </div>
-    </div>
+    <input type="hidden"  name="goodsId"/>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">产品ID</label>
+        <label class="layui-form-label">产品名</label>
         <div class="layui-input-block">
-            <select id="productId" name="productId" lay-verify="required">
-            </select>
-
+            <input type="text" class="layui-input"  name="productId"  placeholder="产品名">
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">货品名称</label>
-        <div class="layui-input-block">
-            <input type="text"  class="layui-input" name="goodsName" placeholder="请输入货品名称">
-        </div>
-    </div>
+
+
 
 
 
@@ -89,35 +78,47 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">申请人</label>
+        <label class="layui-form-label">收货人电话</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="applyUser" placeholder="请输入申请人">
+            <input type="text"  class="layui-input" name="goodsName" placeholder="请输入收货人电话">
         </div>
     </div>
 
-     <div class="layui-form-item">
-         <label class="layui-form-label">申请时间</label>
+
+    <!-- <div class="layui-form-item">
+         <label class="layui-form-label">申请人</label>
          <div class="layui-input-block">
-             <input type="text" id="test1" class="layui-input" readonly="readonly" name="applyTime" placeholder="请输入申请时间">
+             <input type="text" class="layui-input" name="applyUser" placeholder="请输入申请人">
          </div>
-     </div>
+     </div>-->
+
+    <input type="hidden"  name="applyUser"/>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">退货状态</label>
+        <label class="layui-form-label">申请时间</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly="readonly" name="state"  placeholder="请输入退货状态">
+            <input type="text" id="test1" class="layui-input" readonly="readonly" name="applyTime" placeholder="请输入申请时间">
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">订单状态</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly="readonly" name="state"  placeholder="请输入订单状态">
+        </div>
+    </div>-->
+
+    <input type="hidden"  name="state"/>
+
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">审核人</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" name="auditUser"   placeholder="请输入审核人" >
         </div>
-    </div>
+    </div>-->
 
 
-
+    <input type="hidden"  name="auditUser"/>
 
 
     <div class="layui-form-item">
@@ -131,7 +132,7 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="editMarkerOrder">仓库审核成功</button>
+            <button class="layui-btn" lay-submit="" lay-filter="editMarkerOrder">仓库审核通过</button>
             <button class="layui-btn" lay-submit="" lay-filter="editMarkerOrder">仓库审核失败</button>
         </div>
     </div>

@@ -23,6 +23,11 @@ layui.config({
 
 
     function initGoodsId() {
+        $("#saleableNumber").html('');
+        $("#shipmentsNumber").html('');
+        $("#supplierName").empty();
+        $("#goodsName").empty();
+        $('#productName').empty();
         $api.GetGoodsName(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
@@ -45,12 +50,12 @@ layui.config({
                 form.render();
             }
         });
-        $api.getAllProduct(null,function (res) {
+        $api.selectGoodsProduct(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
+                    html += '<option value="' + data[i].bianhao + '">' + data[i].pname + '</option>>';
                 }
                 $('#productName').append($(html));
                 form.render();
@@ -65,17 +70,24 @@ layui.config({
         //console.log(data.elem); //得到radio原始DOM对象
         var value = data.value;
         if ('原料' === value) {
+            initGoodsId();
             $('.product-type').addClass('layui-hide');
             $('.product-type').removeClass('layui-anim-up');
             $('.material-type').removeClass('layui-hide');
             $('.material-type').addClass('layui-anim-up');
-
+            $('#productName').removeAttr('lay-verify');
+            $('#goodsName').attr('lay-verify','required');
+            $('#supplierName').attr('lay-verify','required');
         }
         if ('产品' === value) {
+            initGoodsId();
             $('.material-type').addClass('layui-hide');
             $('.material-type').removeClass('layui-anim-up');
             $('.product-type').removeClass('layui-hide');
             $('.product-type').addClass('layui-anim-up');
+            $('#goodsName').removeAttr('lay-verify');
+            $('#supplierName').removeAttr('lay-verify');
+            $('#productName').attr('lay-verify','required');
         }
     });
 
@@ -113,6 +125,18 @@ layui.config({
                     $("#saleableNumber").html("");
                     $("#shipmentsNumber").html("");
                     $("#supplierName").empty();
+                    $("#goodsName").empty();
+                    $api.GetGoodsName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="" selected="selected">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#goodsName').append($(html));
+                            form.render();
+                        }
+                    });
                     $api.GetSupplierName(null,function (res) {
                         var data = res.data;
                         if (data.length > 0) {
@@ -124,12 +148,72 @@ layui.config({
                             form.render();
                         }
                     });
-                    layer.msg("该供应商不提供此原料!");
+                    layer.msg("该供应关系不存在!请重新选择！");
+                }
+            });
+        }else if(goodsName !='' && supplierName ==''){
+            $("#saleableNumber").html('');
+            $("#shipmentsNumber").html('');
+            $("#supplierName").empty();
+            var req ={
+                goodsName:goodsName,
+            }
+            $api.GetSupplierNameByGoodsName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
+                }
+            });
+        }else if(goodsName =='' && supplierName !=''){
+            $("#saleableNumber").html('');
+            $("#shipmentsNumber").html('');
+            $("#goodsName").empty();
+            var req ={
+                supplierName:supplierName,
+            }
+            $api.GetGoodsNameBySupplierName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
                 }
             });
         }else{
             $("#saleableNumber").html('');
             $("#shipmentsNumber").html('');
+            $("#supplierName").empty();
+            $("#goodsName").empty();
+            $api.GetGoodsName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="" selected="selected">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#goodsName').append($(html));
+                    form.render();
+                }
+            });
+            $api.GetSupplierName(null,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    var html = '<option value="">--请选择--</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                    }
+                    $('#supplierName').append($(html));
+                    form.render();
+                }
+            });
         }
     });
 
@@ -193,6 +277,17 @@ layui.config({
 
         return false;
     })
+
+    /**
+     * 数据校验的方法
+     * */
+    form.verify({
+        positiveInteger: function(value, item){ //value：表单的值、item：表单的DOM对象
+            if(!new RegExp("^[1-9]\\d*$").test(value)){
+                return '货物数量必须是大于0的正整数';
+            }
+        }
+    });
 
 });
 

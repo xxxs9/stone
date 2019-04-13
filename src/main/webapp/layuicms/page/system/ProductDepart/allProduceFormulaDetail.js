@@ -49,12 +49,12 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                {field: 'other3', title: '配方号',width:180},
-                  {field: 'other1', title: '详情号',width:180}
+                {field: 'other3', title: 'BOM',width:180},
+                  {field: 'other1', title: '配方详情号',width:180}
                /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
-                , {field: 'materialId', title: '原材料编号',width:180}
-                ,{field: 'other2', title: '原料名称'}
-                , {field: 'materialNumber', title: '数量',width:180}
+                , {field: 'depotId', title: '产品名'}
+                ,{field: 'other2', title: '原料名'}
+                , {field: 'materialNumber', title: '数量',width:100}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo',width:200} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -103,9 +103,9 @@ layui.config({
     //添加
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "添加",
+            title: "添加配方详情",
             type: 2,
-            content: "addProductFormulaDetail.html",
+            content: "addProductFormulaDetail2.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -123,9 +123,9 @@ layui.config({
     });
     function addDetail() {
         var index = layui.layer.open({
-            title: "添加",
+            title: "添加配方详情",
             type: 2,
-            content: "addProductFormulaDetail.html",
+            content: "addProductFormulaDetail2.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

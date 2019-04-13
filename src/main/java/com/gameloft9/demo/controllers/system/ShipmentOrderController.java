@@ -85,7 +85,7 @@ public class ShipmentOrderController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("goods:add")
+
     public IResult add(ShipmentOrder shipmentOrder, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
         System.out.println(shipmentOrder);

@@ -41,6 +41,7 @@
         <if test="type !=null and type != ''">
             AND t.TYPE = #{type,jdbcType=VARCHAR}
         </if>
+        ORDER BY t.APPLY_TIME DESC,t.ID
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
     <select id="countGetAll" resultType="Integer" parameterType="map">
