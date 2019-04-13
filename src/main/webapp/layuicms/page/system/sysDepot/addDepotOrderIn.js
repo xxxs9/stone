@@ -23,6 +23,11 @@ layui.config({
 
 
     function initGoodsId() {
+        $("#supplierName").empty();
+        $("#goodsName").empty();
+        $('#productName').empty();
+        $("#materialId").val(null);
+        $("#productId").val(null);
         $api.GetGoodsName(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
@@ -65,17 +70,24 @@ layui.config({
         //console.log(data.elem); //得到radio原始DOM对象
         var value = data.value;
         if ('原料' === value) {
+            initGoodsId();
             $('.product-type').addClass('layui-hide');
             $('.product-type').removeClass('layui-anim-up');
             $('.material-type').removeClass('layui-hide');
             $('.material-type').addClass('layui-anim-up');
-
+            $('#productName').removeAttr('lay-verify');
+            $('#goodsName').attr('lay-verify','required');
+            $('#supplierName').attr('lay-verify','required');
         }
         if ('产品' === value) {
+            initGoodsId();
             $('.material-type').addClass('layui-hide');
             $('.material-type').removeClass('layui-anim-up');
             $('.product-type').removeClass('layui-hide');
             $('.product-type').addClass('layui-anim-up');
+            $('#goodsName').removeAttr('lay-verify');
+            $('#supplierName').removeAttr('lay-verify');
+            $('#productName').attr('lay-verify','required');
         }
     });
 
@@ -237,6 +249,17 @@ layui.config({
 
         return false;
     })
+
+    /**
+    * 数据校验的方法
+    * */
+    form.verify({
+        positiveInteger: function(value, item){ //value：表单的值、item：表单的DOM对象
+            if(!new RegExp("^[1-9]\\d*$").test(value)){
+                return '货物数量必须是大于0的正整数';
+            }
+        }
+    });
 
 });
 

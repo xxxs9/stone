@@ -339,12 +339,17 @@ public class Constants {
         public static final String PRODUCT = "产品";
 
         /**
-         * 仓库单分类
+         * 仓库单分类及仓库单类型
          */
         public static class Depot {
             public static final String ORDER_OUT = "出库单";
             public static final String ORDER_IN = "入库单";
-
+            public static final String PURCHASE_IN = "采购入库";
+            public static final String PRODUCE_IN = "生产入库";
+            public static final String MARKET_IN = "销售退货";
+            public static final String PURCHASE_OUT = "采购退货";
+            public static final String PRODUCE_OUT = "生产领料";
+            public static final String MARKET_OUT = "销售出库";
         }
 
         /**

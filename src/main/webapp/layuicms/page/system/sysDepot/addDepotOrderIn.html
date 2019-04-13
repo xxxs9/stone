@@ -50,7 +50,7 @@
     <div class="layui-form-item  product-type">
         <label class="layui-form-label">产品名称</label>
         <div class="layui-input-block">
-            <select id="productName" name="productName" lay-filter="productNameFilter"></select>
+            <select id="productName" name="productName" lay-filter="productNameFilter" lay-verify="required"></select>
         </div>
     </div>
     <input type="hidden" id="productId" name="productId">
@@ -63,7 +63,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">货品数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" id="goodsNumber" name="goodsNumber" lay-verify="number" placeholder="请输入货品数量">
+            <input type="text" class="layui-input" id="goodsNumber" name="goodsNumber" lay-verify="positiveInteger" placeholder="请输入货品数量">
         </div>
     </div>
     <div class="layui-form-item">
