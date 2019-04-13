@@ -42,22 +42,32 @@
         </div>
     </div>
 
-    <div class="layui-form-item" style="width: 60%">
-        <label class="layui-form-label">原料编号</label>
-        <div class="layui-input-block ">
-            <select name="materialId" lay-verify="required" id="materialId"  lay-filter="aaaa" onchange="func(this)">
-
-            </select>
-        </div>
-    </div>
-
-
-    <div class="layui-form-item" style="width: 60%">
+    <div class="layui-form-item " style="width: 60%">
         <label class="layui-form-label">原料名称</label>
-        <div class="layui-input-block ">
-            <input type="text" class="layui-input" name="materialName"  id="materialName" readonly>
+        <div class="layui-input-block">
+            <select id="goodsName" name="goodsName" lay-filter="materialFilter"></select>
         </div>
     </div>
+    <div class="layui-form-item " style="width: 60%">
+        <label class="layui-form-label">供应商名称</label>
+        <div class="layui-input-block">
+            <select id="supplierName" name="supplierName" lay-filter="materialFilter"></select>
+        </div>
+    </div>
+    <input type="hidden" id="materialId" name="materialId">
+   <!-- <div class="layui-form-item  product-type">
+        <label class="layui-form-label">产品名称</label>
+        <div class="layui-input-block">
+            <select id="productName" name="productName" lay-filter="productNameFilter"></select>
+        </div>
+    </div>-->
+
+   <!-- <div class="layui-form-item">
+        <label class="layui-form-label">货品数量</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="goodsNumber" name="goodsNumber" lay-verify="number" placeholder="请输入货品数量">
+        </div>
+    </div>-->
 
     <div class="layui-form-item" style="width: 60%">
         <label class="layui-form-label">原料数量</label>
@@ -91,7 +101,7 @@
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>
-<script type="text/javascript" src="addProductFormulaDetail.js"></script>
+<script type="text/javascript" src="addProductFormulaDetail2.js"></script>
 </body>
     </div>
 </html>

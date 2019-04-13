@@ -361,6 +361,7 @@ layui.config({
 
 
     function audi(id,canSold,other1) {
+
         layer.confirm('请确认操作', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送删除指令
@@ -371,16 +372,17 @@ layui.config({
 
             $api.changProductState(req, function (data) {
                 opera();
-                layer.msg("操作成功", {time: 1000}, function () {
+                layer.msg("操作成功", {time: 1500}, function () {
                     //重新加载表格
                     tableIns.reload();
                 });
             });
             return false;
         });
+         var operator =window.sessionStorage.getItem('sysUser');
         function opera() {
             var req2 ={
-                operatorUser:canSold,
+                operatorUser:operator,
                 operatorRemark:other1
             }
             $api.prodTJOperator(req2,function (res) {
