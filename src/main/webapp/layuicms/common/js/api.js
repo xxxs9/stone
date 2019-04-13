@@ -625,7 +625,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //检验时增加价格
         insertSupportPrice:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/insertSupportPrice',req,successCallback,errorCallback);
-    },
+        },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);

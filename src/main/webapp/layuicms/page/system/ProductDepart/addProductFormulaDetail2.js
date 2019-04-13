@@ -26,20 +26,9 @@ layui.config({
         });
     });
 //监听事件
-    var data1;
-    form.on('select(aaaa)', function (data) {
-        var value =$('#materialId option:selected').html();
-        var str = value.split("---");
-        console.log(value);
-        var req={
-            id:str[1]
-        }
-        $api.getProduceMaterialById(req,function (res) {
-             data1= res.data;
-            console.log(data1)
-        })
-        $('#materialName').val(data1.goodsName);
-    });
+        var materialId22;
+        var goodsName11;
+
         /*$api.GetMaterialGoods(req,function (res) {
             var data=res.data;
             console.log(data)
@@ -53,20 +42,131 @@ layui.config({
 
             $('#productName').val(data.productName);
         });*/
+    function initGoodsId() {
+        $api.GetGoodsName(null,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="" selected="selected">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                }
+                $('#goodsName').append($(html));
+                form.render();
+            }
+        });
+        $api.GetSupplierName(null,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                }
+                $('#supplierName').append($(html));
+                form.render();
+            }
+        });
+        $api.getAllProduct(null,function (res) {
+            var data = res.data;
+            if (data.length > 0) {
+                var html = '<option value="">--请选择--</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].id + '">' + data[i].productName + '</option>>';
+                }
+                $('#productName').append($(html));
+                form.render();
+            }
+        });
+    }
+
+    /**
+     * 监听radio选择
+     * */
+    form.on('radio(goodsTypeFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
+        var value = data.value;
+        if ('原料' === value) {
+            $('.product-type').addClass('layui-hide');
+            $('.product-type').removeClass('layui-anim-up');
+            $('.material-type').removeClass('layui-hide');
+            $('.material-type').addClass('layui-anim-up');
+
+        }
+        if ('产品' === value) {
+            $('.material-type').addClass('layui-hide');
+            $('.material-type').removeClass('layui-anim-up');
+            $('.product-type').removeClass('layui-hide');
+            $('.product-type').addClass('layui-anim-up');
+        }
+    });
 
 
+
+
+    /**
+     * 监听select选择
+     * */
+    form.on('select(materialFilter)', function(data){
+        console.log(data.elem); //得到select原始DOM对象
+        /*console.log(data.value); //得到被选中的值
+          console.log(data.othis); //得到美化后的DOM对象*/
+        var goodsName = $("#goodsName").val()
+        var supplierName = $("#supplierName").val()
+        if( goodsName !='' && supplierName!=''){
+            var req = {
+                goodsName:goodsName,
+                supplierName:supplierName,
+            }
+            $api.GetMaterialGoodsIdByName(req,function (res) {
+                var data = res.data;
+                if (data.length > 0) {
+                    $("#materialId").val(data)
+                        materialId22=data[0];
+
+                }else{
+                    $("#materialId").val('')
+                    $("#supplierName").empty();
+                    $api.GetSupplierName(null,function (res) {
+                        var data = res.data;
+                        if (data.length > 0) {
+                            var html = '<option value="">--请选择--</option>';
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
+                            }
+                            $('#supplierName').append($(html));
+                            form.render();
+                        }
+                    });
+                    layer.msg("该供应商不提供此原料!");
+                }
+            });
+        }
+    });
+
+    /**
+     * 监听select选择
+     * */
+    form.on('select(productNameFilter)', function (data) {
+        //console.log(data.elem); //得到radio原始DOM对象
+        var productName = data.value;
+        if(productName != null){
+            $("#productId").val(productName)
+        }
+    });
 
     /**
      * 初始化页面
      * */
     var  other33;
+    var depotId11;
     form.on("select(abb)",function (res) {
         var value= $('#produceFormulaId option:selected').html();
         console.log(value)
         var str=value.split("---");
         other33 = str[0];
+        depotId11= str[1];
     })
     function init() {
+        initGoodsId()
         $api.getAllFormula(null,function (res) {
             var data = res.data;
             if(data.length > 0){
@@ -80,7 +180,7 @@ layui.config({
         });
 
 
-        //获取materialGoods
+        /*//获取materialGoods
         $api.produceMaterial(null,function (res) {
             var data2= res.data;
             console.log(data2)
@@ -96,7 +196,7 @@ layui.config({
 
         });
 
-
+*/
 
     }
     init();
@@ -166,10 +266,11 @@ layui.config({
     form.on("submit(add)", function (data) {
 
         var produceFormulaId = data.field.produceFormulaId;
-        var materialId = data.field.materialId;
+        var materialId = materialId22;
         var materialNumber = data.field.materialNumber;
-        var depotId = data.field.depotId;
-        var other2= data.field.materialName;
+        var depotId = depotId11;
+        var other2= data.field.goodsName;
+
         //配方编号
         var other3 = other33
 
