@@ -175,7 +175,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         purchaseOrder.setFinanceAuditUser(auditUser);
         purchaseOrder.setFinanceAuditTime(new Date());
         purchaseOrder.setFinanceAuditDescribe(auditDescribe);
-        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_CHECK);
 
         financePurchaseBillsPayable.setAuditUser(auditUser);
         financePurchaseBillsPayable.setActualBalance(actualPrice1.toString());
