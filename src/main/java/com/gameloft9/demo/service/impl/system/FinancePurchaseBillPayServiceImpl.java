@@ -142,9 +142,9 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
      *
      * @return a
      */
-    public Boolean purchaseOrderPayPass(String attitude ,String id, String auditType,String actualPrice,String auditDescribe) {
+    public Boolean purchaseOrderPayPass(String attitude ,String id, String auditType,String actualPrice,String auditDescribe,String totalPrice) {
         if(actualPrice == null || "".equals(actualPrice)){
-            throw new BizException(AbstractResult.BIZ_FAIL,"实际价格为空");
+            actualPrice = totalPrice;
         }
         if(auditDescribe == null || "".equals(auditDescribe)){
             throw new BizException(AbstractResult.BIZ_FAIL,"审核内容为空");
@@ -175,7 +175,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         purchaseOrder.setFinanceAuditUser(auditUser);
         purchaseOrder.setFinanceAuditTime(new Date());
         purchaseOrder.setFinanceAuditDescribe(auditDescribe);
-        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_CHECK);
 
         financePurchaseBillsPayable.setAuditUser(auditUser);
         financePurchaseBillsPayable.setActualBalance(actualPrice1.toString());

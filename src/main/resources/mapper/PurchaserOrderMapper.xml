@@ -671,6 +671,7 @@
             <if test="depotState != null and depotState != ''">
                 DEPOT_STATE=#{depotState,jdbcType=VARCHAR}
             </if>
+
         </set>
         <where>
             <if test="id != null and id != '' ">

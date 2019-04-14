@@ -65,7 +65,7 @@ public interface FinancePurchaseReceivableService {
      * @return
      *  boolean
      */
-    Boolean purchaseOrderReceivePass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+    Boolean purchaseOrderReceivePass(String attitude,String id,String auditType,String actualPrice,String auditDescribe,String totalPrice);
 
     /**
      * 获取采购收入图表数据

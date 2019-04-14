@@ -53,7 +53,7 @@ public interface FinanceSaleBillPayService {
      * @return
      *  boolean
      */
-    Boolean saleOrderPayPass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+    Boolean saleOrderPayPass(String attitude,String id,String auditType,String actualPrice,String auditDescribe,String totalPrice);
 
     /**
      * 根据id获取

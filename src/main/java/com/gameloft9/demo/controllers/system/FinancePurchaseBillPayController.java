@@ -111,8 +111,8 @@ public class FinancePurchaseBillPayController {
 
     @RequestMapping(value = "/purchaseOrderPayPass", method = RequestMethod.POST)
     @ResponseBody
-    public IResult purchaseOrderPayPass(String attitude,String purchaseOrderId,String auditType,String actualPrice,String auditDescribe){
-        return new ResultBean<Boolean>(purchaseBillPayService.purchaseOrderPayPass(attitude,purchaseOrderId,auditType,actualPrice,auditDescribe));
+    public IResult purchaseOrderPayPass(String attitude,String purchaseOrderId,String auditType,String actualPrice,String auditDescribe,String totalPrice){
+        return new ResultBean<Boolean>(purchaseBillPayService.purchaseOrderPayPass(attitude,purchaseOrderId,auditType,actualPrice,auditDescribe,totalPrice));
     }
 
     @RequestMapping(value = "/getPurchasePayChart",method = RequestMethod.POST)
