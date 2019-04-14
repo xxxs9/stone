@@ -126,4 +126,13 @@ public interface PurchaseReturnMapper {
      */
     PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);
 
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByOrderNumber(@Param("orderNumber") String orderNumber);
+
 }

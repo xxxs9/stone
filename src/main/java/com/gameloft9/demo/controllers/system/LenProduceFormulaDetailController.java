@@ -36,8 +36,8 @@ public class LenProduceFormulaDetailController {
 
     @RequestMapping(value = "/pageList",method = RequestMethod.POST)
     @ResponseBody
-    public IResult selectAllByPage(String page, String limit, String materialId, String depotId){
-        return new PageResultBean<List>(service.selectByPage(page,limit,materialId,depotId),service.dataCount(depotId));
+    public IResult selectAllByPage(String page, String limit, String other2, String depotId){
+        return new PageResultBean<List>(service.selectByPage(page,limit,other2,depotId),service.dataCount());
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
@@ -49,7 +49,11 @@ public class LenProduceFormulaDetailController {
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
     @ResponseBody
     public IResult update(LenProduceFormulaDetail len){
-        return  new ResultBean<Boolean>(service.update(len));
+        if (service.update(len)){
+            return  new ResultBean<Boolean>();
+        }
+        return new ResultBean<String>("4011",">>>>请点击确认配方编号<<<<");
+
     }
 
     @RequestMapping("/del")

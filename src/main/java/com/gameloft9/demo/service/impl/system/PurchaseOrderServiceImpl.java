@@ -100,6 +100,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
         }
         dao.updateByPrimaryKey(purchaseOrder);
+
         return true;
     }
 
@@ -144,14 +145,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
             //插入订单
             SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
-            financeApplyOrder.setId(UUIDUtil.getUUID());
-            financeApplyOrder.setApplyId(purchaseOrder.getId());
+            //financeApplyOrder.setId(UUIDUtil.getUUID());
+            financeApplyOrder.setId("CWO" + OrderUtil.createOrderNumber());
+            //financeApplyOrder.setApplyId(purchaseOrder.getId());
+            financeApplyOrder.setApplyId(purchaseOrder.getOrderNumber());
             BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
             decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
             BigDecimal decimal2 = new BigDecimal(purchaseOrder.getPrice());
             decimal2.setScale(0);
             BigDecimal applyMoney = decimal1.multiply(decimal2);
-            financeApplyOrder.setApplyMoney(applyMoney.toString());
+            financeApplyOrder.setApplyMoney(applyMoney.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
             financeApplyOrder.setApplyType(1);
             financeApplyOrder.setApplyState(1);
             financeApplyOrder.setApplyTime(new Date());
@@ -368,5 +371,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**报表 获取所有goodsName*/
     public List<String> selectGoodsNameAll(){
         return dao.selectGoodsNameAll();
+    }
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    public PurchaseOrder findByOrderNumber(String orderNumber) {
+        return dao.findByOrderNumber(orderNumber);
     }
 }

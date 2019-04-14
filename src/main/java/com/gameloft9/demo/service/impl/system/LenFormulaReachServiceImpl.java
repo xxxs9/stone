@@ -69,30 +69,10 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
 
         List<LenFormulaReach> list = mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), productId, reachUser);
 
-        /*for (LenFormulaReach reach : list) {
-
-
-            *//**
+            /**
              * 如果仓库的状态为 1
              * 则state =1
-             *//*
-            if (Constants.DEPOT_PASS.equals(reach.getDepotAudi())) {
-                String id = reach.getId();
-                mapper.changeState(Constants.KSSC, id);
-                *//**
-                 * 如果仓库审核是未通过
-                 * 则state =0 (仓库未审核则状态未提交)
-                 *//*
-            }*//*else if (Constants.DEPOT_UN_AUDI.equals(reach.getDepotAudi())){
-                String id = reach.getId();
-                mapper.changeState(Constants.UN_TIJIAO, id);
-
-            }*//* else {
-                return list;
-            }
-        }
-        List<LenFormulaReach> list2 = mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), productId, reachUser);
-        return list2;*/
+             */
         return list;
     }
 
@@ -121,9 +101,13 @@ public class LenFormulaReachServiceImpl implements LenFormulaReachService {
             String other11 = product1.getOther1();
             String canSold1 = product1.getCanSold();
             if (mapper.insert(reach) > 0) {
-                //添加到仓库模块
+                //添加操作记录
                 lenOperatorService.insertSelective1(canSold1,Constants.operatorState.REACH_ADD,other11,null,null,null);
+                //添加到仓库模块
+                // todo(仓库领料)
+                //1.领料单编号 2.原料id 3.货物数量 4.领料人
                 depotOrderService.addProduceDepotOrderOut(uuid,materialId,goodsNumber,reachUser);
+
                 return true;
             } else {
                 return false;

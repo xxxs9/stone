@@ -66,22 +66,22 @@ layui.config({
             , cols: [[ //表头
                  /* {type:'numbers',title:'序号',fixed: 'left'}*/
                  {field: 'id', title: 'ID' ,fixed:'left'}
-                , {field: 'orderId', title: '订单编号' }
-                , {field: 'orderTime', title: '订单日期' }
-                , {field: 'productId', title: '产品名' }
-                , {field: 'customer', title: '购买客户'}
-                , {field: 'deliverNumber', title: '销售数量' }
+                , {field: 'orderId', title: '订单编号',width:140 }
+                , {field: 'orderTime', title: '订单日期' ,width:140}
+                , {field: 'productId', title: '产品名' ,width:140}
+                , {field: 'customer', title: '购买客户',width:140}
+                , {field: 'deliverNumber', title: '销售数量' ,width:140}
 
-                , {field: 'plannedNumber', title: '产品单价' }
-                , {field: 'acceptedAmount', title: '总金额' }
+                , {field: 'plannedNumber', title: '产品单价',width:140 }
+                , {field: 'acceptedAmount', title: '总金额' ,width:140}
 
-                , {field: 'applyUser', title: '申请人' }
-                , {field: 'state', title: '订单状态' }
-                , {field: 'orderAuditUser', title: '订单审核人' }
-                , {field: 'orderAuditDepot', title: '仓库审核人' }
-                , {field: 'remarks', title: '备注' }
-                , {field: 'depotRemarks', title: '仓库审核人备注' }
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'applyUser', title: '申请人',width:140 }
+                , {field: 'state', title: '订单状态',width:140 }
+                , {field: 'orderAuditUser', title: '订单审核人',width:140}
+                , {field: 'orderAuditDepot', title: '仓库审核人' ,width:140}
+                , {field: 'remarks', title: '备注' ,width:140}
+                , {field: 'depotRemarks', title: '仓库审核人备注' ,width:140}
+                , {fixed: 'right', title: '操作',  width: 280,align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -116,7 +116,7 @@ layui.config({
             }else if (layEvent === 'submit') {//提交仓库审核
                 submit(row.id);
             }else if (layEvent === 'fina') {//提交财务审核
-                fina(row.id,row.acceptedAmount);
+                fina(row.id,row.acceptedAmount,row.orderId);
             }
         });
     }
@@ -251,13 +251,15 @@ layui.config({
 
     //提交财务
 
-    function fina(id,acceptedAmount){
+    function fina(id,acceptedAmount,orderId){
         layer.confirm('确认提交吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送提交指令
             var req = {
                 id: id,
-                acceptedAmount:acceptedAmount
+                acceptedAmount:acceptedAmount,
+                orderId:orderId
+
             };
 
             $api.updateFina(req,function (data) {

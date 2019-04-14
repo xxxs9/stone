@@ -33,24 +33,26 @@ layui.config({
 
         $("#goodsNumber").html(goodsNumber);
 
-        var req1 = {
+        var req = {
             id:goodsId
         };
+        var req1 = {
+            bianhao:goodsId
+        };
 
-        $api.GetMaterialGoods(req1,function (res) {
+        $api.GetMaterialGoods(req,function (res) {
             var data = res.data;
             if(data != null){
                 $("#goodsName").html(data.goodsName);
             }
         });
 
-        $api.getProductById(req1,function (res) {
+        $api.getGoodsProductByBH(req1,function (res) {
             var data = res.data;
             if(data != null){
-                $("#goodsName").html(data.productName);
+                $("#goodsName").html(data.pname);
             }
         });
-
 
     }
 

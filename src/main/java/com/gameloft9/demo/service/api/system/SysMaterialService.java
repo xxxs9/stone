@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.SysMaterial;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

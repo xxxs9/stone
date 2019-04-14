@@ -267,21 +267,7 @@
             ID=#{id}
   </update>
 
-    <!--啊发包 根据id和state更新pruchaseOrder   void updateByIdAndState(PurchaseOrder purchaseOrder);
-    <resultMap id="ReturnGoodsOrderResultMap" type="com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder">
-        <id column="ID" property="id" jdbcType="VARCHAR"/>
-        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
-        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
-        <result column="CUSTOMER" property="customer" jdbcType="VARCHAR"/>
-        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
-        <result column="GOODS_AMOUNT" property="goodsAmount" jdbcType="VARCHAR"/>
-        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
-        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
-        <result column="STATE" property="state" jdbcType="VARCHAR"/>
-        <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR"/>
-        <result column="AUDIT_TYPE" property="auditType" jdbcType="VARCHAR"/>
-        <result column="REMARKS" property="remarks" jdbcType="VARCHAR"/>
-    </resultMap>-->
+
     <update id="updateByIdAndState" parameterType="com.gameloft9.demo.dataaccess.model.system.ShipmentOrder">
         update w_return_goods_order
         <set>

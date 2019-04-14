@@ -72,7 +72,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
 
         SysFinanceSaleReceivable saleReceivable = new SysFinanceSaleReceivable();
 
-        saleReceivable.setId(UUIDUtil.getUUID());
+        saleReceivable.setId("CWI" + OrderUtil.createOrderNumber());
         saleReceivable.setSaleId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleReceivable.setAuditType(auditType);
@@ -80,9 +80,9 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         //BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
         String goodsNumber = shipmentOrder.getGoodsNumber();
         totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
-        saleReceivable.setUnitPrice(totalPrice.divide(new BigDecimal(goodsNumber))+"");
+        saleReceivable.setUnitPrice(totalPrice.divide(new BigDecimal(goodsNumber)).toString());
         saleReceivable.setProductNumber(shipmentOrder.getGoodsNumber());
-        saleReceivable.setTotalPrice(totalPrice+"");
+        saleReceivable.setTotalPrice(totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         saleReceivable.setDocumentMaker(documentMaker);
         saleReceivable.setDocumentMakeTime(new Date());
@@ -106,7 +106,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        MarkerOrderTest markerOrderTest = markerOrderMapper.getMaker(id);
+        MarkerOrderTest markerOrderTest = markerOrderMapper.findMarkerOrderByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable

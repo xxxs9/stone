@@ -165,4 +165,9 @@ public class ShipmentOrderServiceImpl implements ShipmentOrderService {
         shipmentOrderMapper.sub(shipmentOrder);
         return true;
     }
+
+    @Override
+    public ShipmentOrder findShipmentOrderByOrderNumber(String goodsId) {
+        return shipmentOrderMapper.findShipmentOrderByOrderNumber(goodsId);
+    }
 }

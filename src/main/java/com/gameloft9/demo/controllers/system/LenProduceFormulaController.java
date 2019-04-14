@@ -40,14 +40,19 @@ public class LenProduceFormulaController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public IResult add(String productId,String formulaType ,String formulaNumber,String createUser,String createTime){
-        return new ResultBean<Boolean>(service.insert(productId, formulaType, formulaNumber, createUser, createTime));
+    public IResult add(String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other3){
+        return new ResultBean<Boolean>(service.insert(productId, formulaType, formulaNumber, createUser, createTime,other3));
     }
 
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
     @ResponseBody
-    public IResult update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime){
-        return  new ResultBean<Boolean>(service.update(productId, formulaType, formulaNumber, createUser, createTime));
+    public IResult update(String id,String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other1,String other3){
+        if (productId!=null){
+            return  new ResultBean<Boolean>(service.update(id,productId, formulaType, formulaNumber, createUser, createTime, other1, other3));
+
+        }else {
+            return new ResultBean<String>("4011",">>>>请点击确认要更改的产品编号<<<<");
+        }
     }
 
     @RequestMapping("/del")

@@ -100,4 +100,22 @@ public interface SysMaterialGoodsMapper {
      * @param supplierName 供应商名称
      */
     List<String> getIdByGoodsNameAndSupplierName(@Param("goodsName") String goodsName,@Param("supplierName")String supplierName);
+
+    /**
+     * 根据供应商名称获取该供应商提供原料商品名称
+     * @param supplierName 供应商名称
+     */
+    List<String> getGoodsNameBySupplierName(@Param("supplierName") String supplierName);
+
+    /**
+     * 根据原料商品名称获取该原料商品的供应商名称
+     * @param goodsName 原料商品名称
+     */
+    List<String> getSupplierNameByGoodsName(@Param("goodsName") String goodsName);
+
+    /**
+     * 根据原料商品id获取该原料商品的供应商名称
+     * @param id 原料商品id
+     */
+    String getSupplierNameByGoodsId(@Param("id") String id);
 }

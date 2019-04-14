@@ -50,11 +50,11 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                    {type:'numbers',title:'序号',fixed: 'left'},
-                   {field: 'operatorNo', title: '操作编号'}
-                  ,{field: 'operatorUser', title: '操作人'}
-                  ,{field: 'operatorType', title: '操作类型'}
-                  ,{field: 'operatorTime', title: '检验时间'}
-                  ,{field: 'operatorRemark', title: '操作记录'}
+                   {field: 'operatorNo', title: '操作编号',width:"20%"}
+                  ,{field: 'operatorUser', title: '操作人',width:"20%"}
+                  ,{field: 'operatorType', title: '操作类型',width:"20%"}
+                  ,{field: 'operatorTime', title: '检验时间',width:"20%"}
+                  ,{field: 'operatorRemark', title: '操作记录',width:"20%"}
                   /*,{field: 'state', title: '验收状态',templet:'#tmpe'}*/
                  /* ,{fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barDemo'}*/ //这里的toolbar值是模板元素的选择器
             ]]

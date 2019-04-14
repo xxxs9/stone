@@ -55,13 +55,13 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      *
      * @param page
      * @param limit
-     * @param materialId
+     * @param other2
      * @param depotId
      * @return
      */
-    public List<LenProduceFormulaDetail> selectByPage(String page, String limit, String materialId, String depotId) {
+    public List<LenProduceFormulaDetail> selectByPage(String page, String limit, String other2, String depotId) {
         PageRange pageRange = new PageRange(page, limit);
-        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), materialId, depotId);
+        return mapper.selectByPage(pageRange.getStart(), pageRange.getEnd(), other2, depotId);
 
     }
 
@@ -81,6 +81,7 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
         len.setProduceFormulaId(lenProduceFormulaDetail.getProduceFormulaId());
         len.setOther1(OrderUtil.lenOrderNumber("DE"));
         len.setOther2(lenProduceFormulaDetail.getOther2());
+        len.setOther3(lenProduceFormulaDetail.getOther3());
         if (mapper.insert(len) > 0) {
             return true;
         } else {
@@ -95,11 +96,26 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @return
      */
     public boolean update(LenProduceFormulaDetail len) {
-        if (mapper.update(len) > 0) {
+        LenProduceFormulaDetail lenProduceFormulaDetail = new LenProduceFormulaDetail();
+        if (len.getDepotId()!=null){
+        lenProduceFormulaDetail.setId(len.getId());
+        lenProduceFormulaDetail.setOther1(len.getOther1());
+        lenProduceFormulaDetail.setOther2(len.getOther2());
+        lenProduceFormulaDetail.setOther3(len.getOther3());
+        lenProduceFormulaDetail.setDepotId(len.getDepotId());
+        lenProduceFormulaDetail.setMaterialId(len.getMaterialId());
+        lenProduceFormulaDetail.setMaterialNumber(len.getMaterialNumber());
+        lenProduceFormulaDetail.setProduceFormulaId(len.getProduceFormulaId());
+
+        if (mapper.update(lenProduceFormulaDetail) > 0) {
             return true;
         } else {
             return false;
         }
+        }else {
+            return false;
+        }
+
     }
 
     /**
@@ -119,11 +135,10 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
     /**
      * 查询条数
      *
-     * @param depotId 仓库ID
      * @return
      */
-    public int dataCount(String depotId) {
-        return mapper.dataCount(depotId);
+    public int dataCount() {
+        return mapper.dataCount();
     }
 
     /**

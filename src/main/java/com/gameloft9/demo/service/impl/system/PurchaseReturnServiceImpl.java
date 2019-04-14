@@ -158,6 +158,15 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return dao.selectByOrderNumber(orderNumber);
     }
 
+    /**
+     * 啊发包
+     * @param orderNumber orderNumber
+     * @return
+     */
+    @Override
+    public PurchaseReturn findByOrderNumber(String orderNumber) {
+        return dao.findByOrderNumber(orderNumber);
+    }
 
 
 }

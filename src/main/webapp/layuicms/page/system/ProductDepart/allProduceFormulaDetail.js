@@ -43,18 +43,19 @@ layui.config({
     function defineTable() {
         tableIns = table.render({
             elem: '#menu-data'
-            , height: 415
+
             , url: $tool.getContext() + 'detail/pageList' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'other1', title: '配方详情号'}
+                {field: 'other3', title: 'BOM',width:"20%"},
+                  {field: 'other1', title: '配方详情号',width:"20%"}
                /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
-                , {field: 'materialId', title: '原材料编号'}
-                ,{field: 'other2', title: '原料名称'}
-                , {field: 'materialNumber', title: '原材料数量'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                , {field: 'depotId', title: '产品名',width:"15%"}
+                ,{field: 'other2', title: '原料名',width:"15%"}
+                , {field: 'materialNumber', title: '数量',width:"10%"}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo',width:200} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
@@ -83,14 +84,14 @@ layui.config({
 
     //查询
     form.on("submit(queryMenu)", function (data) {
-        var materialId = data.field.materialId;
+        var other2 = data.field.other2;
         var depotId = data.field.depotId;
 
 
         //表格重新加载
         tableIns.reload({
             where:{
-                materialId:materialId,
+                other2:other2,
                 depotId:depotId
 
             }
@@ -102,9 +103,9 @@ layui.config({
     //添加
     $(".usersAdd_btn").click(function () {
         var index = layui.layer.open({
-            title: "添加",
+            title: "添加配方详情",
             type: 2,
-            content: "addProductFormulaDetail.html",
+            content: "addProductFormulaDetail2.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -122,9 +123,9 @@ layui.config({
     });
     function addDetail() {
         var index = layui.layer.open({
-            title: "添加",
+            title: "添加配方详情",
             type: 2,
-            content: "addProductFormulaDetail.html",
+            content: "addProductFormulaDetail2.html",
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
@@ -165,7 +166,7 @@ layui.config({
         var index = layui.layer.open({
             title: "修改内容",
             type: 2,
-            content: "editProduceFormulaDetail.html?id="+id,
+            content: "editProductFormulaDetail2.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

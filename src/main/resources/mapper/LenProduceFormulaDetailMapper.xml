@@ -4,14 +4,14 @@
 <mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper">
     <!--结果集映射-->
     <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
-            <id column="ID" property="id"/>
-            <result column="PRODUCE_FORMULA_ID" property="produceFormulaId"/>
-            <result column="MATERIAL_ID" property="materialId"/>
-            <result column="MATERIAL_NUMBER" property="materialNumber"/>
-            <result column="DEPOT_ID" property="depotId"/>
-            <result column="OTHER1" property="other1"/>
-            <result column="OTHER2" property="other2"/>
-            <result column="OTHER3" property="other3"/>
+            <id column="ID" property="id" jdbcType="VARCHAR"/>
+            <result column="PRODUCE_FORMULA_ID" property="produceFormulaId" jdbcType="VARCHAR"/>
+            <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+            <result column="MATERIAL_NUMBER" property="materialNumber" jdbcType="VARCHAR"/>
+            <result column="DEPOT_ID" property="depotId" jdbcType="VARCHAR"/>
+            <result column="OTHER1" property="other1" jdbcType="VARCHAR"/>
+            <result column="OTHER2" property="other2" jdbcType="VARCHAR"/>
+            <result column="OTHER3" property="other3" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -40,8 +40,8 @@
     <select id="selectByPage" resultMap="BaseResultMap">
         select * from l_produce_formula_detail t
         where 1=1
-        <if test="materialId != null and materialId != ''">
-            and t.MATERIAL_ID= #{materialId,jdbcType=VARCHAR}
+        <if test="other2 != null and other2 != ''">
+            and t.OTHER2= #{other2,jdbcType=VARCHAR}
         </if>
         <if test="depotId != null and depotId != ''">
             and t.DEPOT_ID= #{depotId,jdbcType=VARCHAR}
@@ -71,11 +71,9 @@
         )a where row_num &gt; #{start,jdbcType=DECIMAL}
     </select>-->
     <select id="dataCount" parameterType="map" resultType="Integer">
-        select count(1) from l_produce_formula_detail t
+        select count(1) from l_produce_formula_detail
         where 1=1
-        <if test="depotId != null and depotId != ''">
-            and t.DEPOT_ID = #{depotId,jdbcType=VARCHAR}
-        </if>
+
 
     </select>
 
@@ -199,7 +197,7 @@
     DEPOT_ID=#{depotId},
     OTHER1=#{other1},
     OTHER2=#{other2},
-    OTHER3#{other3}
+    OTHER3=#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 

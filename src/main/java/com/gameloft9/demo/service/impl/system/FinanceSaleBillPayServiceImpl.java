@@ -36,6 +36,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
     FinanceBillMapper billMapper;
     @Autowired
     ShipmentOrderMapper shipmentOrderMapper;
+
     /**
      *
      * @param page 当前页
@@ -69,17 +70,16 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
 
         SysFinanceSaleBillsPayable saleBillsPayable = new SysFinanceSaleBillsPayable();
 
-        saleBillsPayable.setId(UUIDUtil.getUUID());
+        saleBillsPayable.setId("CWO" + OrderUtil.createOrderNumber());
         saleBillsPayable.setSaleRejectedId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleBillsPayable.setAuditType(auditType);
         BigDecimal totalPrice = new BigDecimal(shipmentOrder.getGoodsAmount());
         totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP);
         BigDecimal goodsNumber = new BigDecimal(shipmentOrder.getGoodsNumber());
-        goodsNumber.setScale(0);
-        saleBillsPayable.setUnitPrice(totalPrice.divide(goodsNumber)+"");
+        saleBillsPayable.setUnitPrice((totalPrice.divide(goodsNumber).setScale(2,BigDecimal.ROUND_HALF_UP).toString()));
         saleBillsPayable.setRejectedNumber(shipmentOrder.getGoodsNumber());
-        saleBillsPayable.setTotalPrice(totalPrice+"");
+        saleBillsPayable.setTotalPrice(totalPrice.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
         String documentMaker = (String) request.getSession().getAttribute("sysUser");
         saleBillsPayable.setDocumentMaker(documentMaker);
         saleBillsPayable.setDocumentMakeTime(new Date());
@@ -112,7 +112,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取ShipmentOrder
-        ShipmentOrder shipmentOrder = shipmentOrderMapper.getById(id);
+        ShipmentOrder shipmentOrder = shipmentOrderMapper.findShipmentOrderByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable

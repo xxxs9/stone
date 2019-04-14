@@ -9,7 +9,7 @@
             <result column="FORMULA_TYPE" property="formulaType"/>
             <result column="FORMULA_NUMBER" property="formulaNumber"/>
             <result column="CREATE_USER" property="createUser"/>
-            <result column="CREATE_TIME" property="createTime" jdbcType="DATE"/>
+            <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
             <result column="OTHER1" property="other1"/>
             <result column="OTHER2" property="other2"/>
             <result column="OTHER3" property="other3"/>
@@ -43,7 +43,7 @@
         <if test="createUser != null and createUser != ''">
             and t.CREATE_USER = #{createUser,jdbcType=VARCHAR}
         </if>
-        order by t.id desc
+        order by t.CREATE_TIME desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -206,7 +206,7 @@
     CREATE_TIME=#{createTime},
     OTHER1=#{other1},
     OTHER2=#{other2},
-    OTHER3#{other3}
+    OTHER3=#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 

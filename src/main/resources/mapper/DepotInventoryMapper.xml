@@ -148,4 +148,15 @@
         WHERE
           t.GOODS_ID = #{goodsId,jdbcType=VARCHAR}
     </select>
+    <select id="getByIds" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+          D_DEPOT_INVENTORY t
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </select>
 </mapper>

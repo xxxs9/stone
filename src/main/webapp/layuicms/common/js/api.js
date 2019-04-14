@@ -194,6 +194,16 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         //purOrder 采购订单管理purchase_order
         //初始化GoodsId下拉框
+        //啊发包，根据orderNumber获取purchaseOrder
+        getByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/getByOrderNumber.do',req,config,successCallback,errorCallback);
+        },
+
+        //啊发包，根据orderNumber获取purchaseOrderReturn
+        getReturnByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/getReturnByOrderNumber.do',req,config,successCallback,errorCallback);
+        },
+
         getListGoods:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/goods.do',req,config,successCallback,errorCallback);
         },
@@ -477,6 +487,14 @@ layui.define(['$tool','jquery'], function (exports) {
         passUpdate:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'audit/pass',req,successCallback,errorCallback);
         },
+        //啊发包，根据orderId查找markerOrder
+        findMarkerOrderByOrderId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/findMarkerOrderByOrderId',req,successCallback,errorCallback);
+        },
+        //啊发包，根据orderId查找shipMentOrder
+        findShipmentOrderByOrderId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/findShipmentOrderByOrderId',req,successCallback,errorCallback);
+        },
 
 
         <!--财务-->
@@ -600,7 +618,9 @@ layui.define(['$tool','jquery'], function (exports) {
         getUnProduce:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'goodsProduct/getUnProduce',req,successCallback,errorCallback);
         },
-
+        getGoodsProductByBH:function(req,successCallback,errorCallback){
+        doPost($tool.getContext() + 'goodsProduct/getbyBH',req,successCallback,errorCallback);
+        },
 
 
 
@@ -623,7 +643,7 @@ layui.define(['$tool','jquery'], function (exports) {
         //检验时增加价格
         insertSupportPrice:function(req,successCallback,errorCallback){
         doPost($tool.getContext() + 'product/insertSupportPrice',req,successCallback,errorCallback);
-    },
+        },
         //更改产品状态
         changProductState:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'product/chg',req,successCallback,errorCallback);
@@ -957,6 +977,12 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         UpdateMaterialGoods:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'materialGoods/update.do',req,successCallback,errorCallback);
+        },
+        GetSupplierNameByGoodsName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getSupplierNameByGoodsName.do',req,successCallback,errorCallback);
+        },
+        GetGoodsNameBySupplierName:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'materialGoods/getGoodsNameBySupplierName.do',req,successCallback,errorCallback);
         },
         GetMaterialByGoodsName:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'material/getByGoodsName.do',req,successCallback,errorCallback);

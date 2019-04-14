@@ -100,7 +100,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("sale:add")
+   // @RequiresPermissions("sale:add")
     public IResult add(MarkerOrderTest markerOrderTest, HttpServletRequest request){
         request.getSession().getAttribute("sysUser");
         System.out.println(markerOrderTest);
@@ -123,7 +123,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/audi",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("sale:add")
+
     public IResult audiUpdate(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.audiUpdate(markerOrderTest));
     }
@@ -135,7 +135,7 @@ public class MarkerOrderController {
      */
     @RequestMapping(value = "/back",method = RequestMethod.POST)
     @ResponseBody
-    @RequiresPermissions("sale:add")
+
     public IResult backUpdate(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.backUpdate(markerOrderTest));
     }
@@ -171,5 +171,16 @@ public class MarkerOrderController {
     @ResponseBody
     public IResult fina(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.fina(markerOrderTest));
+    }
+
+    /**
+     * 啊发包
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findMarkerOrderByOrderId",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findMarkerOrderByOrderId(String id){
+        return new ResultBean<MarkerOrderTest>(markerOrderService.findMarkerOrderByOrderNumber(id));
     }
 }

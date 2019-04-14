@@ -20,16 +20,16 @@ layui.config({
     function init() {
         //初始化采购订单申请信息
         var queryArgs = $tool.getQueryParam();//获取查询参数
-        var id = queryArgs['applyId','applyType'];
+        var id = queryArgs['applyId','applyType','applyState'];
         var url = $tool.getContext()+'purchase_order/get.do';
+        var applyState = queryArgs.applyState
         var req = {
             id:queryArgs.applyId,
-            applyType:queryArgs.applyType
+            applyType:queryArgs.applyType,
         };
-
         //如果订单类型为3
         if(queryArgs.applyType == 2){
-            $api.GetMarkerOrder(req,function (res) {
+            $api.findMarkerOrderByOrderId(req,function (res) {
                 var data = res.data;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = data.goodsAmount;
@@ -38,7 +38,7 @@ layui.config({
                 console.log(data)
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.productId);
-                $("[name='goodsId']").val(data.id);
+                $("[name='goodsId']").val(data.orderId);
                 $("[name='auditType']").val(2);
                 $("[name='goodsNumber']").val(data.deliverNumber);
                 $("[name='price']").val(data.plannedNumber);
@@ -50,7 +50,7 @@ layui.config({
                 //alert(data.state())
 
                 //alert(financeState)
-                if(data.state != '等待财务审核'){
+                if( applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -69,7 +69,7 @@ layui.config({
 
         }else if(queryArgs.applyType == 4){//如果订单类型为4
 
-            $api.GetReturnGoodsOrder(req,function (res) {
+            $api.findShipmentOrderByOrderId(req,function (res) {
                 var data = res.data;
                 var goodsNumber = data.goodsNumber;
                 var totalPrice = data.goodsAmount;
@@ -77,9 +77,9 @@ layui.config({
                 var financeState ;
                 console.log(data)
                 $('#id').val(id);
-                $("[name='goodsName']").val(data.goodsId);
-                $("[name='goodsId']").val(data.id);
-                $("[name='auditType']").val(data.auditType);
+                $("[name='goodsName']").val(data.productId);
+                $("[name='goodsId']").val(data.goodsId);
+                $("[name='auditType']").val(4);
                 $("[name='goodsNumber']").val(goodsNumber);
                 $("[name='price']").val(price);
                 $("[name='totalPrice']").val(totalPrice);
@@ -87,7 +87,7 @@ layui.config({
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
                 //alert(data.state())
-                if(data.state != '等待财务查收'){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
 
@@ -106,7 +106,7 @@ layui.config({
 
         }else if(queryArgs.applyType == 1 ){//如果订单类型为1和2
             //沧海的getPurOrder
-            $api.getPurOrder(req,function (res) {
+            $api.getByOrderNumber(req,function (res) {
                 var data = res.data;
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
@@ -115,7 +115,7 @@ layui.config({
                 var financeState = data.financeState;
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsName);
-                $("[name='goodsId']").val(data.id);
+                $("[name='goodsId']").val(data.orderNumber);
                 $("[name='auditType']").val(data.auditType);
                 $("[name='goodsNumber']").val(goodsNumber);
                 $("[name='price']").val(price);
@@ -123,7 +123,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-                if(financeState != null){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
                 /*var f  = financeState != '待审核'
@@ -141,7 +141,7 @@ layui.config({
             });
         } else if(queryArgs.applyType == 3){
             //沧海的getPurOrder
-            $api.getPurchaseReturn(req,function (res) {
+            $api.getReturnByOrderNumber(req,function (res) {
                 var data = res.data;
                 var price = data.price;
                 var goodsNumber = data.goodsNumber;
@@ -150,7 +150,7 @@ layui.config({
                 var financeState = data.financeState;
                 $('#id').val(id);
                 $("[name='goodsName']").val(data.goodsName);
-                $("[name='goodsId']").val(data.id);
+                $("[name='goodsId']").val(data.orderNumber);
                 $("[name='auditType']").val(data.auditType);
                 $("[name='goodsNumber']").val(goodsNumber);
                 $("[name='price']").val(price);
@@ -158,7 +158,7 @@ layui.config({
                 $("[name='applyUser']").val(data.applyUser);
                 $("[name='applyTime']").val(data.applyTime);
                 $("[name='applyDescribe']").val(data.applyDescribe);
-                if(financeState != null){
+                if(applyState != 1){
                     $('#gnrt').css("display",'none');
                 }
                 /*var f  = financeState != '待审核'

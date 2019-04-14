@@ -4,7 +4,6 @@ import com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaMapper;
 import com.gameloft9.demo.dataaccess.model.system.LenProduceFormula;
 import com.gameloft9.demo.service.api.system.LenProduceFormulaService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.DateUtil;
 import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     }
 
     @Override
-    public boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime) {
+    public boolean insert(String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other3) {
         String uuid = UUIDUtil.getUUID();
         LenProduceFormula formula = new LenProduceFormula();
         formula.setId(uuid);
@@ -51,6 +50,7 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
         formula.setFormulaNumber(formulaNumber);
         formula.setCreateUser(createUser);
         formula.setCreateTime(new Date());
+        formula.setOther3(other3);
         String fm = OrderUtil.lenOrderNumber("FM");
         formula.setOther1(fm);
         if (mapper.insert(formula) > 0) {
@@ -61,14 +61,16 @@ public class LenProduceFormulaServiceImpl implements LenProduceFormulaService {
     }
 
     @Override
-    public boolean update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime) {
+    public boolean update(String id,String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other1,String other3) {
         LenProduceFormula formula = new LenProduceFormula();
-        Date date = DateUtil.str2Date(createTime,"yyyy-MM-dd");
-        formula.setCreateTime(date);
+        formula.setId(id);
+        formula.setCreateTime(new Date());
         formula.setProductId(productId);
         formula.setFormulaType(formulaType);
         formula.setFormulaNumber(formulaNumber);
         formula.setCreateUser(createUser);
+        formula.setOther1(other1);
+        formula.setOther3(other3);
         if (mapper.update(formula) > 0) {
             return true;
         } else {

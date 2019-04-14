@@ -41,14 +41,14 @@ public interface LenProduceFormulaDetailMapper {
      *
      * @param start
      * @param end
-     * @param materialId 原料ID
+     * @param other2 原料ID
      * @param depotId 仓库ID
      * @return
      */
     List<LenProduceFormulaDetail> selectByPage(
             @Param("start") int start,
             @Param("end") int end,
-            @Param("materialId") String materialId,
+            @Param("other2") String other2,
             @Param("depotId") String depotId
     );
 
@@ -79,10 +79,9 @@ public interface LenProduceFormulaDetailMapper {
     /**
      * 查询条数
      *
-     * @param depotId 仓库ID
      * @return
      */
-    int dataCount(String depotId);
+    int dataCount();
 
     /**
      * 选择插入

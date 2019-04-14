@@ -125,6 +125,7 @@ public class LenBillCheckServiceImpl implements LenBillCheckService {
                 String other1 = lenProduct.getOther1();
                 String canSold1 = lenProduct.getCanSold();
                 lenOperatorService.insertSelective1(canSold1,Constants.operatorState.CHECK_INTO_DEPOT,other1,null,null,null);
+                //华峰入库
                 depotOrderService.addProduceDepotOrderIn(other1, productId1, checkNumber, checkUser);
 
                 return true;

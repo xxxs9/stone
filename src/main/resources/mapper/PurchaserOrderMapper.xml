@@ -681,4 +681,14 @@
             </if>
         </where>
     </update>
+
+    <!--啊发包 根据orderNumber获取purchaseOrder PurchaseOrder findByOrderNumber(@Param("orderNumber") String orderNumber);-->
+    <select id="findByOrderNumber" resultMap="purOrderMap">
+        select * from t_purchase_order
+        <where>
+            <if test="orderNumber != null and orderNumber != '' ">
+                and ORDER_NUMBER=#{orderNumber,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -2,8 +2,12 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotAdjustment;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
+import com.gameloft9.demo.service.beans.system.MaterialInventory;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public interface DepotInventoryService {
     /**
@@ -11,8 +15,18 @@ public interface DepotInventoryService {
      * @param page                  页序
      * @param limit                 分页大小
      * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
      */
     List<DepotInventory> getAll(String page, String limit, String type,String goodsId);
+
+    /**
+     * 获取所有原料库存数据
+     * @param page                  页序
+     * @param limit                 分页大小
+     * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
+     */
+    List<MaterialInventory> getMaterialInventory(String page, String limit, String type, String goodsId);
 
 
     /**
@@ -71,4 +85,27 @@ public interface DepotInventoryService {
      * @param goodsNumber           货物数量
      * */
     Boolean updateGoodsNumber(String id,String goodsId, String goodsNumber);
+
+    /**
+     * 根据ids查询库存信息
+     * @param ids 库存ids
+     * */
+    List<DepotInventory> getByIds(String ids);
+
+    /**
+     * 导出库存记录或模版
+     *
+     * @param inventorys 保存有库存记录的List
+     * @return excel 文件
+     */
+    File exportInventory(List<DepotInventory> inventorys);
+
+    /**
+     * 导入库存记录
+     *
+     * @param file 保存有的库存记录的文件
+     * @return 返回一个Map，其中：key为total代表导入的总记录数，key为available代表有效导入的记录数
+     */
+    Map<String, Object> importInventory(MultipartFile file);
+
 }

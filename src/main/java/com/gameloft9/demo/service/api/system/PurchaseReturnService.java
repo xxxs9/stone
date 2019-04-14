@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.PurchaseReturn;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -87,5 +88,14 @@ public interface PurchaseReturnService {
      * 华锋对接 获取orderNumber
      * */
     PurchaseReturn selectByOrderNumber(String orderNumber);
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByOrderNumber(@Param("orderNumber") String orderNumber);
 
 }

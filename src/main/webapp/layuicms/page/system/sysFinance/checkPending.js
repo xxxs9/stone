@@ -45,7 +45,7 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'applyId', title: '订单单号',width:100,event:'show',style:'cursor:pointer',templet:'#clickThis'}
+                , {field: 'applyId', title: '订单单号',width:180,event:'show',style:'cursor:pointer',templet:'#clickThis'}
                 , {field: 'applyUser', title: '申请人', width:120,}
                 , {field: 'applyTime', title: '申请时间', width:170,}
                 , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}
@@ -65,7 +65,7 @@ layui.config({
 
             //区分事件
             if (layEvent === 'generateApply') { //生成应付或应收单
-                checkPurchaseOrder1(row.id,row.applyId,row.applyType);
+                checkPurchaseOrder1(row.id,row.applyId,row.applyType,row.applyState);
 
             } else if (layEvent === 'show') { //点击行出发事件
                 //do something
@@ -126,12 +126,12 @@ layui.config({
     }
 
     //申请单
-    function checkPurchaseOrder1(id,applyId,applyType){
+    function checkPurchaseOrder1(id,applyId,applyType,applyState){
         var applyType1 = applyType;
         var index = layui.layer.open({
             title: "订单详情",
             type: 2,
-            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType+"&id="+id,
+            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType+"&id="+id+"&applyState="+applyState,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {

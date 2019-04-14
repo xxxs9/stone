@@ -105,5 +105,14 @@ public interface MarkerOrderMapper {
 
     Boolean fina(MarkerOrderTest markerOrderTest);
 
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    MarkerOrderTest findMarkerOrderByOrderNumber(@Param("orderId") String orderId);
+
 
 }
