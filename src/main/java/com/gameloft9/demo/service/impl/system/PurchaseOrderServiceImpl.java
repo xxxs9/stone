@@ -107,6 +107,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为零！");
         }*/
         dao.updateByPrimaryKey(purchaseOrder);
+
         return true;
     }
 
