@@ -9,7 +9,10 @@ import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.service.api.system.LenOperatorService;
 import com.gameloft9.demo.service.api.system.LenProductService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.*;
+import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.DateUtil;
+import com.gameloft9.demo.utils.OrderUtil;
+import com.gameloft9.demo.utils.UUIDUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @packageName: com.gameloft9.demo.service.impl.system
@@ -55,6 +60,11 @@ public class LenProductServiceImpl implements LenProductService {
 
     @Override
     public boolean insert(LenProduct lenProduct) {
+        Pattern pattern = Pattern.compile(Constants.productState.NUMBERVARIFY);
+        Matcher matcher = pattern.matcher(lenProduct.getProductNumber());
+        // 字符串是否与正则表达式相匹配
+        boolean rs = matcher.matches();
+        if (rs){
         String number = OrderUtil.lenOrderNumber("P");
         String uuid = UUIDUtil.getUUID();
         LenProduct product = new LenProduct();
@@ -75,11 +85,14 @@ public class LenProductServiceImpl implements LenProductService {
             return true;
         } else {
             return false;
+        }}else {
+            return false;
         }
     }
 
     @Override
     public boolean update(String id,String productName,String productType,String productState,String canSold,String supportPrice,String productNumber,String productDescribe,String other1,String other3,String other4) {
+
         LenProduct product = new LenProduct();
         product.setId(id);
         product.setProductName(productName);
@@ -107,6 +120,7 @@ public class LenProductServiceImpl implements LenProductService {
         }else{
             throw new RuntimeException(">>>>>>>用户信息不匹配禁止操作<<<<<<<");
         }
+
     }
 
     @Override

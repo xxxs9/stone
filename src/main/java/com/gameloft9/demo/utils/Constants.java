@@ -313,7 +313,7 @@ public class Constants {
      * 生产状态
      */
     public static class productState {
-
+        public static String NUMBERVARIFY="^[1-9]\\d*$";
             public static  String YISHENGCHANG="已生产";
             public static  String UNYISHENGCHANG="未生产";
             public static  String UN_TIJIAO = "1";
