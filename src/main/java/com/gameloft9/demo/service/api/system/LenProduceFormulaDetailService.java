@@ -32,14 +32,14 @@ public interface LenProduceFormulaDetailService {
      *
      * @param page
      * @param limit
-     * @param materialId
+     * @param other2
      * @param depotId
      * @return
      */
     List<LenProduceFormulaDetail> selectByPage(
             String page,
             String limit,
-            String materialId,
+            String other2,
            String depotId
     );
 
@@ -70,10 +70,9 @@ public interface LenProduceFormulaDetailService {
     /**
      * 查询条数
      *
-     * @param depotId 仓库ID
      * @return
      */
-    int dataCount(String depotId);
+    int dataCount();
 
     /**
      * 选择插入

@@ -49,12 +49,12 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'},
-                {field: 'other3', title: 'BOM',width:180},
-                  {field: 'other1', title: '配方详情号',width:180}
+                {field: 'other3', title: 'BOM',width:"20%"},
+                  {field: 'other1', title: '配方详情号',width:"20%"}
                /* , {field: 'produceFormulaId', title: '生产配方编号'}*/
-                , {field: 'depotId', title: '产品名'}
-                ,{field: 'other2', title: '原料名'}
-                , {field: 'materialNumber', title: '数量',width:100}
+                , {field: 'depotId', title: '产品名',width:"15%"}
+                ,{field: 'other2', title: '原料名',width:"15%"}
+                , {field: 'materialNumber', title: '数量',width:"10%"}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo',width:200} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
@@ -84,14 +84,14 @@ layui.config({
 
     //查询
     form.on("submit(queryMenu)", function (data) {
-        var materialId = data.field.materialId;
+        var other2 = data.field.other2;
         var depotId = data.field.depotId;
 
 
         //表格重新加载
         tableIns.reload({
             where:{
-                materialId:materialId,
+                other2:other2,
                 depotId:depotId
 
             }
