@@ -29,15 +29,23 @@ public class ExportUtil {
         //创建标题行
         HSSFRow headRow = sheet.createRow(0);
         headRow.createCell(0).setCellValue("部门");
-        headRow.createCell(1).setCellValue("款额");
-        headRow.createCell(2).setCellValue("时间");
+        headRow.createCell(1).setCellValue("申请人");
+        headRow.createCell(2).setCellValue("申请时间");
+        headRow.createCell(3).setCellValue("货品名称");
+        headRow.createCell(4).setCellValue("货款类型");
+        headRow.createCell(5).setCellValue("款额");
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:mm");
         for (SysFinanceBill bill : billList) {
             HSSFRow dateRow = sheet.createRow(sheet.getLastRowNum() + 1);
             dateRow.createCell(0).setCellValue(bill.getDepartment());
-            dateRow.createCell(1).setCellValue(bill.getBalance());
+            dateRow.createCell(1).setCellValue(bill.getApplyUser());
             String time = format.format(bill.getBillTime());
             dateRow.createCell(2).setCellValue(time);
+            dateRow.createCell(3).setCellValue(bill.getGoodsName());
+            dateRow.createCell(4).setCellValue(bill.getBalanceType());
+            dateRow.createCell(5).setCellValue(bill.getBalance());
+
         }
 
         //使用输出流进行文件下载（一个流，两个头）
