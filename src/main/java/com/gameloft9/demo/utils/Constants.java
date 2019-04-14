@@ -285,6 +285,7 @@ public class Constants {
         /*        public static final String DEPOT_WAITING_IN="提交审核中";*/
         public static final String DEPOT_PASS = "审核通过";
         public static final String DEPOT_FAIL = "审核未通过";
+        public static final String DEPOT_CHECK ="待收货";
     }
 
     /**
