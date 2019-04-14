@@ -41,7 +41,7 @@ public class PageRange {
      * 获取结束序号
      * */
     public int getEnd(){
-        int end = limit * page + 1;
+        int end = limit;
         return end;
     }
 
