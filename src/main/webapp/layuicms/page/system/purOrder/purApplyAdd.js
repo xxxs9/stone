@@ -79,13 +79,49 @@ layui.config({
     });
 
     //计算总金额 数量goodsNumber*价格price
-    $(function(){
+    /*$(function(){
         //总结个totalPrice
         $('[name=totalPrice]').bind('click',function(){
             var price = $('[name=price]').val();
             var goodsNumber = $('[name=goodsNumber]').val();
             $("[name = totalPrice]").val(price * goodsNumber);
         })
+    });*/
+    //计算总金额 输入金额和数量就会自动生成
+    $('[name=price]').bind('change',function(){
+        var price = $('[name=price]').val();
+        var goodsNumber = $('[name=goodsNumber]').val();
+        var reg =/^[0-9]+([.]{1}[0-9]+){0,1}$/;
+        var reg2 = /^\d{0,8}\.{0,1}(\d{1,2})?$/;
+        var number =/^[1-9]\d*$/;
+        if(!reg.test(price)) {
+            alert ("输入有误，请重新输入!!");
+        }else if(!reg2.test(price)) {
+            alert ("小数只能两位!");
+        }else if(!number.test(goodsNumber)){
+            alert ("输入有误，请重新输入!");
+        }else if(!number.test(price)){
+            alert ("请输入价格！")
+        }else if(goodsNumber != null){
+            $('[name=totalPrice]').val(price * goodsNumber);
+        }
+    });
+
+    $('[name=goodsNumber]').bind('change',function(){
+        var price = $('[name=price]').val();
+        var goodsNumber = $('[name=goodsNumber]').val();
+        var reg =/^[0-9]+([.]{1}[0-9]+){0,1}$/;
+        var reg2 = /^\d{0,8}\.{0,1}(\d{1,2})?$/;
+        var number =/^[1-9]\d*$/;
+        if(!number.test(goodsNumber)) {
+            alert ("输入有误，请重新输入!");
+        }else if(!reg.test(price)){
+            alert ("输入有误，请重新输入!!");
+        }else if(!reg2.test(price)) {
+            alert("小数只能两位!");
+        } else if(price != null){
+            $('[name=totalPrice]').val(price * goodsNumber);
+        }
     });
 
     /**

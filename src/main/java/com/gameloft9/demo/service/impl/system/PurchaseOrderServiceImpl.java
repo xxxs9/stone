@@ -99,13 +99,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }else if(resultBD.toString() == null){
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
         }
-        /*if("".equals(str) || str == null){
-            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
-        }else if(Integer.parseInt(str) < 0){
-
-        }else if(Integer.parseInt(str) == 0){
-            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为零！");
-        }*/
         dao.updateByPrimaryKey(purchaseOrder);
         return true;
     }
@@ -139,7 +132,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
-        /*purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);*/
         String state = purchaseOrder.getState();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         //根据登录账号的名字自动获取
