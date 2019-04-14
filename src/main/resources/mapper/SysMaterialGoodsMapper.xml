@@ -184,4 +184,17 @@
             AND c.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
         </if>
     </select>
+    <!--根据原料商品id获取该原料商品的供应商名称-->
+    <select id="getSupplierNameByGoodsId"  resultType="java.lang.String">
+        SELECT
+        c.SUPPLIER_NAME
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        AND a.ID = #{id,jdbcType=VARCHAR}
+    </select>
 </mapper>

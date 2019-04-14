@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotAdjustment;
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
+import com.gameloft9.demo.service.beans.system.MaterialInventory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -14,8 +15,18 @@ public interface DepotInventoryService {
      * @param page                  页序
      * @param limit                 分页大小
      * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
      */
     List<DepotInventory> getAll(String page, String limit, String type,String goodsId);
+
+    /**
+     * 获取所有原料库存数据
+     * @param page                  页序
+     * @param limit                 分页大小
+     * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
+     */
+    List<MaterialInventory> getMaterialInventory(String page, String limit, String type, String goodsId);
 
 
     /**

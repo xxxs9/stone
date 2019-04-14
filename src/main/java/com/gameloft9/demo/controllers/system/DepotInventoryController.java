@@ -5,6 +5,8 @@ import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.DepotInventoryService;
+import com.gameloft9.demo.service.beans.system.MaterialInventory;
+import com.gameloft9.demo.utils.Constants;
 import com.gameloft9.demo.utils.FileUtils;
 import com.gameloft9.demo.utils.Response;
 import com.gameloft9.demo.utils.ResponseFactory;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.tagext.PageData;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,6 +30,7 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author: Sxiu
@@ -49,9 +54,23 @@ public class DepotInventoryController {
      */
     @RequestMapping(value = "/depotInventoryList.do",method = RequestMethod.POST)
     @ResponseBody
-    public IResult getDepotPersonnelList(String page, String limit, String type,String goodsId){
+    public IResult getDepotInventorylList(String page, String limit, String type,String goodsId){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new PageResultBean<Collection<DepotInventory>>(depotInventoryServiceImpl.getAll(page,limit,type,goodsId),depotInventoryServiceImpl.countGetAll(type,goodsId));
+    }
+
+    /**
+     * 获取库存列表
+     * @param page                  页序
+     * @param limit                 分页大小
+     * @param goodsId               原料/成品ID
+     */
+    @RequestMapping(value = "/materialInventorylList.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getMaterialInventorylList(String page, String limit,String goodsId){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        String type = Constants.MATERIAL;
+        return new PageResultBean<Collection<MaterialInventory>>(depotInventoryServiceImpl.getMaterialInventory(page,limit,type,goodsId),depotInventoryServiceImpl.countGetAll(type,goodsId));
     }
 
     /**
