@@ -666,7 +666,10 @@
                 FINANCE_AUDIT_TIME=#{financeAuditTime,jdbcType=VARCHAR},
             </if>
             <if test="financeAuditDescribe != null and financeAuditDescribe != ''">
-                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR}
+                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="depotState != null and depotState != ''">
+                DEPOT_STATE=#{depotState,jdbcType=VARCHAR}
             </if>
 
         </set>

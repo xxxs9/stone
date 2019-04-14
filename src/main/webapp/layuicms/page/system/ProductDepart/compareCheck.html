@@ -60,7 +60,7 @@
     <div class="layui-form-item layui-inline"style="width: 60%">
         <label class="layui-form-label ">产品成本</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="supportPrice"  id="supportPrice" placeholder="单位：元" lay-verify="number">
+            <input type="text" class="layui-input" name="supportPrice"  id="supportPrice" placeholder="xx.xx单位：元" lay-verify="number|money" autocomplete="off">
         </div>
     </div>
 
@@ -75,7 +75,7 @@
     <div class="layui-form-item layui-inline"style="width: 60%">
         <label class="layui-form-label">实际产量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="checkNumber" lay-verify="number" id="checkNumber" placeholder="请输入实际产量">
+            <input type="text" class="layui-input" name="checkNumber" lay-verify="number|pi" autocomplete="off" id="checkNumber" placeholder="请输入实际产量">
         </div>
     </div>
     <div class="layui-form-item layui-inline" style="display: none">

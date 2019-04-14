@@ -48,11 +48,18 @@ layui.config({
     /**
      * 页面初始化
      * */
+    form.verify({
+        pi: [
+            /^[0-9]*[1-9][0-9]*$/  //正则表达式
+            ,'数量必须为大于0的正整数'  //提示信息
+        ]
+    });
     function init() {
         //初始化下拉框
        initParentMenu();
 
     }
+
 
     init();
     function changeProductState(id) {
