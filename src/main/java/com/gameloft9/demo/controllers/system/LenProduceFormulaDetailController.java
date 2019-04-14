@@ -49,7 +49,11 @@ public class LenProduceFormulaDetailController {
     @RequestMapping(value = "/upd",method = RequestMethod.POST)
     @ResponseBody
     public IResult update(LenProduceFormulaDetail len){
-        return  new ResultBean<Boolean>(service.update(len));
+        if (service.update(len)){
+            return  new ResultBean<Boolean>();
+        }
+        return new ResultBean<String>("4011",">>>>请点击确认配方编号<<<<");
+
     }
 
     @RequestMapping("/del")

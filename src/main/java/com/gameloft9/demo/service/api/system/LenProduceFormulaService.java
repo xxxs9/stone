@@ -63,7 +63,7 @@ public interface LenProduceFormulaService {
      * @param createTime
      * @return
      */
-    boolean update(String productId,String formulaType ,String formulaNumber,String createUser,String createTime);
+    boolean update(String id,String productId,String formulaType ,String formulaNumber,String createUser,String createTime,String other1,String other3);
 
     /**
      * 删除

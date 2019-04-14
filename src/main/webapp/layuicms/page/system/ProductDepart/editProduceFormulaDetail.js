@@ -75,6 +75,7 @@ layui.config({
                     html += '<option value="'+data[i].id+'">'+data[i].other1+'</option>';
                 }
                 $('#produceFormulaId').append($(html));
+                $('#produceFormulaId').val(hh);
 
 
             }
