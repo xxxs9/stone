@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysOperLogTestMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.DepotOperLog">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR"/>
+        <result column="IP_ADDR" property="ipAddr" jdbcType="VARCHAR"/>
+        <result column="OPER_TYPE" property="operType" jdbcType="VARCHAR"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, LOGIN_NAME, IP_ADDR, OPER_TYPE, CREATE_DATE, OPERATION_NAME
+    </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from D_DEPOT_OPER_LOG
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from D_DEPOT_OPER_LOG
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotOperLog">
+        insert into D_DEPOT_OPER_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="loginName != null">
+                LOGIN_NAME,
+            </if>
+            <if test="ipAddr != null">
+                IP_ADDR,
+            </if>
+            <if test="operType != null">
+                OPER_TYPE,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="operationName != null">
+                OPERATION_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="ipAddr != null">
+                #{ipAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="operType != null">
+                #{operType,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operationName != null">
+                #{operationName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotOperLog">
+        update D_DEPOT_OPER_LOG
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="ipAddr != null">
+                IP_ADDR = #{ipAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="operType != null">
+                OPER_TYPE = #{operType,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operationName != null">
+                OPERATION_NAME = #{operationName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <!--mysql 版本 -->
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        select * from D_DEPOT_OPER_LOG t
+        where 1=1
+        <if test="loginName !=null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="operType !=null and operType != ''">
+            and t.OPER_TYPE = #{operType,jdbcType=VARCHAR}
+        </if>
+        <if test="startDate !=null and startDate != ''">
+            and t.CREATE_DATE &gt; #{startDate,jdbcType=VARCHAR}
+        </if>
+        <if test="endDate !=null and endDate != ''">
+            and t.CREATE_DATE &lt; #{endDate,jdbcType=VARCHAR}
+        </if>
+        order by t.CREATE_DATE desc, t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        select count(1) from D_DEPOT_OPER_LOG t
+        where 1=1
+        <if test="loginName !=null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="operType !=null and operType != ''">
+            and t.OPER_TYPE = #{operType,jdbcType=VARCHAR}
+        </if>
+        <if test="startDate !=null and startDate != ''">
+            and t.CREATE_DATE &gt; #{startDate,jdbcType=VARCHAR}
+        </if>
+        <if test="endDate !=null and endDate != ''">
+            and t.CREATE_DATE &lt; #{endDate,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!--mysql 版本 -->
+    <delete id="deleteByList" parameterType="map">
+        delete t from SYS_OPER_LOG_TEST t
+        where t.id in
+        <foreach collection="delIds" index="index" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>
