@@ -200,19 +200,29 @@ public class MarkerOrderServiceImpl implements MarkerOrderService {
         markerOrderTest.setState(StateUUtil.APPLY_finacc);
         markerOrderMapper.submit(markerOrderTest);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
-        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setId("CWI" + OrderUtil.createOrderNumber());
         applyOrder.setApplyTime(new Date());
         String auditUser = (String) request.getSession().getAttribute("sysUser");
         applyOrder.setApplyUser(auditUser);
         applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
         applyOrder.setApplyType(Constants.Finance.SALE_RECEIVABLE);
         //订单id
-        applyOrder.setApplyId(markerOrderTest.getId());
+        applyOrder.setApplyId(markerOrderTest.getOrderId());
         //订单总价
         applyOrder.setApplyMoney(markerOrderTest.getAcceptedAmount());
         //插入申请单
         applyOrderMapper.add(applyOrder);
         return true;
+    }
+
+    /**
+     * 啊发包
+     * @param orderId orderNumber
+     * @return
+     */
+    @Override
+    public MarkerOrderTest findMarkerOrderByOrderNumber(String orderId) {
+        return markerOrderMapper.findMarkerOrderByOrderNumber(orderId);
     }
 
 

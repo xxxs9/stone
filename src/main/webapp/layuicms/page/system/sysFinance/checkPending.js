@@ -45,7 +45,7 @@ layui.config({
             , page:true //开启分页
             , cols: [[ //表头
                   {type:'numbers',title:'序号',fixed: 'left'}
-                , {field: 'applyId', title: '订单单号',width:100,event:'show',style:'cursor:pointer',templet:'#clickThis'}
+                , {field: 'applyId', title: '订单单号',width:180,event:'show',style:'cursor:pointer',templet:'#clickThis'}
                 , {field: 'applyUser', title: '申请人', width:120,}
                 , {field: 'applyTime', title: '申请时间', width:170,}
                 , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}

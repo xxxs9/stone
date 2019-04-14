@@ -292,5 +292,21 @@
         </where>
     </update>
 
+    <!--/**
+     * 啊发包
+     * 根据orderNumber
+     * @param goodsId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    ShipmentOrder findShipmentOrderByOrderNumber(@Param("goodsId") String goodsId);-->
+    <select id="findShipmentOrderByOrderNumber" resultMap="ShipmentOrderResultMap">
+        select * from w_shipment_order
+        <where>
+            <if test="goodsId != null and goodsId != '' ">
+                and GOODS_ID=#{goodsId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 
 </mapper>

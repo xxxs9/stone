@@ -287,4 +287,13 @@ public class PurchaseOrderController {
         return new ResultBean<Collection<String>>(service.selectGoodsNameAll());
     }
 
+    /**
+     * 啊发包
+     */
+    @RequestMapping(value = "/getByOrderNumber",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getByOrderNumber(String id){
+        return new ResultBean<PurchaseOrder>(service.findByOrderNumber(id));
+    }
+
 }

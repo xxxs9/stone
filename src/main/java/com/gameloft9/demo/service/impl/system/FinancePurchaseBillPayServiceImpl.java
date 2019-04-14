@@ -7,10 +7,7 @@ import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.FinancePurchaseBillPayService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.FinanceServiceUtil;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,7 +95,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
     public String generatePurchasePay(PurchaseOrder purchaseOrder,String id1) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         SysFinancePurchaseBillsPayable  purchaseBillsPayable = new SysFinancePurchaseBillsPayable();
-        purchaseBillsPayable.setId(UUIDUtil.getUUID());
+        purchaseBillsPayable.setId("CWO" + OrderUtil.createOrderNumber());
         purchaseBillsPayable.setPurchaseOrderId(purchaseOrder.getId());
         purchaseBillsPayable.setAuditType(purchaseOrder.getAuditType());
         BigDecimal price = new BigDecimal(purchaseOrder.getPrice());
@@ -157,7 +154,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        PurchaseOrder purchaseOrder = purchaseOrderMapper.findByIdAndAuditType(id, auditType1);
+        PurchaseOrder purchaseOrder = purchaseOrderMapper.findByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable
@@ -178,6 +175,7 @@ public class FinancePurchaseBillPayServiceImpl implements FinancePurchaseBillPay
         purchaseOrder.setFinanceAuditUser(auditUser);
         purchaseOrder.setFinanceAuditTime(new Date());
         purchaseOrder.setFinanceAuditDescribe(auditDescribe);
+        purchaseOrder.setDepotState(Constants.DepotState.DEPOT_NO_SUNMIT);
 
         financePurchaseBillsPayable.setAuditUser(auditUser);
         financePurchaseBillsPayable.setActualBalance(actualPrice1.toString());

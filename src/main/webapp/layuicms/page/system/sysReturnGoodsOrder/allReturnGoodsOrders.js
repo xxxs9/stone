@@ -95,7 +95,7 @@ layui.config({
             }else if (layEvent === 'look') {//撤回
                 look(row.id);
             }else if (layEvent === 'finance') {//撤回
-                finance(row.id,row.goodsAmount);
+                finance(row.id,row.goodsAmount,row.goodsId);
             }else if (layEvent === 'return') {//撤回
                 return(row.id);
             }
@@ -239,13 +239,14 @@ layui.config({
 
     //提交财务
 
-    function finance(id,goodsAmount){
+    function finance(id,goodsAmount,goodsId){
         layer.confirm('提交财务确认吗？', function (confirmIndex) {
             layer.close(confirmIndex);//关闭confirm
             //向服务端发送撤回指令
             var req = {
                 id: id,
-                goodsAmount:goodsAmount
+                goodsAmount:goodsAmount,
+                goodsId:goodsId
             };
             $api.updateFinance(req,function (data) {
                 layer.msg("提交成功",{time:1000},function(){

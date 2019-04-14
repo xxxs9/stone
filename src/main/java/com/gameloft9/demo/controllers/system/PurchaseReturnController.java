@@ -135,4 +135,13 @@ public class PurchaseReturnController {
     public IResult afabao(String orderNumber){
         return new ResultBean<PurchaseReturn>(service.selectByOrderNumber(orderNumber));
     }
+
+    /**
+     * 啊发包
+     */
+    @RequestMapping(value = "/getReturnByOrderNumber",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getReturnByOrderNumber(String id){
+        return new ResultBean<PurchaseReturn>(service.findByOrderNumber(id));
+    }
 }
