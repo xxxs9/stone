@@ -19,7 +19,7 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-        //初始化下拉框
+        //初始化表格
         initTable();
     }
 

@@ -7,6 +7,7 @@ import com.gameloft9.demo.dataaccess.model.system.LenProduct;
 import com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.DepotInventoryService;
+import com.gameloft9.demo.service.beans.system.MaterialInventory;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.EJConvertor;
 import com.gameloft9.demo.utils.FileUtil;
@@ -52,11 +53,39 @@ public class DepotInventoryServiceImpl implements DepotInventoryService {
      * @param page                  页序
      * @param limit                 分页大小
      * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
      */
     @Override
     public List<DepotInventory> getAll(String page, String limit, String type,String goodsId) {
         PageRange pageRange = new PageRange(page, limit);
         return depotInventoryMapper.getAll(pageRange.getStart(),pageRange.getEnd(),type,goodsId);
+    }
+
+    /**
+     * 获取所有原料库存数据
+     * @param page                  页序
+     * @param limit                 分页大小
+     * @param type                  货品(原料/成品）
+     * @param goodsId               货物编号
+     */
+    @Override
+    public List<MaterialInventory> getMaterialInventory(String page, String limit, String type, String goodsId) {
+        PageRange pageRange = new PageRange(page, limit);
+        List<DepotInventory> list = depotInventoryMapper.getAll(pageRange.getStart(), pageRange.getEnd(), type, goodsId);
+        List<MaterialInventory> materialInventoryList = new ArrayList<MaterialInventory>();
+        for (DepotInventory depotInventory : list) {
+            MaterialInventory materialInventory = new MaterialInventory();
+            materialInventory.setId(depotInventory.getId());
+            materialInventory.setGoodsName(depotInventory.getGoodsName());
+            materialInventory.setSupplierName(sysMaterialGoodsMapper.getSupplierNameByGoodsId(depotInventory.getGoodsId()));
+            materialInventory.setType(depotInventory.getType());
+            materialInventory.setGoodsId(depotInventory.getGoodsId());
+            materialInventory.setGoodsNumber(depotInventory.getGoodsNumber());
+            materialInventory.setSaleableNumber(depotInventory.getSaleableNumber());
+            materialInventory.setShipmentsNumber(depotInventory.getShipmentsNumber());
+            materialInventoryList.add(materialInventory);
+        }
+        return materialInventoryList;
     }
 
     /**

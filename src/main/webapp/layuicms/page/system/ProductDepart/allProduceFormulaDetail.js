@@ -166,7 +166,7 @@ layui.config({
         var index = layui.layer.open({
             title: "修改内容",
             type: 2,
-            content: "editProduceFormulaDetail.html?id="+id,
+            content: "editProductFormulaDetail2.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {

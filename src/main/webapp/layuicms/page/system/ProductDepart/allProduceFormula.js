@@ -144,10 +144,11 @@ layui.config({
 
     //编辑
     function editMenu(id){
+
         var index = layui.layer.open({
             title: "编辑",
             type: 2,
-            content: "editProduceFormula.html?id="+id,
+            content: "editProductFormula.html?id="+id,
             success: function (layero, index) {
                 setTimeout(function () {
                     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
