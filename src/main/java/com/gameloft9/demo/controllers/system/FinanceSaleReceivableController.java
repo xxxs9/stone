@@ -60,9 +60,9 @@ public class FinanceSaleReceivableController {
      */
     @RequestMapping(value = "/saleOrderReceivePass",method = RequestMethod.POST)
     @ResponseBody
-    public IResult saleOrderPayPass(String attitude,String saleId,String auditType,String actualPrice,String auditDescribe){
+    public IResult saleOrderPayPass(String attitude,String saleId,String auditType,String actualPrice,String auditDescribe,String totalPrice){
         return new ResultBean<Boolean>(financeSaleReceivableService.saleOrderReceivePass(attitude,
-                saleId,auditType,actualPrice,auditDescribe));
+                saleId,auditType,actualPrice,auditDescribe,totalPrice));
     }
 
     /**

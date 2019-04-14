@@ -69,8 +69,8 @@ public class FinanceSaleBillPayableController {
      */
     @RequestMapping(value = "/saleOrderPayPass",method = RequestMethod.POST)
     @ResponseBody
-    public IResult saleOrderPayPass(String attitude,String saleRejectedId,String auditType,String actualPrice,String auditDescribe){
-        return new ResultBean<Boolean>(saleBillPayService.saleOrderPayPass(attitude,saleRejectedId,auditType,actualPrice,auditDescribe));
+    public IResult saleOrderPayPass(String attitude,String saleRejectedId,String auditType,String actualPrice,String auditDescribe,String totalPrice){
+        return new ResultBean<Boolean>(saleBillPayService.saleOrderPayPass(attitude,saleRejectedId,auditType,actualPrice,auditDescribe,totalPrice));
     }
 
     /**

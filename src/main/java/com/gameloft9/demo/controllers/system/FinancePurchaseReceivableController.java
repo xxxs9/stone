@@ -80,8 +80,8 @@ public class FinancePurchaseReceivableController {
      */
     @RequestMapping(value = "/purchaseOrderReceivePass",method = RequestMethod.POST)
     @ResponseBody
-    public IResult purchaseOrderReceivePass(String attitude,String purchaseOrderRejectedId,String auditType,String actualPrice,String auditDescribe){
-        return new ResultBean<Boolean>(purchaseReceivableService.purchaseOrderReceivePass(attitude,purchaseOrderRejectedId,auditType,actualPrice,auditDescribe));
+    public IResult purchaseOrderReceivePass(String attitude,String purchaseOrderRejectedId,String auditType,String actualPrice,String auditDescribe,String totalPrice){
+        return new ResultBean<Boolean>(purchaseReceivableService.purchaseOrderReceivePass(attitude,purchaseOrderRejectedId,auditType,actualPrice,auditDescribe,totalPrice));
     }
 
     @RequestMapping(value = "/getPurchaseReceiveChart",method = RequestMethod.POST)

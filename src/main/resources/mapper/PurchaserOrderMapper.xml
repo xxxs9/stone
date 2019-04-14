@@ -668,6 +668,7 @@
             <if test="financeAuditDescribe != null and financeAuditDescribe != ''">
                 FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR}
             </if>
+
         </set>
         <where>
             <if test="id != null and id != '' ">

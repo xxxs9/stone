@@ -29,12 +29,6 @@ layui.config({
      * 文本框校验
      */
     form.verify({
-        actualBalance: function(value){
-            var re = /^[0-9]+.?[0-9]*/;
-            if(!re.test(value)){
-                return '请输入正整数';
-            }
-        },
         auditDescribe: function(value){
             if(value.length<=0){
                 return '请输入审核内容';
@@ -149,6 +143,7 @@ layui.config({
         var attitude = data.elem.value
         var actualPrice = data.field.actualBalance;
         var auditDescribe = data.field.auditDescribe;
+        var totalPrice = data.field.totalPrice
 
         if(auditType == 1){//采购应付
             var purchaseOrderId = data.field.purchaseOrderId;
@@ -159,6 +154,7 @@ layui.config({
                 auditType:auditType,
                 actualPrice:actualPrice,
                 auditDescribe:auditDescribe,
+                totalPrice:totalPrice
             };
 
             $api.purchaseOrderPayPass(req,function (data) {
@@ -178,6 +174,7 @@ layui.config({
                 auditType:auditType,
                 actualPrice:actualPrice,
                 auditDescribe:auditDescribe,
+                totalPrice:totalPrice
             };
 
             $api.saleOrderReceivePass(req,function (data) {
@@ -198,6 +195,7 @@ layui.config({
                 auditType:auditType,
                 actualPrice:actualPrice,
                 auditDescribe:auditDescribe,
+                totalPrice:totalPrice
             };
 
             $api.purchaseOrderReceivePass(req,function (data) {
@@ -217,6 +215,7 @@ layui.config({
                 auditType:auditType,
                 actualPrice:actualPrice,
                 auditDescribe:auditDescribe,
+                totalPrice:totalPrice
             };
 
             $api.saleOrderPayPass(req,function (data) {
