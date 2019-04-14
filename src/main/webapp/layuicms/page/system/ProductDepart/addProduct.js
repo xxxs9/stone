@@ -22,7 +22,12 @@ layui.config({
     }
 
     init();
-
+    form.verify({
+        pi: [
+            /^[0-9]*[1-9][0-9]*$/  //正则表达式
+            ,'数量必须为大于0的正整数'  //提示信息
+        ]
+    });
     form.on('select(aaaaa)', function (data) {
 
         var value =$('#productName1 option:selected').html();
