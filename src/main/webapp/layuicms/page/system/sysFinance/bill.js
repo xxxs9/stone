@@ -224,12 +224,14 @@ layui.config({
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('day');
         } else if (data.index == 1) {
             $("#exportDayData").css("display","none");
             $("#exportWeekData").show();
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('week');
         }
         else if (data.index == 2) {
             $("#exportDayData").css("display","none");
@@ -237,12 +239,14 @@ layui.config({
             $("#exportMonthData").show();
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('month');
         }else if (data.index == 3) {
             $("#exportDayData").css("display","none");
             $("#exportWeekData").css("display","none");
             $("#exportMonthData").css("display","none");
             $("#exportYearData").show();
             $("#myDiv").css("display","none");
+            table.reload('year');
         }
         else if (data.index == 4) {
 
@@ -252,6 +256,7 @@ layui.config({
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").show();
+            table.reload('time');
         }
 
     });

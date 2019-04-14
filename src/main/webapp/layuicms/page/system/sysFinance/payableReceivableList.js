@@ -277,5 +277,22 @@ layui.config({
 
         return false;
     });
+    element.on('tab(test)', function(data) {
+        //console.log(this); //当前Tab标题所在的原始DOM元素
+        //console.log(data.index); //得到当前Tab的所在下标
+        //console.log(data.elem); //得到当前的Tab大容器
+        if(data.index == 0) {
+            table.reload('purchasePay');
+        }
+        else if(data.index == 1) {
+            table.reload('purchaseReceive');
+        }
+        else if(data.index == 2) {
+            table.reload('salePay');
+        }
+        else if(data.index == 3) {
+            table.reload('saleReceive');
+        }
+    });
 
 });

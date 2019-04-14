@@ -98,7 +98,6 @@ public class FinancePurchaseBillPayController {
         return new ResultBean<SysFinancePurchaseBillsPayable>(purchaseBillPayService.getPurchasePayById(id));
     }
 
-
     /**
      * 审核
      * @param attitude q
