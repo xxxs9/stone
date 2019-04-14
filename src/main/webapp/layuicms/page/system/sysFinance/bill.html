@@ -92,7 +92,25 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>-->
+<script type="text/html" id="balanceType">
+    {{# if(d.balanceType == 1){ }}
+    <span>采购应付</span>
+    {{# } else if(d.balanceType == 2) { }}
+    <span>销售应收</span>
+    {{# } else if(d.balanceType == 3) { }}
+    <span>采购应收</span>
+    {{# } else if(d.balanceType == 4) { }}
+    <span>销售应付</span>
+    {{# } }}
+</script>
 
+<script type="text/html" id="balance">
+    {{# if(d.balance > 0 ){ }}
+    <span><font color="#006400">收入:{{d.balance}}</font></span>
+    {{# } else if(d.balance < 0) { }}
+    <span><font color="#a52a2a">支出:{{d.balance}}</font></span>
+    {{# } }}
+</script>
 <!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
 <script type="text/javascript" src="../../../lib/layui/layui.js"></script>
 <script type="text/javascript" src="../../../common/js/config.js"></script>

@@ -8,6 +8,7 @@ import com.gameloft9.demo.mgrframework.utils.CheckUtil;
 import com.gameloft9.demo.service.api.system.*;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.Constants;
+import com.gameloft9.demo.utils.OrderUtil;
 import com.gameloft9.demo.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -655,7 +656,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         PurchaseReturn purchaseReturn = purchaseReturnMapper.selectReturnByOrderNumber(id);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
         //id
-        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setId("CWO" + OrderUtil.createOrderNumber());
         //申请人
         applyOrder.setApplyUser(purchaseReturn.getApplyUser());
         //申请时间
@@ -663,7 +664,7 @@ public class DepotOrderServiceImpl implements DepotOrderService {
         //申请状态
         applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
         //申请id
-        applyOrder.setApplyId(purchaseReturn.getId());
+        applyOrder.setApplyId(purchaseReturn.getOrderNumber());
         //申请类型
         applyOrder.setApplyType(3);
         //总价

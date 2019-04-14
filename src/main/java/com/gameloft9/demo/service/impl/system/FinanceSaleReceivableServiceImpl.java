@@ -72,7 +72,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
 
         SysFinanceSaleReceivable saleReceivable = new SysFinanceSaleReceivable();
 
-        saleReceivable.setId(UUIDUtil.getUUID());
+        saleReceivable.setId("CWI" + OrderUtil.createOrderNumber());
         saleReceivable.setSaleId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleReceivable.setAuditType(auditType);
@@ -106,7 +106,7 @@ public class FinanceSaleReceivableServiceImpl implements FinanceSaleReceivableSe
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        MarkerOrderTest markerOrderTest = markerOrderMapper.getMaker(id);
+        MarkerOrderTest markerOrderTest = markerOrderMapper.findMarkerOrderByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable

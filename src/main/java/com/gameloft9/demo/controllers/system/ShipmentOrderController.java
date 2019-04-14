@@ -1,5 +1,6 @@
 package com.gameloft9.demo.controllers.system;
 
+import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -134,6 +135,17 @@ public class ShipmentOrderController {
     @ResponseBody
     public IResult sub(ShipmentOrder shipmentOrder){
         return new ResultBean<Boolean>(shipmentOrderService.sub(shipmentOrder));
+    }
+
+    /**
+     * 啊发包
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findShipmentOrderByOrderId",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findShipmentOrderByOrderId(String id){
+        return new ResultBean<ShipmentOrder>(shipmentOrderService.findShipmentOrderByOrderNumber(id));
     }
 
 }

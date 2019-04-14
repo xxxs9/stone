@@ -70,7 +70,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
 
         SysFinanceSaleBillsPayable saleBillsPayable = new SysFinanceSaleBillsPayable();
 
-        saleBillsPayable.setId(UUIDUtil.getUUID());
+        saleBillsPayable.setId("CWO" + OrderUtil.createOrderNumber());
         saleBillsPayable.setSaleRejectedId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleBillsPayable.setAuditType(auditType);
@@ -112,7 +112,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取ShipmentOrder
-        ShipmentOrder shipmentOrder = shipmentOrderMapper.getById(id);
+        ShipmentOrder shipmentOrder = shipmentOrderMapper.findShipmentOrderByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable

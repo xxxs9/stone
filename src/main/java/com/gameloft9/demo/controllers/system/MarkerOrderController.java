@@ -172,4 +172,15 @@ public class MarkerOrderController {
     public IResult fina(MarkerOrderTest markerOrderTest){
         return new ResultBean<Boolean>(markerOrderService.fina(markerOrderTest));
     }
+
+    /**
+     * 啊发包
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findMarkerOrderByOrderId",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findMarkerOrderByOrderId(String id){
+        return new ResultBean<MarkerOrderTest>(markerOrderService.findMarkerOrderByOrderNumber(id));
+    }
 }

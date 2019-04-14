@@ -149,14 +149,14 @@ public class ReturnGoodsOrderServiceImpl implements ReturnGoodsOrderService {
         shipmentOrder.setState(StateUUtil.APPLY_finance);
         returnGoodsOrderMapper.finance(shipmentOrder);
         SysFinanceApplyOrder applyOrder = new SysFinanceApplyOrder();
-        applyOrder.setId(UUIDUtil.getUUID());
+        applyOrder.setId("CWO" + OrderUtil.createOrderNumber());
         applyOrder.setApplyTime(new Date());
         String auditUser = (String) request.getSession().getAttribute("sysUser");
         applyOrder.setApplyUser(auditUser);
         applyOrder.setApplyState(Constants.Finance.APPLY_ORDER_UNCOMMIT);
         applyOrder.setApplyType(Constants.Finance.SALE_PAYABLE);
         //订单id
-        applyOrder.setApplyId(shipmentOrder.getId());
+        applyOrder.setApplyId(shipmentOrder.getGoodsId());
         //订单总价
         applyOrder.setApplyMoney(shipmentOrder.getGoodsAmount());
         //插入申请单

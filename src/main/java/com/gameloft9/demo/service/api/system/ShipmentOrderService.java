@@ -3,7 +3,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.ReturnGoodsOrder;
 import com.gameloft9.demo.dataaccess.model.system.ShipmentOrder;
-
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -79,4 +79,13 @@ public interface ShipmentOrderService {
      * @return
      */
     Boolean sub(ShipmentOrder shipmentOrder);
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param goodsId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    ShipmentOrder findShipmentOrderByOrderNumber(@Param("goodsId") String goodsId);
 }

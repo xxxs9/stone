@@ -57,19 +57,19 @@
     <div class="layui-form-item">
         <label class="layui-form-label">商品数量</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="goodsNumber" id="number" lay-verify="actualBalance" placeholder="请输入商品数量">
+            <input type="text" class="layui-input" name="goodsNumber" onchange="goodsNumber" id="number" lay-verify="actualBalance" placeholder="请输入商品数量">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品单价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="price" id="price" lay-verify="actualPrice" placeholder="请输入商品单价">
+            <input type="text" class="layui-input" name="price" onchange="price" id="price" lay-verify="actualPrice" placeholder="请输入商品单价">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品总价</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" name="totalPrice" readonly="readonly" lay-verify="required" placeholder="点击计算总价">
+            <input type="text" class="layui-input" name="totalPrice" id="totalPrice" readonly="readonly" lay-verify="required" placeholder="点击计算总价">
         </div>
     </div>
     <div class="layui-form-item">
@@ -112,7 +112,7 @@
     <div class="layui-form-item" id="tool">
         <div class="layui-input-block">
             <span class="layui-btn" lay-submit="" lay-filter="submitFilter" id="submit">提交修改</span>
-            <span type="reset" class="layui-btn layui-btn-primary" id="reset">重置</span>
+            <!--<span type="reset" class="layui-btn layui-btn-primary" id="reset">重置</span>-->
         </div>
     </div>
 </form>

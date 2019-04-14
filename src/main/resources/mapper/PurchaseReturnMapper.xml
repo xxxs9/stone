@@ -231,10 +231,10 @@
         </set>
         <where>
             <if test="orderNumber != null and orderNumber != ''">
-                ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
+                and ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
             </if>
             <if test="id != null and id != ''">
-                ID = #{id,jdbcType=VARCHAR}
+                and ID = #{id,jdbcType=VARCHAR}
             </if>
         </where>
     </update>
@@ -333,4 +333,23 @@
             </if>
         </where>
     </select>
+
+
+    <!--/**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByOrderNumber(@Param("orderNumber") String orderNumber);-->
+    <select id="findByOrderNumber" resultMap="purReturnMap">
+        select * from t_purchase_return
+        <where>
+            <if test="orderNumber != null and orderNumber != '' ">
+                and ORDER_NUMBER=#{orderNumber,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
 </mapper>
