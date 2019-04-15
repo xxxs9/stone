@@ -240,6 +240,23 @@
             ID=#{id}
   </update>
 
+    <!-- /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    MarkerOrderTest findMarkerOrderByOrderNumber(@Param("orderNumber") String orderId);-->
+    <select id="findMarkerOrderByOrderNumber" resultMap="MarkerOrderResultMap">
+        select * from w_marker_order
+        <where>
+            <if test="orderId != null and orderId != '' ">
+                and ORDER_ID=#{orderId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
 
 
 

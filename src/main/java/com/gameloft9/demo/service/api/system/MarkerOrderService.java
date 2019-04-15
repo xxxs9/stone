@@ -2,6 +2,7 @@ package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
 import com.gameloft9.demo.dataaccess.model.system.OrderAuditBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -95,4 +96,13 @@ public interface MarkerOrderService {
      */
 
     Boolean fina(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    MarkerOrderTest findMarkerOrderByOrderNumber(@Param("orderNumber") String orderId);
 }

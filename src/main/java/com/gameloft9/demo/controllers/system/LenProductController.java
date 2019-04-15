@@ -55,7 +55,11 @@ public class LenProductController {
     @RequestMapping("/add")
     @ResponseBody
     public IResult add(LenProduct lenProduct){
-        return new ResultBean<Boolean>(service.insert(lenProduct));
+        if (service.insert(lenProduct)){
+        return new ResultBean<Boolean>(true);
+        }else {
+            return new ResultBean<String>("4011",">>>>操作失败<<<<");
+        }
     }
 
     /**

@@ -2,6 +2,8 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.service.api.system.FinanceSaleBillPayService;
 import com.gameloft9.demo.service.beans.system.PageRange;
 import com.gameloft9.demo.utils.*;
@@ -70,7 +72,7 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
 
         SysFinanceSaleBillsPayable saleBillsPayable = new SysFinanceSaleBillsPayable();
 
-        saleBillsPayable.setId(UUIDUtil.getUUID());
+        saleBillsPayable.setId("CWO" + OrderUtil.createOrderNumber());
         saleBillsPayable.setSaleRejectedId(shipmentOrder.getId());
         int auditType = NumberUtil.strToInt(shipmentOrder.getAuditType());
         saleBillsPayable.setAuditType(auditType);
@@ -108,11 +110,17 @@ public class FinanceSaleBillPayServiceImpl implements FinanceSaleBillPayService 
      * @return
      */
     @Override
-    public Boolean saleOrderPayPass(String attitude, String id, String auditType, String actualPrice, String auditDescribe) {
+    public Boolean saleOrderPayPass(String attitude, String id, String auditType, String actualPrice, String auditDescribe,String totalPrice) {
+        if(actualPrice == null || "".equals(actualPrice)){
+            actualPrice = totalPrice;
+        }
+        if(auditDescribe == null || "".equals(auditDescribe)){
+            throw new BizException(AbstractResult.BIZ_FAIL,"审核内容为空");
+        }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取ShipmentOrder
-        ShipmentOrder shipmentOrder = shipmentOrderMapper.getById(id);
+        ShipmentOrder shipmentOrder = shipmentOrderMapper.findShipmentOrderByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //获取SysFinancePurchaseBillsPayable

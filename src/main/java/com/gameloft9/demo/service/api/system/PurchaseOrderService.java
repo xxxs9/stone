@@ -1,6 +1,7 @@
 package com.gameloft9.demo.service.api.system;
 
 import com.gameloft9.demo.dataaccess.model.system.PurchaseOrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -211,6 +212,15 @@ public interface PurchaseOrderService {
      * 报表 获取所有goodsName
      * */
     List<String> selectGoodsNameAll();
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseOrder findByOrderNumber(@Param("orderNumber") String orderNumber);
 }
 
 

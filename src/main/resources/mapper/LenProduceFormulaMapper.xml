@@ -206,7 +206,7 @@
     CREATE_TIME=#{createTime},
     OTHER1=#{other1},
     OTHER2=#{other2},
-    OTHER3#{other3}
+    OTHER3=#{other3}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 

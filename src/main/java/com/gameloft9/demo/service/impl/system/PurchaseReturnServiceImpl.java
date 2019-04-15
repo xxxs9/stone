@@ -147,6 +147,7 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         if(!str.equals(state)){
             throw new BizException(AbstractResult.CHECK_FAIL,"退货单已撤回,请刷新!");
         }*/
+
         purchaseReturn.setDepotState(Constants.DepotState.DEPOT_PASS);
         dao.updateTools(purchaseReturn);
         return true;
@@ -157,6 +158,15 @@ public class PurchaseReturnServiceImpl implements PurchaseReturnService {
         return dao.selectByOrderNumber(orderNumber);
     }
 
+    /**
+     * 啊发包
+     * @param orderNumber orderNumber
+     * @return
+     */
+    @Override
+    public PurchaseReturn findByOrderNumber(String orderNumber) {
+        return dao.findByOrderNumber(orderNumber);
+    }
 
 
 }

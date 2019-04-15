@@ -99,14 +99,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }else if(resultBD.toString() == null){
             throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
         }
-        /*if("".equals(str) || str == null){
-            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能空！");
-        }else if(Integer.parseInt(str) < 0){
-
-        }else if(Integer.parseInt(str) == 0){
-            throw new BizException(AbstractResult.CHECK_FAIL,"单价不能为零！");
-        }*/
         dao.updateByPrimaryKey(purchaseOrder);
+
         return true;
     }
 
@@ -139,7 +133,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         CheckUtil.notBlank(purchaseOrder.getId(),"订单id为空");
         purchaseOrder.setOrderAuditTime(new Date());
-        /*purchaseOrder.setFinanceState(Constants.FinanceState.APPLY_PASS_WAIT);*/
         String state = purchaseOrder.getState();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         //根据登录账号的名字自动获取
@@ -152,14 +145,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             purchaseOrder.setState(Constants.PurchaseState.APPLY_PASS);
             //插入订单
             SysFinanceApplyOrder financeApplyOrder = new SysFinanceApplyOrder();
-            financeApplyOrder.setId(UUIDUtil.getUUID());
-            financeApplyOrder.setApplyId(purchaseOrder.getId());
+            //financeApplyOrder.setId(UUIDUtil.getUUID());
+            financeApplyOrder.setId("CWO" + OrderUtil.createOrderNumber());
+            //financeApplyOrder.setApplyId(purchaseOrder.getId());
+            financeApplyOrder.setApplyId(purchaseOrder.getOrderNumber());
             BigDecimal decimal1 = new BigDecimal(purchaseOrder.getGoodsNumber());
             decimal1 = decimal1.setScale(2,BigDecimal.ROUND_HALF_UP);
             BigDecimal decimal2 = new BigDecimal(purchaseOrder.getPrice());
             decimal2.setScale(0);
             BigDecimal applyMoney = decimal1.multiply(decimal2);
-            financeApplyOrder.setApplyMoney(applyMoney.toString());
+            financeApplyOrder.setApplyMoney(applyMoney.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
             financeApplyOrder.setApplyType(1);
             financeApplyOrder.setApplyState(1);
             financeApplyOrder.setApplyTime(new Date());
@@ -376,5 +371,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**报表 获取所有goodsName*/
     public List<String> selectGoodsNameAll(){
         return dao.selectGoodsNameAll();
+    }
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    public PurchaseOrder findByOrderNumber(String orderNumber) {
+        return dao.findByOrderNumber(orderNumber);
     }
 }

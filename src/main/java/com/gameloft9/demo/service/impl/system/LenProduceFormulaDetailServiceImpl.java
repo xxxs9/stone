@@ -96,11 +96,26 @@ public class LenProduceFormulaDetailServiceImpl implements LenProduceFormulaDeta
      * @return
      */
     public boolean update(LenProduceFormulaDetail len) {
-        if (mapper.update(len) > 0) {
+        LenProduceFormulaDetail lenProduceFormulaDetail = new LenProduceFormulaDetail();
+        if (len.getDepotId()!=null){
+        lenProduceFormulaDetail.setId(len.getId());
+        lenProduceFormulaDetail.setOther1(len.getOther1());
+        lenProduceFormulaDetail.setOther2(len.getOther2());
+        lenProduceFormulaDetail.setOther3(len.getOther3());
+        lenProduceFormulaDetail.setDepotId(len.getDepotId());
+        lenProduceFormulaDetail.setMaterialId(len.getMaterialId());
+        lenProduceFormulaDetail.setMaterialNumber(len.getMaterialNumber());
+        lenProduceFormulaDetail.setProduceFormulaId(len.getProduceFormulaId());
+
+        if (mapper.update(lenProduceFormulaDetail) > 0) {
             return true;
         } else {
             return false;
         }
+        }else {
+            return false;
+        }
+
     }
 
     /**

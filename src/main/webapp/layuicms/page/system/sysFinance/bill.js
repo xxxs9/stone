@@ -42,13 +42,13 @@ layui.config({
             , {field: 'applyUser', title: '申请人',width:100}
             , {field: 'billTime', title: '申请时间', width:170}
             , {field: 'goodsName', title: '货品名称', width:170}
-            , {field: 'balanceType', title: '货款类型', width:170}
-            , {field: 'balance', title: '款额', width:120}
+            , {field: 'balanceType', title: '货款类型', width:170,templet:'#balanceType'}
+            , {field: 'balance', title: '款额', width:120,templet:'#balance'}
 
         ]],
         url:$tool.getContext() + 'bill/dailyReport.do',
         method:'post',
-        page:true,
+        //page:true,
         limit:[10,20,30,40],
         limit:10,
         done:function(res,curr,count){
@@ -70,18 +70,18 @@ layui.config({
         cols:[[
             {type:'numbers',title:'序号',fixed: 'left'}
             , {field: 'department', title: '部门',width:100}
-            , {field: 'balance', title: '款', width:120}
+            , {field: 'applyUser', title: '申请人',width:100}
             , {field: 'billTime', title: '时间', width:170}
             , {field: 'goodsName', title: '货品名称', width:170}
-            , {field: 'balanceType', title: '货款类型', width:170}
-            , {field: 'balance', title: '款额', width:120}
+            , {field: 'balanceType', title: '货款类型', width:170,templet:'#balanceType'}
+            , {field: 'balance', title: '款额', width:120,templet:'#balance'}
 
         ]],
         url:$tool.getContext() + 'bill/weeklyReport.do',
         method:'post',
-        page:true,
-        limit:[10,20,30,40],
-        limit:10,
+        //page:true,
+        //limit:[10,20,30,40],
+        //limit:10,
         done:function(res,curr,count){
             // 隐藏列
             $(".layui-table-box").find("[data-field='auditType']").css("display","none");
@@ -100,16 +100,16 @@ layui.config({
         cols:[[
             {type:'numbers',title:'序号',fixed: 'left'}
             , {field: 'department', title: '部门',width:100}
-            , {field: 'balance', title: '款', width:120}
+            , {field: 'applyUser', title: '申请人',width:100}
             , {field: 'billTime', title: '时间', width:170}
             , {field: 'goodsName', title: '货品名称', width:170}
-            , {field: 'balanceType', title: '货款类型', width:170}
-            , {field: 'balance', title: '款额', width:120}
+            , {field: 'balanceType', title: '货款类型', width:170,templet:'#balanceType'}
+            , {field: 'balance', title: '款额', width:120,templet:'#balance'}
 
         ]],
         url:$tool.getContext() + 'bill/monthlyReport.do',
         method:'post',
-        page:true,
+        //page:true,
         limit:[10,20,30,40],
         limit:10,
         done:function(res,curr,count){
@@ -130,16 +130,16 @@ layui.config({
         cols:[[
             {type:'numbers',title:'序号',fixed: 'left'}
             , {field: 'department', title: '部门',width:100}
-            , {field: 'balance', title: '款', width:120}
+            , {field: 'applyUser', title: '申请人',width:100}
             , {field: 'billTime', title: '时间', width:170}
             , {field: 'goodsName', title: '货品名称', width:170}
-            , {field: 'balanceType', title: '货款类型', width:170}
-            , {field: 'balance', title: '款额', width:120}
+            , {field: 'balanceType', title: '货款类型', width:170,templet:'#balanceType'}
+            , {field: 'balance', title: '款额', width:120,templet:'#balance'}
 
         ]],
         url:$tool.getContext() + 'bill/annualReport.do',
         method:'post',
-        page:true,
+        //page:true,
         limit:[10,20,30,40],
         limit:10,
         done:function(res,curr,count){
@@ -160,18 +160,18 @@ layui.config({
         cols:[[
             {type:'numbers',title:'序号',fixed: 'left'}
             , {field: 'department', title: '部门',width:100}
-            , {field: 'balance', title: '款', width:120}
+            , {field: 'applyUser', title: '申请人',width:100}
             , {field: 'billTime', title: '时间', width:170}
             , {field: 'goodsName', title: '货品名称', width:170}
-            , {field: 'balanceType', title: '货款类型', width:170}
-            , {field: 'balance', title: '款额', width:120}
+            , {field: 'balanceType', title: '货款类型', width:170,templet:'#balanceType'}
+            , {field: 'balance', title: '款额', width:120,templet:'#balance'}
 
         ]],
         url:$tool.getContext() + 'bill/timeReport.do',
         method:'post',
-        page:true,
-        limit:[10,20,30,40],
-        limit:10,
+        //page:true,
+        //limit:[10,20,30,40],
+        //limit:10,
         done:function(res,curr,count){
             // 隐藏列
             $(".layui-table-box").find("[data-field='auditType']").css("display","none");
@@ -224,12 +224,14 @@ layui.config({
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('day');
         } else if (data.index == 1) {
             $("#exportDayData").css("display","none");
             $("#exportWeekData").show();
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('week');
         }
         else if (data.index == 2) {
             $("#exportDayData").css("display","none");
@@ -237,12 +239,14 @@ layui.config({
             $("#exportMonthData").show();
             $("#exportYearData").css("display","none");
             $("#myDiv").css("display","none");
+            table.reload('month');
         }else if (data.index == 3) {
             $("#exportDayData").css("display","none");
             $("#exportWeekData").css("display","none");
             $("#exportMonthData").css("display","none");
             $("#exportYearData").show();
             $("#myDiv").css("display","none");
+            table.reload('year');
         }
         else if (data.index == 4) {
 
@@ -252,6 +256,7 @@ layui.config({
             $("#exportMonthData").css("display","none");
             $("#exportYearData").css("display","none");
             $("#myDiv").show();
+            table.reload('time');
         }
 
     });

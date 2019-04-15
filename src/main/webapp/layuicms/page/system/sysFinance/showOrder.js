@@ -30,15 +30,9 @@ layui.config({
 
         //沧海的getPurOrder
         if(queryArgs.applyType == 1 ){
-            $api.getPurOrder(req,function (res) {
+            $api.getByOrderNumber(req,function (res) {
                 var data = res.data;
                 $('#id').val(id);
-                /*$("[name='goodsId']").val(data.goodsId);
-                $("[name='goodsNumber']").val(data.goodsNumber);
-                $("[name='price']").val(data.price);
-                $("[name='applyUser']").val(data.applyUser);
-                $("[name='applyTime']").val(data.applyTime);
-                $("[name='applyDescribe']").val(data.applyDescribe);*/
                 $("[name='goodsId']").html(data.goodsName);
                 $("[name='goodsNumber']").html(data.goodsNumber);
                 $("[name='price']").html(data.price);
@@ -58,7 +52,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         } else if(queryArgs.applyType == 2){
-            $api.GetMarkerOrder(req,function (res) {
+            $api.findMarkerOrderByOrderId(req,function (res) {
                 var data = res.data;
                 var goodsAmount = data.acceptedAmount;
                 var goodsNumber = data.deliverNumber;
@@ -66,7 +60,7 @@ layui.config({
                 $('#id').val(id);
                 /*console.log(data)
                 alert(data.orderId)*/
-                $("[name='goodsId']").html("q");
+                $("[name='goodsId']").html(data.productId);
                 $("[name='goodsNumber']").html(data.deliverNumber);
                 $("[name='price']").html(unitPrice);
                 $("[name='applyUser']").html(data.applyUser);
@@ -85,7 +79,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         }else if(queryArgs.applyType == 4){
-            $api.GetReturnGoodsOrder(req,function (res) {
+            $api.findShipmentOrderByOrderId(req,function (res) {
                 var data = res.data;
                 var goodsAmount = data.goodsAmount;
                 var goodsNumber = data.goodsNumber;
@@ -110,7 +104,7 @@ layui.config({
                 form.render();//重新绘制表单，让修改生效
             });
         }if( queryArgs.applyType==3){
-            $api.getPurchaseReturn(req,function (res) {
+            $api.getReturnByOrderNumber(req,function (res) {
                 var data = res.data;
                 $('#id').val(id);
                 /*$("[name='goodsId']").val(data.goodsId);

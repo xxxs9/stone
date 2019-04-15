@@ -194,6 +194,16 @@ layui.define(['$tool','jquery'], function (exports) {
         },
         //purOrder 采购订单管理purchase_order
         //初始化GoodsId下拉框
+        //啊发包，根据orderNumber获取purchaseOrder
+        getByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_order/getByOrderNumber.do',req,config,successCallback,errorCallback);
+        },
+
+        //啊发包，根据orderNumber获取purchaseOrderReturn
+        getReturnByOrderNumber:function(req,config,successCallback,errorCallback){
+            doPost($tool.getContext() + 'purchase_return/getReturnByOrderNumber.do',req,config,successCallback,errorCallback);
+        },
+
         getListGoods:function(req,config,successCallback,errorCallback){
             doPost($tool.getContext() + 'purchase_order/goods.do',req,config,successCallback,errorCallback);
         },
@@ -482,6 +492,14 @@ layui.define(['$tool','jquery'], function (exports) {
         },//驳回
         passUpdate:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'audit/pass',req,successCallback,errorCallback);
+        },
+        //啊发包，根据orderId查找markerOrder
+        findMarkerOrderByOrderId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'marker/findMarkerOrderByOrderId',req,successCallback,errorCallback);
+        },
+        //啊发包，根据orderId查找shipMentOrder
+        findShipmentOrderByOrderId:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'shipment/findShipmentOrderByOrderId',req,successCallback,errorCallback);
         },
 
 

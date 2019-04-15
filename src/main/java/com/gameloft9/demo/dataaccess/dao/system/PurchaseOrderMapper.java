@@ -270,4 +270,13 @@ public interface PurchaseOrderMapper {
      * @param purchaseOrder
      */
     void purchaseOrderPayPass(PurchaseOrder purchaseOrder);
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseOrder findByOrderNumber(@Param("orderNumber") String orderNumber);
 }

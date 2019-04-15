@@ -666,8 +666,12 @@
                 FINANCE_AUDIT_TIME=#{financeAuditTime,jdbcType=VARCHAR},
             </if>
             <if test="financeAuditDescribe != null and financeAuditDescribe != ''">
-                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR}
+                FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe,jdbcType=VARCHAR},
             </if>
+            <if test="depotState != null and depotState != ''">
+                DEPOT_STATE=#{depotState,jdbcType=VARCHAR}
+            </if>
+
         </set>
         <where>
             <if test="id != null and id != '' ">
@@ -678,4 +682,14 @@
             </if>
         </where>
     </update>
+
+    <!--啊发包 根据orderNumber获取purchaseOrder PurchaseOrder findByOrderNumber(@Param("orderNumber") String orderNumber);-->
+    <select id="findByOrderNumber" resultMap="purOrderMap">
+        select * from t_purchase_order
+        <where>
+            <if test="orderNumber != null and orderNumber != '' ">
+                and ORDER_NUMBER=#{orderNumber,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

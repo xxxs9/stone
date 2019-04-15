@@ -54,7 +54,7 @@ public interface FinanceSaleReceivableService {
      * @return
      *  boolean
      */
-    Boolean saleOrderReceivePass(String attitude,String id,String auditType,String actualPrice,String auditDescribe);
+    Boolean saleOrderReceivePass(String attitude,String id,String auditType,String actualPrice,String auditDescribe,String totalPrice);
 
     /**
      * 根据id获取

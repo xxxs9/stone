@@ -2,12 +2,11 @@ package com.gameloft9.demo.service.impl.system;
 
 import com.gameloft9.demo.dataaccess.dao.system.*;
 import com.gameloft9.demo.dataaccess.model.system.*;
+import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
+import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.service.api.system.FinancePurchaseReceivableService;
 import com.gameloft9.demo.service.beans.system.PageRange;
-import com.gameloft9.demo.utils.Constants;
-import com.gameloft9.demo.utils.FinanceServiceUtil;
-import com.gameloft9.demo.utils.NumberUtil;
-import com.gameloft9.demo.utils.UUIDUtil;
+import com.gameloft9.demo.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +74,7 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
     public String generatePurchaseReceive(PurchaseOrder purchaseOrder,String id1) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         SysFinancePurchaseReceivable purchaseReceivable = new SysFinancePurchaseReceivable();
-        purchaseReceivable.setId(UUIDUtil.getUUID());
+        purchaseReceivable.setId("CWI" + OrderUtil.createOrderNumber());
         purchaseReceivable.setPurchaseOrderRejectedId(purchaseOrder.getId());
         purchaseReceivable.setAuditType(purchaseOrder.getAuditType());
         BigDecimal price = new BigDecimal(purchaseOrder.getPrice());
@@ -111,11 +110,17 @@ public class FinancePurchaseReceivableServiceImpl implements FinancePurchaseRece
         return purchaseReceivableMapper.getPurchaseReceiveById(id);
     }
 
-    public Boolean purchaseOrderReceivePass(String attitude, String id, String auditType, String actualPrice, String auditDescribe) {
+    public Boolean purchaseOrderReceivePass(String attitude, String id, String auditType, String actualPrice, String auditDescribe,String totalPrice) {
+        if(actualPrice == null || "".equals(actualPrice)){
+            actualPrice = totalPrice;
+        }
+        if(auditDescribe == null || "".equals(auditDescribe)){
+            throw new BizException(AbstractResult.BIZ_FAIL,"审核内容为空");
+        }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Integer auditType1 = NumberUtil.strToInt(auditType);
         //获取PurchaseOrder
-        PurchaseReturn purchaseReturn = purchaseReturnMapper.findByIdAndAuditType(id, auditType1);
+        PurchaseReturn purchaseReturn = purchaseReturnMapper.findByOrderNumber(id);
         //获取ApplyOrder
         SysFinanceApplyOrder applyOrder = applyOrderMapper.getByApplyIdAndApplyType(id, auditType1);
         //purchaseReceivable
