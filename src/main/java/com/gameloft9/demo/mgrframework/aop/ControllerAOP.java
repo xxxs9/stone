@@ -1,6 +1,8 @@
 package com.gameloft9.demo.mgrframework.aop;
 
+import com.gameloft9.demo.mgrframework.annotation.UserOperLog;
 import com.gameloft9.demo.mgrframework.utils.CheckUtil;
+import com.gameloft9.demo.service.api.system.DepotOperLogService;
 import com.gameloft9.demo.service.api.system.SysOperLogService;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
@@ -13,6 +15,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -33,6 +36,8 @@ public class ControllerAOP {
 
 	@Autowired
 	private SysOperLogService sysOperLogServiceImpl;
+	@Autowired
+	private DepotOperLogService depotOperLogServiceImpl;
 
 	/**
 	 * 创建返回切点,这里只切返回IResult的方法，没有切返回String和void的方法。
@@ -45,6 +50,12 @@ public class ControllerAOP {
 	 * */
 	@Pointcut("@annotation(com.gameloft9.demo.mgrframework.annotation.BizOperLog)")
 	public void operLogCut() {}
+
+	/**
+	 * 创建库存日志切点
+	 * */
+	@Pointcut("@annotation(com.gameloft9.demo.mgrframework.annotation.UserOperLog)")
+	public void depotperLogCut() {}
 
 	/**
 	 * 环绕通知处理
@@ -62,6 +73,27 @@ public class ControllerAOP {
 		log.info("返回结果:{}",result);
 		log.info(pjp.getSignature() + "处理耗费时间:" + (System.currentTimeMillis() - startTime)+"ms");
 		return result;
+	}
+
+	/**
+	 * 库存日志存储
+	 * */
+	@After("depotperLogCut() && @annotation(operLog)")
+	public void logAdvisor(UserOperLog operLog){
+		log.info("进入库存操作日志切面");
+		// 添加记录日志
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
+		UserTest user = (UserTest)SecurityUtils.getSubject().getPrincipal();
+		String userid = user.getId();// 操作员ID
+		String loginName = user.getLoginName();
+		String ipAddr = IPUtil.getIpAddr(request);// 访问段ip
+
+		//从注解中获取操作类型和备注
+		String opertype =  operLog.operType().getValue();
+		String operationName = operLog.operationName();
+		depotOperLogServiceImpl.insertOperLog(userid,loginName,ipAddr,opertype,operationName);
+		log.info("记录库存日志成功");
 	}
 
 	/**

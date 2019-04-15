@@ -29,14 +29,14 @@ layui.config({
         var queryArgs = $tool.getQueryParam();//获取查询参数
         var goodsId = queryArgs['goodsId'];
         var req = {
-            id:goodsId
+            bianhao:goodsId
         };
 
-        $api.getProductById(req,function (res) {
+        $api.getGoodsProductByBH(req,function (res) {
             var data = res.data;
-            $("[name='productName']").html(data.productName);
-            $("[name='productType']").html(data.productType);
-            $("[name='productDescribe']").html(data.productDescribe);
+            $("[name='productName']").html(data.pname);
+            $("[name='productType']").html(data.leixing);
+            $("[name='productPrice']").html(data.pprice);
             form.render();//重新绘制表单，让修改生效
         });
     }

@@ -16,5 +16,5 @@ public @interface UserOperLog {
     OperType operType() default OperType.Query;
 
     /**备注*/
-    String memo() default "";
+    String operationName() default "";
 }

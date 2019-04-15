@@ -14,7 +14,7 @@ public interface DepotOperLogMapper {
      * 根据主键删除库存日志信息
      * @param id 库存日志id
      * */
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(@Param("id") String id);
 
     /**
      * 新增库存日志信息
@@ -43,7 +43,7 @@ public interface DepotOperLogMapper {
      * @param startDate 开始时间
      * @param endDate 结束时间
      * */
-    List<SysOperLogTest> getAll(@Param("start") int start,
+    List<DepotOperLog> getAll(@Param("start") int start,
                                    @Param("end") int end,
                                    @Param("loginName") String loginName,
                                    @Param("operType") String operType,
@@ -64,7 +64,7 @@ public interface DepotOperLogMapper {
 
     /**
      * 根据列表删除
-     * @param delIds 删除列表
+     * @param delIds 删除ids
      * */
-    boolean deleteByList(@Param("delIds") List<String> delIds);
+    boolean deleteByList(@Param("ids") List<String> delIds);
 }

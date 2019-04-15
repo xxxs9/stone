@@ -2,6 +2,7 @@ package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheck;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
+import com.gameloft9.demo.mgrframework.annotation.UserOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -54,7 +55,7 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/add.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增盘点单")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增盘点单")
     public IResult addDepotInventoryCheck(String checkType, String recordNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
         String sourceUser = (String) request.getSession().getAttribute("sysUser");
@@ -78,7 +79,7 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "删除盘点单")
+    @UserOperLog(operType = OperType.DELETE,operationName ="删除盘点单")
     public IResult deleteDepotInventoryCheck(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.deleteDepotInventoryCheck(id));
@@ -90,7 +91,7 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "批量删除盘点单")
+    @UserOperLog(operType = OperType.DELETE,operationName ="批量删除盘点单")
     public IResult delsDepotInventoryCheck(String ids){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.delsDepotInventoryCheck(ids));
@@ -102,7 +103,7 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/end.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "盘点结束")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="确认盘点结束")
     public IResult endDepotInventoryCheck(String id,String checkNumber, HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String checkUser = (String) request.getSession().getAttribute("sysUser");
@@ -116,7 +117,7 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/audit.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "盘点单审核通过")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="盘点审核通过")
     public IResult auditDepotInventoryCheck(String id,String state,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
@@ -134,15 +135,10 @@ public class DepotInventoryCheckController {
      * */
     @RequestMapping(value = "/auditReject.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "驳回盘点单")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="驳回盘点")
     public IResult auditRejectDepotInventoryCheck(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String orderAuditUser = (String) request.getSession().getAttribute("sysUser");
         return new ResultBean<Boolean>(depotInventoryCheckServiceImlp.auditReject(id,state));
     }
-
-
-
-
-
 }

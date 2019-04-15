@@ -2,6 +2,7 @@ package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotOrder;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
+import com.gameloft9.demo.mgrframework.annotation.UserOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
@@ -73,7 +74,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/addIn.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增入库单")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增入库单")
     @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderIn(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -95,7 +96,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/addPurorder.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增采购入库单")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增采购入库单")
     @RequiresPermissions("depotOrder:add")
     public IResult addPurorderDepotOrderIn(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -113,7 +114,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/addMarket.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增销售出库单")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增销售出库单")
     @RequiresPermissions("depotOrder:add")
     public IResult addMarketDepotOrderOut(String orderNumber,String goodsId, String goodsNumber,String applyUser){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -132,7 +133,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/addOut.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增出库单")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增出库单")
     @RequiresPermissions("depotOrder:add")
     public IResult addDepotOrderOut(String type, String goodsId, String goodsNumber, HttpServletRequest request){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -208,7 +209,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/auditPassIn.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "入库单审核通过")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="入库单审核通过")
     @RequiresPermissions("depotOrder:audit")
     public IResult auditPassDepotOrderIn(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -224,7 +225,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/auditPassOut.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "出库单审核通过")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="出库单审核通过")
     @RequiresPermissions("depotOrder:audit")
     public IResult auditPassDepotOrderOut(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -240,7 +241,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/auditRejectIn.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "驳回入库单")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="驳回入库单")
     @RequiresPermissions("depotOrder:audit")
     public IResult auditRejectDepotOrderIn(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -256,7 +257,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/auditRejectOut.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "驳回出库单")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="驳回出库单")
     @RequiresPermissions("depotOrder:audit")
     public IResult auditRejectDepotOrderOut(String id,String state,String auditDescribe,HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -271,7 +272,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/storageIn.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "货物入库")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="货物入库")
     @RequiresPermissions("depotOrder:storageInOut")
     public IResult storageDepotOrderIn(String id,String state){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -285,7 +286,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/storageOut.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "货物出库")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="货物出库")
     @RequiresPermissions("depotOrder:storageInOut")
     public IResult storageDepotOrderOut(String id,String state){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -297,7 +298,7 @@ public class DepotOrderController {
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "删除仓库单")
+    @UserOperLog(operType = OperType.DELETE,operationName ="删除仓库单")
     @RequiresPermissions("depotOrder:delete")
     public IResult deleteDepotOrder(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
@@ -310,7 +311,7 @@ public class DepotOrderController {
 
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "批量删除仓库单")
+    @UserOperLog(operType = OperType.DELETE,operationName ="批量删除仓库单")
     @RequiresPermissions("depotOrder:delete")
     public IResult delsDepotOrder(String ids){
         //返回json至前端的均返回ResultBean或者PageResultBean

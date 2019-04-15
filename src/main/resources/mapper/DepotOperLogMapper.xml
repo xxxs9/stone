@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysOperLogTestMapper">
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.DepotOperLogMapper">
     <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.DepotOperLog">
         <id column="ID" property="id" jdbcType="VARCHAR"/>
         <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
@@ -20,8 +20,10 @@
         where ID = #{id,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from D_DEPOT_OPER_LOG
-        where ID = #{id,jdbcType=VARCHAR}
+        DELETE FROM
+          D_DEPOT_OPER_LOG
+        WHERE
+          ID = #{id,jdbcType=VARCHAR}
     </delete>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotOperLog">
         insert into D_DEPOT_OPER_LOG
@@ -101,7 +103,10 @@
         select * from D_DEPOT_OPER_LOG t
         where 1=1
         <if test="loginName !=null and loginName != ''">
-            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+            AND (
+            t.LOGIN_NAME LIKE (concat('%',concat(#{loginName,jdbcType=VARCHAR},'%')))
+            AND t.LOGIN_NAME >' '
+            )
         </if>
         <if test="operType !=null and operType != ''">
             and t.OPER_TYPE = #{operType,jdbcType=VARCHAR}
@@ -134,9 +139,9 @@
     </select>
     <!--mysql 版本 -->
     <delete id="deleteByList" parameterType="map">
-        delete t from SYS_OPER_LOG_TEST t
+        delete t from D_DEPOT_OPER_LOG t
         where t.id in
-        <foreach collection="delIds" index="index" item="item" open="(" separator="," close=")">
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
             #{item,jdbcType=VARCHAR}
         </foreach>
     </delete>
