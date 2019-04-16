@@ -30,7 +30,7 @@ layui.config({
      */
     function initState() {
         var html1 = '<option value="">--请选择--</option>';
-        html1 += '<option value="已发货">已发货</option>>';
+        html1 += '<option value="待收货">待收货</option>>';
         html1 += '<option value="确认中">确认中</option>>';
         html1 += '<option value="未提交">未提交</option>>';
         html1 += '<option value="提交审核中">入库单审核中</option>>';
@@ -78,7 +78,7 @@ layui.config({
                 , {field: 'depotState', title: '仓管审核状态', width: 120}
                 , {field: 'applyUser', title: '申请人', width: 100}
                 , {field: 'applyTime', title: '申请时间', width: 200}
-                , {field: 'applyPayTime', title: '申请人付款时间', width: 200}
+                /*, {field: 'applyPayTime', title: '申请人付款时间', width: 200}*/
                 , {field: 'financeState', title: '财务审核状态', width: 120}
                 , {field: 'financeAuditUser', title: '财务审核人', width: 120}
                 , {field: 'financeAuditTime', title: '财务审核时间', width: 200}

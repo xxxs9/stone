@@ -179,8 +179,8 @@ layui.config({
                     alert ("小数只能两位!");
                 }else if(!number.test(goodsNumber)){
                     alert ("输入有误，请重新输入!");
-                }else if(!number.test(price)){
-                    alert ("请输入价格！")
+                /*}else if(!number.test(price)){
+                    alert ("请输入价格！")*/
                 }else if(goodsNumber != null){
                     $('[name=totalPrice]').val(price * goodsNumber);
                 }
