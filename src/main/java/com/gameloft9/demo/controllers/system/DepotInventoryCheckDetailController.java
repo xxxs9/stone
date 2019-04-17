@@ -2,6 +2,7 @@ package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotInventoryCheckDetail;
 import com.gameloft9.demo.mgrframework.annotation.BizOperLog;
+import com.gameloft9.demo.mgrframework.annotation.UserOperLog;
 import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
@@ -53,7 +54,7 @@ public class DepotInventoryCheckDetailController {
      * */
     @RequestMapping(value = "/add.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "新增盘点单明细")
+    @UserOperLog(operType = OperType.ADD,operationName ="新增盘点单明细")
     public IResult addDepotInventoryCheckDetail(String checkId, String type, String goodsId,String goodsNumber){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<String>(depotInventoryCheckDetailServiceImpl.addDepotInventoryCheckDetail(checkId,type,goodsId,goodsNumber));
@@ -68,7 +69,7 @@ public class DepotInventoryCheckDetailController {
      * */
     @RequestMapping(value = "/adds.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.ADD,memo = "批量添加盘点单明细")
+    @UserOperLog(operType = OperType.ADD,operationName ="批量添加盘点单明细")
     public IResult addsDepotInventoryCheckDetail(String checkId,String types,String goodsIds,String goodsNumbers){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckDetailServiceImpl.adds(checkId,types,goodsIds,goodsNumbers));
@@ -94,7 +95,7 @@ public class DepotInventoryCheckDetailController {
      * */
     @RequestMapping(value = "/update.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.UPDATE,memo = "更新盘点单明细")
+    @UserOperLog(operType = OperType.UPDATE,operationName ="更新盘点单明细")
     public IResult updateSupplier(String id,String checkNumber, HttpServletRequest request){//传递了数组，前台放在payload里面了，后台通过@RequestBody获取
         //返回json至前端的均返回ResultBean或者PageResultBean
         String checkUser = (String) request.getSession().getAttribute("sysUser");
@@ -106,7 +107,7 @@ public class DepotInventoryCheckDetailController {
      * */
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "删除盘点单明细")
+    @UserOperLog(operType = OperType.DELETE,operationName ="删除盘点单明细")
     public IResult deleteDepotInventoryCheck(String id){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckDetailServiceImpl.deleteDepotInventoryCheckDetail(id));
@@ -118,7 +119,7 @@ public class DepotInventoryCheckDetailController {
      * */
     @RequestMapping(value = "/dels.do",method = RequestMethod.POST)
     @ResponseBody
-    @BizOperLog(operType = OperType.DELETE,memo = "批量删除盘点单明细")
+    @UserOperLog(operType = OperType.DELETE,operationName ="批量删除盘点单明细")
     public IResult delsDepotInventoryCheck(String ids){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(depotInventoryCheckDetailServiceImpl.delsDepotInventoryCheckDetail(ids));

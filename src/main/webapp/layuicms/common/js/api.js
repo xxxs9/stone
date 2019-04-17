@@ -450,6 +450,12 @@ layui.define(['$tool','jquery'], function (exports) {
         DeleteCheck:function(req,successCallback,errorCallback){
             doPost($tool.getContext() + 'depotInventoryCheck/delete.do',req,successCallback,errorCallback);
         },
+        DeleteDepotLog:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotLog/delete.do',req,successCallback,errorCallback);
+        },
+        BatchDeleteDepotLog:function(req,successCallback,errorCallback){
+            doPost($tool.getContext() + 'depotLog/batchDelete.do',req,successCallback,errorCallback);
+        },
 
 
 

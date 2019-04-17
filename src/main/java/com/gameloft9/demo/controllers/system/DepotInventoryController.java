@@ -1,6 +1,8 @@
 package com.gameloft9.demo.controllers.system;
 
 import com.gameloft9.demo.dataaccess.model.system.DepotInventory;
+import com.gameloft9.demo.mgrframework.annotation.UserOperLog;
+import com.gameloft9.demo.mgrframework.beans.constant.OperType;
 import com.gameloft9.demo.mgrframework.beans.response.IResult;
 import com.gameloft9.demo.mgrframework.beans.response.PageResultBean;
 import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
@@ -106,6 +108,7 @@ public class DepotInventoryController {
      */
 
     @RequestMapping(value = "export.do", method = RequestMethod.GET)
+    @UserOperLog(operType = OperType.DOWNLOAD,operationName ="导出库存信息")
     public void exportExcelData(HttpServletRequest request, HttpServletResponse response,String goodsId,String type) throws  IOException {
 
         String fileName = "库存信息.xlsx";
@@ -150,6 +153,7 @@ public class DepotInventoryController {
      */
 
     @RequestMapping(value = "template.do", method = RequestMethod.GET)
+    @UserOperLog(operType = OperType.DOWNLOAD,operationName ="下载库存信息模版")
     public void exportStorageRecord(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 
         String fileName = "库存信息模版.xlsx";
@@ -196,6 +200,7 @@ public class DepotInventoryController {
      */
     @RequestMapping(value = "import", method = RequestMethod.POST)
     @ResponseBody
+    @UserOperLog(operType = OperType.UPLOAD,operationName ="导入库存信息")
     public IResult importStorageRecord(@RequestParam("file") MultipartFile file) {
         // 初始化 Response
         Response responseContent = ResponseFactory.newInstance();
