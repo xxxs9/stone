@@ -87,6 +87,11 @@ public class SysUserServiceImpl implements SysUserService {
         return dao.countGetAll(loginName, realName, status);
     }
 
+    @Override
+    public List<UserTest> findAll() {
+        return dao.findall();
+    }
+
     /**
      * 根据id删除用户
      * @param id 用户id

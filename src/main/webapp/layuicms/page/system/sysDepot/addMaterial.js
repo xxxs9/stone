@@ -15,57 +15,98 @@ layui.config({
      * 页面初始化
      * */
     function init() {
-        //初始化下拉框
-        initSupplierName();
+        //初始化供应商名称下拉框
+        initGoodsId();
     }
-
     init();
 
     /**
-     * 初始化下拉框
+     * 初始化供应商名称下拉框
      * */
-    function initSupplierName() {
-        $api.GetSupplierName(null,function (res) {
+    function initGoodsId() {
+        $api.getListGoods(null,function (res) {
             var data = res.data;
             if (data.length > 0) {
                 var html = '<option value="">--请选择--</option>';
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value="' + data[i] + '">' + data[i] + '</option>>';
                 }
-                $('#supplierName').append($(html));
+                $('#goodsId').append($(html));
                 form.render();
             }
         });
     }
 
+    form.on('select(bhs)', function(data){
+        console.log(data.elem); //得到checkbox原始DOM对象
+        console.log(data.elem.checked); //是否被选中，true或者false
+        console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+        console.log(data.othis); //得到美化后的DOM对象
+        var req = {
+            materialId:data.value
+        };
+
+        $api.selectPriceByGoodsId(req,function (res) {
+            var data = res.data;
+            console.log(res);
+            $("[name='price']").val(data);
+            form.render();//重新绘制表单，让修改生效
+        });
+    });
+
+    //计算总金额 数量goodsNumber*价格price
+    $(function(){
+        //总结个totalPrice
+        $('[name=totalPrice]').bind('click',function(){
+
+            var price = $('[name=price]').val();
+            var goodsNumber = $('[name=goodsNumber]').val();
+            $("[name = totalPrice]").val(price * goodsNumber);
+        })
+    });
+
     /**
      * 表单提交
      * */
-    form.on("submit(addMaterial)", function (data) {
-        var goodsName = data.field.goodsName;
-        var goodsType = data.field.goodsType;
-        var goodsDescribe = data.field.goodsDescribe;
-        var goodsSpecification = data.field.goodsSpecification;
+    form.on("submit(purAdd)", function (data) {
+        //var id = data.field.id;
+        var orderNumber = data.field.orderNumber;
+        var goodsId = data.field.goodsId;
+        var goodsNumber = data.field.goodsNumber;
+        var price = data.field.price;
+        var totalPrice = data.field.totalPrice;
+        var applyUser = data.field.applyUser;
+        var applyTime = data.field.applyTime;
+        var state = data.field.state;
+        var applyDescribe = data.field.applyDescribe;
+
+        //console.log(data)
+        /*var parentMenuId = data.field.parentMenuId;
+        var requestUrl = data.field.requestUrl;
+        var sort = data.field.sort;*/
+
         //请求
         var req = {
-            goodsName:goodsName,
-            goodsType: goodsType,
-            goodsDescribe: goodsDescribe,
-            goodsSpecification:goodsSpecification,
+            //id:id,
+            orderNumber:orderNumber,
+            goodsId:goodsId,
+            goodsNumber: goodsNumber,
+            price: price,
+            totalPrice:totalPrice,
+            applyUser: applyUser,
+            applyTime: applyTime,
+            state:state,
+            applyDescribe:applyDescribe
         };
 
-        $api.AddMaterial(req,function (data) {
+        $api.insertPurOrder(req,function (data) {
             //top.layer.close(index);(关闭遮罩已经放在了ajaxExtention里面了)
-            layer.msg("原料添加成功！", {time: 1000}, function () {
+            layer.msg("采购单添加成功！", {time: 1000}, function () {
                 layer.closeAll("iframe");
                 //刷新父页面
                 parent.location.reload();
             });
         });
-
         return false;
     })
-
 });
-
-

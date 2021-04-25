@@ -25,6 +25,8 @@ public class DateUtil {
         return sdf.format(data);
     }
 
+
+
     /**
      * 日期转字符串
      *
@@ -36,6 +38,8 @@ public class DateUtil {
         return sdf.format(data);
     }
 
+
+
     /**
      * 字符串转日期
      * @param str 日期字符串
@@ -43,6 +47,23 @@ public class DateUtil {
      */
     public static Date str2Date(String str) {
         SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
+        Date res;
+        try {
+            res = sdf.parse(str);
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("日期解析异常");
+        }
+    }
+
+    /**
+     *
+     * @param str
+     * @param str2
+     * @return
+     */
+    public static Date str2Date(String str, String str2) {
+        SimpleDateFormat sdf = new SimpleDateFormat(str2);
         Date res;
         try {
             res = sdf.parse(str);
@@ -63,6 +84,33 @@ public class DateUtil {
         System.out.println(date2Str(date));
         System.out.println(date2Str(date, "yyyy-MM-dd"));
 
+    }
+
+    /**
+     * 时间是否为空的判断
+     */
+    public static Date ifNull(String time){
+        Date time1 = null;
+        if(time != null && !"".equals(time)){
+            time1 = str2Date(time);
+        }
+        return time1;
+    }
+
+    /**
+     * 时间
+     */
+    public static Date strToDateFinance(String time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        if(time != null && time != ""){
+            try {
+                date = format.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
     }
 
 }

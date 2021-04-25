@@ -4,112 +4,114 @@ layui.config({
     ajaxExtention: 'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool: 'tool',
     $api:'api'
-}).use(['form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
+}).use(['laydate','form', 'layer', 'jquery', 'table', 'laypage', 'ajaxExtention', '$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         $ = layui.jquery,
         laypage = layui.laypage,
         $tool = layui.$tool,
         table = layui.table,
-        $api = layui.$api;
+        $api = layui.$api,
+        laydate = layui.laydate;
 
     var tableIns;//表格实例
 
-    /**
-     * 页面初始化
-     * */
     function init() {
+        initDate();//初始化日期选择框
+    }
 
-        //初始化下拉框
-        $api.GetFirstClassMenus(null,function (res) {
-            var data = res.data;
-            if(data.length > 0){
-                var html = '<option value="">--请选择--</option>';
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i].id+'">'+data[i].title+'</option>>';
-                }
-                $('#parentMenu').append($(html));
-                form.render();
-            }
+    init();
+    /**
+     * 初始化日期选择
+     * */
+    function initDate() {
+        laydate.render({
+            elem: '#applyTime'
+            , type: 'datetime'
+            , range: '&'
+            , format: 'yyyy-MM-dd HH:mm:ss'
         });
     }
-    init();
-
 
     /**
      * 定义表格
      * */
     function defineTable() {
         tableIns = table.render({
-            elem: '#menu-data'
-            , height: 415
-            , url: $tool.getContext() + 'menu/menuList.do' //数据接口
+            elem: '#applyList'
+            , height: 370
+            , url: $tool.getContext() + 'finance/applyList.do' //数据接口
             , method: 'post'
             , page:true //开启分页
             , cols: [[ //表头
-                  {type:'numbers',title:'序号',fixed: 'left'},
-                  {field: 'title', title: '菜单名称', width: '10%'}
-                , {field: 'code', title: '菜单编号', width: '10%'}
-                , {field: 'href', title: '链接地址', width: '10%'}
-                , {field: 'requestUrl', title: '后台请求路径', width: '10%'}
-                , {field: 'sort', title: '排序号', width: '10%'}
-                , {field: 'parentMenuName', title: '父菜单名称', width: '10%'}
-                , {field: 'parentMenuCode', title: '父菜单编号', width: '10%'}
-                , {field: 'createTime', title: '创建时间', width: '20%'}
-                , {field: 'updateUser', title: '更新者', width: '10%'}
-                , {field: 'updateTime', title: '更新时间', width: '20%'}
-                , {fixed: 'right', title: '操作', width: 200, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                  {type:'numbers',title:'序号',fixed: 'left'}
+                , {field: 'applyId', title: '订单单号',width:180,event:'show',style:'cursor:pointer',templet:'#clickThis'}
+                , {field: 'applyUser', title: '申请人', width:120,}
+                , {field: 'applyTime', title: '申请时间', width:170,}
+                , {field: 'applyType', title: '申请类型', width:100,templet:'#applyType'}
+                , {field: 'applyState', title: '申请状态', width:100,templet:'#applyState'}
+                , {field: 'applyMoney', title: '申请款', width:100,}
+                , {fixed: 'right', title: '操作', width: 180, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , done: function (res, curr) {//请求完毕后的回调
                 //如果是异步请求数据方式，res即为你接口返回的信息.curr：当前页码
             }
         });
-
         //为toolbar添加事件响应
-        table.on('tool(menuFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(applyFilter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var row = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
 
             //区分事件
-            if (layEvent === 'del') { //删除
-                delMenu(row.id);
-            } else if (layEvent === 'edit') { //编辑
+            if (layEvent === 'generateApply') { //生成应付或应收单
+                checkPurchaseOrder1(row.id,row.applyId,row.applyType,row.applyState);
+
+            } else if (layEvent === 'show') { //点击行出发事件
                 //do something
-                editMenu(row.id);
+                checkPurchaseOrder(row.applyId,row.applyType);
             }
         });
+
+        table.on()
     }
     defineTable();
 
 
     //查询
-    form.on("submit(queryMenu)", function (data) {
-        var parentMenuId = data.field.parentMenuId;
-        var menuName = data.field.menuName;
-        var menuCode = data.field.menuCode;
+    form.on("submit(query)", function (data) {
 
+        var applyState = data.field.applyState;
+        var applyType = data.field.applyType;
+        var applyTime = data.field.applyTime;
+        var applyUser = data.field.applyUser;
+        var startTime = applyTime.split("&")[0];
+        var endTime = applyTime.split("&")[1];
         //表格重新加载
         tableIns.reload({
             where:{
-                parentMenuId:parentMenuId,
-                menuName:menuName,
-                menuCode:menuCode
+                applyState:applyState,
+                applyType:applyType,
+                startTime:startTime,
+                endTime:endTime,
+                applyUser:applyUser
             }
         });
 
         return false;
     });
 
-    //添加角色
-    $(".usersAdd_btn").click(function () {
+
+    //查看订单
+    function checkPurchaseOrder(applyId,applyType){
+        var applyType1 = applyType;
         var index = layui.layer.open({
-            title: "添加菜单",
+            title: "订单详情",
             type: 2,
-            content: "addMenu.html",
+            content: "showOrder.html?applyId="+applyId+"&applyType="+applyType,
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)
@@ -121,36 +123,18 @@ layui.config({
             layui.layer.full(index);
         });
         layui.layer.full(index);
-    });
-
-    //删除
-    function delMenu(id){
-        layer.confirm('确认删除吗？', function (confirmIndex) {
-            layer.close(confirmIndex);//关闭confirm
-            //向服务端发送删除指令
-            var req = {
-                menuId: id
-            };
-
-            $api.DeleteMenu(req,function (data) {
-                layer.msg("删除成功",{time:1000},function(){
-                    //obj.del(); //删除对应行（tr）的DOM结构
-                    //重新加载表格
-                    tableIns.reload();
-                });
-            });
-        });
     }
 
-    //编辑
-    function editMenu(id){
+    //申请单
+    function checkPurchaseOrder1(id,applyId,applyType,applyState){
+        var applyType1 = applyType;
         var index = layui.layer.open({
-            title: "编辑菜单",
+            title: "订单详情",
             type: 2,
-            content: "editMenu.html?id="+id,
+            content: "generateApply.html?applyId="+applyId+"&applyType="+applyType+"&id="+id+"&applyState="+applyState,
             success: function (layero, index) {
                 setTimeout(function () {
-                    layui.layer.tips('点击此处返回菜单列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回订单列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 }, 500)

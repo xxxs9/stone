@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysMaterialGoodsMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_ID" property="supplierId" jdbcType="VARCHAR"/>
+        <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+        <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR"/>
+        <result column="GOODS_ORIGIN_PLACE" property="goodsOriginPlace" jdbcType="VARCHAR"/>
+        <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, SUPPLIER_ID, MATERIAL_ID, GOODS_PRICE, GOODS_ORIGIN_PLACE, IMAGE_URL
+    </sql>
+
+    <select id="getByIds" resultMap="BaseResultMap" >
+        SELECT ID,SUPPLIER_ID,MATERIAL_ID,GOODS_PRICE,GOODS_ORIGIN_PLACE,IMAGE_URL
+        FROM sys_material_goods t
+        <where>
+            <foreach collection="ids" item="id" open="t.ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="getBySupplierIds" resultType="java.lang.String" >
+        SELECT t.ID FROM sys_material_goods t
+        <where>
+            <foreach collection="ids" item="id" open="t.SUPPLIER_ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </select>
+    <select id="getByMaterialIds" resultType="java.lang.String" >
+        SELECT t.ID FROM sys_material_goods t
+        <where>
+            <foreach collection="ids" item="id" open="t.MATERIAL_ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods">
+        insert into sys_material_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != '' ">
+                ID,
+            </if>
+            <if test="supplierId != null and supplierId != '' ">
+                SUPPLIER_ID,
+            </if>
+            <if test="materialId != null and materialId != '' ">
+                MATERIAL_ID,
+            </if>
+            <if test="goodsPrice != null and goodsPrice != '' ">
+                GOODS_PRICE,
+            </if>
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' ">
+                GOODS_ORIGIN_PLACE,
+            </if>
+            <if test="imageUrl != null and imageUrl != '' ">
+                IMAGE_URL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null and supplierId != '' ">
+                #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="materialId != null and materialId != '' ">
+                #{materialId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null and goodsPrice != '' ">
+                #{goodsPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' ">
+                #{goodsOriginPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null and imageUrl != '' ">
+                #{imageUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysMaterialGoods" >
+
+        update sys_material_goods
+        <set >
+            <if test="supplierId != null and supplierId != '' " >
+                SUPPLIER_ID = #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="materialId != null and materialId != '' " >
+                MATERIAL_ID = #{materialId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null and goodsPrice != '' " >
+                GOODS_PRICE = #{goodsPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsOriginPlace != null and goodsOriginPlace != '' " >
+                GOODS_ORIGIN_PLACE = #{goodsOriginPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null and imageUrl != '' ">
+                IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from SYS_MATERIAL_GOODS
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="selectByMaterialId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_material_goods t
+        where MATERIAL_ID = #{materialId,jdbcType=VARCHAR}
+    </select>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from SYS_MATERIAL_GOODS t
+        where t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="getByOtherId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from SYS_MATERIAL_GOODS t
+        where t.SUPPLIER_ID = #{supplierId,jdbcType=VARCHAR} and  t.MATERIAL_ID = #{materialId,jdbcType=VARCHAR}
+   </select>
+    <select id="getMaterialGoodsId"  resultType="java.lang.String">
+        select DISTINCT
+        t.ID
+        from SYS_MATERIAL_GOODS t
+    </select>
+    <select id="getMaterialGoodsAll" resultMap="BaseResultMap">
+        select *
+        from SYS_MATERIAL_GOODS t
+    </select>
+    <!--根据供应商名称和原料名称获取原料商品id-->
+    <select id="getIdByGoodsNameAndSupplierName" parameterType="map" resultType="java.lang.String">
+        SELECT
+        a.ID
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        <if test="goodsName !=null and goodsName != ''">
+            AND b.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+        </if>
+        <if test="supplierName !=null and supplierName != ''">
+            AND c.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
+        </if>
+      </select>
+    <!--根据原料商品名称获取该原料商品的供应商名称-->
+    <select id="getSupplierNameByGoodsName"  resultType="java.lang.String">
+        SELECT
+        c.SUPPLIER_NAME
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        <if test="goodsName !=null and goodsName != ''">
+            AND b.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!--根据供应商名称获取该供应商提供原料商品名称-->
+    <select id="getGoodsNameBySupplierName" parameterType="map" resultType="java.lang.String">
+        SELECT
+        b.GOODS_NAME
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        <if test="supplierName !=null and supplierName != ''">
+            AND c.SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!--根据原料商品id获取该原料商品的供应商名称-->
+    <select id="getSupplierNameByGoodsId"  resultType="java.lang.String">
+        SELECT
+        c.SUPPLIER_NAME
+        FROM
+        sys_material_goods a,
+        sys_material b,
+        sys_supplier c
+        WHERE
+        a.MATERIAL_ID = b.ID
+        AND a.SUPPLIER_ID = c.ID
+        AND a.ID = #{id,jdbcType=VARCHAR}
+    </select>
+</mapper>

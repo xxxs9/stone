@@ -4,37 +4,47 @@
 <mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProductMapper">
     <!--结果集映射-->
     <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-            <id column="ID" property="id"/>
-            <result  column="PRODUCT_NAME" property="productName"/>
-            <result column="PRODUCT_TYPE" property="productType"/>
-            <result column="STATE" property="state"/>
-            <result column="PRODUCT_DESCRIBE" property="productDescribe"/>
-            <result column="WASTE_ID" property="wasteId"/>
-            <result column="OTHER1" property="other1"/>
-            <result column="OTHER2" property="other2"/>
-            <result column="OTHER3" property="other3"/>
+            <id column="ID" property="id" jdbcType="VARCHAR"/>
+            <result  column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+            <result column="PRODUCT_TYPE" property="productType" jdbcType="VARCHAR"/>
+            <result column="PRODUCT_NUMBER" property="productNumber" jdbcType="VARCHAR"/>
+            <result column="PRODUCT_STATE" property="productState" jdbcType="VARCHAR"/>
+            <result column="CAN_SOLD" property="canSold" jdbcType="VARCHAR"/>
+            <result column="SUPPORT_PRICE" property="supportPrice" jdbcType="VARCHAR"/>
+            <result column="PRODUCT_DESCRIBE" property="productDescribe" jdbcType="VARCHAR"/>
+            <result column="OTHER1" property="other1" jdbcType="VARCHAR"/>
+            <result column="OTHER2" property="other2" jdbcType="VARCHAR" />
+            <result column="OTHER3" property="other3" jdbcType="VARCHAR"/>
+            <result column="OTHER4" property="other4" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+      ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3,OTHER4
      </sql>
 
-    <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectAll" resultMap="BaseResultMap">
+
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3,OTHER4 from l_product
+    </select>
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" >
         select
-        <include refid="Base_Column_List"/>
-        from l_product_waste
+        ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3,OTHER4
+        from l_product
         where ID = #{id,jdbcType=VARCHAR}
     </select>
 
 
-    <!--mysql版本-->
+    <!--mysql版本/分页查询-->
     <select id="selectByPage" resultMap="BaseResultMap">
-        select * from l_product_waste t
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3,OTHER4 from l_product t
         where 1=1
-        <if test="state != null and state != ''">
-            and t.STATE = #{state,jdbcType=VARCHAR}
+        <if test="productName != null and productName != ''">
+            and t.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
         </if>
-        order by t.id desc
+        <if test="productState != null and productState != ''">
+            and t.PRODUCT_STATE = #{productState,jdbcType=VARCHAR}
+        </if>
+        order by t.OTHER4 desc
         limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
     </select>
 
@@ -61,8 +71,8 @@
     <select id="dataCount" parameterType="map" resultType="Integer">
         select count(1) from l_product t
         where 1=1
-        <if test="state != null and state != ''">
-            and t.STATE = #{state,jdbcType=VARCHAR}
+        <if test="productState != null and productState != ''">
+            and t.PRODUCT_STATE = #{productState,jdbcType=VARCHAR}
         </if>
 
     </select>
@@ -75,17 +85,21 @@
 
 
     <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
-    insert into l_product ( ID,PRODUCT_NAME,PRODUCT_TYPE,WASTE_ID,STATE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3)
+    insert into l_product ( ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3,OTHER4)
     values (
     #{id},
     #{productName},
     #{productType},
-    #{wasteId},
-    #{state},
+    #{productNumber},
+    #{productState},
+    #{canSold},
+    #{supportPrice},
     #{productDescribe},
     #{other1},
     #{other2},
     #{other3},
+    #{other4}
+
     )
   </insert>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
@@ -100,11 +114,17 @@
             <if test="productType != null">
                 PRODUCT_TYPE,
             </if>
-            <if test="wasteId != null">
-                WASTE_ID,
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
             </if>
-            <if test="state != null">
-                STATE,
+            <if test="canSold != null">
+                canSold,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
+            </if>
+            <if test="productState != null">
+                PRODUCT_STATE,
             </if>
             <if test="productDescribe != null">
                 PRODUCT_DESCRIBE,
@@ -116,7 +136,7 @@
                 OTHER2,
             </if>
             <if test="other3 != null">
-                OTHER3,
+                OTHER3
             </if>
 
         </trim>
@@ -130,8 +150,14 @@
             <if test="productType != null">
                 #{productType,jdbcType=VARCHAR},
             </if>
-            <if test="wasteId != null">
-                #{wasteId,jdbcType=VARCHAR},
+            <if test="productNumber != null">
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="canSold != null">
+                #{canSold,jdbcType=VARCHAR},
+            </if>
+            <if test="supportPrice != null">
+                #{supportPrice,jdbcType=VARCHAR},
             </if>
             <if test="state != null">
                 #{state,jdbcType=VARCHAR},
@@ -146,7 +172,7 @@
                 #{other2,jdbcType=VARCHAR},
             </if>
             <if test="other3 != null">
-                #{other3,jdbcType=VARCHAR},
+                #{other3,jdbcType=VARCHAR}
             </if>
         </trim>
 
@@ -164,8 +190,14 @@
             <if test="productType != null">
                 PRODUCT_TYPE,
             </if>
-            <if test="wasteId != null">
-                WASTE_ID,
+            <if test="productNumber != null">
+                PRODUCT_NUMBER,
+            </if>
+            <if test="canSold != null">
+                CAN_SOLD,
+            </if>
+            <if test="supportPrice != null">
+                SUPPORT_PRICE,
             </if>
             <if test="state != null">
                 STATE,
@@ -180,7 +212,7 @@
                 OTHER2,
             </if>
             <if test="other3 != null">
-                OTHER3,
+                OTHER3
             </if>
         </set>
         where ID = #{id,jdbcType=VARCHAR}
@@ -188,10 +220,54 @@
 
     <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduct">
     update l_product
-    set PRODUCT_NAME=#{productName},PRODUCT_TYPE= #{productType},
-    WASTE_ID=#{wasteId},STATE=#{state},PRODUCT_DESCRIBE=#{productDescribe},
-    OTHER1=#{other1},OTHER2=#{other2},OTHER3#{other3}
+    set
+     PRODUCT_NAME=#{productName},
+     PRODUCT_TYPE= #{productType},
+     PRODUCT_NUMBER=#{productNumber},
+     PRODUCT_STATE=#{productState},
+     CAN_SOLD=#{canSold},
+     SUPPORT_PRICE=#{supportPrice},
+     PRODUCT_DESCRIBE=#{productDescribe},
+     OTHER1=#{other1},
+     OTHER2=#{other2},
+     OTHER3=#{other3},
+     OTHER4=#{other4}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+
+    <update id="changeState" parameterType="String">
+        update l_product set PRODUCT_STATE=#{productState} where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="changeStateByOther1" parameterType="String">
+        update l_product set PRODUCT_STATE=#{productState} where other1 = #{other1,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByState"  resultMap="BaseResultMap">
+        select ID,PRODUCT_NAME,PRODUCT_TYPE,PRODUCT_NUMBER,PRODUCT_STATE,CAN_SOLD,SUPPORT_PRICE,PRODUCT_DESCRIBE,OTHER1,OTHER2,OTHER3
+        from l_product where PRODUCT_STATE='3';
+    </select>
+
+    <!--华锋写获取所有的ProuductId-->
+    <select id="getProductId"  resultType="java.lang.String">
+        SELECT DISTINCT
+        t.ID
+        FROM
+        L_PRODUCT t
+    </select>
+    <update id="insertSupportPrice" >
+        update l_product set SUPPORT_PRICE=#{supportPrice} where ID=#{id}
+    </update>
+    <select id="selectByOther1" resultMap="BaseResultMap">
+        select * FROM l_product where OTHER1=#{other1}
+    </select>
+
+    <select id="getProductName" resultType="java.lang.String">
+        select PRODUCT_NAME from l_product
+    </select>
+    <select id="getProductNumber" resultType="java.lang.String">
+        select PRODUCT_NUMBER from l_product
+    </select>
+
 </mapper>
 

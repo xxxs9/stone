@@ -1,0 +1,11 @@
+
+`javascript:UnusedVariable	"6Remove the declaration of the unused 'layer' variable.(°É€Øùÿÿÿÿ
+] javascript:DuplicatePropertyName."1Rename or remove duplicate property name 'width'.(İ×óŠ
+]javascript:UnusedVariable"8Remove the declaration of the unused 'laypage' variable.(ĞÏ¦
+gjavascript:S2814g"FRename "index" as this name is already used in declaration at line 89.(’ÔÍùÿÿÿÿ
+_javascript:UnusedVariable"5Remove the declaration of the unused '$api' variable.(Öøëüÿÿÿÿ
+Yjavascript:S1854	"8Remove this useless assignment to local variable "layer"(°É€Øùÿÿÿÿ
+Wjavascript:UnusedVariable:"3Remove the declaration of the unused 'tr' variable.(ƒ€û
+Xjavascript:S1854"7Remove this useless assignment to local variable "$api"(Öøëüÿÿÿÿ
+Vjavascript:S1854":Remove this useless assignment to local variable "laypage"(ĞÏ¦
+Pjavascript:S1854:"5Remove this useless assignment to local variable "tr"(ƒ€û

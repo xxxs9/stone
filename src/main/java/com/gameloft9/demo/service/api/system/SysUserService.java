@@ -51,6 +51,9 @@ public interface SysUserService {
      */
     int countGetAll(String loginName, String realName, String status);
 
+    List<UserTest>findAll();
+
+
     /**
      * 根据id删除用户
      * @param id 用户id

@@ -4,13 +4,15 @@ layui.config({
     ajaxExtention:'ajaxExtention',//加载自定义扩展，每个业务js都需要加载这个ajax扩展
     $tool:'tool',
     $api:'api'
-}).use(['form', 'layer', 'jquery','ajaxExtention','$tool','$api'], function () {
+}).use(['form', 'layer','tree', 'jquery','ajaxExtention','$tool','$api'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery,
         $tool = layui.$tool,
-        $api = layui.$api;
+        $api = layui.$api,
+        layer = layui.layer;
+    
 
     /**
      * 表单提交
@@ -40,6 +42,11 @@ layui.config({
 
         return false;
     })
+
+
+
+
+
 
 });
 

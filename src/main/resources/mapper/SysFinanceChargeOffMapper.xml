@@ -3,21 +3,34 @@
 <mapper namespace="com.gameloft9.demo.dataaccess.dao.system.SysFinanceChargeOffMapper" >
 
     <resultMap id="chargeOffMapper" type="com.gameloft9.demo.dataaccess.model.system.SysFinanceChargeOff">
-        <id property="id" column="ID"/>
-        <id property="pid" column="PID"/>
-        <result property="payId" column="PAY_ID"/>
-        <result property="shouldPay" column="SHOULD_PAY"/>
-        <result property="actualPay" column="ACTUAL_PAY"/>
-        <result property="arreara" column="ARREARA"/>
-        <result property="publicId" column="PUBLIC_ID"/>
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="accountPayable" column="ACCOUNT_PAYABLE" jdbcType="VARCHAR"/>
+        <result property="actualPayment" column="ACTUAL_PAYMENT" jdbcType="VARCHAR"/>
+        <result property="arrears" column="ARREARS" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <!--TODO...优化-->
     <!--获取所有  getAll-->
     <select id="getAll" resultMap="chargeOffMapper">
       select
-      ID,PAY_ID,SHOULD_PAY,ACTUAL_PAY,ARREARA
+        c.ID,c.PAY_ID,c.ACCOUNT_PAYABLE,c.ACTUAL_PAYMENT,c.ARREARS
       from
-      a_charge_off
+        a_charge_off c,
+        a_purchase_bills_payable p,
+        a_sale_bills_payable s
+      where
+        c.PAY_ID = p.ID
+      or
+        c.PAY_ID = s.ID
+    </select>
+
+
+    <!--TODO...优化-->
+    <!--获取条件查询总条数  int getCount-->
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1)
+        from
+        a_charge_off
     </select>
 
     <!--添加 add()-->

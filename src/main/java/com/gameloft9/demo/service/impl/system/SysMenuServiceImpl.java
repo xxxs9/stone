@@ -45,6 +45,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     ShiroConfigService shiroConfigService;
+    @Autowired
+    TreeNodeMapper treeNodeMapper;
 
     /**
      * 根据角色获取可见菜单列表
@@ -142,6 +144,16 @@ public class SysMenuServiceImpl implements SysMenuService {
         menu.setSort(Integer.parseInt(sort));
 
         sysMenuTestMapper.insertSelective(menu);
+
+        //==================添加节点，用于初始化资源==================//
+        TreeNode treeNode = new TreeNode();
+        treeNode.setId(menu.getId());
+        treeNode.setName(menu.getTitle());
+        treeNode.setParentId("0");
+        treeNode.setNotParent(true);
+        treeNodeMapper.addPerms(treeNode);
+
+
         return menu.getId();
     }
 
@@ -171,6 +183,9 @@ public class SysMenuServiceImpl implements SysMenuService {
             sysAccessPermissionTest.setIsDeleted("1");
             sysAccessPermissionTestMapper.updateByPrimaryKeySelective(sysAccessPermissionTest);
         }
+
+        //删除treeNode
+        treeNodeMapper.deletePerms(menuId);
 
         return true;
     }

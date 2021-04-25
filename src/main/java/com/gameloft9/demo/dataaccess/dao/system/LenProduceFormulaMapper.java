@@ -30,17 +30,18 @@ public interface LenProduceFormulaMapper {
     /**
      * 分页查找
      *
-     * @param page
-     * @param limit
+     * @param start
+     * @param end
      * @param productId
-     * @param createUserId
+     * @param createUser
      * @return
      */
     List<LenProduceFormula> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            String productId,
-            String createUserId
+            @Param("start") int start,
+            @Param("end") int end,
+
+            @Param("createUser") String createUser,
+            @Param("productId") String productId
     );
 
     /**
@@ -68,10 +69,32 @@ public interface LenProduceFormulaMapper {
     int delete(String id);
 
     /**
-     * 查询条数
+     * 统计条数
      *
+     * @param productId
      * @return
      */
-    int dataCount();
+    int dataCount(@Param("productId") String productId);
 
+    /**
+     * 选择修改
+     * @param lenProduceFormula
+     * @return
+     */
+    int updateByPrimaryKeySelective(LenProduceFormula lenProduceFormula);
+
+    /**
+     * 选择插入
+     *
+     * @param lenProduceFormula
+     * @return
+     */
+    int insertSelective(LenProduceFormula lenProduceFormula);
+
+    /**
+     * 由productId找到LenProduceFormula
+     * @param productId
+     * @return
+     */
+    List<LenProduceFormula> getByProductId(@Param("productId")String productId);
 }

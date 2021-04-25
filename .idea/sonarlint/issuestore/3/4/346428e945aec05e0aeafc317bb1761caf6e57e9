@@ -1,0 +1,9 @@
+
+]squid:S3457"AFormat specifiers should be used instead of string concatenation.(ë½ê‹8²ö·•›-
+[squid:S1118":Add a private constructor to hide the implicit public one.(ä ùøÿÿÿÿ8²ö·•›-
+Jsquid:S2140")Use "java.util.Random.nextInt()" instead.(×äîÜùÿÿÿÿ8²ö·•›-
+Ysquid:UselessImportCheck"+Remove this unused import 'org.junit.Test'.(ùøèøÿÿÿÿ8²ö·•›-
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(õ–ôÄùÿÿÿÿ8²ö·•›-
+Esquid:S2140")Use "java.util.Random.nextInt()" instead.(Œ£ãÊ8²ö·•›-
+ssquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®´’×ûÿÿÿÿ8²ö·•›-
+‡squid:S1488"fImmediately return this expression instead of assigning it to the temporary variable "DocumentNumber".(®´’×ûÿÿÿÿ8²ö·•›-

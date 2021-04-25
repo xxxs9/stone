@@ -41,6 +41,9 @@ public interface UserMapper {
     /**
      * 分页获取用户列表
      */
+
+    List<UserTest>findall();
+
     List<UserTest> getAll(
             @Param("start") int start,
             @Param("end") int end,
@@ -54,4 +57,14 @@ public interface UserMapper {
     int countGetAll(@Param("loginName") String loginName,
                     @Param("realName") String realName,
                     @Param("isForbidden") String isForbidden);
+
+    /**
+     * 根据机构名获取机构人员登入用户名
+     * */
+    List<String> getUserLoginNameByOrgName(@Param("orgName") String orgName);
+
+    /**
+     * 根据登录名loginName获取id
+     * */
+    String selectIdByLoginName(@Param("loginName") String loginName);
 }

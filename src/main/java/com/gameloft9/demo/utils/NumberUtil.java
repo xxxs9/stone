@@ -1,12 +1,28 @@
 package com.gameloft9.demo.utils;
 
 
+import java.math.BigDecimal;
+
 /**
  * 数字工具类
  * Created by gameloft9 on 2017/12/20.
  */
 public class NumberUtil {
 
+
+    /**
+     * 字符串不为空转int
+     *
+     * @param str 需要转换的字符串
+     * @return int
+     */
+    public static int strToInt(String str){
+        int num = 0;
+        if(str != null && !"".equals(str)){
+            num =   Integer.parseInt(str);
+        }
+        return num;
+    }
     /**
      * 将N位数补零
      * @param number 数字
@@ -58,4 +74,17 @@ public class NumberUtil {
         System.out.println(paddingNumber(1,3));
         System.out.println(paddingNumber(0,1));
     }
+    /**
+     * 保留两位小数
+     *
+     * @param money 价格
+     * @return
+     *      string
+     */
+    public static String strToBigdecimal(String money){
+        BigDecimal decimal = new BigDecimal(money);
+        decimal = decimal.setScale(2,BigDecimal.ROUND_HALF_UP);
+        return decimal.toString();
+    }
+
 }

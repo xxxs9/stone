@@ -1,0 +1,10 @@
+
+rsquid:S1192L"ODefine a constant instead of duplicating this literal "è®¢å•idä¸ºç©º" 4 times.( ¢Êµøÿÿÿÿ8Øˆ¥›-
+Ysquid:S1854u";Remove this useless assignment to local variable "request".(–”åÍ8ÿÉ-
+hsquid:CommentedOutCodeLineS"<This block of commented-out lines of code should be removed.(•‰Ş+8¤²Î›-
+…squid:UselessImportCheck"URemove this unused import 'com.gameloft9.demo.dataaccess.model.system.PurchaseOrder'.(ß°å‹ùÿÿÿÿ8ÿÉ-
+Vsquid:S1854a"8Remove this useless assignment to local variable "list".(şÇîü8Øˆ¥›-
+Œsquid:UselessImportCheck"\Remove this unused import 'com.gameloft9.demo.dataaccess.model.system.SysFinanceApplyOrder'.(¢å•ıÿÿÿÿ8ÿÉ-
+_squid:UselessImportCheck"/Remove this unused import 'java.util.TimeZone'.(à‡Õùÿÿÿÿ8‹ÈŠ¥›-
+Jsquid:S1481u",Remove this unused "request" local variable.(–”åÍ8ÿÉ-
+Vsquid:S1854Z"8Remove this useless assignment to local variable "list".(şÇîü8Øˆ¥›-

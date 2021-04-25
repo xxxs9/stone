@@ -1,17 +1,21 @@
 package com.gameloft9.demo.service.impl.system;
 
+import com.gameloft9.demo.dataaccess.dao.system.SysRoleTestMapper;
+import com.gameloft9.demo.dataaccess.dao.system.SysUserRoleTestMapper;
 import com.gameloft9.demo.dataaccess.dao.system.UserMapper;
 import com.gameloft9.demo.dataaccess.model.system.UserTest;
 import com.gameloft9.demo.mgrframework.beans.response.AbstractResult;
 import com.gameloft9.demo.mgrframework.exceptions.BizException;
 import com.gameloft9.demo.service.api.system.LoginService;
 import com.gameloft9.demo.service.beans.system.LoginResponse;
+import com.gameloft9.demo.utils.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.gameloft9.demo.mgrframework.utils.CheckUtil.*;
 
@@ -32,6 +40,10 @@ public class LoginServiceImpl implements LoginService{
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SysUserRoleTestMapper userRoleMapper;
+    @Autowired
+    SysRoleTestMapper roleMapper;
 
     /**
      * 登录
@@ -73,12 +85,29 @@ public class LoginServiceImpl implements LoginService{
         if(currentUser.isAuthenticated()){
             log.info("验证成功！");
             //还可以把用户信息放入session中
-            request.getSession().setAttribute("sysUser",loginName);
 
+            request.getSession().setAttribute("sysUser",loginName);
+            //根据登录名loginName获取对应的id
+            String userId = userMapper.selectIdByLoginName(loginName);
+            //根据userMapper获取的id去获取对应的roleId
+            List<String> roleId = userRoleMapper.selectRoleIdByUserId(userId);
+            //根据获取到的roleId去获取所需要的roleName，因为对应的部门不止一个所以需要遍历
+            List<String> list = new ArrayList<String>();
+            for (String s : roleId) {
+                String s1 = roleMapper.selectRoleNameById(s);
+                list.add(s1);
+            }
+            //将遍历出来的值存入域roles中
+            request.getSession().setAttribute("roles", list);
+
+            //连接websocket
+            System.out.println("连接websocket---------------");
+            request.getSession().setMaxInactiveInterval(30*60);//session超时30min
             //拼接返回信息
             UserTest userTest = userMapper.getByLoginName(loginName);
             loginResponse.setUserId(userTest.getId());
             loginResponse.setLoginName(loginName);
+            loginResponse.setRoles(list);
             String baseUrl = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
             loginResponse.setWebContext(baseUrl);
             return loginResponse;
@@ -94,7 +123,12 @@ public class LoginServiceImpl implements LoginService{
     public String logout(){
         SecurityUtils.getSubject().logout();//登出
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String loginName = (String) request.getSession().getAttribute("sysUser");
+        //情况map缓存
+        CacheUtil.getInstance().removeCacheData(loginName);
+        CacheUtil.getInstance().removeCacheData("roles");
         request.getSession().removeAttribute("sysUser");//清理session
+
         return null;
     }
 }

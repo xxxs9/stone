@@ -1,0 +1,9 @@
+
+gjavascript:UnusedVariableG"6Remove the declaration of the unused 'field' variable.(ƒöúÿÿÿÿ8°·Ü-
+Wjavascript:S1854:"5Remove this useless assignment to local variable "tr"(ƒ€û8“´ŞÙ-
+pjavascript:S2814›"GRename "index" as this name is already used in declaration at line 141.(’ÔÍùÿÿÿÿ8“´ŞÙ-
+`javascript:S1854G"8Remove this useless assignment to local variable "field"(ƒöúÿÿÿÿ8°·Ü-
+djavascript:UnusedVariable"8Remove the declaration of the unused 'laypage' variable.(ĞÏ¦8“´ŞÙ-
+^javascript:UnusedVariable:"3Remove the declaration of the unused 'tr' variable.(ƒ€û8“´ŞÙ-
+d javascript:DuplicatePropertyName."1Rename or remove duplicate property name 'width'.(İ×óŠ8“´ŞÙ-
+]javascript:S1854":Remove this useless assignment to local variable "laypage"(ĞÏ¦8“´ŞÙ-

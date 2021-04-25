@@ -25,6 +25,8 @@ layui.config({
     }
     init();
 
+
+
     /**
      * 初始化菜单信息
      * */
@@ -66,6 +68,7 @@ layui.config({
                 var roleHtml = "";
                 for(var i = 0;i<data.length;i++){
                     //是否初始化选中
+
                     if($.inArray(data[i].id, menu_roleIds) != -1){
                         roleHtml += '<input type="checkbox" checked name="'+data[i].id+'" title="'+data[i].roleName+'">';
                     }else{

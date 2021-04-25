@@ -1,0 +1,15 @@
+
+hsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ø›ˆˆ8Ù¿˜ž-
+hsquid:S4488%"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(µ¨î8Ù¿˜ž-
+msquid:S4488O"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÏàÛ€ùÿÿÿÿ8Ù¿˜ž-
+hsquid:S4488X"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(›œá»8Ù¿˜ž-
+msquid:S4488^"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(“Äåûÿÿÿÿ8Ù¿˜ž-
+msquid:S4488i"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¥Éàúÿÿÿÿ8Ù¿˜ž-
+nsquid:S4488„"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ïÆ‡øÿÿÿÿ8Ù¿˜ž-
+nsquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¬µ×ïÿÿÿÿÿ8Ù¿˜ž-
+isquid:S4488¦"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(­ˆŸÛ8Ù¿˜ž-
+isquid:S4488´"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(‚Îýù8Ù¿˜ž-
+€squid:S1192‹"aDefine a constant instead of duplicating this literal ">>>>>>>æ“ä½œæ— æ³•å®Œæˆ<<<<<<<" 6 times.(…ÁÝŸ8Ù¿˜ž-
+ˆsquid:S1192Ð"dDefine a constant instead of duplicating this literal ">>>>>>>æ•°æ®åº“æ“ä½œå¤±è´¥<<<<<<<" 9 times.(§¼¥Ãûÿÿÿÿ8Ù¿˜ž-
+ssquid:S00100ð"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÙ…ºÿÿÿÿÿ8Ù¿˜ž-
+squid:S1845ð"lRename method "IntoDepot" to prevent any misunderstanding/clash with method "intoDepot" defined on line 168.(ÏÙ…ºÿÿÿÿÿ8Ù¿˜ž-

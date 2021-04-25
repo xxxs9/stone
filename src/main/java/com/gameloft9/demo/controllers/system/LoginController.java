@@ -5,16 +5,16 @@ import com.gameloft9.demo.mgrframework.beans.response.ResultBean;
 import com.gameloft9.demo.service.api.system.LoginService;
 import com.gameloft9.demo.service.beans.system.LoginResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by gameloft9 on 2017/11/27.

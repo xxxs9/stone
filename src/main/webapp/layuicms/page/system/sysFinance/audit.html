@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜单管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <link rel="stylesheet" href="../../../common/css/user.css" media="all"/>
+</head>
+<body class="childrenBody">
+<!--搜索栏-->
+    <div align="center">
+        <ul class="site-dir">
+            <ui><a href="#use"><cite> <font size="4" id="apply">订单审核</font></cite></a></ui>
+        </ul>
+    </div>
+    <form class="layui-form">
+        <!--隐藏字段id-->
+        <input type="hidden" id="id">
+        <input type="hidden" name="auditType">
+        <input type="hidden" name="auditState">
+        <!--订单编号-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">订单编号</label>
+            <div class="layui-input-inline" style="width: 400px">
+                <input type="text" class="layui-input" name="purchaseOrderId" readonly>
+            </div>
+        </div>
+        <!--单价-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">单价</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="unitPrice" readonly>
+            </div>
+        </div>
+        <!--货品数量-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">货品数量</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="goodsNumber" readonly>
+            </div>
+        </div>
+        <!--总价-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">总价</label>
+            <div class="layui-input-inline" style="width: 400px">
+                <input type="text" class="layui-input" name="totalPrice" readonly>
+            </div>
+        </div>
+        <!--实际价格-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">实际价格</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="actualBalance" lay-verify="actualBalance" placeholder="不填写默认为总价">
+            </div>
+        </div>
+        <!--制单人-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">制单人</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="documentMaker" readonly>
+            </div>
+        </div>
+        <!--制单时间-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">制单时间</label>
+            <div class="layui-input-inline"  style="width: 400px">
+                <input type="text" class="layui-input" name="documentMakeTime" readonly>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">财务审核</label>
+            <div class="layui-input-inline" style="width: 400px">
+                <textarea name="auditDescribe" placeholder="请输入内容" class="layui-textarea" lay-verify="auditDescribe"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="btn">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="pass" id="agree" value="agree">付款</button>
+                <button class="layui-btn" lay-submit="" lay-filter="pass" id="disagree" value="disagree">驳回</button>
+            </div>
+        </div>
+    </form>
+
+
+<!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
+<script type="text/javascript" src="../../../lib/layui/layui.js"></script>
+<script type="text/javascript" src="../../../common/js/config.js"></script>
+<script type="text/javascript" src="../../../common/js/jquery.validate.js"></script>
+<script type="text/javascript" src="../../../common/js/messages_zh.js"></script>
+<script type="text/javascript" src="audit.js"></script>
+</body>
+</html>

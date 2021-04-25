@@ -12,13 +12,51 @@
     <sql id="Base_Column_List">
         ID, DEPOT_NAME, DEPOT_NUMBER, DEPOT_TYPE, DEPOT_ADDRESS, DEPOT_DESCRIBE
     </sql>
-    <select id="getAll" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from D_SYS_DEPOT
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_SYS_DEPOT t
+        WHERE 1=1
+        <if test="depotNumber !=null and depotNumber != ''">
+            AND (
+            t.DEPOT_NUMBER LIKE (concat('%',concat(#{depotNumber,jdbcType=VARCHAR},'%')))
+            AND t.DEPOT_NUMBER >' '
+            )
+        </if>
+        <if test="depotName !=null and depotName != ''">
+            AND (
+            t.DEPOT_NAME LIKE (concat('%',concat(#{depotName,jdbcType=VARCHAR},'%')))
+            AND t.DEPOT_NAME >' '
+            )
+        </if>
+        <if test="depotType !=null and depotType != ''">
+            AND t.DEPOT_TYPE = #{depotType,jdbcType=VARCHAR}
+        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM D_SYS_DEPOT t
+        WHERE 1=1
+        <if test="depotNumber !=null and depotNumber != ''">
+            AND (
+            t.DEPOT_NUMBER LIKE (concat('%',concat(#{depotNumber,jdbcType=VARCHAR},'%')))
+            AND t.DEPOT_NUMBER >' '
+            )
+        </if>
+        <if test="depotName !=null and depotName != ''">
+            AND (
+            t.DEPOT_NAME LIKE (concat('%',concat(#{depotName,jdbcType=VARCHAR},'%')))
+            AND t.DEPOT_NAME >' '
+            )
+        </if>
+        <if test="depotType !=null and depotType != ''">
+            AND t.DEPOT_TYPE = #{depotType,jdbcType=VARCHAR}
+        </if>
     </select>
     <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot">
-        insert into D_SYS_DEPOT
+        INSERT INTO D_SYS_DEPOT
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 ID,
@@ -61,10 +99,15 @@
         </trim>
     </insert>
     <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from D_SYS_DEPOT t where t.ID = #{id,jdbcType=VARCHAR}
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_SYS_DEPOT t
+        WHERE
+        t.ID = #{id,jdbcType=VARCHAR}
     </select>
     <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.SysDepot" >
-        update D_SYS_DEPOT
+        UPDATE D_SYS_DEPOT
         <set >
             <if test="depotName != null" >
                 DEPOT_NAME = #{depotName,jdbcType=VARCHAR},
@@ -82,13 +125,49 @@
                 DEPOT_DESCRIBE = #{depotDescribe,jdbcType=VARCHAR},
             </if>
         </set>
-        where ID = #{id,jdbcType=VARCHAR}
+        WHERE ID = #{id,jdbcType=VARCHAR}
     </update>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from D_SYS_DEPOT
-        where ID = #{id,jdbcType=VARCHAR}
+      DELETE FROM
+	    D_SYS_DEPOT
+      WHERE
+	    ID = #{id,jdbcType=VARCHAR}
     </delete>
     <select id="getByDepotName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from D_SYS_DEPOT t where t.DEPOT_NAME = #{depotName,jdbcType=VARCHAR}
+      SELECT
+        <include refid = "Base_Column_List" />
+      FROM
+        D_SYS_DEPOT t
+      WHERE
+        t.DEPOT_NAME = #{depotName,jdbcType=VARCHAR}
+    </select>
+    <select id="getDepotType" resultType="java.lang.String">
+      SELECT DISTINCT
+	    t.DEPOT_TYPE
+      FROM
+	    D_SYS_DEPOT t
+    </select>
+    <select id="getByDepotNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_SYS_DEPOT t
+        WHERE
+        t.DEPOT_NUMBER = #{depotNumber,jdbcType=VARCHAR}
+    </select>
+    <delete id="delsByIds" parameterType="java.lang.String" >
+        DELETE FROM
+        D_SYS_DEPOT
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </delete>
+    <select id="getDepotNumber"  resultType="java.lang.String">
+        SELECT DISTINCT
+	      t.DEPOT_NUMBER
+        FROM
+	      D_SYS_DEPOT t
     </select>
 </mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinancePaymentMapper">
+
+    <resultMap id="paymentMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinancePayment">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="payType" column="PAY_TYPE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查找所有的采购应付单   List<SysFinancePurchaseBillsPayable> getAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+            );-->
+    <select id="getAll" resultMap="paymentMap">
+        select
+        *
+        from
+        a_payment
+        <where>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE=#{payType,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by DOCUMENT_MAKE_TIME DESC
+        limit #{start},#{end}
+    </select>
+
+    <!--条件查询总条数   int getCount(
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+    );-->
+    <select id="getCount" resultType="int">
+        select
+          count(1)
+        from
+            a_payment
+        <where>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE=#{payType,jdbcType=INTEGER}
+            </if>
+        </where>
+
+    </select>
+
+    <!--add 添加付款单-->
+    <!--<id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="payId" column="PAY_ID" jdbcType="VARCHAR"/>
+        <result property="payType" column="PAY_TYPE" jdbcType="INTEGER"/>
+        <result property="balance" column="BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="VARCHAR"/>-->
+    <insert id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePayment">
+        insert into a_payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="payId != null and payId != ''">
+                PAY_ID,
+            </if>
+            <if test="payType != null and payType != ''">
+                PAY_TYPE,
+            </if>
+            <if test="balance != null and balance != ''">
+                BALANCE,
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="payId != null and payId != ''">
+                #{payId,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null and payType != ''">
+                #{payType,jdbcType=INTEGER},
+            </if>
+            <if test="balance != null and balance != ''">
+                #{balance,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,118 @@
+package com.gameloft9.demo.dataaccess.dao.system;
+
+import com.gameloft9.demo.dataaccess.model.system.MarkerOrderTest;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+public interface MarkerOrderMapper {
+
+    /**
+     * 获取所有销售订单信息
+     * @param start
+     * @param end
+     * @param productId
+     * @param applyUser
+     * @return
+     */
+    List<MarkerOrderTest> findAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("applyUser") String applyUser,
+            @Param("productId") String productId);
+
+    /**
+     * 获取所有销售订单个数
+     * @param productId
+     * @return
+     */
+    int countGetAll(
+            @Param("productId") String productId,
+            @Param("applyUser") String applyUser);
+
+    /**
+     * 通过ID删除销售订单信息
+     * @param id
+     * @return
+     */
+    int deleteById(String id);
+
+    /**
+     * 修改销售订单信息
+     * @param markerOrderTest
+     * @return
+     */
+    Boolean update(MarkerOrderTest markerOrderTest);
+
+
+    /**
+     * 增加销售订单信息
+     * @param record
+     * @return
+     */
+   int add(MarkerOrderTest record);
+
+
+    /**
+     * 获取销售订单id
+     * @param id
+     * @return
+     */
+    MarkerOrderTest getMaker(String id);
+
+
+    /**
+     * 获取所有销售订单类表信息
+     */
+   // List<MarkerOrderTest> selectAll();
+
+    /**
+     * 提交audi
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean audiUpdate(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 撤回back
+     * @param markerOrderTest
+     * @return
+     */
+    Boolean backUpdate(MarkerOrderTest markerOrderTest);
+
+
+
+    /**
+     * 获取下拉框
+     * @return
+     */
+    List<MarkerOrderTest> getProductId();
+
+    /**
+     * 提交仓库审核
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean submit(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 提交财务
+     * @param markerOrderTest
+     * @return
+     */
+
+    Boolean fina(MarkerOrderTest markerOrderTest);
+
+    /**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderId orderNumber
+     * @return
+     *      MarkerOrderTest
+     */
+    MarkerOrderTest findMarkerOrderByOrderNumber(@Param("orderId") String orderId);
+
+
+}

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.DepotInventoryMapper">
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.DepotInventory">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="SHIPMENTS_NUMBER" property="shipmentsNumber" jdbcType="VARCHAR"/>
+        <result column="SALEABLE_NUMBER" property="saleableNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+       ID, TYPE, GOODS_NAME, GOODS_ID, GOODS_NUMBER, SHIPMENTS_NUMBER, SALEABLE_NUMBER
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_INVENTORY t
+        WHERE 1=1
+        <if test="type !=null and type != ''">
+            AND t.TYPE =   #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
+        </if>
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <select id="countGetAll" resultType="Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM D_DEPOT_INVENTORY t
+        WHERE 1=1
+        <if test="type !=null and type != ''">
+            AND t.TYPE =   #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsId !=null and goodsId != ''">
+            AND (
+            t.GOODS_ID LIKE (concat('%',concat(#{goodsId,jdbcType=VARCHAR},'%')))
+            AND t.GOODS_ID >' '
+            )
+        </if>
+    </select>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventory">
+        INSERT INTO D_DEPOT_INVENTORY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="type != null">
+                TYPE,
+            </if>
+            <if test="goodsName != null">
+                GOODS_NAME,
+            </if>
+            <if test="goodsId != null">
+                GOODS_ID,
+            </if>
+            <if test="goodsNumber != null">
+                GOODS_NUMBER,
+            </if>
+            <if test="shipmentsNumber != null">
+                SHIPMENTS_NUMBER,
+            </if>
+            <if test="saleableNumber != null">
+                SALEABLE_NUMBER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null">
+                #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="shipmentsNumber != null">
+                #{shipmentsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="saleableNumber != null">
+                #{saleableNumber,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+        D_DEPOT_INVENTORY t
+        WHERE
+        t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.DepotInventory" >
+        UPDATE D_DEPOT_INVENTORY
+        <set >
+            <if test="type != null" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null" >
+                GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                GOODS_ID = #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null" >
+                GOODS_NUMBER = #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="shipmentsNumber != null" >
+                SHIPMENTS_NUMBER = #{shipmentsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="saleableNumber != null" >
+                SALEABLE_NUMBER = #{saleableNumber,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      DELETE FROM
+	    D_DEPOT_INVENTORY
+      WHERE
+	    ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="delsByIds" parameterType="java.lang.String" >
+        DELETE FROM
+        D_DEPOT_INVENTORY
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </delete>
+    <select id="findOne" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+          <include refid = "Base_Column_List" />
+        FROM
+          D_DEPOT_INVENTORY t
+        WHERE
+          t.GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+    </select>
+    <select id="getByIds" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid = "Base_Column_List" />
+        FROM
+          D_DEPOT_INVENTORY t
+        <where>
+            <foreach collection="ids" item="id" open="ID in(" close=")" separator=",">
+                #{id,jdbcType=VARCHAR}
+            </foreach>
+        </where>
+    </select>
+</mapper>

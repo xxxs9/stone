@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <link rel="stylesheet" href="../../../common/css/user.css" media="all"/>
+</head>
+<body class="childrenBody">
+<!--搜索栏-->
+<blockquote class="layui-elem-quote news_search">
+    <form class="layui-form">
+        <div class="layui-inline">
+            <label class="layui-form-label">产品名称</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="productName" placeholder="输入产品名称">
+            </div>
+        </div>
+        <div class="layui-inline" style="display: none">
+            <label class="layui-form-label">产品类型</label>
+            <div class="layui-input-block">
+                <select  name="productState">
+                    <option value="">---请选择---</option>
+                    <option value="0">1.半成品</option>
+                    <option value="1">2.成品</option>
+                    <option value="2">3.其他</option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="layui-inline">
+            <a class="layui-btn search_btn" lay-submit="" lay-filter="queryMenu">查询</a>
+        </div>
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-normal usersAdd_btn">新增加工单</a>
+        </div>
+        &nbsp;&nbsp;
+        <!--<div class="layui-inline">
+            <a class="layui-btn layui-btn-black "  lay-submit="" lay-filter="chart" id="chart">图表</a>
+        </div>-->
+    </form>
+</blockquote>
+<!--表格区-->
+<div class="layui-form users_list">
+    <!--通过lay-filter区分toolbar事件容器-->
+    <table id="menu-data" lay-filter="menuFilter" class="layui-table">
+    </table>
+</div>
+<!--分页元素-->
+<div id="page"></div>
+<!--toolbar 模板-->
+
+<script type="text/html" id="barDemo">
+    <!--通过lay-event定义事件-->
+
+    {{#  if(d.productState == '1'){ }}
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>更改</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="audi"><i class="layui-icon">&#xe643;</i>提交</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{# } else if(d.productState == '2'){ }}
+    <a class="layui-btn layui-btn-sm" lay-event="stepBack"><i class="layui-icon">&#xe65c;</i>撤回</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="ManagerAudi"><i class="layui-icon">&#xe641;</i>审核</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '3'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="JFR"><i class="layui-icon">&#xe667;</i>领料</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="JFRDetail1"><i class="layui-icon">&#xe667;</i>详情</a>
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="JFR1"><i class="layui-icon">&#xe667;</i>删除</a>
+    {{#  } else if(d.productState == '4'){ }}
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="edi"><i class="layui-icon">&#xe642;</i>更改</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="fenPei"><i class="layui-icon">&#xe643;</i>分工</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="stop"><i class="layui-icon">&#xe640;</i>暂停</a>
+    {{#  } else if(d.productState == '5'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="stopProduce"><i class="layui-icon">&#xe642;</i>暂停</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="completeProduce"><i class="layui-icon">&#xe643;</i>完产</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '6'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="continueProduce"><i class="layui-icon">&#xe642;</i>复产</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe643;</i>完产</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '7'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="stopProduce"><i class="layui-icon">&#xe642;</i>暂停</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="completeProduce"><i class="layui-icon">&#xe643;</i>完产</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '8'){ }}<!--生成验收单-->
+    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe642;</i>暂停</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event=""><i class="layui-icon">&#xe643;</i>验收</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '9'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="stopProduce"><i class="layui-icon">&#xe642;</i>报告</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe643;</i>完产</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '10'){ }}
+    <a class="layui-btn layui-btn-sm " lay-event="stopProduce"><i class="layui-icon">&#xe642;</i>详情</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event=""><i class="layui-icon">&#xe643;</i>退回</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{#  } else if(d.productState == '11'){ }}
+   <!-- <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event=""><i class="layui-icon">&#xe642;</i>详情</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm " lay-event="intoDepot"><i class="layui-icon">&#xe643;</i>入库</a>
+    <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-disabled" lay-event="del1111"><i class="layui-icon">&#xe640;</i>删除</a>-->
+    <span>等待仓库接受</span>
+    {{#  } else if(d.productState == '12'){ }}
+    <span>该产品已在仓库中</span>
+    {{#  } }}
+</script>
+<script type="text/html" id="tmp">
+
+    {{#  if(d.productType == '1'){ }}
+    <span>半成品不可售</span>
+    {{#  } else if(d.productType == '2'){ }}
+    <span>半成品可售</span>
+    {{#  } else if(d.productType == '3'){ }}
+    <span>成品不可售</span>
+    {{#  } else if(d.productType == '4'){ }}
+    <span>成品可售</span>
+
+    {{#  } }}
+
+</script>
+<!--<script type="text/html" id="cd">
+
+    {{#  if(d.canSold == '0'){ }}
+    <span>可售</span>
+
+    {{#  } else if(d.canSold == '1'){ }}
+    <span>不可售</span>
+
+    {{#  } }}
+
+</script>-->
+
+<script type="text/html" id="tmpe">
+
+    {{#  if(d.productState == '1'){ }}
+    <span>未提交</span>
+    {{#  } else if(d.productState == '2'){ }}
+    <span>已提交,待审核</span>
+    {{#  } else if(d.productState == '3'){ }}
+    <span>已分配,待领料</span>
+    {{#  } else if(d.productState == '4'){ }}
+    <span>已审核,待分配</span>
+    {{#  } else if(d.productState == '5'){ }}
+    <span>已分配,开始生产</span>
+    {{#  } else if(d.productState == '6'){ }}
+    <span>生产暂停</span>
+    {{#  } else if(d.productState == '7'){ }}
+    <span>继续生产</span>
+    {{#  } else if(d.productState == '8'){ }}
+    <span>生产完成</span>
+    {{#  } else if(d.productState == '9'){ }}
+    <span>检验合格</span>
+    {{#  } else if(d.productState == '10'){ }}
+    <span>检验不合格</span>
+    {{#  } else if(d.productState == '11'){ }}
+    <span>检验合格待入库</span>
+    {{#  } else if(d.productState == '12'){ }}
+    <span>已入库</span>
+    {{#  } }}
+
+</script>
+<!--一般情况下，一个业务页面引入一个layui.js,config.js和业务js这三个js就够了-->
+<script type="text/javascript" src="../../../lib/layui/layui.js"></script>
+<script type="text/javascript" src="../../../common/js/config.js"></script>
+<script type="text/javascript" src="allProduct.js"></script>
+</body>
+</html>

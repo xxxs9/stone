@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--mapper映射-->
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.LenProduceFormulaDetailMapper">
+    <!--结果集映射-->
+    <resultMap id="BaseResultMap" type="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+            <id column="ID" property="id" jdbcType="VARCHAR"/>
+            <result column="PRODUCE_FORMULA_ID" property="produceFormulaId" jdbcType="VARCHAR"/>
+            <result column="MATERIAL_ID" property="materialId" jdbcType="VARCHAR"/>
+            <result column="MATERIAL_NUMBER" property="materialNumber" jdbcType="VARCHAR"/>
+            <result column="DEPOT_ID" property="depotId" jdbcType="VARCHAR"/>
+            <result column="OTHER1" property="other1" jdbcType="VARCHAR"/>
+            <result column="OTHER2" property="other2" jdbcType="VARCHAR"/>
+            <result column="OTHER3" property="other3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
+     </sql>
+
+    <select id="getByFormulaId"  resultMap="BaseResultMap">
+        select * from l_produce_formula_detail where
+        PRODUCE_FORMULA_ID=#{formulaId}
+    </select>
+
+    <select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from l_produce_formula_detail
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" >
+        select
+        ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3
+        from l_produce_formula_detail
+
+    </select>
+
+    <!--mysql版本-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select * from l_produce_formula_detail t
+        where 1=1
+        <if test="other2 != null and other2 != ''">
+            and t.OTHER2= #{other2,jdbcType=VARCHAR}
+        </if>
+        <if test="depotId != null and depotId != ''">
+            and t.DEPOT_ID= #{depotId,jdbcType=VARCHAR}
+        </if>
+        order by t.id desc
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--oracle版本
+    <select id="getAll" resultMap="BaseResultMap">
+        select a.* from(
+        select b.*,rownum row_num
+        from( select * from USER_TEST t
+        where 1=1
+        <if test="loginName != null and loginName != ''">
+            and t.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="realName != null and realName != ''">
+            and t.REAL_NAME = #{realName,jdbcType=VARCHAR}
+        </if>
+        <if test="isForbidden != null and isForbidden != ''">
+            and t.IS_FORBIDDEN = #{isForbidden,jdbcType=VARCHAR}
+        </if>
+        order by t.UPDATE_DATE desc,t.id desc
+        ) b
+        where rownum &lt; #{end,jdbcType=DECIMAL}
+        )a where row_num &gt; #{start,jdbcType=DECIMAL}
+    </select>-->
+    <select id="dataCount" parameterType="map" resultType="Integer">
+        select count(1) from l_produce_formula_detail
+        where 1=1
+
+
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+    delete from l_produce_formula_detail
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+    insert into l_produce_formula_detail ( ID,PRODUCE_FORMULA_ID,MATERIAL_ID,MATERIAL_NUMBER,DEPOT_ID,OTHER1,OTHER2,OTHER3)
+    values (
+    #{id},
+    #{produceFormulaId},
+    #{materialId},
+    #{materialNumber},
+    #{depotId},
+    #{other1},
+    #{other2},
+    #{other3}
+    )
+  </insert>
+    <insert id="insertSelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+        insert into l_produce_formula_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productFormulaId != null">
+                PRODUCT_FORMULA_ID,
+            </if>
+            <if test="materialId != null">
+                MATERIAL_ID,
+            </if>
+            <if test="materialNumber != null">
+                MATERIAL_NUMBER,
+            </if>
+            <if test="depotId != null">
+                DEPOT_ID,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="productFormulaId != null">
+                #{productFormulaId,jdbcType=VARCHAR},
+            </if>
+            <if test="materialId != null">
+                #{materialId,jdbcType=VARCHAR},
+            </if>
+            <if test="materialNumber != null">
+                #{materialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="depotId != null">
+                #{depotId,jdbcType=VARCHAR},
+            </if>
+            <if test="other1 != null">
+                #{other1,jdbcType=VARCHAR},
+            </if>
+            <if test="other2 != null">
+                #{other2,jdbcType=VARCHAR},
+            </if>
+            <if test="other3 != null">
+                #{other3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+        update l_produce_formula_detail
+        <set>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME,
+            </if>
+            <if test="productType != null">
+                PRODUCT_TYPE,
+            </if>
+            <if test="wasteId != null">
+                WASTE_ID,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="productDescribe != null">
+                PRODUCT_DESCRIBE,
+            </if>
+            <if test="other1 != null">
+                OTHER1,
+            </if>
+            <if test="other2 != null">
+                OTHER2,
+            </if>
+            <if test="other3 != null">
+                OTHER3,
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.LenProduceFormulaDetail">
+    update l_produce_formula_detail
+    set PRODUCE_FORMULA_ID=#{produceFormulaId},
+    MATERIAL_ID=#{materialId},
+    MATERIAL_NUMBER=#{materialNumber},
+    DEPOT_ID=#{depotId},
+    OTHER1=#{other1},
+    OTHER2=#{other2},
+    OTHER3=#{other3}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectMaterialId" resultType="String" >
+        select MATERIAL_ID from l_produce_formula_detail
+        where ID = #{id}
+    </select>
+
+    <select id="selectMaterialNumber" resultType="String">
+        SELECT MATERIAL_NUMBER from l_produce_formula_detail
+        where ID = #{id}
+    </select>
+
+
+
+
+</mapper>
+

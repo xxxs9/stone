@@ -30,19 +30,26 @@ public interface LenProduceFormulaDetailMapper {
     LenProduceFormulaDetail getByPrimaryKey(String id);
 
     /**
+     * 通过formulaId获取实体列表
+     * @param formulaId
+     * @return
+     */
+    List<LenProduceFormulaDetail> getByFormulaId(@Param("formulaId") String formulaId);
+
+    /**
      * 分页查找
      *
-     * @param page
-     * @param limit
-     * @param materialId
-     * @param depotId
+     * @param start
+     * @param end
+     * @param other2 原料ID
+     * @param depotId 仓库ID
      * @return
      */
     List<LenProduceFormulaDetail> selectByPage(
-            @Param("page") String page,
-            @Param("limit") String limit,
-            String materialId,
-            String depotId
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("other2") String other2,
+            @Param("depotId") String depotId
     );
 
     /**
@@ -75,5 +82,29 @@ public interface LenProduceFormulaDetailMapper {
      * @return
      */
     int dataCount();
+
+    /**
+     * 选择插入
+     *
+     * @param produceFormulaDetail
+     * @return
+     */
+    int insertSelective(LenProduceFormulaDetail produceFormulaDetail);
+
+    /**
+     * 选择修改
+     *
+     * @param lenProduceFormulaDetail
+     * @return
+     */
+    int updateByPrimaryKeySelective(LenProduceFormulaDetail lenProduceFormulaDetail);
+
+    String selectMaterialId(@Param("id")String id);
+
+    String selectMaterialNumber(@Param("id")String id);
+
+    String selectFomulaId(@Param("produceFormulaId")  String produceFormulaId);
+
+
 
 }

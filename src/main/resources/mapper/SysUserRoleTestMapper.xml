@@ -177,4 +177,16 @@
         DELETE from SYS_USER_ROLE_TEST t
           where t.user_id = #{userId,jdbcType=VARCHAR}
     </delete>-->
+
+    <!--根据user的ID获取role的ID-->
+    <select id="selectRoleIdByUserId" resultType="java.lang.String">
+        SELECT
+            ROLE_ID
+        FROM
+            sys_user_role_test
+        WHERE
+            USER_ID = #{userId}
+    </select>
+
+
 </mapper>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.PurchaseReturnMapper">
+
+    <!--退货申请的列表 List-->
+    <resultMap id="purReturnMap" type="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
+        <result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR"/>
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="GOODS_NUMBER" property="goodsNumber" jdbcType="VARCHAR"/>
+        <result column="PRICE" property="price" jdbcType="VARCHAR"/>
+        <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR"/>
+        <result column="APPLY_USER" property="applyUser" jdbcType="VARCHAR"/>
+        <result column="APPLY_TIME" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="DEPOT_STATE" property="depotState" jdbcType="VARCHAR"/>
+        <result column="FINANCE_STATE" property="financeState" jdbcType="VARCHAR"/>
+        <result column="AUDIT_TYPE" property="auditType" jdbcType="INTEGER"/>
+        <result column="DEPOT_USER" property="depotUser" jdbcType="VARCHAR"/>
+        <result column="DEPOT_TIME" property="depotTime" jdbcType="TIMESTAMP"/>
+        <result column="DEPOT_DESCRIBE" property="depotDescribe" jdbcType="VARCHAR"/>
+        <result column="FINANCE_AUDIT_USER" property="financeAuditUser" jdbcType="VARCHAR"/>
+        <result column="FINANCE_AUDIT_TIME" property="financeAuditTime" jdbcType="TIMESTAMP"/>
+        <result column="FINANCE_AUDIT_DESCRIBE" property="financeAuditDescribe" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--原料商品List 需要ID来获取原料名称-->
+    <resultMap id="materGoodsMap" type="com.gameloft9.demo.dataaccess.model.system.SysMaterial">
+        <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--采购申请的列表 List-->
+    <resultMap id="purOrderMap" type="com.gameloft9.demo.dataaccess.model.system.PurchaseOrder">
+    <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--查找所有 关联goodsId与materialId-->
+    <select id="selectAll" resultMap="purReturnMap">
+        SELECT
+            t.ID,
+            t.ORDER_NUMBER,
+            t.GOODS_NAME,
+            t.GOODS_NUMBER,
+            t.PRICE,
+            t.TOTAL_PRICE,
+            t.APPLY_USER,
+            t.APPLY_TIME,
+            t.DEPOT_STATE,
+            t.FINANCE_STATE,
+            t.AUDIT_TYPE,
+            t.DEPOT_USER,
+            t.DEPOT_TIME,
+            t.DEPOT_DESCRIBE,
+            t.FINANCE_AUDIT_USER,
+            t.FINANCE_AUDIT_TIME,
+            t.FINANCE_AUDIT_DESCRIBE
+        FROM
+            t_purchase_return t,
+            sys_material m,
+            t_purchase_order s
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                AND t.GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+            </if>
+            <if test="depotState != null and depotState != ''">
+                AND t.DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
+            </if>
+                AND m.GOODS_NAME = t.GOODS_NAME
+                AND s.ORDER_NUMBER = t.ORDER_NUMBER
+        </where>
+            ORDER BY t.APPLY_TIME DESC
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--条数查询所有-->
+    <select id="countGetAll" resultType="int" parameterType="Map">
+        SELECT
+            count(1)
+        FROM
+            t_purchase_return t
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+            </if>
+            <if test="depotState != null and depotState != ''">
+                DEPOT_STATE = #{depotState,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--增加-->
+    <insert id="insert" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
+        INSERT INTO
+            t_purchase_return
+            (ID,
+            GOODS_ID,
+            ORDER_NUMBER,
+            GOODS_NAME,
+            GOODS_NUMBER,
+            SUPPLIER_NAME,
+            PRICE,
+            TOTAL_PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            DEPOT_STATE,
+            FINANCE_STATE,
+            AUDIT_TYPE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_AUDIT_DESCRIBE)
+        VALUES
+            (#{id},
+            #{goodsId},
+            #{orderNumber},
+            #{goodsName},
+            #{goodsNumber},
+            #{supplierName},
+            #{price},
+            #{totalPrice},
+            #{applyUser},
+            #{applyTime},
+            #{depotState},
+            #{financeState},
+            #{auditType},
+            #{depotUser},
+            #{depotTime},
+            #{depotDescribe},
+            #{financeAuditUser},
+            #{financeAuditTime},
+            #{financeAuditDescribe})
+    </insert>
+
+    <!--删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM
+            t_purchase_return
+        WHERE
+            ID = #{id}
+    </delete>
+
+    <!--根据id获取信息-->
+    <select id="selectByPrimaryKey" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_return
+        WHERE
+            ID = #{id}
+    </select>
+
+    <!--修改-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
+        UPDATE
+            t_purchase_return
+        SET
+            GOODS_ID=#{goodsId},
+            ORDER_NUMBER=#{orderNumber},
+            GOODS_NAME=#{goodsName},
+            SUPPLIER_NAME=#{supplierName},
+            GOODS_NUMBER=#{goodsNumber},
+            PRICE=#{price},
+            TOTAL_PRICE=#{totalPrice},
+            APPLY_USER=#{applyUser},
+            APPLY_TIME=#{applyTime},
+            DEPOT_STATE=#{depotState},
+            FINANCE_STATE=#{financeState},
+            AUDIT_TYPE=#{auditType},
+            DEPOT_USER=#{depotState},
+            DEPOT_TIME=#{depotTime},
+            DEPOT_DESCRIBE=#{depotDescribe},
+            FINANCE_AUDIT_USER=#{financeAuditUser},
+            FINANCE_AUDIT_TIME=#{financeAuditTime},
+            FINANCE_AUDIT_DESCRIBE=#{financeAuditDescribe}
+        WHERE
+            ID=#{id}
+    </update>
+
+    <!--初始化orderNumber下拉框-->
+    <select id="selectAllOrderNumber" resultType="java.lang.String">
+        SELECT
+            ORDER_NUMBER
+        FROM
+            t_purchase_order
+        WHERE
+            DEPOT_STATE = '审核通过'
+    </select>
+
+    <!--orderNumber下拉框自动获取对应的信息-->
+    <select id="selectOtherByOrderNumber" resultMap="purReturnMap">
+        SELECT
+            GOODS_ID,
+            GOODS_NAME,
+            SUPPLIER_NAME,
+            GOODS_NUMBER,
+            PRICE,
+            TOTAL_PRICE
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+    <!--初始化goodsId下拉框-->
+    <select id="selectAllGoodsId" resultMap="purReturnMap">
+        SELECT
+            m.GOODS_NAME,
+            g.ID
+        FROM
+            sys_material m,
+            sys_material_goods g
+        WHERE
+            g.MATERIAL_ID = m.ID
+    </select>
+
+    <!--提交、撤回等操作，修改状态depotState-->
+    <update id="updateTools" parameterType="com.gameloft9.demo.dataaccess.model.system.PurchaseReturn">
+        UPDATE
+            t_purchase_return
+        <set>
+            <if test="depotState != null and depotState != ''">
+                DEPOT_STATE = #{depotState,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+        </set>
+        <where>
+            <if test="orderNumber != null and orderNumber != ''">
+                and ORDER_NUMBER = #{orderNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!--根据orderNumber获取purOrderMap-->
+    <select id="selectByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_order
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+    <!--根据orderNumber获取purReturnMap-->
+    <select id="selectReturnByOrderNumber" resultMap="purReturnMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            t_purchase_return
+        WHERE
+            ORDER_NUMBER=#{orderNumber}
+    </select>
+
+
+
+    <!--阿发包 财务主管 当depotState为审核通过时获取信息-->
+    <select id="selectReturnByFinance" resultMap="purReturnMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_NAME,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            DEPOT_STATE,
+            FINANCE_STATE,
+            AUDIT_TYPE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_AUDIT_DESCRIBE
+        FROM
+            t_purchase_return
+        WHERE
+            DEPOT_STATE='审核通过'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--华锋 仓库主管 当depotState为提交审核中时获取信息-->
+    <select id="selectReturnByDepot" resultMap="purReturnMap">
+        SELECT
+            ID,
+            ORDER_NUMBER,
+            GOODS_NAME,
+            GOODS_NUMBER,
+            PRICE,
+            APPLY_USER,
+            APPLY_TIME,
+            DEPOT_STATE,
+            FINANCE_STATE,
+            AUDIT_TYPE,
+            DEPOT_USER,
+            DEPOT_TIME,
+            DEPOT_DESCRIBE,
+            FINANCE_AUDIT_USER,
+            FINANCE_AUDIT_TIME,
+            FINANCE_AUDIT_DESCRIBE
+        FROM
+            t_purchase_return
+        WHERE
+            DEPOT_STATE='提交审核中'
+        AND limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+
+    <!--/**
+     * 啊发包
+     * 根据id和订单类型
+     * @param id id
+     * @param auditType 订单类型
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByIdAndAuditType(@Param("id") String id, @Param("auditType") Integer auditType);-->
+    <select id="findByIdAndAuditType" resultMap="purReturnMap">
+        select * from t_purchase_return
+        <where>
+            <if test="id != null and id != ''">
+                and ID=#{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+
+    <!--/**
+     * 啊发包
+     * 根据orderNumber
+     * @param orderNumber orderNumber
+     * @return
+     *      purchaseOrder
+     */
+    PurchaseReturn findByOrderNumber(@Param("orderNumber") String orderNumber);-->
+    <select id="findByOrderNumber" resultMap="purReturnMap">
+        select * from t_purchase_return
+        <where>
+            <if test="orderNumber != null and orderNumber != '' ">
+                and ORDER_NUMBER=#{orderNumber,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>

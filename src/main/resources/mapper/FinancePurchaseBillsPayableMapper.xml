@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gameloft9.demo.dataaccess.dao.system.FinancePurchaseBillsPayableMapper">
+
+    <resultMap id="purchaseBillsPayableMap" type="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="purchaseOrderId" column="PURCHASE_ORDER_ID" jdbcType="VARCHAR"/>
+        <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
+        <result property="goodsNumber" column="GOODS_NUMBER" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>
+        <result property="auditState" column="AUDIT_STATE" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="numMap" type="com.gameloft9.demo.dataaccess.model.system.Num">
+        <result column="mon" property="mon" jdbcType="VARCHAR"/>
+        <result column="smon" property="smon" jdbcType="VARCHAR"/>
+        <result column="ACTUAL_BALANCE" property="actualBalance" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--List<SysFinancePurchaseBillsPayable> getAll(
+            @Param("start") int start,
+            @Param("end") int end,
+            @Param("auditState") int auditState
+    );-->
+    <select id="getAll" resultMap="purchaseBillsPayableMap">
+        select
+        *
+        from
+        a_purchase_bills_payable
+        <where>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by DOCUMENT_MAKE_TIME DESC
+        limit #{start},#{end}
+    </select>
+
+    <!--条件查询总条数   int getCount(
+            @Param("auditType") int auditType,
+            @Param("documentMakeTime") Date documentMakeTime
+    );-->
+    <select id="getCount" resultType="int">
+        select
+          count(1)
+        from
+          a_purchase_bills_payable
+        <where>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--生成采购应付单  add(T t)-->
+    <select id="add" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        insert into a_purchase_bills_payable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                ID,
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE,
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE,
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+                GOODS_NUMBER,
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE,
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER,
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME,
+            </if>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                PURCHASE_ORDER_ID,
+            </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE,
+            </if>
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                #{auditType,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+                #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                #{purchaseOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditState != null and auditState != ''">
+                #{auditState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </select>
+
+    <!--根据purchaseId获取采购应付单   SysFinancePurchaseBillsPayable getPurchasePay(String purchaseOrderId);-->
+    <select id="getPurchasePay" parameterType="java.lang.String" resultMap="purchaseBillsPayableMap">
+        select * from
+        a_purchase_bills_payable
+        where
+        <if test="purchaseOrderId != null and purchaseOrderId != '' ">
+            PURCHASE_ORDER_ID = #{purchaseOrderId,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--   SysFinancePurchaseBillsPayable getPurchasePayById(@Param("id1") String id);-->
+    <select id="getPurchasePayById" parameterType="java.lang.String" resultMap="purchaseBillsPayableMap">
+        select * from
+        a_purchase_bills_payable
+        where
+        <if test="id != null and id != '' ">
+            ID = #{id,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--根据purchaseOrderId 和auditType   SysFinancePurchaseBillsPayable getPurchasePayBypurchaseOrderIdAndAuditType-->
+    <select id="getPurchasePayBypurchaseOrderIdAndAuditType" resultMap="purchaseBillsPayableMap">
+        select * from a_purchase_bills_payable
+        <where>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                and PURCHASE_ORDER_ID=#{purchaseOrderId,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE=#{auditType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--更新  update-->
+    <!-- <id property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="purchaseOrderId" column="PURCHASE_ORDER_ID" jdbcType="VARCHAR"/>
+        <result property="auditType" column="AUDIT_TYPE" jdbcType="INTEGER"/>
+        <result property="unitPrice" column="UNIT_PRICE" jdbcType="VARCHAR"/>
+        <result property="goodsNumber" column="GOODS_NUMBER" jdbcType="VARCHAR"/>
+        <result property="totalPrice" column="TOTAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="actualBalance" column="ACTUAL_BALANCE" jdbcType="VARCHAR"/>
+        <result property="documentMaker" column="DOCUMENT_MAKER" jdbcType="VARCHAR"/>
+        <result property="documentMakeTime" column="DOCUMENT_MAKE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditUser" column="AUDIT_USER" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="AUDIT_TIME" jdbcType="TIMESTAMP"/>
+        <result property="auditDescribe" column="AUDIT_DESCRIBE" jdbcType="VARCHAR"/>-->
+    <update id="update" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        update a_purchase_bills_payable
+        <set>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                PURCHASE_ORDER_ID = #{purchaseOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditType != null and auditType != ''">
+                AUDIT_TYPE = #{auditType,jdbcType=INTEGER},
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                UNIT_PRICE = #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsNumber != null and goodsNumber != ''">
+                GOODS_NUMBER = #{goodsNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                TOTAL_PRICE = #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="actualBalance != null and actualBalance != ''">
+                ACTUAL_BALANCE = #{actualBalance,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMaker != null and documentMaker != ''">
+                DOCUMENT_MAKER = #{documentMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="documentMakeTime != null and documentMakeTime != ''">
+                DOCUMENT_MAKE_TIME = #{documentMakeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditUser != null and auditUser != ''">
+                AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+            </if>
+            <if test="auditTime != null and auditTime != ''">
+                AUDIT_TIME = #{auditTime,jdbcType=VARCHAR},
+            </if>
+            <if test="auditDescribe != null and auditDescribe != ''">
+                AUDIT_DESCRIBE = #{auditDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="auditState != null and auditState != ''">
+                AUDIT_STATE = #{auditState,jdbcType=INTEGER}
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and AUDIT_TYPE = #{auditType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+
+    <!--更新采购应付单   void generatePurchasePay(SysFinancePurchaseBillsPayable purchaseBillsPayable);-->
+    <update id="generatePurchasePay" parameterType="com.gameloft9.demo.dataaccess.model.system.SysFinancePurchaseBillsPayable">
+        update a_purchase_bills_payable
+        <set>
+
+        </set>
+    </update>
+
+    <!--List<String> getPurchasePayChart();
+    /*SELECT
+        SUM(ACTUAL_BALANCE)
+        FROM a_purchase_bills_payable
+        WHERE date_format(AUDIT_TIME,'%Y')=Year(CurDate())
+        AND AUDIT_STATE=3
+        GROUP BY ACTUAL_BALANCE
+        ORDER BY AUDIT_TIME*/-->
+    <select id="getPurchasePayChart" resultType="java.lang.String">
+        select b.actualBalance FROM
+         (SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'01') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'02') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'03') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'04') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'05') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'06') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'07') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'08') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'09') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'10') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'11') as mon from  DUAL UNION ALL
+        SELECT CONCAT(DATE_FORMAT(NOW(),'%Y'),'12') as mon from  DUAL )a
+        LEFT JOIN
+        (SELECT
+          DATE_FORMAT(AUDIT_TIME,'%Y%m') smon,
+        IFNULL(sum(s.ACTUAL_BALANCE),0) as actualBalance
+        FROM
+            a_purchase_bills_payable s
+        where
+            AUDIT_STATE=3
+        GROUP BY
+            DATE_FORMAT(AUDIT_TIME,'%Y%m')) b
+         on a.mon = b.smon
+         ORDER BY mon
+    </select>
+    
+
+</mapper>

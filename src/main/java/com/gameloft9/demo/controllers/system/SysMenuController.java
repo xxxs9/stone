@@ -13,10 +13,13 @@ import com.gameloft9.demo.service.beans.system.MenuUpdateRequest;
 import com.gameloft9.demo.service.beans.system.SysMenuTestExtend;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Collection;
 
@@ -83,6 +86,7 @@ public class SysMenuController {
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
     @ResponseBody
     @BizOperLog(operType = OperType.DELETE,memo = "删除菜单")
+    @RequiresPermissions("sys:menu:delete")
     public IResult deleteMenu(String menuId){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysMenuServiceImpl.deleteMenu(menuId));

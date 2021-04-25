@@ -46,6 +46,15 @@ public class SysUserController {
         return new PageResultBean<Collection<UserTest>>(sysUserServiceImpl.getAll(page,limit,loginName,realName,status),sysUserServiceImpl.countGetAll(loginName,realName,status));
     }
 
+    @RequestMapping(value = "/findAll.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult findAll(){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<Collection<UserTest>>(sysUserServiceImpl.findAll());
+    }
+
+
+
 
     /**
      * 添加用户
@@ -111,6 +120,17 @@ public class SysUserController {
     public IResult changePwd(String loginName,String oldPwd,String newPwd){
         //返回json至前端的均返回ResultBean或者PageResultBean
         return new ResultBean<Boolean>(sysUserServiceImpl.changePwd(loginName,oldPwd,newPwd));
+    }
+
+    /**
+     * 根据登入名获取用户信息
+     * @param loginName 登入名
+     * */
+    @RequestMapping(value = "/getByLoginName.do",method = RequestMethod.POST)
+    @ResponseBody
+    public IResult getByLoginName(String loginName){
+        //返回json至前端的均返回ResultBean或者PageResultBean
+        return new ResultBean<UserTest>(sysUserServiceImpl.getByLoginName(loginName));
     }
 
 }

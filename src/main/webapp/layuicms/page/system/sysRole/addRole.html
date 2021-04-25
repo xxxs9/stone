@@ -10,6 +10,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../lib/zTree_v3/css/zTreeStyle/zTreeStyle.css" media="all"/>
+    <style type="text/css">
+        .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+    </style>
     <style type="text/css">
         .layui-form-item .layui-inline {
             width: 33.333%;
@@ -33,12 +37,21 @@
             <input type="text" class="layui-input" name="roleName" lay-verify="required" placeholder="请输入角色名称">
         </div>
     </div>
+    <script type="text/javascript" src="../../../lib/jquery-2.2.4/jquery.js"></script>
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label">是否超级管理员</label>
         <div class="layui-input-block">
             <input type="checkbox" name="isSuper" lay-skin="switch" lay-text="是|否" value="1">
         </div>
     </div>
+
+
+
+
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit="" lay-filter="addRole">立即提交</button>
